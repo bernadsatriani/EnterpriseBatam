@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:font="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_scroll"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    >
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:font="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/RelativeLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/shape_nav_menu_selector"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/space_nav"
+        android:paddingLeft="@dimen/space_10"
+        android:paddingRight="@dimen/space_10">
+
+        <LinearLayout
+            android:id="@+id/layout_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/rowIcon"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_search_white"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <ui.CustomtextView
+                font:name="Label"
+                android:id="@+id/rowText"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|left"
+                android:textSize="@dimen/space_14"
+                android:textColor="@drawable/shape_nav_menu_selector"
+                android:text="Home"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/rowIcon"
+                android:layout_toEndOf="@+id/rowIcon"
+                android:layout_alignBottom="@+id/rowIcon" />
+
+        </LinearLayout>
+
+        <ExpandableListView
+            android:id="@+id/lvPersuratan"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"/>
+
+        <LinearLayout
+            android:id="@+id/layout_bbs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/rowIcon2"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_search_white"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <ui.CustomtextView
+                font:name="Label"
+                android:id="@+id/rowTextBBS"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|left"
+                android:textSize="@dimen/space_14"
+                android:textColor="@drawable/shape_nav_menu_selector"
+                android:text="Home"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/rowIcon"
+                android:layout_toEndOf="@+id/rowIcon"
+                android:layout_alignBottom="@+id/rowIcon" />
+
+        </LinearLayout>
+
+        <ExpandableListView
+            android:id="@+id/lvDisposisi"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"/>
+
+
+    </LinearLayout>
+</ScrollView>

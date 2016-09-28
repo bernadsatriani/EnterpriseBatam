@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:font="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/navigationDrawerBackgroundDetail">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:font="http://schemas.android.com/apk/res-auto"
+        xmlns:app="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/space_10"
+        android:background="@drawable/btn_shape_header_red">
+
+        <RelativeLayout
+            android:id="@+id/contact_us_header_container"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/space_50"
+            android:minHeight="?attr/actionBarSize"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/btn_shape_header_red"
+            android:orientation="horizontal">
+
+
+            <ui.CustomtextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Permohonan"
+                android:textColor="@color/white"
+                android:textSize="@dimen/toolbar_text_size"
+                android:textStyle="bold"
+                font:name="Label"
+                font:type = "bold"
+                android:id="@+id/view2"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/imageView3"
+                android:layout_toEndOf="@+id/imageView3"
+                android:layout_marginLeft="@dimen/space_5" />
+
+            <ImageView
+                android:layout_width="@dimen/space_40"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView"
+                android:src="@drawable/gns_menu"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true" />
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="@dimen/space_150"
+                android:layout_height="@dimen/space_40"
+                android:background="@color/colorBottomNavigationNotification"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:tabGravity="fill"
+                app:tabIndicatorColor="@color/colorAccent"
+                app:tabIndicatorHeight="3dp"
+                app:tabMode="fixed"
+                app:tabPaddingBottom="-1dp"
+                app:tabPaddingEnd="-1dp"
+                app:tabPaddingStart="-1dp"
+                app:tabPaddingTop="-1dp"
+                font:tabTextColor="@color/white"
+                android:elevation="2dp"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/imageView"
+                android:layout_toStartOf="@+id/imageView">
+            </android.support.design.widget.TabLayout>
+
+            <ImageView
+                android:layout_width="@dimen/space_30"
+                android:layout_height="@dimen/space_30"
+                android:id="@+id/imageView3"
+                android:src="@drawable/gns_email"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="@dimen/space_5" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/colorAccent" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:background="@color/white"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_weight="1" >
+        </android.support.v4.view.ViewPager>
+    </LinearLayout>
+</RelativeLayout>

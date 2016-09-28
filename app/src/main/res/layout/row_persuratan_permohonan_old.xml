@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:font="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    card_view:cardCornerRadius="5dp"
+    style="@style/MyCardViewStyle"
+    card_view:cardUseCompatPadding="true" >
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_100">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="7">
+
+            <ImageView
+                android:id="@+id/img_cover"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/space_10"
+                android:src="@color/blue_ocean" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="4">
+
+            <ui.CustomtextView
+                font:name = "Label"
+                font:type = "bold"
+                android:id="@+id/text_judul_surat"
+                android:text="JUDUL SURAT"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/text_time"
+                android:layout_toStartOf="@+id/text_time"
+                android:layout_marginTop="@dimen/space_10" />
+
+            <ui.CustomtextView
+                font:name = "Label"
+                android:id="@+id/text_time"
+                android:text="10:46 AM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:layout_alignTop="@+id/text_judul_surat"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="@dimen/space_5" />
+
+            <ui.CustomtextView
+                font:name = "Label"
+                android:id="@+id/text_status"
+                android:text="STATUS"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_judul_surat"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="@dimen/space_10">
+
+                <ui.CustomtextView
+                    android:id="@+id/btnDownload"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_30"
+                    android:background="@drawable/btn_shape"
+                    android:gravity="center"
+                    android:onClick="onClick"
+                    android:text="DOWNLOAD"
+                    android:textColor="#ffffff"
+                    android:textSize="@dimen/space_14"
+                    font:name="Label"
+                    android:layout_weight="1"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="@dimen/space_5"
+                    android:layout_marginRight="@dimen/space_5" />
+
+                <ui.CustomtextView
+                    android:id="@+id/btnPrint"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_30"
+                    android:background="@drawable/btn_shape"
+                    android:gravity="center"
+                    android:onClick="onClick"
+                    android:text="PRINT"
+                    android:textColor="#ffffff"
+                    android:textSize="@dimen/space_14"
+                    font:name="Label"
+                    android:layout_weight="1"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="@dimen/space_5"
+                    android:layout_marginRight="@dimen/space_5" />
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:font="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/grey_sss">
+
+    <LinearLayout
+        android:background="@drawable/btn_shape_header_red"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_marginTop="@dimen/space_10"
+        android:layout_marginRight="@dimen/space_10"
+        android:layout_marginBottom="@dimen/space_5"
+        android:layout_marginLeft="@dimen/space_10">
+
+        <RelativeLayout
+            android:id="@+id/contact_us_header_container"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/space_30"
+            android:minHeight="?attr/actionBarSize"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/btn_shape_header_red"
+            android:layout_marginRight="10dp">
+
+
+            <ui.CustomtextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="DISPOSISI"
+                android:textColor="@color/white"
+                font:name="Label"
+                font:type = "bold"
+                android:id="@+id/view2"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/space_5" />
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="@dimen/space_225"
+                android:layout_height="@dimen/space_40"
+                android:background="@color/colorBottomNavigationNotification"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:tabGravity="fill"
+                app:tabIndicatorColor="@color/colorAccent"
+                app:tabIndicatorHeight="3dp"
+                app:tabMode="fixed"
+                app:tabPaddingBottom="-1dp"
+                app:tabPaddingEnd="-1dp"
+                app:tabPaddingStart="-1dp"
+                app:tabPaddingTop="-1dp"
+                font:tabTextColor="@color/white"
+                android:elevation="2dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true">
+            </android.support.design.widget.TabLayout>
+
+        </RelativeLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:background="@color/white"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_weight="1" >
+        </android.support.v4.view.ViewPager>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:background="@drawable/btn_shape_header"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_marginLeft="@dimen/space_10"
+        android:layout_marginTop="@dimen/space_5"
+        android:layout_marginRight="@dimen/space_10"
+        android:layout_marginBottom="@dimen/space_10">
+
+        <LinearLayout
+            android:background="@drawable/btn_shape_header"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:background="@drawable/btn_shape_header"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_30">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView2"
+                    android:src="@drawable/gns_info_grey"
+                    android:layout_margin="@dimen/space_5" />
+
+                <ui.CustomtextView
+                    font:name = "Label"
+                    font:type = "bold"
+                    android:id="@+id/textHeader"
+                    android:text="PENGUMUMAN"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/white"
+                    android:gravity="fill_vertical" />
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/my_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                >
+
+            </android.support.v7.widget.RecyclerView>
+
+            <RelativeLayout
+                android:visibility="gone"
+                android:id="@+id/layout_download"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView9"
+                    android:src="@drawable/pdf"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true" />
+
+                <com.ayz4sci.androidfactory.DownloadProgressView
+                    android:layout_below="@+id/imageView9"
+                    android:id="@+id/downloadProgressView"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal" />
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

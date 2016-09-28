@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:font="http://schemas.android.com/apk/res-auto">
+
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar" >
+    </include>
+
+    <com.github.barteksc.pdfviewer.PDFView
+        android:id="@+id/pdfView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tool_bar"
+        android:layout_above="@+id/btnDownload"
+        android:layout_marginLeft="@dimen/space_5"
+        android:layout_marginRight="@dimen/space_5" />
+
+    <ui.CustomtextView
+        android:id="@+id/btnDownload"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/space_30"
+        android:background="@drawable/btn_shape"
+        android:gravity="center"
+        android:onClick="onClick"
+        android:text="DOWNLOAD"
+        android:textColor="#ffffff"
+        android:textSize="@dimen/space_14"
+        font:name="Label"
+        android:layout_weight="1"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/btnPrint"
+        android:layout_toStartOf="@+id/btnPrint"
+        android:layout_marginRight="@dimen/space_10"
+        android:layout_marginBottom="@dimen/space_20" />
+
+    <ui.CustomtextView
+        android:id="@+id/btnPrint"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/space_30"
+        android:background="@drawable/btn_shape"
+        android:gravity="center"
+        android:onClick="onClick"
+        android:text="PRINT"
+        android:textColor="#ffffff"
+        android:textSize="@dimen/space_14"
+        font:name="Label"
+        android:layout_weight="1"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="@dimen/space_20"
+        android:layout_marginRight="@dimen/space_5" />
+
+
+</RelativeLayout>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#0091ea</color>
+    <color name="colorPrimaryDark">#0ab0d9</color>
+    <color name="colorAccent">#0091ea</color>
+
+    <!-- Navigation drawer color-->
+    <color name="navigationDrawerBackground">#003580</color>
+    <color name="navigationDrawerSelectedBackground">#2529d8</color>
+    <color name="textColorHint">#fff</color>
+
+    <color name="navigationDrawerBackgroundDetail">#c4dff6</color>
+    <color name="navigationDrawerSelectedBackgroundDetail">#b9cfed</color>
+    #c4dff6
+    <color name="Pink">#ff78cb</color>
+    <color name="grey">#939393</color>
+    <color name="black">#000000</color>
+    <color name="red">#FF0000</color>
+    <color name="blue">#00ccff</color>
+    <color name="blue2">#0000CD</color>
+    <color name="blu3">#0099CC</color>
+    <color name="darkorange">#ff8c00</color>
+    <color name="transparant_pure">#00000000</color>
+    <color name="transparant">#55000000</color>
+    <color name="text_color">#31D1F1</color>
+    <color name="white">#ffffff</color>
+    <color name="Green">#5dfc0a</color>
+    <color name="Green_chat">#FAEAE8</color>
+    <color name="Green_Papper">#397D02</color>
+    <color name="lightblack">#404040</color>
+    <color name="tabMedium">#2B2B2B</color>
+    <color name="tabDark">#000000</color>
+    <color name="tabTransparent">#10ffffff</color>
+
+    <color name="b7_orange">#ffaa00</color>
+    <color name="b7_coklat">#534741</color>
+    <color name="b7_kuning">#FFFF00</color>
+    <color name="b7_merah">#FF0000</color>
+
+    <color name="tab_line">#60FFFFFF</color>
+    <color name="tab_transparent_highlight">#28FFFFFF</color>
+    <color name="tab_transparent_dark">#16FFFFFF</color>
+    <color name="tab_transparent_light">#38FFFFFF</color>
+    <color name="pressed_color">#4d90fe</color>
+    <color name="default_color">#ffffff</color>
+
+</resources>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="list_item_title">#fff</color>
+    <color name="list_background">#303030</color>
+    <color name="list_background_pressed">#992416</color>
+    <color name="list_divider">#272727</color>
+    <color name="counter_text_bg">#626262</color>
+    <color name="counter_text_color">#c5c4c4</color>
+
+    <color name="tabsScrollColor">#8a140e</color>
+    
+    <drawable name="pressed_color">#FF0000</drawable> <!--custom color for pressed state -->
+    <drawable name="normal_color">#00FFFFFF</drawable> <!--transperent color for normal state -->
+    
+    <color name="holo_blue_dark">#ff0099cc</color>
+    <color name="view_divider_color">#BABABA</color>
+    <color name="view_divider_color_2">#DADADA</color>
+
+    <!-- Greys -->
+    <color name="soft_grey">#F7F7F7</color>
+    <color name="cream_white">#FAF9F1</color>
+    <color name="grey_sss">#eeeeee</color>
+    <color name="grey_s">#E5E5E5</color>
+    <color name="grey_ss">#E6E6E6</color>
+    <color name="grey_m">#dddddd</color>
+    <color name="grey_x">#D6D6D6</color>
+    <color name="grey_xl">#C7C7C7</color>
+    <color name="grey_xxl">#949599</color>
+    <color name="grey_dark">#737373</color>
+    <color name="teledokter_green">#5DC2A7</color>
+    <color name="pembiayaan_blue">#8dccda</color>
+    <color name="teledokter_lightgreen">#e2f3f7</color>
+    <color name="register_toolbar">#a6d8df</color>
+    <color name="facebook_button">#3b5998</color>
+    <color name="google_button">#3b5998</color>
+    <color name="blue_ocean">#a8dae1</color>
+    <color name="red_deep">#d83032</color>
+
+
+</resources>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:font="http://schemas.android.com/apk/res-auto"
+    android:background="@color/grey_sss">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="380dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/layout_shape"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="@dimen/space_10">
+
+        <ImageView
+            android:id="@+id/circleView"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/logo_bp_batam" />
+
+        <ui.CustomtextView
+            font:name="Content"
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/circleView"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:paddingTop="10dp"
+            android:text="Silahkan cek detail data."
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:typeface="serif" />
+
+        <ui.CustomEditText
+            font:name="Label"
+            font:type = "bold"
+            android:textColor="@color/black"
+            android:id="@+id/edt_username"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignLeft="@+id/textView1"
+            android:layout_below="@+id/textView1"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/edittext_top"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:ems="10"
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            android:hint="Username" />
+
+        <ui.CustomEditText
+            font:name="Label"
+            font:type = "bold"
+            android:textColor="@color/black"
+            android:id="@+id/edt_password"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignLeft="@+id/edt_username"
+            android:layout_below="@+id/edt_username"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/edittext_bottom"
+            android:ems="10"
+            android:hint="Password"
+            android:paddingLeft="10dp"
+            android:password="true"
+            android:singleLine="true" />
+
+        <ui.CustomButton
+            font:name="Label"
+            font:type = "bold"
+            android:id="@+id/btn_login"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_alignLeft="@+id/edt_password"
+            android:layout_alignRight="@+id/edt_password"
+            android:layout_below="@+id/edt_password"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_shape"
+            android:textAllCaps="false"
+            android:text="LOGIN"
+            android:textColor="@color/white" />
+
+        <ui.CustomtextView
+            font:name="Label"
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_alignRight="@+id/textView1"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_toRightOf="@+id/textView1"
+            android:layout_toEndOf="@+id/textView1" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

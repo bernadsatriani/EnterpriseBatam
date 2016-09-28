@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+**
+** /res/values/styles.xml
+**
+** Lorensius W. L. T <lorenz@londatiga.net>
+**
+*/
+-->
+
+<resources>
+    <!--
+       Base application theme, dependent on API level. This theme is replaced
+       by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+   -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <style name="MyListView">
+        <item name="android:listSelector">@android:color/transparent</item>
+    </style>
+
+    <style name="MStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="actionMenuTextColor">@color/white</item>
+        <item name="android:actionMenuTextColor">@color/white</item>
+        <item name="android:dropDownListViewStyle">@style/MyListView</item>
+    </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="actionMenuTextColor">@color/white</item>
+        <item name="android:actionMenuTextColor">@color/white</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="TranslucentDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:background">@color/transparant</item>
+    </style>
+
+    <style name="DialogText">
+        <item name="android:textColor">#FF000000</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="DialogText.Title">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Animations" />
+
+    <!-- PopDownMenu -->
+    <style name="Animations.PopDownMenu" />
+
+    <style name="Animations.PopDownMenu.Center">
+        <item name="@android:windowEnterAnimation">@anim/grow_from_top</item>
+        <item name="@android:windowExitAnimation">@anim/shrink_from_bottom</item>
+    </style>
+
+    <style name="Animations.PopDownMenu.Left">
+        <item name="@android:windowEnterAnimation">@anim/grow_from_topleft_to_bottomright</item>
+        <item name="@android:windowExitAnimation">@anim/shrink_from_bottomright_to_topleft</item>
+    </style>
+
+    <style name="Animations.PopDownMenu.Right">
+        <item name="@android:windowEnterAnimation">@anim/grow_from_topright_to_bottomleft</item>
+        <item name="@android:windowExitAnimation">@anim/shrink_from_bottomleft_to_topright</item>
+    </style>
+
+    <style name="Animations.PopDownMenu.Reflect">
+        <item name="@android:windowEnterAnimation">@anim/pump_top</item>
+        <item name="@android:windowExitAnimation">@anim/disappear</item>
+    </style>
+
+    <!-- PopUpMenu -->
+    <style name="Animations.PopUpMenu" />
+
+    <style name="Animations.PopUpMenu.Center">
+        <item name="@android:windowEnterAnimation">@anim/grow_from_bottom</item>
+        <item name="@android:windowExitAnimation">@anim/shrink_from_top</item>
+    </style>
+
+    <style name="Animations.PopUpMenu.Left">
+        <item name="@android:windowEnterAnimation">@anim/grow_from_bottomleft_to_topright</item>
+        <item name="@android:windowExitAnimation">@anim/shrink_from_topright_to_bottomleft</item>
+    </style>
+
+    <style name="Animations.PopUpMenu.Right">
+        <item name="@android:windowEnterAnimation">@anim/grow_from_bottomright_to_topleft</item>
+        <item name="@android:windowExitAnimation">@anim/shrink_from_topleft_to_bottomright</item>
+    </style>
+
+    <style name="Animations.PopUpMenu.Reflect">
+        <item name="@android:windowEnterAnimation">@anim/pump_bottom</item>
+        <item name="@android:windowExitAnimation">@anim/disappear</item>
+    </style>
+
+    <declare-styleable name="font">
+        <attr name="type">
+            <enum name="bold" value="1" />
+            <enum name="italic" value="2" />
+        </attr>
+        <attr name="name">
+            <enum name="Header" value="1" />
+            <enum name="Header_Reguler" value="2" />
+            <enum name="Content" value="3" />
+            <enum name="Label" value="4" />
+            <enum name="Klavika" value="5" />
+            <enum name="Roboto" value="6" />
+            <enum name="Avenir_Black" value="7" />
+            <enum name="Avenir_BlackOblique" value="8" />
+            <enum name="Avenir_Book" value="9" />
+            <enum name="Avenir_BookOblique" value="10" />
+            <enum name="Avenir_Heavy" value="11" />
+            <enum name="Avenir_HeavyOblique" value="12" />
+            <enum name="Avenir_Light" value="13" />
+            <enum name="Avenir_LightOblique" value="14" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="UnderlinedTextView">
+        <attr name="underlineWidth" format="dimension" />
+        <attr name="underlineColor" format="color" />
+    </declare-styleable>
+
+    <!-- Style CardView -->
+    <style name="MyCardViewStyle" parent="CardView">
+        <!-- Card background color -->
+        <item name="cardBackgroundColor">@android:color/white</item>
+        <!-- Ripple for API 21 of android, and regular selector on older -->
+        <item name="android:foreground">?android:selectableItemBackground</item>
+        <!-- Resting Elevation from Material guidelines -->
+        <item name="cardElevation">2dp</item>
+        <!-- Add corner Radius -->
+        <item name="cardCornerRadius">2dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:layout_margin">8dp</item>
+    </style>
+</resources>
