@@ -19,7 +19,7 @@
         <RelativeLayout
             android:id="@+id/contact_us_header_container"
             android:layout_width="fill_parent"
-            android:layout_height="@dimen/space_50"
+            android:layout_height="@dimen/space_30"
             android:minHeight="?attr/actionBarSize"
             android:layout_alignParentTop="true"
             android:background="@drawable/btn_shape_header"
@@ -32,8 +32,7 @@
                 android:layout_gravity="center"
                 android:text="BBS"
                 android:textColor="@color/white"
-                android:textSize="@dimen/toolbar_text_size"
-                android:textStyle="bold"
+                android:textSize="@dimen/space_12"
                 font:name="Label"
                 font:type = "bold"
                 android:id="@+id/view2"
@@ -66,8 +65,8 @@
             </android.support.design.widget.TabLayout>
 
             <ImageView
-                android:layout_width="@dimen/space_30"
-                android:layout_height="@dimen/space_30"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:id="@+id/imageView3"
                 android:src="@drawable/document_white"
                 android:layout_centerVertical="true"

@@ -104,7 +104,7 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
                 request.setTitle("TITLE");
                 request.setDescription("DESCRIPTION");
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                request.setDestinationInExternalPublicDir(AppConstant.FOLDER, "DOWNLOAD_FILE_NAME.pdf");
+                request.setDestinationInExternalPublicDir(AppConstant.FOLDER_DOWNLOAD, "DOWNLOAD_FILE_NAME.pdf");
                 request.allowScanningByMediaScanner();
                 downloadID = downloadManager.enqueue(request);
 

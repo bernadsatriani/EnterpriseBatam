@@ -37,6 +37,7 @@
                 font:name="Label"
                 font:type = "bold"
                 android:id="@+id/view2"
+                android:textSize="@dimen/space_12"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/space_5" />
 
@@ -107,6 +108,7 @@
                 <ui.CustomtextView
                     font:name = "Label"
                     font:type = "bold"
+                    android:textSize="@dimen/space_12"
                     android:id="@+id/textHeader"
                     android:text="PENGUMUMAN"
                     android:layout_width="match_parent"
