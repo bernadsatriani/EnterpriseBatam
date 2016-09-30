@@ -123,7 +123,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 break;
             case 2:
                 arrow.setImageDrawable(null);
-                imgMenu.setBackgroundResource(R.drawable.gns_email);
+                imgMenu.setBackgroundResource(R.drawable.flag_grey);
                 break;
             case 3:
                 imgMenu.setBackgroundResource(R.drawable.gns_email);

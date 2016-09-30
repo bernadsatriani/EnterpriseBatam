@@ -1,6 +1,8 @@
 package com.bpbatam.enterprise.model.net;
 
 import com.bpbatam.enterprise.model.ApiGithub;
+import com.bpbatam.enterprise.model.AuthUser;
+import com.bpbatam.enterprise.model.DataAdmin;
 import com.bpbatam.enterprise.model.GitHubUser;
 import com.bpbatam.enterprise.model.ListUser;
 import com.bpbatam.enterprise.model.LocationList;
@@ -8,7 +10,10 @@ import com.bpbatam.enterprise.model.LocationList;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 /**
@@ -29,5 +34,17 @@ public interface NetworkService {
 
     @GET("users")
     Call<List<LocationList>> getUserListNew() ;
+
+    @GET("contohjson")
+    Call<DataAdmin> getAdmin() ;
+
+
+    @FormUrlEncoded
+    @POST("/ep_api_services/ep_user/login")
+    Call<AuthUser> loginUser(@Path("hashid") String hashid,
+                             @Path("userid") String userid,
+                             @Path("pass") String pass) ;
+
+
 
 }

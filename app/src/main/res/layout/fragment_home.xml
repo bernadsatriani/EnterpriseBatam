@@ -8,7 +8,7 @@
     android:background="@color/grey_sss">
 
     <LinearLayout
-        android:background="@drawable/btn_shape_header_red"
+        android:background="@color/white"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,12 +19,12 @@
         android:layout_marginLeft="@dimen/space_10">
 
         <RelativeLayout
+            android:background="@color/white"
             android:id="@+id/contact_us_header_container"
             android:layout_width="fill_parent"
             android:layout_height="@dimen/space_30"
             android:minHeight="?attr/actionBarSize"
             android:layout_alignParentTop="true"
-            android:background="@drawable/btn_shape_header_red"
             android:layout_marginRight="10dp">
 
 
@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="DISPOSISI"
-                android:textColor="@color/white"
+                android:textColor="@color/red"
                 font:name="Label"
                 font:type = "bold"
                 android:id="@+id/view2"
@@ -45,7 +45,6 @@
                 android:id="@+id/tabs"
                 android:layout_width="@dimen/space_225"
                 android:layout_height="@dimen/space_40"
-                android:background="@color/colorBottomNavigationNotification"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:tabGravity="fill"
                 app:tabIndicatorColor="@color/colorAccent"
