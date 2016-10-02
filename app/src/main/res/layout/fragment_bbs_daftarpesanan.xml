@@ -1,112 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:font="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:background="@color/grey_ss"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/space_150">
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/linearLayout"
-            android:layout_marginBottom="@dimen/space_10">
-
-            <EditText
-                android:id="@+id/text_Judul"
-                android:layout_width="match_parent"
-                android:background="@drawable/edittext_mid"
-                android:layout_height="@dimen/space_35"
-                android:layout_weight="1"
-                android:paddingLeft="@dimen/space_3"
-                android:hint="Judul"
-                android:layout_marginLeft="@dimen/space_5"
-                android:layout_marginTop="@dimen/space_5"
-                android:layout_marginRight="@dimen/space_5" />
-
-            <Spinner
-                android:id="@+id/spinner_judul"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_35"
-                android:layout_weight="1"
-                android:layout_marginLeft="@dimen/space_5"
-                android:layout_marginTop="@dimen/space_5"
-                android:layout_marginRight="@dimen/space_5"></Spinner>
-        </LinearLayout>
-
-        <EditText
-            android:id="@+id/text_isi"
-            android:layout_width="match_parent"
-            android:background="@drawable/edittext_mid"
-            android:layout_height="@dimen/space_140"
-            android:layout_weight="1"
-            android:hint="Tulis Pesan"
-            android:layout_below="@+id/linearLayout"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="@dimen/space_5"
-            android:layout_marginRight="@dimen/space_5"
-            android:layout_marginBottom="@dimen/space_5"
-            android:gravity="top"
-            android:padding="@dimen/space_3" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="@dimen/space_160"
+        <ui.CustomtextView
+            android:visibility="visible"
+            font:name= "Avenir_Heavy"
+            font:type= "bold"
+            android:id="@+id/text_tulis_pesan"
+            android:text="Tulis Pesan Disini"
+            android:background="@drawable/btn_shape_all_grey"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/linearLayout2"
-            android:layout_toLeftOf="@+id/imageView12"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:layout_margin="@dimen/space_5"
+            android:gravity="center" />
 
-            <Spinner
-                android:id="@+id/spinner_kategori"
+        <RelativeLayout
+            android:visibility="visible"
+            android:id="@+id/layout_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <RelativeLayout
+                android:id="@+id/layout_text"
+                android:background="@color/grey_ss"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/space_35"
-                android:layout_weight="1"
-                android:layout_marginRight="@dimen/space_5"></Spinner>
-            <Button
-                android:textSize="@dimen/space_10"
-                android:drawableLeft="@drawable/upload"
-                android:id="@+id/btn_lampiran"
-                android:backgroundTint="@color/cream_white"
+                android:layout_height="@dimen/space_150">
+
+                <EditText
+                    android:id="@+id/text_isi"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/edittext_mid"
+                    android:layout_height="@dimen/space_140"
+                    android:layout_weight="1"
+                    android:hint="Tulis Pesan"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="@dimen/space_5"
+                    android:layout_marginRight="@dimen/space_5"
+                    android:layout_marginBottom="@dimen/space_5"
+                    android:gravity="top"
+                    android:padding="@dimen/space_3"
+                    android:layout_margin="@dimen/space_5" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_below="@+id/layout_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginLeft="@dimen/space_5"
-                android:text="Lampiran"
-                android:drawableTint="@drawable/upload" />
-        </LinearLayout>
+                android:layout_height="wrap_content">
 
-        <ImageView
-            android:layout_width="@dimen/space_35"
-            android:layout_height="@dimen/space_35"
-            android:id="@+id/imageView11"
-            android:src="@drawable/checklist_green"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="@dimen/space_10" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="@dimen/space_160"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/linearLayout2"
+                    android:layout_toLeftOf="@+id/imageView12"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true">
 
-        <ImageView
-            android:layout_width="@dimen/space_35"
-            android:layout_height="@dimen/space_35"
-            android:id="@+id/imageView12"
-            android:src="@drawable/x_red"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/imageView11"
-            android:layout_toStartOf="@+id/imageView11"
-            android:layout_marginRight="@dimen/space_5" />
-    </RelativeLayout>
+                    <Button
+                        android:textSize="@dimen/space_10"
+                        android:drawableLeft="@drawable/upload"
+                        android:id="@+id/btn_lampiran"
+                        android:backgroundTint="@color/cream_white"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="@dimen/space_5"
+                        android:text="Lampiran"
+                        android:drawableTint="@drawable/upload" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/space_35"
+                    android:layout_height="@dimen/space_35"
+                    android:id="@+id/imageView11"
+                    android:src="@drawable/checklist_green"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="@dimen/space_10" />
+
+                <ImageView
+                    android:layout_width="@dimen/space_35"
+                    android:layout_height="@dimen/space_35"
+                    android:id="@+id/imageView12"
+                    android:src="@drawable/x_red"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/imageView11"
+                    android:layout_toStartOf="@+id/imageView11"
+                    android:layout_marginRight="@dimen/space_5" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/my_recycler_view"

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.bpbatam.HomeActivity;
 import com.bpbatam.enterprise.disposisi.fragment.frag_disposisi_dalam_proses;
 import com.bpbatam.enterprise.disposisi.fragment.frag_disposisi_permohonan;
+import com.bpbatam.enterprise.disposisi.fragment.frag_disposisi_permohonan_pribadi;
 import com.bpbatam.enterprise.fragment.frag_bbs;
 import com.bpbatam.enterprise.fragment.frag_home;
 import com.bpbatam.enterprise.persuratan.PermohonanPersuratanActivity;
@@ -62,41 +63,40 @@ public class MainActivity extends AppCompatActivity implements NavMenuFragment.F
                 fragment = new frag_home();
                 txtLabel.setText("HOME");
                 break;
-            //DISPOSISI------------------------------------------------
+            //BBS----------------------------------------------------------
             case 10:
-                fragment = new frag_disposisi_dalam_proses();
-                txtLabel.setText("DISPOSISI");
-                break;
-            case 11:
-                fragment = new frag_disposisi_permohonan();
-                txtLabel.setText("DISPOSISI");
+                fragment = new frag_bbs();
+                txtLabel.setText("BBS");
                 break;
             //PERSURATAN ----------------------------------------------
-            case 30:
+            case 20:
                 fragment = new frag_persuratan_dalam_proses();
                 txtLabel.setText("PERSURATAN");
                 break;
-            case 31:
+            case 21:
                 fragment = new frag_persuratan_permohonan();
                 txtLabel.setText("PERSURATAN");
                 break;
-            case 32:
+            case 22:
                 fragment = new frag_persuratan_draft();
                 txtLabel.setText("PERSURATAN");
                 break;
-            case 33:
+            case 23:
                 fragment = new frag_persuratan_disimpan();
                 txtLabel.setText("PERSURATAN");
                 break;
-            case 34:
+            case 24:
                 fragment = new frag_persuratan_dikembalikan();
                 txtLabel.setText("PERSURATAN");
                 break;
-            case 20:
-                fragment = new frag_bbs();
-                txtLabel.setText("BBS");
-                /*intent = new Intent (MainActivity.this, HomeActivity.class);
-                startActivity(intent);*/
+            //DISPOSISI------------------------------------------------
+            case 30:
+                fragment = new frag_disposisi_permohonan_pribadi();
+                txtLabel.setText("DISPOSISI");
+                break;
+            case 31:
+                fragment = new frag_disposisi_permohonan();
+                txtLabel.setText("DISPOSISI");
                 break;
         }
 
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements NavMenuFragment.F
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         menu.clear();
-        getMenuInflater().inflate(R.menu.menu_notification, menu);
+        getMenuInflater().inflate(R.menu.menu_notification_blue, menu);
 
         return true;
     }

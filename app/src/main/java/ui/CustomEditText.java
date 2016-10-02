@@ -24,6 +24,12 @@ public class CustomEditText extends EditText {
     private int FONT_AVENIR_HEAVY_OBLIQUE = 12;
     private int FONT_AVENIR_LIGHT = 13;
     private int FONT_AVENIR_LIGHT_OBLIQUE = 14;
+    private int GOTHAM_BLACK =15;
+    private int GOTHAM_BOLD =16;
+    private int GOTHAM_BOOK = 17;
+    private int GOTHAM_LIGHT = 18;
+    private int GOTHAM_MEDIUM = 19;
+
     private int fontType;
     private int fontName;
 
@@ -70,6 +76,16 @@ public class CustomEditText extends EditText {
             setFontType(Typeface.createFromAsset(getContext().getAssets(), "AvenirLTStd-Light.otf"));
         }else if (fontName == FONT_AVENIR_LIGHT_OBLIQUE) {
             setFontType(Typeface.createFromAsset(getContext().getAssets(), "AvenirLTStd-LightOblique.otf"));
+        }else if (fontName == GOTHAM_BLACK) {
+            setFontType(Typeface.createFromAsset(getContext().getAssets(), "GOTHAM-BLACK.TTF"));
+        }else if (fontName == GOTHAM_BOLD) {
+            setFontType(Typeface.createFromAsset(getContext().getAssets(), "GOTHAM-BOLD.TTF"));
+        }else if (fontName == GOTHAM_BOOK) {
+            setFontType(Typeface.createFromAsset(getContext().getAssets(), "GOTHAM-BOOK.ttf"));
+        }else if (fontName == GOTHAM_LIGHT) {
+            setFontType(Typeface.createFromAsset(getContext().getAssets(), "GOTHAM-LIGHT.TTF"));
+        }else if (fontName == GOTHAM_MEDIUM) {
+            setFontType(Typeface.createFromAsset(getContext().getAssets(), "GOTHAM-MEDIUM.TTF"));
         }
     }
     public void setFontType(Typeface font) {

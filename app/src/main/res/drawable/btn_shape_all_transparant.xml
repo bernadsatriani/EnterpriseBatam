@@ -2,16 +2,19 @@
     android:shape="rectangle">
     <gradient
         android:angle="45"
-        android:endColor="#0091ea"
-        android:startColor="#0091ea" />
+        android:endColor="@color/transparant_pure"
+        android:startColor="@color/transparant_pure" />
+
+    <stroke
+        android:color="@color/grey_dark"
+        android:width="1dp"
+        />
 
     <padding
         android:bottom="6dp"
         android:left="6dp"
         android:right="6dp"
         android:top="6dp" />
-    <corners android:radius="8dp"
-        android:topRightRadius="8dip"
-        android:topLeftRadius="8dip"/>
+    <corners android:radius="15dp"/>
 
 </shape>

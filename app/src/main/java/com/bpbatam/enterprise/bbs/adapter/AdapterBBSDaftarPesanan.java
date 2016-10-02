@@ -76,12 +76,10 @@ public class AdapterBBSDaftarPesanan extends  RecyclerView.Adapter<AdapterBBSDaf
                 txtView,
                 lbl_Attach,
                 lbl_Size,
-                txtStatus,
                 btnDownload
         ;
 
-        ImageView imgIndicator, imgCover;
-        RelativeLayout rLayout_print,rLayout_komentar;
+        ImageView imgCover;
         ListData listData;
         public ViewHolder(View itemView,
                           final Context context,
@@ -89,14 +87,10 @@ public class AdapterBBSDaftarPesanan extends  RecyclerView.Adapter<AdapterBBSDaf
             super(itemView);
             imgCover = (ImageView)itemView.findViewById(R.id.imageView7);
             txtDate = (TextView)itemView.findViewById(R.id.text_Date);
-            txtStatus = (TextView)itemView.findViewById(R.id.text_status);
             txtView = (TextView)itemView.findViewById(R.id.textView);
             lbl_Attach = (TextView)itemView.findViewById(R.id.lbl_attach);
             lbl_Size = (TextView)itemView.findViewById(R.id.lbl_size);
-            imgIndicator = (ImageView) itemView.findViewById(R.id.img_indicator);
             btnDownload = (TextView)itemView.findViewById(R.id.btnDownload);
-            rLayout_print = (RelativeLayout)itemView.findViewById(R.id.layout_print);
-            rLayout_komentar = (RelativeLayout)itemView.findViewById(R.id.layout_komentar);
 
             btnDownload.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -106,20 +100,7 @@ public class AdapterBBSDaftarPesanan extends  RecyclerView.Adapter<AdapterBBSDaf
                 }
             });
 
-            rLayout_print.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
 
-                }
-            });
-
-            rLayout_komentar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), bbs_komentar_activity.class);
-                    v.getContext().startActivity(intent);
-                }
-            });
         }
 
         @Override

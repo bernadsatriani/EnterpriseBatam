@@ -21,7 +21,8 @@
             android:layout_alignParentStart="true" />
 
         <ui.CustomtextView
-            font:name="Label"
+            font:name="GOTHAM_BLACK"
+            font:type = "bold"
             android:id="@+id/textView"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

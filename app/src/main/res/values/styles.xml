@@ -14,6 +14,11 @@
        Base application theme, dependent on API level. This theme is replaced
        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
    -->
+
+    <style name="ToolbarColoredBackArrow" parent="AppTheme">
+        <item name="android:textColorSecondary">@color/blu3</item>
+    </style>
+
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
             Theme customizations available in newer API levels can go in
@@ -133,6 +138,11 @@
             <enum name="Avenir_HeavyOblique" value="12" />
             <enum name="Avenir_Light" value="13" />
             <enum name="Avenir_LightOblique" value="14" />
+            <enum name="GOTHAM_BLACK" value="15" />
+            <enum name="GOTHAM_BOLD" value="16" />
+            <enum name="GOTHAM_BOOK" value="17" />
+            <enum name="GOTHAM_LIGHT" value="18" />
+            <enum name="GOTHAM_MEDIUM" value="19" />
         </attr>
     </declare-styleable>
 

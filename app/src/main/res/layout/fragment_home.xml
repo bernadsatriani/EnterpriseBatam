@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    android:background="@color/grey_sss">
+    android:background="@color/navigationDrawerBackgroundDetail">
 
     <LinearLayout
         android:background="@color/white"
@@ -13,10 +13,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:layout_marginTop="@dimen/space_10"
-        android:layout_marginRight="@dimen/space_10"
+        android:layout_marginTop="@dimen/space_5"
+        android:layout_marginRight="@dimen/space_5"
         android:layout_marginBottom="@dimen/space_5"
-        android:layout_marginLeft="@dimen/space_10">
+        android:layout_marginLeft="@dimen/space_5">
 
         <RelativeLayout
             android:background="@color/white"
@@ -54,7 +54,7 @@
                 app:tabPaddingEnd="-1dp"
                 app:tabPaddingStart="-1dp"
                 app:tabPaddingTop="-1dp"
-                font:tabTextColor="@color/white"
+                font:tabTextColor="@color/red"
                 android:elevation="2dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
@@ -75,34 +75,26 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:background="@drawable/btn_shape_header"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:layout_marginLeft="@dimen/space_10"
-        android:layout_marginTop="@dimen/space_5"
-        android:layout_marginRight="@dimen/space_10"
-        android:layout_marginBottom="@dimen/space_10">
+        android:layout_marginLeft="@dimen/space_5"
+        android:layout_marginRight="@dimen/space_5"
+        android:layout_marginBottom="@dimen/space_5">
 
         <LinearLayout
-            android:background="@drawable/btn_shape_header"
+            android:background="@color/white"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1">
 
             <LinearLayout
-                android:background="@drawable/btn_shape_header"
+                android:background="@color/white"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_30">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/imageView2"
-                    android:src="@drawable/gns_info_grey"
-                    android:layout_margin="@dimen/space_5" />
 
                 <ui.CustomtextView
                     font:name = "Label"
@@ -112,8 +104,9 @@
                     android:text="PENGUMUMAN"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textColor="@color/white"
-                    android:gravity="fill_vertical" />
+                    android:textColor="@color/blu3"
+                    android:gravity="fill_vertical"
+                    android:layout_marginLeft="@dimen/space_5" />
             </LinearLayout>
 
             <android.support.v7.widget.RecyclerView

@@ -13,17 +13,26 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/space_10"
-        android:background="@drawable/btn_shape_header">
+        android:layout_margin="@dimen/space_5">
+
+        <ui.CustomEditText
+            android:id="@+id/text_search"
+            android:textColor="@color/white"
+            android:drawableRight="@drawable/ic_search_white_32"
+            android:background="@drawable/btn_shape_all_blue"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_45"
+            android:hint="search" />
 
         <RelativeLayout
+            android:background="@color/white"
             android:id="@+id/contact_us_header_container"
             android:layout_width="fill_parent"
             android:layout_height="@dimen/space_30"
             android:minHeight="?attr/actionBarSize"
             android:layout_alignParentTop="true"
-            android:background="@drawable/btn_shape_header"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/space_5">
 
 
             <ui.CustomtextView
@@ -31,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="BBS"
-                android:textColor="@color/white"
+                android:textColor="@color/red"
                 android:textSize="@dimen/space_12"
                 font:name="Label"
                 font:type = "bold"
@@ -47,17 +56,17 @@
                 android:id="@+id/tabs"
                 android:layout_width="@dimen/space_240"
                 android:layout_height="@dimen/space_40"
-                android:background="@drawable/btn_shape_header"
+                android:background="@color/white"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:tabGravity="fill"
-                app:tabIndicatorColor="@color/colorAccent"
+                app:tabIndicatorColor="@color/red"
                 app:tabIndicatorHeight="3dp"
                 app:tabMode="fixed"
                 app:tabPaddingBottom="-1dp"
                 app:tabPaddingEnd="-1dp"
                 app:tabPaddingStart="-1dp"
                 app:tabPaddingTop="-1dp"
-                font:tabTextColor="@color/white"
+                font:tabTextColor="@color/red"
                 android:elevation="2dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
@@ -68,10 +77,11 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:id="@+id/imageView3"
-                android:src="@drawable/document_white"
+                android:src="@drawable/flag_grey"
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:tint="@color/red"
                 android:layout_marginLeft="@dimen/space_5" />
         </RelativeLayout>
 

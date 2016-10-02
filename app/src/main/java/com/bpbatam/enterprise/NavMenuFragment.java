@@ -163,25 +163,29 @@ public class NavMenuFragment extends Fragment {
         List<String>  lstHome = new ArrayList<>();
         listDataChild.put(listDataHeader.get(0), lstHome);
 
-        listDataHeader.add("DIPOSISI");
-        List<String>  lstDisposisi = new ArrayList<>();
-        lstDisposisi.add("Dalam Proses");
-        lstDisposisi.add("Permohonan");
-        listDataChild.put(listDataHeader.get(1), lstDisposisi);
 
         listDataHeader.add("BBS");
         List<String>  lstBBS = new ArrayList<>();
-        listDataChild.put(listDataHeader.get(2), lstBBS);
+        listDataChild.put(listDataHeader.get(1), lstBBS);
 
         listDataHeader.add("PERSURATAN");
         List<String>  lstPersuratan = new ArrayList<>();
-        lstPersuratan.add("Dalam Proses");
+        lstPersuratan.add("Pribadi");
+        lstPersuratan.add("Umum");
         lstPersuratan.add("Permohonan");
-        lstPersuratan.add("Draft");
-        lstPersuratan.add("Disimpan");
+        lstPersuratan.add("Dalam Proses");
+        lstPersuratan.add("Simpan");
         lstPersuratan.add("Dikembalikan");
-        listDataChild.put(listDataHeader.get(3), lstPersuratan);
+        listDataChild.put(listDataHeader.get(2), lstPersuratan);
 
+        listDataHeader.add("DIPOSISI");
+        List<String>  lstDisposisi = new ArrayList<>();
+        lstDisposisi.add("Pribadi");
+        lstDisposisi.add("Umum");
+        lstDisposisi.add("Permohonan");
+        lstDisposisi.add("Dalam Proses");
+        lstDisposisi.add("Riwayat");
+        listDataChild.put(listDataHeader.get(3), lstDisposisi);
 
         listAdapter = new ExpandableListAdapter(getActivity(), listDataHeader, listDataChild);
 
@@ -193,7 +197,7 @@ public class NavMenuFragment extends Fragment {
                 int iGroup, iChild;
                 iGroup = groupPosition;
                 iChild = childPosition;
-                if (iGroup == 1 || iGroup == 3){
+                if (iGroup == 2 || iGroup == 3){
                     mDrawerLayout.closeDrawer(containerView);
 
                     String sPosition = Integer.toString(iGroup) + Integer.toString(iChild)  ;
@@ -209,7 +213,7 @@ public class NavMenuFragment extends Fragment {
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
                 int iGroup, iChild;
                 iGroup = groupPosition;
-                if (iGroup == 0 || iGroup == 2){
+                if (iGroup == 0 || iGroup == 1){
                     String sPosition = Integer.toString(iGroup) + "0"  ;
                     iPosition =  Integer.parseInt(sPosition);
                     mDrawerLayout.closeDrawer(containerView);

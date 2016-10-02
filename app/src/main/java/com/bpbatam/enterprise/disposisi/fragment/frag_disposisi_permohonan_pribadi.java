@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 
 import com.ayz4sci.androidfactory.DownloadProgressView;
@@ -34,6 +35,8 @@ public class frag_disposisi_permohonan_pribadi extends Fragment {
     DownloadProgressView downloadProgressView;
     private long downloadID;
     private DownloadManager downloadManager;
+
+    EditText txtSearch;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -50,6 +53,7 @@ public class frag_disposisi_permohonan_pribadi extends Fragment {
     }
 
     void InitControl(View v){
+        txtSearch = (EditText)v.findViewById(R.id.text_search);
         mRecyclerView = (RecyclerView)v.findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(v.getContext());

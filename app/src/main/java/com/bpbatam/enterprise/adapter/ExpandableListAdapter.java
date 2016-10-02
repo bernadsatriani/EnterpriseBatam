@@ -113,21 +113,23 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 arrow.setImageDrawable(null);
                 break;
             case 1:
-                imgMenu.setBackgroundResource(R.drawable.document_white);
-                if (isExpanded) {
+                arrow.setImageDrawable(null);
+                imgMenu.setBackgroundResource(R.drawable.flag_grey);
 
+                break;
+            case 2:
+                imgMenu.setBackgroundResource(R.drawable.gns_email);
+                if (isExpanded) {
                     arrow.setImageDrawable(_context.getResources().getDrawable(R.drawable.minus));
                 } else {
                     arrow.setImageDrawable(_context.getResources().getDrawable(R.drawable.plus));
                 }
                 break;
-            case 2:
-                arrow.setImageDrawable(null);
-                imgMenu.setBackgroundResource(R.drawable.flag_grey);
-                break;
+
             case 3:
-                imgMenu.setBackgroundResource(R.drawable.gns_email);
+                imgMenu.setBackgroundResource(R.drawable.document_white);
                 if (isExpanded) {
+
                     arrow.setImageDrawable(_context.getResources().getDrawable(R.drawable.minus));
                 } else {
                     arrow.setImageDrawable(_context.getResources().getDrawable(R.drawable.plus));

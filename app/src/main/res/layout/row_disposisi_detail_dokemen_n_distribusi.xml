@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:font="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/layout_row"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ui.CustomtextView
+                font:name = "Avenir_Heavy"
+                font:type = "bold"
+                android:id="@+id/text_1"
+                android:textSize="@dimen/space_14"
+                android:text="Kode Klarifikasi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="@dimen/space_10"
+                android:layout_marginBottom="@dimen/space_10" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ui.CustomtextView
+                font:name = "Avenir_Light"
+                android:id="@+id/text_2"
+                android:textSize="@dimen/space_14"
+                android:text="Draft surat Internal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginBottom="@dimen/space_10"
+                android:layout_marginTop="@dimen/space_10" />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

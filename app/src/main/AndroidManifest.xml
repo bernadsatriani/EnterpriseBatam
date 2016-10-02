@@ -86,6 +86,9 @@
         <activity android:name=".bbs.bbs_komentar_activity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
 
+        <activity android:name=".disposisi.disposisi_detail"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+
     </application>
 
 </manifest>

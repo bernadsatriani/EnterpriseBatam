@@ -1,6 +1,7 @@
 package com.bpbatam.enterprise.persuratan.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.bpbatam.AppController;
 import com.bpbatam.enterprise.R;
+import com.bpbatam.enterprise.disposisi.disposisi_detail;
 import com.bpbatam.enterprise.model.ListData;
 import com.bumptech.glide.Glide;
 
@@ -61,7 +63,13 @@ public class AdapterPersuratanPermohonanPribadi extends  RecyclerView.Adapter<Ad
         //holder.txtStatus.setText(listData.getAtr2());
 
         //AppController.getInstance().displayImage(context,listData.getAtr3(), holder.imgCover);
-
+        holder.btnPrint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, disposisi_detail.class);
+                v.getContext().startActivity(intent);
+            }
+        });
         holder.listData = listData;
     }
 
@@ -106,6 +114,8 @@ public class AdapterPersuratanPermohonanPribadi extends  RecyclerView.Adapter<Ad
                     listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
                 }
             });
+
+
         }
 
         @Override

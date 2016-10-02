@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.ayz4sci.androidfactory.DownloadProgressView;
 import com.bpbatam.AppConstant;
@@ -38,17 +39,8 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
     private long downloadID;
     private DownloadManager downloadManager;
 
-    Spinner spnJudul, spnKategori;
-
-    String[] lstJudul = {
-            "Buletin Board",
-            "Buletin Board"
-    };
-
-    String[] lstKategori = {
-            "Penting",
-            "Urgent"
-    };
+    TextView txtTulisPesan;
+    RelativeLayout layoutHeader;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,13 +55,21 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         InitControl(view);
         FillGrid(view);
-        FillSpinner();
     }
 
     void InitControl(View v){
-        spnJudul = (Spinner)v.findViewById(R.id.spinner_judul);
-        spnKategori = (Spinner)v.findViewById(R.id.spinner_kategori);
+        txtTulisPesan = (TextView)v.findViewById(R.id.text_tulis_pesan);
+        layoutHeader = (RelativeLayout)v.findViewById(R.id.layout_header);
+        txtTulisPesan.setVisibility(View.VISIBLE);
+        layoutHeader.setVisibility(View.GONE);
 
+        txtTulisPesan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                txtTulisPesan.setVisibility(View.GONE);
+                layoutHeader.setVisibility(View.VISIBLE);
+            }
+        });
         mRecyclerView = (RecyclerView)v.findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(v.getContext());
@@ -137,17 +137,4 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
     }
 
-    void FillSpinner(){
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_spinner_item, lstJudul);
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spnJudul.setAdapter(adapter);
-
-        adapter = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_spinner_item, lstKategori);
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spnKategori.setAdapter(adapter);
-    }
 }
