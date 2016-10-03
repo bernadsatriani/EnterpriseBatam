@@ -12,7 +12,7 @@
 
         <ui.CustomtextView
             android:visibility="visible"
-            font:name= "Avenir_Heavy"
+            font:name= "GOTHAM_BLACK"
             font:type= "bold"
             android:id="@+id/text_tulis_pesan"
             android:text="Tulis Pesan Disini"
@@ -67,17 +67,21 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true">
 
-                    <Button
+                    <ui.CustomButton
+                        font:name = "GOTHAM_BOLD"
                         android:textSize="@dimen/space_10"
                         android:drawableLeft="@drawable/upload"
                         android:id="@+id/btn_lampiran"
-                        android:backgroundTint="@color/cream_white"
+                        android:background="@drawable/btn_shape_all_transparant_blue"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/space_40"
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_5"
-                        android:text="Lampiran"
-                        android:drawableTint="@drawable/upload" />
+                        android:text="Lampirkan File"
+                        android:drawableTint="@drawable/upload"
+                        android:layout_marginRight="@dimen/space_10"
+                        android:layout_marginTop="@dimen/space_5"
+                        android:layout_marginBottom="@dimen/space_5" />
                 </LinearLayout>
 
                 <ImageView

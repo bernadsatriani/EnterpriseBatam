@@ -57,14 +57,30 @@ public class frag_disposisi_detail_distribusi extends Fragment {
     void FillGrid(View v) {
         AryListData = new ArrayList<>();
 
-        for (int i = 0; i < 10; i++) {
-            listData = new ListData();
-            listData.setAtr1("Attachment " + i);
-            listData.setAtr2("(5,88 mb)");
-            listData.setAtr3("http://cottonsoft.co.nz/assets/img/our-company-history/history-2011-Paseo.jpg");
-            AryListData.add(listData);
+        listData = new ListData();
+        listData.setAtr1("Departemen (Posisi)");
+        listData.setAtr2("Finance");
+        AryListData.add(listData);
 
-        }
+        listData = new ListData();
+        listData.setAtr1("Nama");
+        listData.setAtr2("");
+        AryListData.add(listData);
+
+        listData = new ListData();
+        listData.setAtr1("Terkirim");
+        listData.setAtr2("20 Sep 2016 | 15:30");
+        AryListData.add(listData);
+
+        listData = new ListData();
+        listData.setAtr1("Dibaca");
+        listData.setAtr2("");
+        AryListData.add(listData);
+
+        listData = new ListData();
+        listData.setAtr1("Distributor");
+        listData.setAtr2("Unit IP");
+        AryListData.add(listData);
 
         mAdapter = new AdapterDisposisiDistribusi(getContext(), AryListData);
         mRecyclerView.setAdapter(mAdapter);

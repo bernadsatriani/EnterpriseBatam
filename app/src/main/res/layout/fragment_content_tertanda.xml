@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:font="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_40"
+        android:background="@color/navy"
+        android:layout_marginTop="@dimen/space_10">
+
+        <ui.CustomtextView
+            font:name = "GOTHAM_BOLD"
+            android:textColor="@color/white"
+            android:text="Susunan"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="fill_vertical"
+            android:layout_marginLeft="@dimen/space_16" />
+
+        <ui.CustomtextView
+            font:name = "GOTHAM_BOLD"
+            android:textColor="@color/white"
+            android:text="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center" />
+
+        <ui.CustomtextView
+            font:name = "GOTHAM_BOLD"
+            android:textColor="@color/white"
+            android:text="2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/my_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+</LinearLayout>

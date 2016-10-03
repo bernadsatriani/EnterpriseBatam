@@ -17,7 +17,7 @@
             android:layout_weight="1">
 
             <ui.CustomtextView
-                font:name = "Avenir_Heavy"
+                font:name = "GOTHAM_MEDIUM"
                 font:type = "bold"
                 android:id="@+id/text_1"
                 android:textSize="@dimen/space_14"
@@ -26,7 +26,8 @@
                 android:layout_height="wrap_content"
 
                 android:layout_marginTop="@dimen/space_10"
-                android:layout_marginBottom="@dimen/space_10" />
+                android:layout_marginBottom="@dimen/space_10"
+                android:layout_marginLeft="@dimen/space_5" />
 
         </RelativeLayout>
 
@@ -36,7 +37,7 @@
             android:layout_weight="1">
 
             <ui.CustomtextView
-                font:name = "Avenir_Light"
+                font:name = "GOTHAM_LIGHT"
                 android:id="@+id/text_2"
                 android:textSize="@dimen/space_14"
                 android:text="Draft surat Internal"
@@ -44,7 +45,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginBottom="@dimen/space_10"
-                android:layout_marginTop="@dimen/space_10" />
+                android:layout_marginTop="@dimen/space_10"
+                android:layout_marginLeft="@dimen/space_5" />
         </RelativeLayout>
 
 

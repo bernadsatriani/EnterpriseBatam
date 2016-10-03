@@ -11,20 +11,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bpbatam.HomeActivity;
-import com.bpbatam.enterprise.disposisi.fragment.frag_disposisi_dalam_proses;
-import com.bpbatam.enterprise.disposisi.fragment.frag_disposisi_permohonan;
+import com.bpbatam.AppConstant;
 import com.bpbatam.enterprise.disposisi.fragment.frag_disposisi_permohonan_pribadi;
+import com.bpbatam.enterprise.fragment.Frag_Beranda;
 import com.bpbatam.enterprise.fragment.frag_bbs;
 import com.bpbatam.enterprise.fragment.frag_home;
-import com.bpbatam.enterprise.persuratan.PermohonanPersuratanActivity;
+import com.bpbatam.enterprise.persuratan.fragment.frag_permohonan_pribadi;
+import com.bpbatam.enterprise.persuratan.fragment.frag_permohonan_umum;
 import com.bpbatam.enterprise.persuratan.fragment.frag_persuratan_dalam_proses;
 import com.bpbatam.enterprise.persuratan.fragment.frag_persuratan_dikembalikan;
 import com.bpbatam.enterprise.persuratan.fragment.frag_persuratan_disimpan;
-import com.bpbatam.enterprise.persuratan.fragment.frag_persuratan_draft;
 import com.bpbatam.enterprise.persuratan.fragment.frag_persuratan_permohonan;
 
 public class MainActivity extends AppCompatActivity implements NavMenuFragment.FragmentDrawerListener {
@@ -60,8 +58,8 @@ public class MainActivity extends AppCompatActivity implements NavMenuFragment.F
         Intent intent;
         switch (position) {
             case 0:
-                fragment = new frag_home();
-                txtLabel.setText("HOME");
+                fragment = new Frag_Beranda();
+                txtLabel.setText("BERANDA");
                 break;
             //BBS----------------------------------------------------------
             case 10:
@@ -70,33 +68,60 @@ public class MainActivity extends AppCompatActivity implements NavMenuFragment.F
                 break;
             //PERSURATAN ----------------------------------------------
             case 20:
-                fragment = new frag_persuratan_dalam_proses();
+                fragment = new frag_permohonan_pribadi();
                 txtLabel.setText("PERSURATAN");
+                AppConstant.ACTIVITY_FROM = "Pribadi";
                 break;
             case 21:
-                fragment = new frag_persuratan_permohonan();
+                fragment = new frag_permohonan_umum();
                 txtLabel.setText("PERSURATAN");
+                AppConstant.ACTIVITY_FROM = "Umum";
                 break;
             case 22:
-                fragment = new frag_persuratan_draft();
+                fragment = new frag_persuratan_permohonan();
                 txtLabel.setText("PERSURATAN");
+                AppConstant.ACTIVITY_FROM = "Permohonan";
                 break;
             case 23:
-                fragment = new frag_persuratan_disimpan();
+                fragment = new frag_persuratan_dalam_proses();
                 txtLabel.setText("PERSURATAN");
+                AppConstant.ACTIVITY_FROM = "Dalam Proses";
                 break;
             case 24:
+                fragment = new frag_persuratan_disimpan();
+                txtLabel.setText("PERSURATAN");
+                AppConstant.ACTIVITY_FROM = "Simpan";
+                break;
+            case 25:
                 fragment = new frag_persuratan_dikembalikan();
                 txtLabel.setText("PERSURATAN");
+                AppConstant.ACTIVITY_FROM = "Dikembalikan";
                 break;
             //DISPOSISI------------------------------------------------
             case 30:
                 fragment = new frag_disposisi_permohonan_pribadi();
                 txtLabel.setText("DISPOSISI");
+                AppConstant.ACTIVITY_FROM = "Pribadi";
                 break;
             case 31:
-                fragment = new frag_disposisi_permohonan();
+                fragment = new frag_disposisi_permohonan_pribadi();
                 txtLabel.setText("DISPOSISI");
+                AppConstant.ACTIVITY_FROM = "Umum";
+                break;
+            case 32:
+                fragment = new frag_disposisi_permohonan_pribadi();
+                txtLabel.setText("DISPOSISI");
+                AppConstant.ACTIVITY_FROM = "Permohonan";
+                break;
+            case 33:
+                fragment = new frag_disposisi_permohonan_pribadi();
+                txtLabel.setText("DISPOSISI");
+                AppConstant.ACTIVITY_FROM = "Dalam Proses";
+                break;
+            case 34:
+                fragment = new frag_disposisi_permohonan_pribadi();
+                txtLabel.setText("DISPOSISI");
+                AppConstant.ACTIVITY_FROM = "Riwayat";
                 break;
         }
 

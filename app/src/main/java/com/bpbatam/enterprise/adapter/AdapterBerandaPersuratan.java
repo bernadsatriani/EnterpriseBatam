@@ -1,4 +1,4 @@
-package com.bpbatam.enterprise.bbs.adapter;
+package com.bpbatam.enterprise.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,24 +7,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bpbatam.enterprise.R;
-import com.bpbatam.enterprise.bbs.bbs_komentar_activity;
+import com.bpbatam.enterprise.disposisi.disposisi_detail;
 import com.bpbatam.enterprise.model.ListData;
+import com.bpbatam.enterprise.persuratan.adapter.AdapterPersuratanPermohonanPribadi;
 
 import java.util.ArrayList;
 
 /**
  * Created by User on 9/19/2016.
  */
-public class AdapterBBSDaftarPesanan extends  RecyclerView.Adapter<AdapterBBSDaftarPesanan.ViewHolder>{
+public class AdapterBerandaPersuratan extends  RecyclerView.Adapter<AdapterBerandaPersuratan.ViewHolder>{
 
     private ArrayList<ListData> mCourseArrayList;
     private Context context;
 
-    public AdapterBBSDaftarPesanan(Context context, ArrayList<ListData> mCourseArrayList, OnDownloadClicked listener) {
+    public AdapterBerandaPersuratan(Context context, ArrayList<ListData> mCourseArrayList, OnDownloadClicked listener) {
         this.context = context;
         this.mCourseArrayList = mCourseArrayList;
         this.listener = listener;
@@ -32,7 +32,6 @@ public class AdapterBBSDaftarPesanan extends  RecyclerView.Adapter<AdapterBBSDaf
             throw new IllegalArgumentException("courses ArrayList must not be null");
         }
     }
-
     public interface OnDownloadClicked {
         public void OnDownloadClicked(String sUrl, boolean bStatus);
     }
@@ -43,7 +42,7 @@ public class AdapterBBSDaftarPesanan extends  RecyclerView.Adapter<AdapterBBSDaf
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //Inflate layout
         View itemView = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.row_bbs_daftar_pesanan, null);
+                R.layout.row_persuratan_permohonan, null);
 
         return new ViewHolder(itemView, context, this);
     }
@@ -52,14 +51,21 @@ public class AdapterBBSDaftarPesanan extends  RecyclerView.Adapter<AdapterBBSDaf
     public void onBindViewHolder(ViewHolder holder, int position) {
         ListData listData = mCourseArrayList.get(position);
         //Set text
-        holder.txtDate.setText("Senin, 29 Agustus 2016, pukul 02:02");
+        holder.txtDate.setText("Rabu, 21 Sept 2016");
+        holder.txtTime.setText("12:37 PM");
         holder.lbl_Attach.setText(listData.getAtr1());
         holder.lbl_Size.setText(listData.getAtr2());
 
         //holder.txtStatus.setText(listData.getAtr2());
 
         //AppController.getInstance().displayImage(context,listData.getAtr3(), holder.imgCover);
-
+        holder.btnPrint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, disposisi_detail.class);
+                v.getContext().startActivity(intent);
+            }
+        });
         holder.listData = listData;
     }
 
@@ -72,22 +78,30 @@ public class AdapterBBSDaftarPesanan extends  RecyclerView.Adapter<AdapterBBSDaf
             implements View.OnClickListener, View.OnLongClickListener {
 
         TextView txtDate,
+                txtTime,
                 lbl_Attach,
                 lbl_Size,
-                btnDownload
+                txtStatus,
+                btnDownload,
+                btnPrint
         ;
 
-        ImageView imgCover;
+        ImageView imgStatus;
+
         ListData listData;
         public ViewHolder(View itemView,
-                          final Context context,
-                          final AdapterBBSDaftarPesanan mCourseAdapter) {
+                          Context context,
+                          final AdapterBerandaPersuratan mCourseAdapter) {
             super(itemView);
-            imgCover = (ImageView)itemView.findViewById(R.id.imageView7);
+
             txtDate = (TextView)itemView.findViewById(R.id.text_Date);
+            txtStatus = (TextView)itemView.findViewById(R.id.text_status);
+            txtTime = (TextView)itemView.findViewById(R.id.text_time);
             lbl_Attach = (TextView)itemView.findViewById(R.id.lbl_attach);
             lbl_Size = (TextView)itemView.findViewById(R.id.lbl_size);
+            imgStatus = (ImageView) itemView.findViewById(R.id.imageView5);
             btnDownload = (TextView)itemView.findViewById(R.id.btnDownload);
+            btnPrint = (TextView)itemView.findViewById(R.id.btnPrint);
 
             btnDownload.setOnClickListener(new View.OnClickListener() {
                 @Override

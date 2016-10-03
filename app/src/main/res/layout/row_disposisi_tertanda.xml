@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:font="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/layout_row"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_55">
+
+        <ui.CustomtextView
+            font:name = "GOTHAM_BOLD"
+            android:id="@+id/text_susunan"
+            android:text="Susunan"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="fill_vertical"
+            android:layout_marginLeft="@dimen/space_12" />
+
+        <ui.CustomtextView
+            font:name = "GOTHAM_LIGHT"
+            android:id="@+id/text_1"
+            android:text="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="fill_vertical"
+            android:layout_marginLeft="@dimen/space_3" />
+
+        <ui.CustomtextView
+            font:name = "GOTHAM_LIGHT"
+            android:id="@+id/text_2"
+            android:text="2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="fill_vertical"
+            android:layout_marginLeft="@dimen/space_3" />
+    </LinearLayout>
+
+</LinearLayout>

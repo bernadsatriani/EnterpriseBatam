@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -42,6 +43,7 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
     TextView txtTulisPesan;
     RelativeLayout layoutHeader;
 
+    ImageView imgCancel, imgSave;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -58,6 +60,8 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
     }
 
     void InitControl(View v){
+        imgCancel = (ImageView)v.findViewById(R.id.imageView12);
+        imgSave = (ImageView)v.findViewById(R.id.imageView11);
         txtTulisPesan = (TextView)v.findViewById(R.id.text_tulis_pesan);
         layoutHeader = (RelativeLayout)v.findViewById(R.id.layout_header);
         txtTulisPesan.setVisibility(View.VISIBLE);
@@ -70,6 +74,23 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
                 layoutHeader.setVisibility(View.VISIBLE);
             }
         });
+
+        imgCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                txtTulisPesan.setVisibility(View.VISIBLE);
+                layoutHeader.setVisibility(View.GONE);
+            }
+        });
+
+        imgSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                txtTulisPesan.setVisibility(View.VISIBLE);
+                layoutHeader.setVisibility(View.GONE);
+            }
+        });
+
         mRecyclerView = (RecyclerView)v.findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(v.getContext());

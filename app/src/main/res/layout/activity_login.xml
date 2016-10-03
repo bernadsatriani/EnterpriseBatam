@@ -8,13 +8,14 @@
     <RelativeLayout
         android:id="@+id/relativeLayout1"
         android:layout_width="wrap_content"
-        android:layout_height="380dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:background="@color/transparant_pure"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentTop="true"
-        android:layout_margin="@dimen/space_10">
+        android:layout_marginLeft="@dimen/space_10"
+        android:layout_marginRight="@dimen/space_10"
+        android:layout_marginTop="@dimen/space_10">
 
         <ImageView
             android:id="@+id/circleView"
@@ -28,7 +29,7 @@
             android:src="@drawable/logo_bp_batam" />
 
         <ui.CustomtextView
-            font:name="Content"
+            font:name="GOTHAM_MEDIUM"
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,7 +40,8 @@
             android:typeface="serif"
             android:layout_below="@+id/btn_login"
             android:layout_alignLeft="@+id/btn_login"
-            android:layout_alignStart="@+id/btn_login" />
+            android:layout_alignStart="@+id/btn_login"
+            android:textStyle="italic" />
 
         <ui.CustomEditText
             font:name="Label"
@@ -49,7 +51,7 @@
             android:textSize="@dimen/space_14"
             android:id="@+id/edt_username"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="40dp"
             android:background="@drawable/edittext_shape"
             android:clickable="false"
             android:ems="10"
@@ -60,8 +62,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginTop="@dimen/space_20"
-            android:layout_marginRight="@dimen/space_10"
-            android:layout_marginLeft="@dimen/space_10" />
+            android:layout_marginRight="@dimen/space_30"
+            android:layout_marginLeft="@dimen/space_30" />
 
         <ui.CustomEditText
             font:name="Label"
@@ -71,7 +73,7 @@
             android:textColor="@color/black"
             android:id="@+id/edt_password"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="40dp"
             android:layout_below="@+id/edt_username"
             android:background="@drawable/edittext_shape"
             android:ems="10"
@@ -79,7 +81,7 @@
             android:paddingLeft="10dp"
             android:password="true"
             android:singleLine="true"
-            android:layout_marginTop="@dimen/space_5"
+            android:layout_marginTop="@dimen/space_10"
             android:layout_alignRight="@+id/edt_username"
             android:layout_alignEnd="@+id/edt_username"
             android:layout_alignLeft="@+id/edt_username"
@@ -100,16 +102,41 @@
             android:text="LOGIN"
             android:textColor="@color/white" />
 
-        <ui.CustomtextView
-            font:name="Label"
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_toRightOf="@+id/textView1"
-            android:layout_alignRight="@+id/circleView"
-            android:layout_alignEnd="@+id/circleView" />
 
     </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_40"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <ui.CustomtextView
+            font:name="GOTHAM_MEDIUM"
+            android:text="EP BATAM"
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textColor="@color/blue2"
+            android:gravity="right|fill_vertical"
+            android:layout_marginRight="@dimen/space_2"
+            android:textStyle="italic" />
+
+        <ui.CustomtextView
+            font:name="GOTHAM_LIGHT"
+            android:text="mobile app"
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textColor="@color/blue2"
+            android:gravity="fill_vertical"
+            android:layout_marginLeft="1dp"
+            android:textStyle="italic" />
+    </LinearLayout>
 
 </RelativeLayout>

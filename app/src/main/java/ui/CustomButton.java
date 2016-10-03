@@ -16,6 +16,11 @@ public class CustomButton extends Button {
     private int FONT_HEADER_REGULER = 2;
     private int FONT_CONTENT = 3;
     private int FONT_LABEL = 4;
+    private int GOTHAM_BLACK =15;
+    private int GOTHAM_BOLD =16;
+    private int GOTHAM_BOOK = 17;
+    private int GOTHAM_LIGHT = 18;
+    private int GOTHAM_MEDIUM = 19;
 
     private int fontType;
     private int fontName;
@@ -50,6 +55,16 @@ public class CustomButton extends Button {
             setFontType(Typeface.createFromAsset(getContext().getAssets(), "Content.ttf"));
         } else if (fontName == FONT_LABEL) {
             setFontType(Typeface.createFromAsset(getContext().getAssets(), "Label.ttf"));
+        }else if (fontName == GOTHAM_BLACK) {
+            setFontType(Typeface.createFromAsset(getContext().getAssets(), "GOTHAM-BLACK.TTF"));
+        }else if (fontName == GOTHAM_BOLD) {
+            setFontType(Typeface.createFromAsset(getContext().getAssets(), "GOTHAM-BOLD.TTF"));
+        }else if (fontName == GOTHAM_BOOK) {
+            setFontType(Typeface.createFromAsset(getContext().getAssets(), "GOTHAM-BOOK.ttf"));
+        }else if (fontName == GOTHAM_LIGHT) {
+            setFontType(Typeface.createFromAsset(getContext().getAssets(), "GOTHAM-LIGHT.TTF"));
+        }else if (fontName == GOTHAM_MEDIUM) {
+            setFontType(Typeface.createFromAsset(getContext().getAssets(), "GOTHAM-MEDIUM.TTF"));
         }
     }
 
