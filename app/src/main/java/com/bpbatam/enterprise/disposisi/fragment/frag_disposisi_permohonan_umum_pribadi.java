@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.ayz4sci.androidfactory.DownloadProgressView;
 import com.bpbatam.AppConstant;
-import com.bpbatam.enterprise.PDFViewActivity;
+import com.bpbatam.enterprise.PDFViewActivity_Distribusi;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.model.ListData;
 import com.bpbatam.enterprise.persuratan.adapter.AdapterPersuratanPermohonanPribadi;
@@ -30,7 +30,7 @@ import ui.QuickAction.QuickAction;
 /**
  * Created by User on 9/19/2016.
  */
-public class frag_disposisi_permohonan_pribadi extends Fragment {
+public class frag_disposisi_permohonan_umum_pribadi extends Fragment {
     //action id
     private static final int ID_PILIH_PESAN     = 1;
     private static final int ID_SEMUA_PESAN   = 2;
@@ -51,6 +51,8 @@ public class frag_disposisi_permohonan_pribadi extends Fragment {
     ImageView imgMenu;
     TextView txtLabel;
 
+    String statusPesan;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -61,10 +63,10 @@ public class frag_disposisi_permohonan_pribadi extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(final View view, Bundle savedInstanceState) {
         InitControl(view);
         FillGrid(view);
-
+        statusPesan = AppConstant.TIDAK_PESAN;
         ActionItem pilihItem 	= new ActionItem(ID_PILIH_PESAN, "Pilih Pesan", null);
         ActionItem semuaItem 	= new ActionItem(ID_SEMUA_PESAN, "Semua Pesan", null);
 
@@ -87,9 +89,11 @@ public class frag_disposisi_permohonan_pribadi extends Fragment {
 
                 //here we can filter which action item was clicked with pos or actionId parameter
                 if (actionId == ID_PILIH_PESAN) {
-
+                    statusPesan = AppConstant.PILIH_PESAN;
+                    FillGrid(view);
                 } else if (actionId == ID_SEMUA_PESAN) {
-
+                    statusPesan = AppConstant.SEMUA_PESAN;
+                    FillGrid(view);
                 }
             }
         });
@@ -128,6 +132,7 @@ public class frag_disposisi_permohonan_pribadi extends Fragment {
             listData.setAtr1("Attachment " + i);
             listData.setAtr2("(5,88 mb)");
             listData.setAtr3("http://cottonsoft.co.nz/assets/img/our-company-history/history-2011-Paseo.jpg");
+            listData.setNama(statusPesan);
             AryListData.add(listData);
 
         }
@@ -160,7 +165,7 @@ public class frag_disposisi_permohonan_pribadi extends Fragment {
                         mRecyclerView.setVisibility(View.VISIBLE);
                         rLayoutDownload.setVisibility(View.GONE);
                         AppConstant.PDF_FILENAME = "DOWNLOAD_FILE_NAME.pdf";
-                        Intent intent = new Intent (getActivity(), PDFViewActivity.class);
+                        Intent intent = new Intent (getActivity(), PDFViewActivity_Distribusi.class);
                         getActivity().startActivity(intent);
                     }
 

@@ -100,13 +100,14 @@
 
                 <ImageView
                     android:visibility="gone"
-                    android:layout_width="@dimen/space_40"
-                    android:layout_height="@dimen/space_40"
+                    android:layout_width="@dimen/space_35"
+                    android:layout_height="@dimen/space_35"
                     android:id="@+id/imageView15"
                     android:layout_alignTop="@+id/lbl_attach"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
-                    android:src="@drawable/circle_kosong" />
+                    android:src="@drawable/circle_kosong"
+                    android:layout_marginRight="@dimen/space_5" />
 
 
             </RelativeLayout>

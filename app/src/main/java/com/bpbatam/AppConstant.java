@@ -19,6 +19,10 @@ public final class AppConstant {
 	public static final String EMPTY_STRING = "";
 	public static final String LANGUAGE_DEFAULT = "en";
 	public static String HASHID ;
+	public static String PILIH_PESAN = "1" ;
+	public static String SEMUA_PESAN = "2" ;
+	public static String TIDAK_PESAN = "3" ;
+
 
 	public static String ACTIVITY_FROM;
 

@@ -15,6 +15,7 @@
     <color name="colorReject">#FD1630</color>
     <color name="colorAccept">#00FC6B</color>
     <color name="colorSelectButton">#0E3671</color>
+    <color name="colorRecallButton">#B3B3B3</color>
 
     <!-- Navigation drawer color-->
     <color name="navigationDrawerBackground">#003580</color>

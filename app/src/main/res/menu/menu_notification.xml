@@ -7,7 +7,7 @@
     <item
         android:id="@+id/action_notification"
         android:orderInCategory="200"
-        android:title="save"
+        android:title="Notifikasi"
         android:icon="@drawable/bell"
         app:showAsAction="ifRoom"></item>
     

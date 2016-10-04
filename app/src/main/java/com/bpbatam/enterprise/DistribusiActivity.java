@@ -18,7 +18,7 @@ import com.bpbatam.AppConstant;
 public class DistribusiActivity extends AppCompatActivity {
     EditText txtDistribusi, txtCC, txtPesan;
     TextView txtLabel;
-    LinearLayout btnKirim;
+    TextView btnKirim;
 
     Toolbar toolbar;
     @Override
@@ -40,7 +40,7 @@ public class DistribusiActivity extends AppCompatActivity {
         txtDistribusi = (EditText)findViewById(R.id.text_distribusi);
         txtCC = (EditText)findViewById(R.id.text_cc);
         txtPesan = (EditText)findViewById(R.id.text_pesan);
-        btnKirim = (LinearLayout)findViewById(R.id.btnDistribusi);
+        btnKirim = (TextView)findViewById(R.id.btnDistribusi);
 
         btnKirim.setOnClickListener(new View.OnClickListener() {
             @Override

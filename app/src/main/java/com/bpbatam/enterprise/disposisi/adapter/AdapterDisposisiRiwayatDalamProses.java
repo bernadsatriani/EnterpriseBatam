@@ -1,4 +1,4 @@
-package com.bpbatam.enterprise.persuratan.adapter;
+package com.bpbatam.enterprise.disposisi.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,30 +6,24 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
-import com.bpbatam.AppConstant;
-import com.bpbatam.AppController;
-import com.bpbatam.enterprise.CC_Activity;
+import com.bpbatam.enterprise.DistribusiActivity;
 import com.bpbatam.enterprise.R;
-import com.bpbatam.enterprise.disposisi.disposisi_detail;
 import com.bpbatam.enterprise.model.ListData;
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
 /**
  * Created by User on 9/19/2016.
  */
-public class AdapterPersuratanPermohonanPribadi extends  RecyclerView.Adapter<AdapterPersuratanPermohonanPribadi.ViewHolder>{
+public class AdapterDisposisiRiwayatDalamProses extends  RecyclerView.Adapter<AdapterDisposisiRiwayatDalamProses.ViewHolder>{
 
     private ArrayList<ListData> mCourseArrayList;
     private Context context;
 
-    public AdapterPersuratanPermohonanPribadi(Context context, ArrayList<ListData> mCourseArrayList, OnDownloadClicked listener) {
+    public AdapterDisposisiRiwayatDalamProses(Context context, ArrayList<ListData> mCourseArrayList, OnDownloadClicked listener) {
         this.context = context;
         this.mCourseArrayList = mCourseArrayList;
         this.listener = listener;
@@ -48,7 +42,7 @@ public class AdapterPersuratanPermohonanPribadi extends  RecyclerView.Adapter<Ad
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //Inflate layout
         View itemView = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.row_persuratan_permohonan, null);
+                R.layout.row_disposisi_riwayat_dalamproses, null);
 
         return new ViewHolder(itemView, context, this);
     }
@@ -65,32 +59,16 @@ public class AdapterPersuratanPermohonanPribadi extends  RecyclerView.Adapter<Ad
         //holder.txtStatus.setText(listData.getAtr2());
 
         //AppController.getInstance().displayImage(context,listData.getAtr3(), holder.imgCover);
-        if (listData.getNama() != null){
-            if (listData.getNama().equals(AppConstant.TIDAK_PESAN)){
-                holder.imgChecklist.setVisibility(View.GONE);
-            }else if (listData.getNama().equals(AppConstant.PILIH_PESAN)){
-                holder.imgChecklist.setVisibility(View.VISIBLE);
-            }else if (listData.getNama().equals(AppConstant.SEMUA_PESAN)){
-                holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.check32));
-                holder.imgChecklist.setVisibility(View.VISIBLE);
-            }
+
+
+        if ((position%3)==0){
+            holder.txtStatus.setText("ditolak");
+            holder.imgStatus.setImageDrawable(context.getResources().getDrawable(R.drawable.ball_red));
+        }else{
+            holder.txtStatus.setText("disetujui");
+            holder.imgStatus.setImageDrawable(context.getResources().getDrawable(R.drawable.ball_green));
         }
 
-        holder.btnPrint.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, disposisi_detail.class);
-                v.getContext().startActivity(intent);
-            }
-        });
-
-        holder.imgCC.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, CC_Activity.class);
-                context.startActivity(intent);
-            }
-        });
         holder.listData = listData;
     }
 
@@ -107,16 +85,15 @@ public class AdapterPersuratanPermohonanPribadi extends  RecyclerView.Adapter<Ad
                 lbl_Attach,
                 lbl_Size,
                 txtStatus,
-                btnDownload,
-                btnPrint
+                btnDownload
         ;
 
-        ImageView imgStatus, imgCC, imgChecklist;
+        ImageView imgStatus;
 
         ListData listData;
         public ViewHolder(View itemView,
                           Context context,
-                          final AdapterPersuratanPermohonanPribadi mCourseAdapter) {
+                          final AdapterDisposisiRiwayatDalamProses mCourseAdapter) {
             super(itemView);
 
             txtDate = (TextView)itemView.findViewById(R.id.text_Date);
@@ -126,9 +103,7 @@ public class AdapterPersuratanPermohonanPribadi extends  RecyclerView.Adapter<Ad
             lbl_Size = (TextView)itemView.findViewById(R.id.lbl_size);
             imgStatus = (ImageView) itemView.findViewById(R.id.imageView5);
             btnDownload = (TextView)itemView.findViewById(R.id.btnDownload);
-            btnPrint = (TextView)itemView.findViewById(R.id.btnPrint);
-            imgCC = (ImageView)itemView.findViewById(R.id.imageView5);
-            imgChecklist = (ImageView)itemView.findViewById(R.id.imageView15);
+
 
             btnDownload.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -137,8 +112,6 @@ public class AdapterPersuratanPermohonanPribadi extends  RecyclerView.Adapter<Ad
                     listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
                 }
             });
-
-
         }
 
         @Override

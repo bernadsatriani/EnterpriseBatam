@@ -20,7 +20,7 @@
             android:layout_alignBottom="@+id/circleView">
 
             <ui.CustomtextView
-                font:name= "Header"
+                font:name= "GOTHAM_BOLD"
                 font:type = "bold"
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
                 android:layout_marginTop="@dimen/space_10" />
 
             <ui.CustomtextView
-                font:name= "Content"
+                font:name= "GOTHAM_LIGHT"
                 font:type = "bold"
                 android:id="@+id/email"
                 android:layout_width="wrap_content"

@@ -49,7 +49,7 @@ public class disposisi_detail extends AppCompatActivity {
         txtLabel.setText("DISPOSISI");
         pager = (ViewPager)findViewById(R.id.pager);
         tabs = (TabLayout)findViewById(R.id.tabs);
-        tabs.setSelectedTabIndicatorColor(getResources().getColor(R.color.blue2));
+        tabs.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorSelectButton));
         adapter =  new ViewPagerAdapterDisposisiDetail(getSupportFragmentManager(),Titles,Numboftabs);
 
         // Assigning ViewPager View and setting the adapter

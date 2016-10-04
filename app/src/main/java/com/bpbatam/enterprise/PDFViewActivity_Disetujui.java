@@ -7,7 +7,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bpbatam.AppConstant;
@@ -21,23 +20,23 @@ import java.io.File;
 /**
  * Created by User on 9/24/2016.
  */
-public class PDFViewActivity extends AppCompatActivity implements OnPageChangeListener, OnLoadCompleteListener {
+public class PDFViewActivity_Disetujui extends AppCompatActivity implements OnPageChangeListener, OnLoadCompleteListener {
     TextView txtLabel;
     Integer pageNumber = 0;
     Toolbar toolbar;
     String pdfFileName;
     PDFView pdfView;
 
-    LinearLayout btnDistribusi;
+    TextView btnDistribusi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pdfview);
+        setContentView(R.layout.activity_pdfview_disetujui);
 
         txtLabel = (TextView)findViewById(R.id.textLabel);
         pdfView = (PDFView)findViewById(R.id.pdfView);
         toolbar = (Toolbar)findViewById(R.id.tool_bar);
-        btnDistribusi = (LinearLayout)findViewById(R.id.btnDistribusi);
+        btnDistribusi = (TextView)findViewById(R.id.btnDistribusi);
 
         txtLabel.setText(AppConstant.PDF_FILENAME);
 
@@ -60,8 +59,7 @@ public class PDFViewActivity extends AppCompatActivity implements OnPageChangeLi
         btnDistribusi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), DistribusiActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
 

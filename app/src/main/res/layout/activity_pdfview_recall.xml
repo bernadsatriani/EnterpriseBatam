@@ -22,14 +22,11 @@
             android:layout_height="match_parent"
             android:layout_margin="@dimen/space_5">
 
-            <ui.CustomtextView
-                font:name = "GOTHAM_BOLD"
-                android:drawableRight="@drawable/right"
-                android:textColor="@color/white"
+            <RelativeLayout
                 android:textSize="@dimen/space_14"
-                android:text="Distribusi"
-                android:background="@drawable/btn_shape_all_green"
-                android:layout_width="wrap_content"
+                android:text="Disetujui"
+                android:background="@drawable/btn_shape_all_recall"
+                android:layout_width="200dp"
                 android:layout_height="@dimen/space_35"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
@@ -38,7 +35,26 @@
                 android:gravity="fill_vertical"
                 android:layout_marginTop="@dimen/space_5"
                 android:paddingLeft="@dimen/space_20"
-                android:paddingRight="@dimen/space_20"/>
+                android:paddingRight="@dimen/space_20" >
+
+
+                <ImageView
+                    android:id="@+id/imgg_recall"
+                    android:src="@drawable/recall32"
+                    android:layout_width="@dimen/space_35"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true" />
+
+                <ui.CustomtextView
+                    font:name = "GOTHAM_MEDIUM"
+                    android:textColor="@color/white"
+                    android:text="Recall Dokumen"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@+id/imgg_recall"
+                    android:layout_toEndOf="@+id/imgg_recall" />
+
+            </RelativeLayout>
 
             <com.github.barteksc.pdfviewer.PDFView
                 android:id="@+id/pdfView"

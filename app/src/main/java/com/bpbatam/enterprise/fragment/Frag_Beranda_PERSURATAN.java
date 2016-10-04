@@ -10,22 +10,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.ayz4sci.androidfactory.DownloadProgressView;
 import com.bpbatam.AppConstant;
-import com.bpbatam.enterprise.PDFViewActivity;
+import com.bpbatam.enterprise.PDFViewActivity_Distribusi;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.adapter.AdapterBerandaPersuratan;
 import com.bpbatam.enterprise.model.ListData;
-import com.bpbatam.enterprise.persuratan.adapter.AdapterPersuratanPermohonanPribadi;
 
 import java.util.ArrayList;
-
-import ui.QuickAction.ActionItem;
-import ui.QuickAction.QuickAction;
 
 /**
  * Created by User on 10/3/2016.
@@ -113,7 +107,7 @@ public class Frag_Beranda_PERSURATAN extends Fragment {
                         mRecyclerView.setVisibility(View.VISIBLE);
                         rLayoutDownload.setVisibility(View.GONE);
                         AppConstant.PDF_FILENAME = "DOWNLOAD_FILE_NAME.pdf";
-                        Intent intent = new Intent (getActivity(), PDFViewActivity.class);
+                        Intent intent = new Intent (getActivity(), PDFViewActivity_Distribusi.class);
                         getActivity().startActivity(intent);
 
                     }

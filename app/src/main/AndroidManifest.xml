@@ -80,13 +80,16 @@
         <activity android:name=".persuratan.PermohonanPersuratanActivity"></activity>
         <activity android:name=".NotificationActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
-        <activity android:name=".PDFViewActivity"
+        <activity android:name=".PDFViewActivity_Distribusi"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
 
         <activity android:name=".PDFViewActivityDitolakDisetujui"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
 
         <activity android:name=".PDFViewActivityDisposisiDistribusi"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+
+        <activity android:name=".PDFViewActivity_Disetujui"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
 
         <activity android:name=".CC_Activity"

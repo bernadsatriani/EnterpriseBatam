@@ -24,10 +24,9 @@
 
             <ui.CustomtextView
                 font:name = "GOTHAM_BOLD"
-                android:drawableRight="@drawable/right"
                 android:textColor="@color/white"
                 android:textSize="@dimen/space_14"
-                android:text="Distribusi"
+                android:text="Disetujui"
                 android:background="@drawable/btn_shape_all_green"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/space_35"
@@ -38,7 +37,7 @@
                 android:gravity="fill_vertical"
                 android:layout_marginTop="@dimen/space_5"
                 android:paddingLeft="@dimen/space_20"
-                android:paddingRight="@dimen/space_20"/>
+                android:paddingRight="@dimen/space_20" />
 
             <com.github.barteksc.pdfviewer.PDFView
                 android:id="@+id/pdfView"

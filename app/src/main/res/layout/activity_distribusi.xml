@@ -71,47 +71,45 @@
                     android:layout_marginLeft="@dimen/space_10" />
             </LinearLayout>
 
-            <EditText
-                android:id="@+id/text_pesan"
-                android:background="@drawable/btn_shape_kotak_blue"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="@dimen/space_5"
-                android:hint="insert text here..."
-                android:gravity="top" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:background="@color/colorAccept"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/space_50"
-            android:layout_alignParentBottom="true"
-            android:layout_alignRight="@+id/pdfView"
-            android:layout_alignEnd="@+id/pdfView"
-            android:id="@+id/btnDistribusi">
-
-            <ui.CustomtextView
-                font:name = "GOTHAM_BOLD"
-                android:text="KIRIM"
-                android:textColor="@color/white"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="right|fill_vertical"
-                android:layout_weight="1"/>
-
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_height="match_parent">
 
-                <ImageView
-                    android:src="@drawable/right"
-                    android:layout_width="@dimen/space_25"
-                    android:layout_height="match_parent" />
+                <EditText
+                    android:id="@+id/text_pesan"
+                    android:background="@drawable/btn_shape_kotak_blue"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="insert text here..."
+
+                    android:gravity="top"
+                    android:layout_marginLeft="@dimen/space_5"
+                    android:layout_marginRight="@dimen/space_5"
+                    android:layout_above="@+id/btnDistribusi"
+                    android:layout_alignParentTop="true" />
+
+                <ui.CustomtextView
+                    font:name = "GOTHAM_BOLD"
+                    android:drawableRight="@drawable/right"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/space_14"
+                    android:text="Kirim"
+                    android:background="@drawable/btn_shape_all_green"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/space_35"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+
+                    android:id="@+id/btnDistribusi"
+                    android:gravity="fill_vertical"
+                    android:layout_marginBottom="@dimen/space_35"
+                    android:layout_marginTop="@dimen/space_5"
+                    android:paddingLeft="@dimen/space_20"
+                    android:paddingRight="@dimen/space_20"/>
             </RelativeLayout>
-
         </LinearLayout>
+
+
     </RelativeLayout>
 
 
