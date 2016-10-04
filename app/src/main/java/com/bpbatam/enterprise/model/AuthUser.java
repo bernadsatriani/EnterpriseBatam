@@ -9,19 +9,39 @@ import java.util.List;
 public class AuthUser
 {
     public  String code;
+    public  String info;
+    public  String hashid;
+    public  String userid;
+    public  String pass;
+
+    public AuthUser(String hashid, String userid, String pass) {
+        this.hashid = hashid;
+        this.userid = userid;
+        this.pass = pass;
+    }
+
     public List<Datum> data;
 
     public class Datum
     {
-        public  String user_name;
-        public  String role_id;
-        public  String level_id;
-        public  String sub_level_id;
-        public  String dept_id ;
-        public  String create_date;
-        public  String nip;
-        public  String device_id;
-        public  String device_type;
-        public  String user_type;
+        public String userId ;
+        public String userName ;
+        public String roleId ;
+        public String levelId ;
+        public String positionId ;
+        public String idNumber ;
+        public String deviceId ;
+        public String deviceType ;
+        public String userType ;
+        public String joinDate ;
+        public String nik ;
+        public String gender ;
+        public String postalCode ;
+        public String address1 ;
+        public String address2 ;
+        public String birthDate ;
+        public String ishmrsUser ;
     }
+    
+    
 }

@@ -14,12 +14,19 @@ import android.widget.Toast;
 
 import com.bpbatam.enterprise.MainActivity;
 import com.bpbatam.enterprise.R;
+import com.bpbatam.enterprise.model.AuthUser;
 import com.bpbatam.enterprise.model.DataAdmin;
 import com.bpbatam.enterprise.model.net.NetworkManager;
+import com.google.gson.JsonObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -33,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         txtPassword;
 
     Button btnLogin;
-    DataAdmin dataAdmin;
+    AuthUser authUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,23 +49,39 @@ public class LoginActivity extends AppCompatActivity {
         InitControl();
         InitFolder();
 
+        JSONObject params = new JSONObject();
+        try {
+            params.put("hashid", AppConstant.HASHID);
+            params.put("userid","admin1");
+            params.put("pass","admin12345");
+            params.put("device_id","");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        AuthUser param = new AuthUser(AppConstant.HASHID, "admin1","admin12345");
+        AuthUser getParam = AppController.getInstance().getSessionManager().getUserProfile();
         try{
-            Call<DataAdmin> call = NetworkManager.getNetworkService(this).getAdmin();
-            call.enqueue(new Callback<DataAdmin>() {
+            Call<AuthUser> call = NetworkManager.getNetworkService(this).loginUser(param);
+            call.enqueue(new Callback<AuthUser>() {
                 @Override
-                public void onResponse(Call<DataAdmin> call, Response<DataAdmin> response) {
+                public void onResponse(Call<AuthUser> call, Response<AuthUser> response) {
                     int code = response.code();
-                    dataAdmin = response.body();
+                    authUser = response.body();
+
+                    AppController.getInstance().getSessionManager().setUserAccount(authUser);
                 }
 
                 @Override
-                public void onFailure(Call<DataAdmin> call, Throwable t) {
-
+                public void onFailure(Call<AuthUser> call, Throwable t) {
+                    String a = t.getMessage();
+                    a = a;
                 }
             });
         }catch (Exception e){
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
+
     }
 
     void InitControl(){

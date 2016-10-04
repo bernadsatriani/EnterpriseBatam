@@ -6,13 +6,19 @@ import com.bpbatam.enterprise.model.DataAdmin;
 import com.bpbatam.enterprise.model.GitHubUser;
 import com.bpbatam.enterprise.model.ListUser;
 import com.bpbatam.enterprise.model.LocationList;
+import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
 
 import java.util.List;
 
+import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -38,12 +44,8 @@ public interface NetworkService {
     @GET("contohjson")
     Call<DataAdmin> getAdmin() ;
 
-
-    @FormUrlEncoded
-    @POST("/ep_api_services/ep_user/login")
-    Call<AuthUser> loginUser(@Path("hashid") String hashid,
-                             @Path("userid") String userid,
-                             @Path("pass") String pass) ;
+    @POST("ep_api_services/ep_user/login")
+    Call<AuthUser> loginUser(@Body AuthUser params);
 
 
 

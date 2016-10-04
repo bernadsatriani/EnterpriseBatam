@@ -23,7 +23,7 @@ public final class AppConstant {
 	public static String ACTIVITY_FROM;
 
 
-	public static final String DOMAIN_URL = "http://api.teknorial.com";
+	public static final String DOMAIN_URL = "http://182.253.221.109:44311";
 	public final static String API_VERSION = "/";
 
 	public static JSONArray gPostJson;

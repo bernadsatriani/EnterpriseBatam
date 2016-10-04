@@ -83,6 +83,15 @@
         <activity android:name=".PDFViewActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
 
+        <activity android:name=".PDFViewActivityDitolakDisetujui"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+
+        <activity android:name=".PDFViewActivityDisposisiDistribusi"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+
+        <activity android:name=".DistribusiActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+
         <activity android:name=".bbs.bbs_komentar_activity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
 

@@ -24,7 +24,7 @@ public class AppController extends Application {
         super.onCreate();
         mInstance = this;
         sessionManager = new SessionManager(getApplicationContext());
-        AppConstant.HASHID = md5(getDateTime() + "ipnet_batam");
+        AppConstant.HASHID = md5(getDateTime() + "ipnet_bpbatam");
     }
 
     public static Context getAppContext() {
@@ -75,8 +75,14 @@ public class AppController extends Application {
 
             // Create Hex String
             StringBuffer hexString = new StringBuffer();
-            for (int i=0; i<messageDigest.length; i++)
-                hexString.append(Integer.toHexString(0xFF & messageDigest[i]));
+            for (int i=0; i<messageDigest.length; i++){
+                String h = Integer.toHexString(0xFF & messageDigest[i]);
+                //hexString.append(Integer.toHexString(0xFF & messageDigest[i]));
+                while (h.length() < 2)
+                    h = "0" + h;
+                hexString.append(h);
+            }
+
             return hexString.toString();
 
         } catch (NoSuchAlgorithmException e) {

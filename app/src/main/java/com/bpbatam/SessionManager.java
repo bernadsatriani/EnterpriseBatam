@@ -10,6 +10,9 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
 
+import com.bpbatam.enterprise.model.AuthUser;
+import com.google.gson.Gson;
+
 import java.util.Locale;
 
 public class SessionManager {
@@ -230,5 +233,17 @@ public class SessionManager {
         res.updateConfiguration(conf, dm);
     }
 
+    public void setUserAccount(AuthUser userData) {
+        if (userData != null) {
+            String data = new Gson().toJson(userData);
+            putStringData(USER_ACCOUNT, data);
+        } else {
+            putStringData(USER_ACCOUNT, "");
+        }
+    }
+
+    public AuthUser getUserProfile() {
+        return new Gson().fromJson(getStringData(USER_ACCOUNT), AuthUser.class);
+    }
 }
 

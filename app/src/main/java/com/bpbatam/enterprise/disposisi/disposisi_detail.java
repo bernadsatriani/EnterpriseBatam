@@ -48,6 +48,7 @@ public class disposisi_detail extends AppCompatActivity {
         txtLabel.setText("DISPOSISI");
         pager = (ViewPager)findViewById(R.id.pager);
         tabs = (TabLayout)findViewById(R.id.tabs);
+        tabs.setSelectedTabIndicatorColor(getResources().getColor(R.color.blue2));
         adapter =  new ViewPagerAdapterDisposisiDetail(getSupportFragmentManager(),Titles,Numboftabs);
 
         // Assigning ViewPager View and setting the adapter
@@ -76,6 +77,9 @@ public class disposisi_detail extends AppCompatActivity {
                 //NavUtils.navigateUpFromSameTask(this);
                 Intent intent = new Intent(getBaseContext(),NotificationActivity.class);
                 startActivity(intent);
+                return true;
+            case android.R.id.home:
+                finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);

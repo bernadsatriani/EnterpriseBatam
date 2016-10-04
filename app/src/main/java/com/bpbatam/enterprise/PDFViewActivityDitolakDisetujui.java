@@ -1,6 +1,5 @@
 package com.bpbatam.enterprise;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -21,7 +20,7 @@ import java.io.File;
 /**
  * Created by User on 9/24/2016.
  */
-public class PDFViewActivity extends AppCompatActivity implements OnPageChangeListener, OnLoadCompleteListener {
+public class PDFViewActivityDitolakDisetujui extends AppCompatActivity implements OnPageChangeListener, OnLoadCompleteListener {
     TextView txtLabel;
     Integer pageNumber = 0;
     Toolbar toolbar;
@@ -60,8 +59,7 @@ public class PDFViewActivity extends AppCompatActivity implements OnPageChangeLi
         btnDistribusi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), DistribusiActivity.class);
-                startActivity(intent);
+
             }
         });
 
