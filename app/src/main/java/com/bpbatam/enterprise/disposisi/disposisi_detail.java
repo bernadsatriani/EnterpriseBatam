@@ -40,6 +40,7 @@ public class disposisi_detail extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationIcon(R.drawable.back_24);
     }
 
     void InitControl(){

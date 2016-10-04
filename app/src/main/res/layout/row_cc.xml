@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:font="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/layout_row"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_55">
+
+        <ui.CustomtextView
+            font:name = "GOTHAM_LIGHT"
+            android:id="@+id/text_departemen"
+            android:text="Departemen (Posisi)"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="fill_vertical"
+            android:layout_marginLeft="@dimen/space_5"
+            android:layout_weight="1"
+            android:textSize="12sp" />
+
+        <ui.CustomtextView
+            font:name = "GOTHAM_LIGHT"
+            android:text="Nama"
+            android:id="@+id/text_nama"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="fill_vertical"
+            android:layout_marginLeft="@dimen/space_5"
+            android:layout_weight="1"
+            android:textSize="12sp" />
+
+        <ui.CustomtextView
+            font:name = "GOTHAM_LIGHT"
+            android:text="Terkirim"
+            android:id="@+id/text_terkirim"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="fill_vertical"
+            android:layout_marginLeft="@dimen/space_5"
+            android:layout_weight="1"
+            android:textSize="12sp" />
+
+        <ui.CustomtextView
+            font:name = "GOTHAM_LIGHT"
+            android:text="Dibaca"
+            android:id="@+id/text_dibaca"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="fill_vertical"
+            android:layout_marginLeft="@dimen/space_5"
+            android:layout_weight="1"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+</LinearLayout>

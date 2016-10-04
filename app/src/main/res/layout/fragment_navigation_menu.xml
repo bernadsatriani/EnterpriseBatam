@@ -2,7 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:font="http://schemas.android.com/apk/res-auto"
-    android:background="@color/navigationDrawerBackground">
+    android:background="@color/colorSelectButton">
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -42,7 +42,7 @@ public class PDFViewActivityDitolakDisetujui extends AppCompatActivity implement
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        toolbar.setNavigationIcon(R.drawable.back_24);
         if (AppConstant.PDFVIEW_FROM != null) txtLabel.setText(AppConstant.PDFVIEW_FROM);
 
         File file = new File(AppConstant.STORAGE_CARD + "/Download/" + AppConstant.PDF_FILENAME);

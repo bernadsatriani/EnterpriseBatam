@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:font="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/colorSecondaryBackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar"
+        />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/space_5">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_50">
+
+            <ui.CustomtextView
+                font:name = "GOTHAM_MEDIUM"
+                android:text="Carbon Copy ( CC )"
+                android:textColor="@color/colorSelectButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="fill_vertical"
+                android:layout_marginLeft="@dimen/space_5" />
+
+            <View
+                android:background="@color/colorSelectButton"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+             />
+
+            <TextView
+                android:background="@color/colorSelectButton"
+                android:layout_width="@dimen/space_150"
+                android:layout_height="5dp"
+                android:layout_alignParentBottom="true" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:background="@color/colorSecondaryBackground"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_55">
+
+            <ui.CustomtextView
+                font:name = "GOTHAM_MEDIUM"
+                android:text="Departemen (Posisi)"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="fill_vertical|center"
+                android:layout_marginLeft="@dimen/space_5"
+                android:layout_weight="1"
+                android:textSize="12sp" />
+
+            <ui.CustomtextView
+                font:name = "GOTHAM_MEDIUM"
+                android:text="Nama"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="fill_vertical|center"
+                android:layout_marginLeft="@dimen/space_5"
+                android:layout_weight="1"
+                android:textSize="12sp" />
+
+            <ui.CustomtextView
+                font:name = "GOTHAM_MEDIUM"
+                android:text="Terkirim"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="fill_vertical|center"
+                android:layout_marginLeft="@dimen/space_5"
+                android:layout_weight="1"
+                android:textSize="12sp" />
+
+            <ui.CustomtextView
+                font:name = "GOTHAM_MEDIUM"
+                android:text="Dibaca"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="fill_vertical|center"
+                android:layout_marginLeft="@dimen/space_5"
+                android:layout_weight="1"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/my_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+
+
+
+</LinearLayout>

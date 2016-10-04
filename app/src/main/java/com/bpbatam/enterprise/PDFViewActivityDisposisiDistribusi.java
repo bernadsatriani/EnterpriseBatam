@@ -39,7 +39,7 @@ public class PDFViewActivityDisposisiDistribusi extends AppCompatActivity implem
         btnDistribusi = (LinearLayout)findViewById(R.id.btnDistribusi);
 
         txtLabel.setText(AppConstant.PDF_FILENAME);
-
+        toolbar.setNavigationIcon(R.drawable.back_24);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

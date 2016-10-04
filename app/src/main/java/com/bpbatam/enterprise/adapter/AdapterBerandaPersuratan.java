@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bpbatam.enterprise.DistribusiActivity;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.disposisi.disposisi_detail;
 import com.bpbatam.enterprise.model.ListData;
@@ -66,6 +67,15 @@ public class AdapterBerandaPersuratan extends  RecyclerView.Adapter<AdapterBeran
                 v.getContext().startActivity(intent);
             }
         });
+
+        holder.imgCC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, DistribusiActivity.class);
+                context.startActivity(intent);
+            }
+        });
+
         holder.listData = listData;
     }
 
@@ -86,7 +96,7 @@ public class AdapterBerandaPersuratan extends  RecyclerView.Adapter<AdapterBeran
                 btnPrint
         ;
 
-        ImageView imgStatus;
+        ImageView imgStatus, imgCC;
 
         ListData listData;
         public ViewHolder(View itemView,
@@ -102,6 +112,7 @@ public class AdapterBerandaPersuratan extends  RecyclerView.Adapter<AdapterBeran
             imgStatus = (ImageView) itemView.findViewById(R.id.imageView5);
             btnDownload = (TextView)itemView.findViewById(R.id.btnDownload);
             btnPrint = (TextView)itemView.findViewById(R.id.btnPrint);
+            imgCC = (ImageView)itemView.findViewById(R.id.imageView5);
 
             btnDownload.setOnClickListener(new View.OnClickListener() {
                 @Override
