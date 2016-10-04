@@ -9,6 +9,13 @@
     <color name="colorPrimaryDark">@color/white</color>
     <color name="colorAccent">@color/white</color>
 
+    <color name="colorSecondaryBackground">#F1F6FA</color>
+    <color name="colorSearch">#5E91F9</color>
+    <color name="colorListItem">#EEF5FF</color>
+    <color name="colorReject">#FD1630</color>
+    <color name="colorAccept">#00FC6B</color>
+    <color name="colorSelectButton">#0E3671</color>
+
     <!-- Navigation drawer color-->
     <color name="navigationDrawerBackground">#003580</color>
     <color name="navigationDrawerSelectedBackground">#2529d8</color>

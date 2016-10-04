@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/navigationDrawerBackgroundDetail">
+    android:background="@color/colorSecondaryBackground">
 
     <ui.CustomEditText
         android:id="@+id/text_search"
@@ -16,6 +16,7 @@
         android:layout_marginLeft="@dimen/space_5"
         android:layout_marginTop="@dimen/space_5"
         android:layout_marginRight="@dimen/space_5"
+        android:textColorHint="@color/white"
         android:hint="search" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -39,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Permohonan"
-                android:textColor="@color/red"
+                android:textColor="@color/black"
                 android:textSize="@dimen/space_18"
                 android:textStyle="bold"
                 font:name="GOTHAM_BOLD"
@@ -59,14 +60,14 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
-                android:tint="@color/red" />
+                android:tint="@color/black" />
 
             <ImageView
                 android:layout_width="@dimen/space_35"
                 android:layout_height="match_parent"
                 android:id="@+id/imageView14"
                 android:src="@drawable/document_black"
-                android:tint="@color/red"
+                android:tint="@color/black"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"

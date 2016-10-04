@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    android:background="@color/navigationDrawerBackgroundDetail">
+    android:background="@color/colorSecondaryBackground">
 
     <include
         layout="@layout/tool_bar_back"
@@ -131,7 +131,7 @@
                     android:id="@+id/layout_attachment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/grey_s"
+                    android:background="@color/colorListItem"
                     android:layout_below="@+id/text_Date"
                     android:layout_alignRight="@+id/text_time"
                     android:layout_alignEnd="@+id/text_time"
@@ -212,7 +212,7 @@
             android:background="@drawable/edittext_mid"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_90"
-            android:backgroundTint="@color/navigationDrawerBackgroundDetail"
+            android:backgroundTint="@color/colorSecondaryBackground"
             android:layout_above="@+id/btnPost"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"

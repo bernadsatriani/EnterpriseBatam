@@ -5,6 +5,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:font="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -52,7 +53,7 @@
                 android:id="@+id/layout_attachment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/grey_s"
+                android:background="@color/colorListItem"
                 android:layout_below="@+id/text_Date"
                 android:layout_alignRight="@+id/text_time"
                 android:layout_alignEnd="@+id/text_time"
@@ -158,14 +159,14 @@
 
             <ImageView
                 android:layout_width="@dimen/space_40"
-                android:layout_height="@dimen/space_35"
+                android:layout_height="@dimen/space_30"
                 android:id="@+id/imageView5"
                 android:src="@drawable/circle_cc"
                 android:layout_toLeftOf="@+id/btnPrint"
                 android:layout_toStartOf="@+id/btnPrint"
-                android:layout_alignParentBottom="true"
-                android:layout_below="@+id/layout_attachment"
-                android:layout_marginBottom="@dimen/space_3" />
+                android:layout_marginRight="@dimen/space_5"
+                android:layout_alignBottom="@+id/btnPrint"
+                android:layout_alignTop="@+id/btnPrint" />
 
         </RelativeLayout>
 

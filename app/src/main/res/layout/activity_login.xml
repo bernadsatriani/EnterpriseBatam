@@ -93,14 +93,16 @@
             android:id="@+id/btn_login"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
-            android:layout_alignLeft="@+id/edt_password"
-            android:layout_alignRight="@+id/edt_password"
-            android:layout_below="@+id/edt_password"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/btn_shape_all"
+            android:background="@drawable/button_login"
             android:textAllCaps="false"
             android:text="LOGIN"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:layout_below="@+id/edt_password"
+            android:layout_alignLeft="@+id/edt_password"
+            android:layout_alignStart="@+id/edt_password"
+            android:layout_alignRight="@+id/edt_password"
+            android:layout_alignEnd="@+id/edt_password"
+            android:layout_marginTop="@dimen/space_10" />
 
 
     </RelativeLayout>

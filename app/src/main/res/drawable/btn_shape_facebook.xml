@@ -2,8 +2,8 @@
     android:shape="rectangle">
     <gradient
         android:angle="45"
-        android:endColor="@color/com_facebook_blue"
-        android:startColor="@color/com_facebook_blue" />
+        android:endColor="@color/colorSelectButton"
+        android:startColor="@color/colorSelectButton" />
 
     <padding
         android:bottom="6dp"

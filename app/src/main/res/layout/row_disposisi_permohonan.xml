@@ -44,7 +44,7 @@
                 android:id="@+id/layout_attachment"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_40"
-                android:background="@color/grey_s"
+                android:background="@color/colorListItem"
                 android:layout_below="@+id/text_Date"
                 android:layout_alignRight="@+id/text_time"
                 android:layout_alignEnd="@+id/text_time"

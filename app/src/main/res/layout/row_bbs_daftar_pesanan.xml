@@ -56,7 +56,7 @@
                 android:id="@+id/layout_attachment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/navigationDrawerBackgroundDetail"
+                android:background="@color/colorListItem"
                 android:layout_below="@+id/text_Date"
                 android:layout_alignRight="@+id/text_time"
                 android:layout_alignEnd="@+id/text_time"

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:font="http://schemas.android.com/apk/res-auto"
-    android:background="@color/navigationDrawerBackgroundDetail">
+    android:background="@color/colorSecondaryBackground">
 
     <include
         android:id="@+id/tool_bar"
@@ -14,7 +14,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/navigationDrawerBackgroundDetail">
+        android:background="@color/colorSecondaryBackground">
 
         <LinearLayout
             android:orientation="vertical"
@@ -82,7 +82,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:background="@color/Green"
+            android:background="@color/colorAccept"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_50"
