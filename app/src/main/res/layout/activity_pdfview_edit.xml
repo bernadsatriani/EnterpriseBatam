@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:font="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorSecondaryBackground">
+
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar" >
+    </include>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorSecondaryBackground">
+
+        <RelativeLayout
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/space_5">
+
+            <ui.CustomtextView
+                font:name = "GOTHAM_BOLD"
+                android:textColor="@color/white"
+                android:textSize="@dimen/space_14"
+                android:text="EDIT"
+                android:background="@drawable/btn_shape_all_blue"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/space_35"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/space_25"
+                android:id="@+id/btnDistribusi"
+                android:gravity="fill_vertical"
+                android:layout_marginTop="@dimen/space_5"
+                android:paddingLeft="@dimen/space_20"
+                android:paddingRight="@dimen/space_20" />
+
+            <com.github.barteksc.pdfviewer.PDFView
+                android:id="@+id/pdfView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/space_5"
+                android:layout_marginRight="@dimen/space_5"
+                android:background="@color/white"
+                android:layout_above="@+id/btnDistribusi"
+                android:layout_alignParentTop="true">
+
+            </com.github.barteksc.pdfviewer.PDFView>
+
+        </RelativeLayout>
+
+
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

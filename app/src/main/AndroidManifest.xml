@@ -93,6 +93,9 @@
         <activity android:name=".PDFViewActivity_Disetujui"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
 
+        <activity android:name=".PDFViewActivity_Edit"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+
         <activity android:name=".CC_Activity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
 

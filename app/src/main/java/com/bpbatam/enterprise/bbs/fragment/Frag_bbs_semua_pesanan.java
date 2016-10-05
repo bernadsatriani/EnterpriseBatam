@@ -1,6 +1,7 @@
 package com.bpbatam.enterprise.bbs.fragment;
 
 import android.app.DownloadManager;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.widget.RelativeLayout;
 
 import com.ayz4sci.androidfactory.DownloadProgressView;
 import com.bpbatam.AppConstant;
+import com.bpbatam.enterprise.PDFViewActivity_Edit;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.bbs.adapter.AdapterBBSDaftarPesanan;
 import com.bpbatam.enterprise.bbs.adapter.AdapterBBSSemuaPesanan;
@@ -103,7 +105,9 @@ public class Frag_bbs_semua_pesanan extends Fragment {
                         //Action to perform on success
                         mRecyclerView.setVisibility(View.VISIBLE);
                         rLayoutDownload.setVisibility(View.GONE);
-
+                        AppConstant.PDF_FILENAME = "DOWNLOAD_FILE_NAME.pdf";
+                        Intent intent = new Intent(getActivity(), PDFViewActivity_Edit.class);
+                        getActivity().startActivity(intent);
                     }
 
                     @Override

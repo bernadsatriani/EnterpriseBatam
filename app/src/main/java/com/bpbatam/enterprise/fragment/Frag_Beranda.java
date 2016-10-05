@@ -72,7 +72,7 @@ public class Frag_Beranda extends Fragment {
         // Assigning ViewPager View and setting the adapter
         pager.setAdapter(adapter);
 
-        tabs.setSelectedTabIndicatorColor(v.getResources().getColor(R.color.red));
+        //tabs.setSelectedTabIndicatorColor(v.getResources().getColor(R.color.black));
 
         tabs.setupWithViewPager(pager);
 
