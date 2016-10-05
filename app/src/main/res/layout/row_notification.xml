@@ -29,6 +29,8 @@
                 android:id="@+id/view3" />
 
             <ui.CustomtextView
+                font:name = "GOTHAM_BOLD"
+                android:textSize="@dimen/space_12"
                 android:id="@+id/text_Date"
                 android:text="Senin,19 sept 2016"
                 android:layout_width="match_parent"
@@ -38,7 +40,8 @@
                 android:layout_marginTop="@dimen/space_5" />
 
             <ui.CustomtextView
-                font:name = "Label"
+                font:name = "GOTHAM_BOLD"
+                android:textSize="@dimen/space_12"
                 android:id="@+id/text_time"
                 android:text="10:46 AM"
                 android:layout_width="wrap_content"
@@ -46,8 +49,9 @@
                 android:gravity="right"
                 android:layout_below="@+id/view3"
                 android:layout_toRightOf="@+id/layout_attachment"
-                android:layout_toEndOf="@+id/layout_attachment"
-                android:layout_marginTop="@dimen/space_5" />
+                android:layout_marginTop="@dimen/space_5"
+                android:layout_alignRight="@+id/btn_pay"
+                android:layout_alignEnd="@+id/btn_pay" />
 
             <RelativeLayout
                 android:id="@+id/layout_attachment"
@@ -90,7 +94,7 @@
 
             <ui.CustomtextView
                 android:id="@+id/btn_pay"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/space_80"
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_shape_all"
                 android:gravity="center"
@@ -104,7 +108,7 @@
                 android:layout_alignRight="@+id/text_Date"
                 android:layout_alignEnd="@+id/text_Date"
                 android:layout_marginRight="@dimen/space_5"
-                android:backgroundTint="@color/red" />
+                android:backgroundTint="@color/colorReject" />
         </RelativeLayout>
 
     </LinearLayout>

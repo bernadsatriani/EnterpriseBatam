@@ -51,11 +51,11 @@ public class AdapterNotification extends  RecyclerView.Adapter<AdapterNotificati
         if ((position%2)==0){
             holder.txtStatus.setText("Diterima");
             holder.txtStatus.setBackgroundResource(R.drawable.btn_shape_all_green);
-            holder.viewLine.setBackgroundColor(context.getResources().getColor(R.color.green));
+            holder.viewLine.setBackgroundColor(context.getResources().getColor(R.color.colorAccept));
         }else if ((position%3)==0) {
-            holder.viewLine.setBackgroundColor(context.getResources().getColor(R.color.red));
+            holder.viewLine.setBackgroundColor(context.getResources().getColor(R.color.colorReject));
         }else{
-            holder.viewLine.setBackgroundColor(context.getResources().getColor(R.color.blu3));
+            holder.viewLine.setBackgroundColor(context.getResources().getColor(R.color.colorSearch));
         }
 
 

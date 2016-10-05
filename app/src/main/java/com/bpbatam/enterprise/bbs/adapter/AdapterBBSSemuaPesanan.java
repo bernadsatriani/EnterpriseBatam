@@ -1,7 +1,6 @@
-package com.bpbatam.enterprise.disposisi.adapter;
+package com.bpbatam.enterprise.bbs.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bpbatam.enterprise.DistribusiActivity;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.model.ListData;
 
@@ -19,12 +17,12 @@ import java.util.ArrayList;
 /**
  * Created by User on 9/19/2016.
  */
-public class AdapterDisposisiPermohonanPribadi extends  RecyclerView.Adapter<AdapterDisposisiPermohonanPribadi.ViewHolder>{
+public class AdapterBBSSemuaPesanan extends  RecyclerView.Adapter<AdapterBBSSemuaPesanan.ViewHolder>{
 
     private ArrayList<ListData> mCourseArrayList;
     private Context context;
 
-    public AdapterDisposisiPermohonanPribadi(Context context, ArrayList<ListData> mCourseArrayList, OnDownloadClicked listener) {
+    public AdapterBBSSemuaPesanan(Context context, ArrayList<ListData> mCourseArrayList, OnDownloadClicked listener) {
         this.context = context;
         this.mCourseArrayList = mCourseArrayList;
         this.listener = listener;
@@ -43,7 +41,7 @@ public class AdapterDisposisiPermohonanPribadi extends  RecyclerView.Adapter<Ada
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //Inflate layout
         View itemView = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.row_persuratan_permohonan, null);
+                R.layout.row_bbs_semua_pesanan, null);
 
         return new ViewHolder(itemView, context, this);
     }
@@ -52,8 +50,7 @@ public class AdapterDisposisiPermohonanPribadi extends  RecyclerView.Adapter<Ada
     public void onBindViewHolder(ViewHolder holder, int position) {
         ListData listData = mCourseArrayList.get(position);
         //Set text
-        holder.txtDate.setText("Rabu, 21 Sept 2016");
-        holder.txtTime.setText("12:37 PM");
+        holder.txtDate.setText("Senin, 29 Agustus 2016, pukul 02:02");
         holder.lbl_Attach.setText(listData.getAtr1());
         holder.lbl_Size.setText(listData.getAtr2());
 
@@ -61,13 +58,6 @@ public class AdapterDisposisiPermohonanPribadi extends  RecyclerView.Adapter<Ada
 
         //AppController.getInstance().displayImage(context,listData.getAtr3(), holder.imgCover);
 
-        holder.imgCC.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, DistribusiActivity.class);
-                context.startActivity(intent);
-            }
-        });
         holder.listData = listData;
     }
 
@@ -80,31 +70,19 @@ public class AdapterDisposisiPermohonanPribadi extends  RecyclerView.Adapter<Ada
             implements View.OnClickListener, View.OnLongClickListener {
 
         TextView txtDate,
-                txtTime,
                 lbl_Attach,
-                lbl_Size,
-                txtStatus
+                lbl_Size
         ;
-
-        RelativeLayout btnDownload,
-                btnPrint;
-        ImageView imgStatus, imgCC;
-
+        RelativeLayout btnDownload;
         ListData listData;
         public ViewHolder(View itemView,
-                          Context context,
-                          final AdapterDisposisiPermohonanPribadi mCourseAdapter) {
+                          final Context context,
+                          final AdapterBBSSemuaPesanan mCourseAdapter) {
             super(itemView);
-
             txtDate = (TextView)itemView.findViewById(R.id.text_Date);
-            txtStatus = (TextView)itemView.findViewById(R.id.text_status);
-            txtTime = (TextView)itemView.findViewById(R.id.text_time);
             lbl_Attach = (TextView)itemView.findViewById(R.id.lbl_attach);
             lbl_Size = (TextView)itemView.findViewById(R.id.lbl_size);
-            imgStatus = (ImageView) itemView.findViewById(R.id.imageView5);
             btnDownload = (RelativeLayout) itemView.findViewById(R.id.btnDownload);
-            btnPrint = (RelativeLayout) itemView.findViewById(R.id.btnPrint);
-            imgCC = (ImageView)itemView.findViewById(R.id.imageView5);
 
             btnDownload.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -113,6 +91,8 @@ public class AdapterDisposisiPermohonanPribadi extends  RecyclerView.Adapter<Ada
                     listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
                 }
             });
+
+
         }
 
         @Override

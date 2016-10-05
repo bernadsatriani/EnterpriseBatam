@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bpbatam.enterprise.DistribusiActivity;
@@ -91,11 +92,12 @@ public class AdapterBerandaPersuratan extends  RecyclerView.Adapter<AdapterBeran
                 txtTime,
                 lbl_Attach,
                 lbl_Size,
-                txtStatus,
-                btnDownload,
-                btnPrint
+                txtStatus
+
         ;
 
+        RelativeLayout btnDownload,
+                btnPrint;
         ImageView imgStatus, imgCC;
 
         ListData listData;
@@ -110,8 +112,8 @@ public class AdapterBerandaPersuratan extends  RecyclerView.Adapter<AdapterBeran
             lbl_Attach = (TextView)itemView.findViewById(R.id.lbl_attach);
             lbl_Size = (TextView)itemView.findViewById(R.id.lbl_size);
             imgStatus = (ImageView) itemView.findViewById(R.id.imageView5);
-            btnDownload = (TextView)itemView.findViewById(R.id.btnDownload);
-            btnPrint = (TextView)itemView.findViewById(R.id.btnPrint);
+            btnDownload = (RelativeLayout)itemView.findViewById(R.id.btnDownload);
+            btnPrint = (RelativeLayout)itemView.findViewById(R.id.btnPrint);
             imgCC = (ImageView)itemView.findViewById(R.id.imageView5);
 
             btnDownload.setOnClickListener(new View.OnClickListener() {

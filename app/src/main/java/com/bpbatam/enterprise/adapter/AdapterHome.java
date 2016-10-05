@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alexzh.circleimageview.CircleImageView;
@@ -73,10 +74,10 @@ public class AdapterHome extends  RecyclerView.Adapter<AdapterHome.ViewHolder>{
         TextView txtTime,
                 lbl_Attach,
                 lbl_Size,
-                txtStatus,
-                btnDownload
+                txtStatus
         ;
 
+        RelativeLayout btnDownload;
         ListData listData;
         ImageView circleImageView;
         public ViewHolder(View itemView,
@@ -88,7 +89,7 @@ public class AdapterHome extends  RecyclerView.Adapter<AdapterHome.ViewHolder>{
             txtTime = (TextView)itemView.findViewById(R.id.text_time);
             lbl_Attach = (TextView)itemView.findViewById(R.id.lbl_attach);
             lbl_Size = (TextView)itemView.findViewById(R.id.lbl_size);
-            btnDownload = (TextView)itemView.findViewById(R.id.btnDownload);
+            btnDownload = (RelativeLayout) itemView.findViewById(R.id.btnDownload);
             circleImageView = (ImageView) itemView.findViewById(R.id.imageView7);
 
             btnDownload.setOnClickListener(new View.OnClickListener() {

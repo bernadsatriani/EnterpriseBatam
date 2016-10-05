@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -106,11 +107,11 @@ public class AdapterPersuratanPermohonanPribadi extends  RecyclerView.Adapter<Ad
                 txtTime,
                 lbl_Attach,
                 lbl_Size,
-                txtStatus,
-                btnDownload,
-                btnPrint
+                txtStatus;
         ;
 
+        RelativeLayout btnDownload,
+                btnPrint;
         ImageView imgStatus, imgCC, imgChecklist;
 
         ListData listData;
@@ -125,8 +126,8 @@ public class AdapterPersuratanPermohonanPribadi extends  RecyclerView.Adapter<Ad
             lbl_Attach = (TextView)itemView.findViewById(R.id.lbl_attach);
             lbl_Size = (TextView)itemView.findViewById(R.id.lbl_size);
             imgStatus = (ImageView) itemView.findViewById(R.id.imageView5);
-            btnDownload = (TextView)itemView.findViewById(R.id.btnDownload);
-            btnPrint = (TextView)itemView.findViewById(R.id.btnPrint);
+            btnDownload = (RelativeLayout) itemView.findViewById(R.id.btnDownload);
+            btnPrint = (RelativeLayout) itemView.findViewById(R.id.btnPrint);
             imgCC = (ImageView)itemView.findViewById(R.id.imageView5);
             imgChecklist = (ImageView)itemView.findViewById(R.id.imageView15);
 

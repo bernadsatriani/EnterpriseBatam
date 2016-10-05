@@ -70,10 +70,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
+                    android:textStyle="italic"
                     android:layout_alignTop="@+id/imageView6"
                     android:layout_toRightOf="@+id/imageView6"
                     android:layout_toEndOf="@+id/imageView6"
-                    android:layout_marginRight="@dimen/space_45" />
+                    android:layout_marginRight="@dimen/space_5" />
 
                 <ui.CustomtextView
                     font:name = "GOTHAM_LIGHT"
@@ -86,7 +87,7 @@
                     android:layout_alignBottom="@+id/imageView6"
                     android:layout_toRightOf="@+id/imageView6"
                     android:layout_toEndOf="@+id/imageView6"
-                    android:layout_marginRight="@dimen/space_45"
+                    android:layout_marginRight="@dimen/space_5"
                     android:textStyle="italic" />
 
                 <ImageView
@@ -123,55 +124,8 @@
                 android:layout_alignParentTop="true"
                 android:layout_toLeftOf="@+id/text_time" />
 
-            <ImageView
-                android:layout_width="@dimen/space_40"
-                android:layout_height="@dimen/space_30"
-                android:id="@+id/imageView5"
-                android:src="@drawable/circle_cc"
-                android:layout_toLeftOf="@+id/btnPrint"
-                android:layout_marginRight="@dimen/space_5"
-                android:layout_alignBottom="@+id/btnPrint"
-                android:layout_alignTop="@+id/btnPrint" />
-
             <RelativeLayout
-                android:id="@+id/btnPrint"
-                android:layout_height="@dimen/space_35"
-                android:background="@drawable/btn_shape_facebook"
-                android:onClick="onClick"
-                android:text="lihat detail"
-                android:textColor="#ffffff"
-                android:textSize="@dimen/space_12"
-                android:layout_alignTop="@+id/btnDownload"
-                android:layout_toLeftOf="@+id/btnDownload"
-                android:layout_toStartOf="@+id/btnDownload"
-                android:layout_width="105dp"
-                android:layout_marginRight="@dimen/space_3"
-                android:layout_alignBottom="@+id/btnDownload">
-                <ImageView
-                    android:src="@drawable/info_32"
-                    android:layout_width="@dimen/space_25"
-                    android:layout_height="@dimen/space_25" />
-
-                <ui.CustomtextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:onClick="onClick"
-                    android:text="lihat detail"
-                    android:textColor="#ffffff"
-                    android:textSize="@dimen/space_10"
-                    font:name="GOTHAM_BLACK"
-
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:gravity="fill_vertical"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginLeft="@dimen/space_30" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:drawableLeft="@drawable/download24"
+                android:drawableLeft="@drawable/downloadsave32"
                 android:id="@+id/btnDownload"
                 android:background="@drawable/btn_shape_all_blue"
                 android:onClick="onClick"

@@ -6,18 +6,33 @@
     android:layout_height="match_parent"
     android:background="@color/colorSecondaryBackground">
 
-    <ui.CustomEditText
-        android:id="@+id/text_search"
+    <RelativeLayout
         android:textColor="@color/white"
-        android:drawableRight="@drawable/ic_search_white_32"
         android:background="@drawable/btn_shape_all_blue"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_45"
-        android:layout_marginLeft="@dimen/space_5"
-        android:layout_marginTop="@dimen/space_5"
-        android:layout_marginRight="@dimen/space_5"
-        android:textColorHint="@color/white"
-        android:hint="search" />
+        android:layout_margin="@dimen/space_5">
+
+        <ui.CustomEditText
+            android:id="@+id/text_search"
+            android:textColor="@color/white"
+            android:background="@color/transparant_pure"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_45"
+            android:textColorHint="@color/white"
+            android:hint="search"
+            android:layout_marginRight="@dimen/space_35"
+            android:layout_marginLeft="@dimen/space_3" />
+
+        <ImageView
+            android:src="@drawable/ic_search_white_32"
+            android:layout_width="@dimen/space_25"
+            android:layout_height="@dimen/space_25"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="@dimen/space_5" />
+    </RelativeLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:font="http://schemas.android.com/apk/res-auto"
@@ -25,8 +40,10 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/space_5"
-        android:background="@drawable/btn_shape_white">
+        android:background="@drawable/btn_shape_white"
+        android:layout_marginBottom="@dimen/space_5"
+        android:layout_marginRight="@dimen/space_5"
+        android:layout_marginStart="@dimen/space_5">
         <RelativeLayout
             android:id="@+id/contact_us_header_container"
             android:layout_width="fill_parent"

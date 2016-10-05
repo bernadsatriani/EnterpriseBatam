@@ -15,6 +15,7 @@ import com.ayz4sci.androidfactory.DownloadProgressView;
 import com.bpbatam.AppConstant;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.bbs.adapter.AdapterBBSDaftarPesanan;
+import com.bpbatam.enterprise.bbs.adapter.AdapterBBSSemuaPesanan;
 import com.bpbatam.enterprise.model.ListData;
 
 import java.util.ArrayList;
@@ -75,7 +76,7 @@ public class Frag_bbs_semua_pesanan extends Fragment {
 
         }
 
-        mAdapter = new AdapterBBSDaftarPesanan(v.getContext(), AryListData, new AdapterBBSDaftarPesanan.OnDownloadClicked() {
+        mAdapter = new AdapterBBSSemuaPesanan(v.getContext(), AryListData, new AdapterBBSSemuaPesanan.OnDownloadClicked() {
             @Override
             public void OnDownloadClicked(final String sUrl, boolean bStatus) {
                 mRecyclerView.setVisibility(View.GONE);

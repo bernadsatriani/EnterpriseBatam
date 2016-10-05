@@ -73,10 +73,9 @@ public class AdapterBBSDaftarPesanan extends  RecyclerView.Adapter<AdapterBBSDaf
 
         TextView txtDate,
                 lbl_Attach,
-                lbl_Size,
-                btnDownload
+                lbl_Size
         ;
-
+        RelativeLayout btnDownload;
         ImageView imgCover;
         ListData listData;
         public ViewHolder(View itemView,
@@ -87,7 +86,7 @@ public class AdapterBBSDaftarPesanan extends  RecyclerView.Adapter<AdapterBBSDaf
             txtDate = (TextView)itemView.findViewById(R.id.text_Date);
             lbl_Attach = (TextView)itemView.findViewById(R.id.lbl_attach);
             lbl_Size = (TextView)itemView.findViewById(R.id.lbl_size);
-            btnDownload = (TextView)itemView.findViewById(R.id.btnDownload);
+            btnDownload = (RelativeLayout) itemView.findViewById(R.id.btnDownload);
 
             btnDownload.setOnClickListener(new View.OnClickListener() {
                 @Override
