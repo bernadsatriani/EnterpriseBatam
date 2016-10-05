@@ -18,10 +18,10 @@
         android:layout_below="@+id/tool_bar">
 
         <ui.CustomtextView
-            font:name = "Avenir_Heavy"
+            font:name = "GOTHAM_MEDIUM"
             android:id="@+id/textLabel"
             android:text="Label"
-            android:textColor="@color/blu3"
+            android:textColor="@color/colorSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -36,7 +36,7 @@
             android:layout_height="@dimen/space_35"
             android:id="@+id/img_back"
             android:src="@drawable/arrow_back_white"
-            android:tint="@color/blu3"/>
+            android:tint="@color/colorSearch"/>
 
     </RelativeLayout>
 

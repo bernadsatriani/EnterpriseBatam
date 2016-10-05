@@ -8,7 +8,7 @@
 
     <RelativeLayout
         android:textColor="@color/white"
-        android:background="@drawable/btn_shape_all_blue"
+        android:background="@drawable/btn_shape_all_blue_search"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_45"
         android:layout_margin="@dimen/space_5">

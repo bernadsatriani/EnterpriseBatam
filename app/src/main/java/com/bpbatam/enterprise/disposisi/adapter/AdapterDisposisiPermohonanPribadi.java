@@ -43,7 +43,7 @@ public class AdapterDisposisiPermohonanPribadi extends  RecyclerView.Adapter<Ada
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //Inflate layout
         View itemView = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.row_persuratan_permohonan, null);
+                R.layout.row_disposisi_permohonan, null);
 
         return new ViewHolder(itemView, context, this);
     }

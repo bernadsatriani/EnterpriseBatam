@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bpbatam.AppConstant;
@@ -30,6 +33,9 @@ public class MainActivity extends AppCompatActivity implements NavMenuFragment.F
     private NavMenuFragment drawerFragment;
     TextView txtLabel;
 
+    static TextView notifCount;
+    static int mNotifCount = 28;
+    Button btnNotif;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,11 +144,29 @@ public class MainActivity extends AppCompatActivity implements NavMenuFragment.F
         // Inflate the menu; this adds items to the action bar if it is present.
         menu.clear();
         getMenuInflater().inflate(R.menu.menu_notification_blue, menu);
+        MenuItem item1 = menu.findItem(R.id.action_notification);
+        MenuItemCompat.setActionView(item1, R.layout.notification_update);
 
+        View count = menu.findItem(R.id.action_notification).getActionView();
+        notifCount = (TextView) count.findViewById(R.id.badge_notification_1);
+        notifCount.setText(String.valueOf(mNotifCount));
+
+        btnNotif= (Button) count.findViewById(R.id.button1);
+        btnNotif.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(),NotificationActivity.class);
+                startActivity(intent);
+            }
+        });
         return true;
     }
 
 
+    private void setNotifCount(int count){
+        mNotifCount = count;
+        invalidateOptionsMenu();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -3,13 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.testtablayout.MainActivity" >
 
+
     <item
         android:id="@+id/action_notification"
+        android:orderInCategory="200"
         android:title="Notifikasi"
+        android:icon="@drawable/bell_blue"
         app:showAsAction="ifRoom"></item>
-
-    
-    
-    
 
 </menu>

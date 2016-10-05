@@ -24,7 +24,7 @@ public class Frag_Beranda extends Fragment {
 
     ImageView imgBSS, imgPERSURATAN, imgDISPOSISI;
     FrameLayout frameBBS, framePersuratan;
-    LinearLayout layoutDisposisiDetail;
+    LinearLayout layoutDisposisiDetail, layoutBBS, layoutPERSURATAN, layoutDISPOSISI;
 
     boolean stsBBS, stsPERSURATAN, stsDISPOSISI;
 
@@ -58,6 +58,11 @@ public class Frag_Beranda extends Fragment {
     }
 
     void InitControl(View v){
+        layoutBBS = (LinearLayout)v.findViewById(R.id.layout_bbs);
+        layoutPERSURATAN = (LinearLayout)v.findViewById(R.id.layout_persuratan);
+        layoutDISPOSISI = (LinearLayout)v.findViewById(R.id.layout_disposisi);
+
+
         layoutDisposisiDetail = (LinearLayout)v.findViewById(R.id.layout_disposisi_detail);
         imgBSS = (ImageView)v.findViewById(R.id.imgplus_bbs);
         imgPERSURATAN = (ImageView)v.findViewById(R.id.imgplus_persuratan);
@@ -76,7 +81,7 @@ public class Frag_Beranda extends Fragment {
 
         tabs.setupWithViewPager(pager);
 
-        imgBSS.setOnClickListener(new View.OnClickListener() {
+        layoutBBS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (stsBBS){
@@ -88,7 +93,7 @@ public class Frag_Beranda extends Fragment {
             }
         });
 
-        imgPERSURATAN.setOnClickListener(new View.OnClickListener() {
+        layoutPERSURATAN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(stsPERSURATAN){
@@ -100,7 +105,7 @@ public class Frag_Beranda extends Fragment {
             }
         });
 
-        imgDISPOSISI.setOnClickListener(new View.OnClickListener() {
+        layoutDISPOSISI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (stsDISPOSISI){
