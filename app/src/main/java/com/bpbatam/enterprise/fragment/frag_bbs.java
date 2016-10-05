@@ -19,7 +19,7 @@ import com.bpbatam.enterprise.persuratan.adapter.ViewPagerAdapterPersuratanPermo
 public class frag_bbs extends Fragment {
 
     ImageView imgMenu;
-    CharSequence Titles[]={"Daftar Pesanan","Semua Pesanan"};
+    CharSequence Titles[]={"Daftar Pesan","Semua Pesan"};
     int Numboftabs =2;
 
     ViewPager pager;

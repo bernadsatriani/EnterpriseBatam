@@ -4,68 +4,6 @@
     xmlns:font="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorSelectButton">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:id="@+id/relativeLayout"
-        android:background="@color/navigationDrawerBackgroundDetail">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:orientation="vertical"
-            android:layout_alignTop="@+id/circleView"
-            android:layout_toRightOf="@+id/circleView"
-            android:layout_toEndOf="@+id/circleView"
-            android:layout_alignBottom="@+id/circleView">
-
-            <ui.CustomtextView
-                font:name= "GOTHAM_BOLD"
-                font:type = "bold"
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:text="Setia Nugraha"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:layout_marginTop="@dimen/space_10" />
-
-            <ui.CustomtextView
-                font:name= "GOTHAM_LIGHT"
-                font:type = "bold"
-                android:id="@+id/email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="5dp"
-                android:text="nugraha.setia@gmail.com"
-                android:textSize="14sp"
-                android:textStyle="normal" />
-
-
-        </LinearLayout>
-
-        <ui.CircleImageView
-            android:id="@+id/circleView"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="38dp"
-            android:src="@drawable/logo_bp_batam" />
-
-        <View
-            android:id="@+id/line"
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:background="@color/grey_xxl"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-    </RelativeLayout>
-
 
     <ui.CustomtextView
         font:name = "Header_Reguler"
@@ -105,5 +43,71 @@
         android:layout_marginBottom="@dimen/space_5"
         android:groupIndicator="@android:color/transparent"
         android:cacheColorHint="#00000000"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_60"
+        android:id="@+id/relativeLayout"
+        android:background="@color/navigationDrawerBackgroundDetail"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/txtDate"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_alignTop="@+id/circleView"
+            android:layout_toEndOf="@+id/circleView"
+            android:layout_alignBottom="@+id/circleView"
+            android:layout_marginTop="@dimen/space_8"
+            android:layout_toRightOf="@+id/circleView"
+            android:layout_marginLeft="@dimen/space_5">
+
+            <ui.CustomtextView
+                font:name= "GOTHAM_BLACK"
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Setia Nugraha"
+
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <ui.CustomtextView
+                font:name= "GOTHAM_LIGHT"
+                font:type = "bold"
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_3"
+                android:text="Division Staff"
+                android:textSize="12sp"
+                android:textStyle="normal"
+                android:layout_marginRight="@dimen/space_10" />
+
+
+        </LinearLayout>
+
+        <ui.CircleImageView
+            android:id="@+id/circleView"
+            android:layout_height="match_parent"
+            android:src="@drawable/logo_bp_batam"
+            android:layout_alignParentTop="true"
+            android:layout_margin="@dimen/space_5"
+            android:layout_marginLeft="-10dp"
+            android:layout_width="50dp" />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/grey_xxl"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

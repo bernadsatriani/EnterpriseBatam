@@ -35,7 +35,7 @@
             android:background="@android:drawable/ic_notification_overlay"
             android:text="27"
             android:textColor="#FFF"
-            android:textSize="10sp"
+            android:textSize="8sp"
             android:textStyle="bold" />
     </RelativeLayout>
 

@@ -67,19 +67,24 @@
                     font:name = "GOTHAM_LIGHT"
                     android:id="@+id/lbl_attach"
                     android:text="Attachemnt"
+                    android:textSize="@dimen/space_12"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
                     android:textStyle="italic"
+                    android:layout_marginTop="-3dp"
                     android:layout_alignTop="@+id/imageView6"
                     android:layout_toRightOf="@+id/imageView6"
                     android:layout_toEndOf="@+id/imageView6"
+                    android:layout_marginLeft="@dimen/space_3"
                     android:layout_marginRight="@dimen/space_5" />
 
                 <ui.CustomtextView
                     font:name = "GOTHAM_LIGHT"
                     android:id="@+id/lbl_size"
+                    android:textSize="@dimen/space_12"
                     android:text="Attachemnt asdas asdas"
+                    android:layout_marginLeft="@dimen/space_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/lbl_attach"
@@ -91,15 +96,16 @@
                     android:textStyle="italic" />
 
                 <ImageView
-                    android:layout_width="@dimen/space_40"
-                    android:layout_height="@dimen/space_40"
+                    android:layout_width="@dimen/space_25"
+                    android:layout_height="@dimen/space_25"
                     android:id="@+id/imageView6"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:src="@drawable/pdf"
-                    android:layout_marginTop="@dimen/space_5"
-                    android:layout_marginBottom="@dimen/space_5" />
+                    android:layout_marginLeft="@dimen/space_7"
+                    android:layout_marginTop="@dimen/space_10"
+                    android:layout_marginBottom="@dimen/space_10" />
 
                 <ImageView
                     android:visibility="gone"

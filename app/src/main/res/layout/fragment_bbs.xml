@@ -46,7 +46,7 @@
             android:background="@color/white"
             android:id="@+id/contact_us_header_container"
             android:layout_width="fill_parent"
-            android:layout_height="@dimen/space_30"
+            android:layout_height="@dimen/space_40"
             android:minHeight="?attr/actionBarSize"
             android:layout_alignParentTop="true"
             android:orientation="horizontal"
@@ -59,7 +59,7 @@
                 android:layout_gravity="center"
                 android:text="BBS"
                 android:textColor="@color/black"
-                android:textSize="@dimen/space_12"
+                android:textSize="@dimen/space_18"
                 font:name="GOTHAM_BOLD"
                 font:type = "bold"
                 android:id="@+id/view2"
@@ -72,7 +72,7 @@
 
             <android.support.design.widget.TabLayout
                 android:id="@+id/tabs"
-                android:layout_width="@dimen/space_240"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/space_40"
                 android:background="@color/white"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -90,8 +90,7 @@
                 android:elevation="2dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true">
-            </android.support.design.widget.TabLayout>
+                android:layout_alignParentEnd="true"/>
 
             <ImageView
                 android:layout_width="24dp"
