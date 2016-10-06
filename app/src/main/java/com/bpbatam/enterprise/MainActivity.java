@@ -13,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bpbatam.AppConstant;
@@ -21,8 +20,8 @@ import com.bpbatam.enterprise.disposisi.fragment.frag_disposisi_permohonan_umum_
 import com.bpbatam.enterprise.disposisi.fragment.frag_disposisi_riwayat_dalam_proses;
 import com.bpbatam.enterprise.fragment.Frag_Beranda;
 import com.bpbatam.enterprise.fragment.frag_bbs;
-import com.bpbatam.enterprise.persuratan.fragment.frag_permohonan_pribadi;
-import com.bpbatam.enterprise.persuratan.fragment.frag_permohonan_umum;
+import com.bpbatam.enterprise.persuratan.fragment.frag_persuratan_pribadi;
+import com.bpbatam.enterprise.persuratan.fragment.frag_persuratan_umum;
 import com.bpbatam.enterprise.persuratan.fragment.frag_persuratan_dalam_proses;
 import com.bpbatam.enterprise.persuratan.fragment.frag_persuratan_dikembalikan;
 import com.bpbatam.enterprise.persuratan.fragment.frag_persuratan_disimpan;
@@ -74,12 +73,12 @@ public class MainActivity extends AppCompatActivity implements NavMenuFragment.F
                 break;
             //PERSURATAN ----------------------------------------------
             case 20:
-                fragment = new frag_permohonan_pribadi();
+                fragment = new frag_persuratan_pribadi();
                 txtLabel.setText("PERSURATAN");
                 AppConstant.ACTIVITY_FROM = "Pribadi";
                 break;
             case 21:
-                fragment = new frag_permohonan_umum();
+                fragment = new frag_persuratan_umum();
                 txtLabel.setText("PERSURATAN");
                 AppConstant.ACTIVITY_FROM = "Umum";
                 break;

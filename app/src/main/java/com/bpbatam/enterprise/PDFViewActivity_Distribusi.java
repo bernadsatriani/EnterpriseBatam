@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bpbatam.AppConstant;
@@ -28,7 +29,7 @@ public class PDFViewActivity_Distribusi extends AppCompatActivity implements OnP
     String pdfFileName;
     PDFView pdfView;
 
-    TextView btnDistribusi;
+    RelativeLayout btnDistribusi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +38,7 @@ public class PDFViewActivity_Distribusi extends AppCompatActivity implements OnP
         txtLabel = (TextView)findViewById(R.id.textLabel);
         pdfView = (PDFView)findViewById(R.id.pdfView);
         toolbar = (Toolbar)findViewById(R.id.tool_bar);
-        btnDistribusi = (TextView)findViewById(R.id.btnDistribusi);
+        btnDistribusi = (RelativeLayout)findViewById(R.id.btnDistribusi);
 
         txtLabel.setText(AppConstant.PDF_FILENAME);
 

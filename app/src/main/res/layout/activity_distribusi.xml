@@ -85,31 +85,45 @@
                     android:gravity="top"
                     android:layout_marginLeft="@dimen/space_5"
                     android:layout_marginRight="@dimen/space_5"
-                    android:layout_above="@+id/btnDistribusi"
                     android:layout_alignParentTop="true" />
 
-                <ui.CustomtextView
-                    font:name = "GOTHAM_BOLD"
-                    android:drawableRight="@drawable/right"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/space_14"
-                    android:text="Kirim"
-                    android:background="@drawable/btn_shape_all_green"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/space_35"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
 
-                    android:id="@+id/btnDistribusi"
-                    android:gravity="fill_vertical"
-                    android:layout_marginBottom="@dimen/space_35"
-                    android:layout_marginTop="@dimen/space_5"
-                    android:paddingLeft="@dimen/space_20"
-                    android:paddingRight="@dimen/space_20"/>
             </RelativeLayout>
         </LinearLayout>
 
+        <RelativeLayout
+            android:id="@+id/btnKirim"
+            android:background="@color/colorAccept"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true">
 
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true">
+
+                <ui.CustomtextView
+                    font:name = "GOTHAM_BOLD"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/space_14"
+                    android:text="KIRIM"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="fill_vertical"
+
+                    android:paddingRight="@dimen/space_5"/>
+
+                <ImageView
+                    android:src="@drawable/right"
+                    android:layout_gravity="fill_vertical"
+                    android:layout_width="@dimen/space_20"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+        </RelativeLayout>
     </RelativeLayout>
 
 

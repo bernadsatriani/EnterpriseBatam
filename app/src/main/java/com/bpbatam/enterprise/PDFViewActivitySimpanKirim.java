@@ -20,14 +20,14 @@ import java.io.File;
 /**
  * Created by User on 9/24/2016.
  */
-public class PDFViewActivityDitolakDisetujui extends AppCompatActivity implements OnPageChangeListener, OnLoadCompleteListener {
+public class PDFViewActivitySimpanKirim extends AppCompatActivity implements OnPageChangeListener, OnLoadCompleteListener {
     TextView txtLabel;
     Integer pageNumber = 0;
     Toolbar toolbar;
     String pdfFileName;
     PDFView pdfView;
 
-    LinearLayout btnDitolak, btnDisetujui;
+    LinearLayout btnSimpan, btnKirim;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +36,8 @@ public class PDFViewActivityDitolakDisetujui extends AppCompatActivity implement
         txtLabel = (TextView)findViewById(R.id.textLabel);
         pdfView = (PDFView)findViewById(R.id.pdfView);
         toolbar = (Toolbar)findViewById(R.id.tool_bar);
-        btnDitolak = (LinearLayout)findViewById(R.id.btnDitolak);
-        btnDisetujui = (LinearLayout)findViewById(R.id.btnDisetujui);
+        btnSimpan = (LinearLayout)findViewById(R.id.btnSimpan);
+        btnKirim = (LinearLayout)findViewById(R.id.btnKirim);
 
         txtLabel.setText(AppConstant.PDF_FILENAME);
 
@@ -57,14 +57,14 @@ public class PDFViewActivityDitolakDisetujui extends AppCompatActivity implement
                     .load();
         }
 
-        btnDisetujui.setOnClickListener(new View.OnClickListener() {
+        btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                     finish();
             }
         });
 
-        btnDitolak.setOnClickListener(new View.OnClickListener() {
+        btnKirim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();

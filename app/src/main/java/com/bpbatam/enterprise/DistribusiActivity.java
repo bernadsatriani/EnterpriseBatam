@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bpbatam.AppConstant;
@@ -18,7 +19,7 @@ import com.bpbatam.AppConstant;
 public class DistribusiActivity extends AppCompatActivity {
     EditText txtDistribusi, txtCC, txtPesan;
     TextView txtLabel;
-    TextView btnKirim;
+    RelativeLayout btnKirim;
 
     Toolbar toolbar;
     @Override
@@ -40,7 +41,7 @@ public class DistribusiActivity extends AppCompatActivity {
         txtDistribusi = (EditText)findViewById(R.id.text_distribusi);
         txtCC = (EditText)findViewById(R.id.text_cc);
         txtPesan = (EditText)findViewById(R.id.text_pesan);
-        btnKirim = (TextView)findViewById(R.id.btnDistribusi);
+        btnKirim = (RelativeLayout)findViewById(R.id.btnKirim);
 
         btnKirim.setOnClickListener(new View.OnClickListener() {
             @Override

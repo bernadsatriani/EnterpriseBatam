@@ -13,9 +13,9 @@
         android:layout_height="wrap_content"
         android:text="New Text"
         android:id="@+id/textView"
-        android:layout_marginTop="@dimen/space_7"
+        android:layout_marginTop="@dimen/space_14"
         android:layout_marginLeft="@dimen/space_30"
-        android:layout_marginBottom="@dimen/space_7" />
+        android:layout_marginBottom="@dimen/space_14" />
 
     <ui.CustomtextView
         font:name = "GOTHAM_BLACK"
@@ -26,9 +26,9 @@
         android:textSize="@dimen/space_11"
         android:id="@+id/textStatus1"
         android:background="@drawable/btn_shape_all_transparant"
-        android:layout_marginTop="@dimen/space_7"
+        android:layout_marginTop="@dimen/space_14"
 
-        android:layout_marginBottom="@dimen/space_7"
+        android:layout_marginBottom="@dimen/space_14"
         android:layout_marginLeft="@dimen/space_10"
         android:gravity="center" />
 
@@ -41,9 +41,9 @@
         android:textColor="@color/white"
         android:id="@+id/textStatus2"
         android:background="@drawable/btn_shape_all_red"
-        android:layout_marginTop="@dimen/space_7"
-        android:layout_marginBottom="@dimen/space_7"
-        android:layout_marginLeft="@dimen/space_10"
+        android:layout_marginTop="@dimen/space_14"
+        android:layout_marginBottom="@dimen/space_14"
+        android:layout_marginLeft="@dimen/space_3"
         android:gravity="center" />
 
 

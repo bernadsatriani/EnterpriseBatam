@@ -1,5 +1,6 @@
 package com.bpbatam.enterprise;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -27,22 +28,23 @@ public class PDFViewActivityDisposisiDistribusi extends AppCompatActivity implem
     String pdfFileName;
     PDFView pdfView;
 
-    LinearLayout btnDistribusi;
+    LinearLayout btnDisposisi, btnDistribusi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pdfview);
+        setContentView(R.layout.activity_pdfview_disposisi_distribusi);
 
         txtLabel = (TextView)findViewById(R.id.textLabel);
         pdfView = (PDFView)findViewById(R.id.pdfView);
         toolbar = (Toolbar)findViewById(R.id.tool_bar);
+        btnDisposisi = (LinearLayout)findViewById(R.id.btnDisposisi);
         btnDistribusi = (LinearLayout)findViewById(R.id.btnDistribusi);
 
         txtLabel.setText(AppConstant.PDF_FILENAME);
-        toolbar.setNavigationIcon(R.drawable.back_24);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        toolbar.setNavigationIcon(R.drawable.back_24);
         if (AppConstant.PDFVIEW_FROM != null) txtLabel.setText(AppConstant.PDFVIEW_FROM);
 
         File file = new File(AppConstant.STORAGE_CARD + "/Download/" + AppConstant.PDF_FILENAME);
@@ -59,7 +61,15 @@ public class PDFViewActivityDisposisiDistribusi extends AppCompatActivity implem
         btnDistribusi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), DistribusiActivity.class);
+                startActivity(intent);
+            }
+        });
 
+        btnDisposisi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 

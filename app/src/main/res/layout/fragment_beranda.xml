@@ -39,9 +39,8 @@
 
                 <ImageView
                     android:id="@+id/imgplus_bbs"
-                    android:tint="@color/colorSearch"
                     android:src="@drawable/plus"
-                    android:layout_width="@dimen/space_25"
+                    android:layout_width="@dimen/space_20"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
@@ -50,7 +49,7 @@
                     android:layout_marginRight="@dimen/space_10" />
 
                 <ui.CustomtextView
-                    font:name = "GOTHAM_MEDIUM"
+                    font:name = "GOTHAM_BLACK"
                     android:textColor="@color/black"
                     android:text="BBS"
                     android:layout_width="match_parent"
@@ -99,9 +98,8 @@
 
                 <ImageView
                     android:id="@+id/imgplus_persuratan"
-                    android:tint="@color/colorSearch"
                     android:src="@drawable/plus"
-                    android:layout_width="@dimen/space_25"
+                    android:layout_width="@dimen/space_20"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
@@ -110,7 +108,7 @@
                     android:layout_marginRight="@dimen/space_10" />
 
                 <ui.CustomtextView
-                    font:name = "GOTHAM_MEDIUM"
+                    font:name = "GOTHAM_BLACK"
                     android:textColor="@color/black"
                     android:text="PERSURATAN"
                     android:layout_width="match_parent"
@@ -160,9 +158,8 @@
 
                 <ImageView
                     android:id="@+id/imgplus_disposisi"
-                    android:tint="@color/colorSearch"
                     android:src="@drawable/plus"
-                    android:layout_width="@dimen/space_25"
+                    android:layout_width="@dimen/space_20"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
@@ -171,7 +168,7 @@
                     android:layout_marginRight="@dimen/space_10" />
 
                 <ui.CustomtextView
-                    font:name = "GOTHAM_MEDIUM"
+                    font:name = "GOTHAM_BLACK"
                     android:textColor="@color/black"
                     android:text="DISPOSISI"
                     android:layout_width="match_parent"

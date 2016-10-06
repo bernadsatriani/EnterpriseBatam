@@ -6,31 +6,28 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
 import com.bpbatam.AppConstant;
-import com.bpbatam.AppController;
 import com.bpbatam.enterprise.CC_Activity;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.disposisi.disposisi_detail;
 import com.bpbatam.enterprise.model.ListData;
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
 /**
  * Created by User on 9/19/2016.
  */
-public class AdapterPersuratanPermohonanPribadi extends  RecyclerView.Adapter<AdapterPersuratanPermohonanPribadi.ViewHolder>{
+public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersuratanPribadi.ViewHolder>{
 
     private ArrayList<ListData> mCourseArrayList;
     private Context context;
 
-    public AdapterPersuratanPermohonanPribadi(Context context, ArrayList<ListData> mCourseArrayList, OnDownloadClicked listener) {
+    public AdapterPersuratanPribadi(Context context, ArrayList<ListData> mCourseArrayList, OnDownloadClicked listener) {
         this.context = context;
         this.mCourseArrayList = mCourseArrayList;
         this.listener = listener;
@@ -117,7 +114,7 @@ public class AdapterPersuratanPermohonanPribadi extends  RecyclerView.Adapter<Ad
         ListData listData;
         public ViewHolder(View itemView,
                           Context context,
-                          final AdapterPersuratanPermohonanPribadi mCourseAdapter) {
+                          final AdapterPersuratanPribadi mCourseAdapter) {
             super(itemView);
 
             txtDate = (TextView)itemView.findViewById(R.id.text_Date);

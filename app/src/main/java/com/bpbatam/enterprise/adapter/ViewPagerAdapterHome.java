@@ -5,7 +5,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.bpbatam.enterprise.fragment.Frag_Home_Detail;
-import com.bpbatam.enterprise.persuratan.fragment.frag_permohonan_pribadi;
 
 /**
  * Created by hp1 on 21-01-2015.

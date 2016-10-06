@@ -1,6 +1,7 @@
 package com.bpbatam.enterprise.persuratan.fragment;
 
 import android.app.DownloadManager;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,9 +16,10 @@ import android.widget.TextView;
 
 import com.ayz4sci.androidfactory.DownloadProgressView;
 import com.bpbatam.AppConstant;
+import com.bpbatam.enterprise.PDFViewActivity_Distribusi;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.model.ListData;
-import com.bpbatam.enterprise.persuratan.adapter.AdapterPersuratanPermohonanPribadi;
+import com.bpbatam.enterprise.persuratan.adapter.AdapterPersuratanPribadi;
 
 import java.util.ArrayList;
 
@@ -27,7 +29,7 @@ import ui.QuickAction.QuickAction;
 /**
  * Created by User on 9/19/2016.
  */
-public class frag_permohonan_umum extends Fragment {
+public class frag_persuratan_pribadi extends Fragment {
     //action id
     private static final int ID_PILIH_PESAN     = 1;
     private static final int ID_SEMUA_PESAN   = 2;
@@ -126,7 +128,7 @@ public class frag_permohonan_umum extends Fragment {
 
         }
 
-        mAdapter = new AdapterPersuratanPermohonanPribadi(v.getContext(), AryListData, new AdapterPersuratanPermohonanPribadi.OnDownloadClicked() {
+        mAdapter = new AdapterPersuratanPribadi(v.getContext(), AryListData, new AdapterPersuratanPribadi.OnDownloadClicked() {
             @Override
             public void OnDownloadClicked(final String sUrl, boolean bStatus) {
                 mRecyclerView.setVisibility(View.GONE);
@@ -153,6 +155,11 @@ public class frag_permohonan_umum extends Fragment {
                         //Action to perform on success
                         mRecyclerView.setVisibility(View.VISIBLE);
                         rLayoutDownload.setVisibility(View.GONE);
+                        AppConstant.PDF_FILENAME = "DOWNLOAD_FILE_NAME.pdf";
+                        Intent intent;
+                        intent = new Intent(getActivity(), PDFViewActivity_Distribusi.class);
+                        getActivity().startActivity(intent);
+
 
                     }
 

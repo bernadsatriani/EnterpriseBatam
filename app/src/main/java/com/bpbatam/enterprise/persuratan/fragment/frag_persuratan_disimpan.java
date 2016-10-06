@@ -3,9 +3,7 @@ package com.bpbatam.enterprise.persuratan.fragment;
 import android.app.DownloadManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,8 +17,7 @@ import com.ayz4sci.androidfactory.DownloadProgressView;
 import com.bpbatam.AppConstant;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.model.ListData;
-import com.bpbatam.enterprise.persuratan.adapter.AdapterPersuratanPermohonanPribadi;
-import com.bpbatam.enterprise.persuratan.adapter.ViewPagerAdapterPersuratanPermohonan;
+import com.bpbatam.enterprise.persuratan.adapter.AdapterPersuratanPribadi;
 
 import java.util.ArrayList;
 
@@ -129,7 +126,7 @@ public class frag_persuratan_disimpan extends Fragment {
 
         }
 
-        mAdapter = new AdapterPersuratanPermohonanPribadi(v.getContext(), AryListData, new AdapterPersuratanPermohonanPribadi.OnDownloadClicked() {
+        mAdapter = new AdapterPersuratanPribadi(v.getContext(), AryListData, new AdapterPersuratanPribadi.OnDownloadClicked() {
             @Override
             public void OnDownloadClicked(final String sUrl, boolean bStatus) {
                 mRecyclerView.setVisibility(View.GONE);

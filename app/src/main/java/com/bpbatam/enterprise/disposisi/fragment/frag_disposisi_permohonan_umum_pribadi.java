@@ -19,8 +19,8 @@ import com.ayz4sci.androidfactory.DownloadProgressView;
 import com.bpbatam.AppConstant;
 import com.bpbatam.enterprise.PDFViewActivity_Distribusi;
 import com.bpbatam.enterprise.R;
+import com.bpbatam.enterprise.disposisi.adapter.AdapterDisposisiPermohonanPribadi;
 import com.bpbatam.enterprise.model.ListData;
-import com.bpbatam.enterprise.persuratan.adapter.AdapterPersuratanPermohonanPribadi;
 
 import java.util.ArrayList;
 
@@ -137,7 +137,7 @@ public class frag_disposisi_permohonan_umum_pribadi extends Fragment {
 
         }
 
-        mAdapter = new AdapterPersuratanPermohonanPribadi(v.getContext(), AryListData, new AdapterPersuratanPermohonanPribadi.OnDownloadClicked() {
+        mAdapter = new AdapterDisposisiPermohonanPribadi(v.getContext(), AryListData, new AdapterDisposisiPermohonanPribadi.OnDownloadClicked() {
             @Override
             public void OnDownloadClicked(final String sUrl, boolean bStatus) {
                 mRecyclerView.setVisibility(View.GONE);

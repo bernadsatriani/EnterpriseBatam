@@ -41,34 +41,73 @@
 
         </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/btnDistribusi"
-            android:background="@color/colorAccept"
+        <LinearLayout
+            android:id="@+id/layout_btnDistribusi"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_alignParentBottom="true">
 
             <LinearLayout
+                android:id="@+id/btnDisposisi"
                 android:orientation="horizontal"
+                android:background="@color/colorSelectButton"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center"
                 android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true">
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:layout_weight="1">
 
                 <ui.CustomtextView
                     font:name = "GOTHAM_BOLD"
                     android:textColor="@color/white"
                     android:textSize="@dimen/space_14"
-                    android:text="DISETUJUI"
+                    android:text="DISPOSISI WEB"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="fill_vertical"
 
                     android:paddingRight="@dimen/space_5"/>
 
+                <ImageView
+                    android:src="@drawable/right"
+                    android:layout_marginLeft="@dimen/space_14"
+                    android:layout_gravity="fill_vertical"
+                    android:layout_width="@dimen/space_20"
+                    android:layout_height="match_parent"
+                    android:id="@+id/imageView17" />
             </LinearLayout>
-        </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/btnDistribusi"
+                android:orientation="horizontal"
+                android:background="@color/colorAccept"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:layout_weight="1">
+
+                <ui.CustomtextView
+                    font:name = "GOTHAM_BOLD"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/space_14"
+                    android:text="DISTRIBUSIKAN"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="fill_vertical"
+
+                    android:paddingRight="@dimen/space_5"/>
+
+                <ImageView
+                    android:src="@drawable/right"
+                    android:layout_marginLeft="@dimen/space_14"
+                    android:layout_gravity="fill_vertical"
+                    android:layout_width="@dimen/space_20"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+        </LinearLayout>
 
     </RelativeLayout>
 </LinearLayout>

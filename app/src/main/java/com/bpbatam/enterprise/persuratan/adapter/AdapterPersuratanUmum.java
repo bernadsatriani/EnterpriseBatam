@@ -1,4 +1,4 @@
-package com.bpbatam.enterprise.adapter;
+package com.bpbatam.enterprise.persuratan.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,7 +10,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bpbatam.enterprise.DistribusiActivity;
+import com.bpbatam.AppConstant;
+import com.bpbatam.enterprise.CC_Activity;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.disposisi.disposisi_detail;
 import com.bpbatam.enterprise.model.ListData;
@@ -20,12 +21,12 @@ import java.util.ArrayList;
 /**
  * Created by User on 9/19/2016.
  */
-public class AdapterBerandaPersuratan extends  RecyclerView.Adapter<AdapterBerandaPersuratan.ViewHolder>{
+public class AdapterPersuratanUmum extends  RecyclerView.Adapter<AdapterPersuratanUmum.ViewHolder>{
 
     private ArrayList<ListData> mCourseArrayList;
     private Context context;
 
-    public AdapterBerandaPersuratan(Context context, ArrayList<ListData> mCourseArrayList, OnDownloadClicked listener) {
+    public AdapterPersuratanUmum(Context context, ArrayList<ListData> mCourseArrayList, OnDownloadClicked listener) {
         this.context = context;
         this.mCourseArrayList = mCourseArrayList;
         this.listener = listener;
@@ -33,6 +34,7 @@ public class AdapterBerandaPersuratan extends  RecyclerView.Adapter<AdapterBeran
             throw new IllegalArgumentException("courses ArrayList must not be null");
         }
     }
+
     public interface OnDownloadClicked {
         public void OnDownloadClicked(String sUrl, boolean bStatus);
     }
@@ -43,7 +45,7 @@ public class AdapterBerandaPersuratan extends  RecyclerView.Adapter<AdapterBeran
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //Inflate layout
         View itemView = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.row_persuratan_permohonan, null);
+                R.layout.row_persuratan_umum, null);
 
         return new ViewHolder(itemView, context, this);
     }
@@ -60,19 +62,22 @@ public class AdapterBerandaPersuratan extends  RecyclerView.Adapter<AdapterBeran
         //holder.txtStatus.setText(listData.getAtr2());
 
         //AppController.getInstance().displayImage(context,listData.getAtr3(), holder.imgCover);
+        if (listData.getNama() != null){
+            if (listData.getNama().equals(AppConstant.TIDAK_PESAN)){
+                holder.imgChecklist.setVisibility(View.GONE);
+            }else if (listData.getNama().equals(AppConstant.PILIH_PESAN)){
+                holder.imgChecklist.setVisibility(View.VISIBLE);
+            }else if (listData.getNama().equals(AppConstant.SEMUA_PESAN)){
+                holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.check32));
+                holder.imgChecklist.setVisibility(View.VISIBLE);
+            }
+        }
+
         holder.btnPrint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, disposisi_detail.class);
                 v.getContext().startActivity(intent);
-            }
-        });
-
-        holder.imgCC.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, DistribusiActivity.class);
-                context.startActivity(intent);
             }
         });
 
@@ -91,18 +96,17 @@ public class AdapterBerandaPersuratan extends  RecyclerView.Adapter<AdapterBeran
                 txtTime,
                 lbl_Attach,
                 lbl_Size,
-                txtStatus
-
+                txtStatus;
         ;
 
         RelativeLayout btnDownload,
                 btnPrint;
-        ImageView imgStatus, imgCC;
+        ImageView imgStatus, imgChecklist;
 
         ListData listData;
         public ViewHolder(View itemView,
                           Context context,
-                          final AdapterBerandaPersuratan mCourseAdapter) {
+                          final AdapterPersuratanUmum mCourseAdapter) {
             super(itemView);
 
             txtDate = (TextView)itemView.findViewById(R.id.text_Date);
@@ -111,9 +115,9 @@ public class AdapterBerandaPersuratan extends  RecyclerView.Adapter<AdapterBeran
             lbl_Attach = (TextView)itemView.findViewById(R.id.lbl_attach);
             lbl_Size = (TextView)itemView.findViewById(R.id.lbl_size);
             imgStatus = (ImageView) itemView.findViewById(R.id.imageView5);
-            btnDownload = (RelativeLayout)itemView.findViewById(R.id.btnDownload);
-            btnPrint = (RelativeLayout)itemView.findViewById(R.id.btnPrint);
-            imgCC = (ImageView)itemView.findViewById(R.id.imageView5);
+            btnDownload = (RelativeLayout) itemView.findViewById(R.id.btnDownload);
+            btnPrint = (RelativeLayout) itemView.findViewById(R.id.btnPrint);
+            imgChecklist = (ImageView)itemView.findViewById(R.id.imageView15);
 
             btnDownload.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -42,9 +42,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/btn_shape_white"
         android:layout_marginBottom="@dimen/space_5"
-        android:layout_marginRight="@dimen/space_5"
-        android:layout_marginTop="@dimen/space_5"
-        android:layout_marginLeft="@dimen/space_5">
+        android:layout_marginRight="@dimen/space_5">
         <RelativeLayout
             android:id="@+id/contact_us_header_container"
             android:layout_width="fill_parent"
@@ -69,16 +67,6 @@
                 android:layout_toRightOf="@+id/imageView14"
                 android:layout_alignParentBottom="true"
                 android:gravity="fill_vertical" />
-
-            <ImageView
-                android:layout_width="@dimen/space_40"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView"
-                android:src="@drawable/gns_menu"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentTop="true"
-                android:tint="@color/black" />
 
             <ImageView
                 android:layout_width="@dimen/space_35"
