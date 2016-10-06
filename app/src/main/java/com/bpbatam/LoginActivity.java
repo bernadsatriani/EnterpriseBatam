@@ -50,22 +50,27 @@ public class LoginActivity extends AppCompatActivity {
         InitControl();
         InitFolder();
 
-        JSONObject params = new JSONObject();
+        String sPassword = "";
         try {
-            params.put("hashid", AppConstant.HASHID);
-            params.put("userid","admin1");
-            params.put("pass","admin12345");
-            params.put("device_id","");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            AppConstant.HASHID = AppController.getInstance().getHashId("admin1", "admin12345");
+            sPassword = AppController.getInstance().getSHA1("admin12345");
+            AppConstant.HASHID = AppController.getInstance().getHashId("admin1", sPassword);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
 
-        AuthUser param = new AuthUser(AppConstant.HASHID, "admin1","admin12345", AppConstant.REQID);
+        JSONObject params = new JSONObject();
+        try {
+            params.put("hashid", AppConstant.HASHID);
+            params.put("userid","admin1");
+            params.put("pass",sPassword);
+            params.put("reqid",AppConstant.REQID);
+            params.put("device_id","");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        AuthUser param = new AuthUser(AppConstant.HASHID, "admin1", sPassword, AppConstant.REQID);
         AuthUser getParam = AppController.getInstance().getSessionManager().getUserProfile();
         try{
             Call<AuthUser> call = NetworkManager.getNetworkService(this).loginUser(param);

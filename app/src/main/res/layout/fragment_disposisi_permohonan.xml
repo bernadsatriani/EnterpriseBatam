@@ -71,7 +71,7 @@
                 android:gravity="fill_vertical" />
 
             <ImageView
-                android:layout_width="@dimen/space_25"
+                android:layout_width="@dimen/space_20"
                 android:layout_height="match_parent"
                 android:id="@+id/imageView14"
                 android:src="@drawable/ic_email_2"

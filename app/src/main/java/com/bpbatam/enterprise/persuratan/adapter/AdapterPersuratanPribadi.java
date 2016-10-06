@@ -2,6 +2,7 @@ package com.bpbatam.enterprise.persuratan.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,15 +72,17 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
 
             }else if (listData.getNama().equals(AppConstant.SEMUA_PESAN)){
                 holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.check32));
-                listData.setJekel("1");
+                listData.setJekel(AppConstant.SEMUA_PESAN);
                 holder.imgChecklist.setVisibility(View.VISIBLE);
             }
         }
 
         if (listData.getJekel() != null){
-            if (listData.getJekel().equals("1")){
+            if (listData.getJekel().equals("2")){
                 holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.check32));
+                ButtonSelected(holder);
             }else{
+                ButtonNotSelected(holder);
                 holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.circle));
             }
         }
@@ -88,11 +91,13 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
             @Override
             public void onClick(View view) {
                 if (listData.getJekel().equals("1")){
-                    listData.setJekel("0");
-                    holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.circle));
+                    listData.setJekel("2");
+                    ButtonSelected(holder);
+                    listener.OnDownloadClicked("", false);
                 }else{
+                    listener.OnDownloadClicked("", false);
                     listData.setJekel("1");
-                    holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.check32));
+                    ButtonNotSelected(holder);
                 }
             }
         });
@@ -107,6 +112,30 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
 
 
         holder.listData = listData;
+    }
+
+    void ButtonSelected(ViewHolder holder){
+        holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.check32));
+        holder.imgInfo.setColorFilter(context.getResources().getColor(R.color.white));
+        holder.imgDownload.setColorFilter(context.getResources().getColor(R.color.white));
+        holder.textDownload.setTextColor(context.getResources().getColor(R.color.white));
+        holder.textInfo.setTextColor(context.getResources().getColor(R.color.white));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            holder.btnDownload.setBackground(context.getResources().getDrawable(R.drawable.btn_shape_all_blue));
+            holder.btnPrint.setBackground(context.getResources().getDrawable(R.drawable.btn_shape_facebook));
+        }
+    }
+
+    void ButtonNotSelected(ViewHolder holder){
+        holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.circle));
+        holder.imgInfo.setColorFilter(context.getResources().getColor(R.color.grey));
+        holder.imgDownload.setColorFilter(context.getResources().getColor(R.color.grey));
+        holder.textDownload.setTextColor(context.getResources().getColor(R.color.grey));
+        holder.textInfo.setTextColor(context.getResources().getColor(R.color.grey));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            holder.btnDownload.setBackground(context.getResources().getDrawable(R.drawable.btn_shape_all_transparant_blue));
+            holder.btnPrint.setBackground(context.getResources().getDrawable(R.drawable.btn_shape_all_transparant_blue));
+        }
     }
 
     @Override
@@ -129,10 +158,18 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
         ImageView imgStatus,  imgChecklist;
 
         ListData listData;
+
+        ImageView imgInfo,imgDownload;
+        TextView textInfo, textDownload;
+
         public ViewHolder(View itemView,
                           Context context,
                           final AdapterPersuratanPribadi mCourseAdapter) {
             super(itemView);
+            imgInfo = (ImageView) itemView.findViewById(R.id.imgInfo);
+            imgDownload = (ImageView) itemView.findViewById(R.id.imgDownload);
+            textInfo = (TextView)itemView.findViewById(R.id.textInfo);
+            textDownload = (TextView)itemView.findViewById(R.id.textDownload);
 
             txtDate = (TextView)itemView.findViewById(R.id.text_Date);
             txtStatus = (TextView)itemView.findViewById(R.id.text_status);

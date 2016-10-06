@@ -98,7 +98,8 @@ public class AppController extends Application {
         //SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
         Date date = new Date();
-        return dateFormat.format(date) + getTime();
+        AppConstant.REQID = dateFormat.format(date) + getTime();
+        return AppConstant.REQID;
     }
 
     public String getTime() {
@@ -140,13 +141,9 @@ public class AppController extends Application {
     public String getHashId(String sUserId, String sPassword)throws NoSuchAlgorithmException{
         AppConstant.REQID = getDateTime();
 
-        String samplePassword =  getSHA1("21232f297a57a5a743894a0e4a801fc3S.1bc29400");
-        String sampleHashID = getSHA1(getDateTime() + sUserId + "bc12b22e93149c175cc034f69b031f35"+getSHA1("21232f297a57a5a743894a0e4a801fc3"+"S.1bc29400"));
+        String sResult = getSHA1(getDateTime() + sUserId + "bc12b22e93149c175cc034f69b031f35"+getSHA1(sPassword+"S.1bc29400"));
 
-        /*String sResult = md5(getDateTime() + sUserId + "bc12b22e93149c175cc034f69b031f35" +
-                getHasPassword(sPassword));
-                ;*/
-        return sampleHashID;
+        return sResult;
     }
 
 }
