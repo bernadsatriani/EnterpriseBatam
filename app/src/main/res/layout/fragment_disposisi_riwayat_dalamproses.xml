@@ -43,7 +43,7 @@
         android:background="@drawable/btn_shape_white"
         android:layout_marginBottom="@dimen/space_5"
         android:layout_marginRight="@dimen/space_5"
-        android:layout_marginStart="@dimen/space_5">
+        android:layout_marginLeft="@dimen/space_5">
         <RelativeLayout
             android:id="@+id/contact_us_header_container"
             android:layout_width="fill_parent"
@@ -58,11 +58,12 @@
                 android:layout_gravity="center"
                 android:text="Permohonan"
                 android:textColor="@color/black"
-                android:textSize="@dimen/space_18"
+                android:textSize="@dimen/space_16"
                 android:textStyle="bold"
                 font:name="GOTHAM_BOLD"
                 font:type = "bold"
                 android:id="@+id/view2"
+                android:layout_marginLeft="@dimen/space_10"
                 android:layout_toEndOf="@+id/imageView14"
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/imageView14"
@@ -70,7 +71,7 @@
                 android:gravity="fill_vertical" />
 
             <ImageView
-                android:layout_width="@dimen/space_35"
+                android:layout_width="@dimen/space_25"
                 android:layout_height="match_parent"
                 android:id="@+id/imageView14"
                 android:src="@drawable/document_black"

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:font="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorSecondaryBackground">
+
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar" >
+    </include>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorSecondaryBackground">
+
+        <RelativeLayout
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/space_10"
+            android:layout_marginRight="@dimen/space_10"
+            android:layout_above="@+id/btnDistribusi"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="@dimen/space_10"
+            android:layout_margin="@dimen/space_10">
+
+            <com.github.barteksc.pdfviewer.PDFView
+                android:id="@+id/pdfView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/space_5"
+                android:layout_marginRight="@dimen/space_5"
+                android:background="@color/white"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true">
+
+            </com.github.barteksc.pdfviewer.PDFView>
+
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</LinearLayout>

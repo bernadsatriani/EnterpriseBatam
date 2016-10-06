@@ -142,9 +142,9 @@
             android:layout_alignParentBottom="true">
 
             <LinearLayout
-                android:id="@+id/btnDisposisi"
+                android:id="@+id/btnDelete"
                 android:orientation="horizontal"
-                android:background="@color/colorSelectButton"
+                android:background="@color/colorReject"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentTop="true"
@@ -156,7 +156,7 @@
                     font:name = "GOTHAM_BOLD"
                     android:textColor="@color/white"
                     android:textSize="@dimen/space_14"
-                    android:text="DISPOSISI WEB"
+                    android:text="HAPUS"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="fill_vertical"
@@ -164,38 +164,7 @@
                     android:paddingRight="@dimen/space_5"/>
 
                 <ImageView
-                    android:src="@drawable/right"
-                    android:layout_marginLeft="@dimen/space_5"
-                    android:layout_gravity="fill_vertical"
-                    android:layout_width="@dimen/space_20"
-                    android:layout_height="match_parent"
-                    android:id="@+id/imageView17" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/btnDistribusi"
-                android:orientation="horizontal"
-                android:background="@color/colorAccept"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:gravity="center"
-                android:layout_weight="1">
-
-                <ui.CustomtextView
-                    font:name = "GOTHAM_BOLD"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/space_14"
-                    android:text="DISTRIBUSIKAN"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="fill_vertical"
-
-                    android:paddingRight="@dimen/space_5"/>
-
-                <ImageView
-                    android:src="@drawable/right"
+                    android:src="@drawable/delete"
                     android:layout_marginLeft="@dimen/space_5"
                     android:layout_gravity="fill_vertical"
                     android:layout_width="@dimen/space_20"

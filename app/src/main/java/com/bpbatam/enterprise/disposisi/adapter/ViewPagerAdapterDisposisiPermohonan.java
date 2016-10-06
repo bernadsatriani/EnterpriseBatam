@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.bpbatam.enterprise.disposisi.fragment.frag_disposisi_permohonan_umum_pribadi;
+import com.bpbatam.enterprise.disposisi.fragment.frag_disposisi_pribadi;
 
 /**
  * Created by hp1 on 21-01-2015.
@@ -30,12 +30,12 @@ public class ViewPagerAdapterDisposisiPermohonan extends FragmentStatePagerAdapt
  
         if(position == 0) // if the position is 0 we are returning the First tab
         {
-            frag_disposisi_permohonan_umum_pribadi tab1 = new frag_disposisi_permohonan_umum_pribadi();
+            frag_disposisi_pribadi tab1 = new frag_disposisi_pribadi();
             return tab1;
         }
         else             // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
         {
-            frag_disposisi_permohonan_umum_pribadi tab2 = new frag_disposisi_permohonan_umum_pribadi();
+            frag_disposisi_pribadi tab2 = new frag_disposisi_pribadi();
             return tab2;
         }
  

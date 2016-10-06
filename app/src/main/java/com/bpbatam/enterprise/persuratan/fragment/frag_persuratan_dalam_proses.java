@@ -50,7 +50,7 @@ public class frag_persuratan_dalam_proses extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_permohonan_pribadi, container, false);
+        View view = inflater.inflate(R.layout.fragment_persuratan_permohonan_dalamproses, container, false);
 
         return view;
     }
@@ -59,43 +59,6 @@ public class frag_persuratan_dalam_proses extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         InitControl(view);
         FillGrid(view);
-
-        ActionItem pilihItem 	= new ActionItem(ID_PILIH_PESAN, "Pilih Pesan", null);
-        ActionItem semuaItem 	= new ActionItem(ID_SEMUA_PESAN, "Semua Pesan", null);
-
-        pilihItem.setSticky(true);
-        semuaItem.setSticky(true);
-
-        //create QuickAction. Use QuickAction.VERTICAL or QuickAction.HORIZONTAL param to define layout
-        //orientation
-        final QuickAction quickAction = new QuickAction(getActivity(), QuickAction.VERTICAL);
-
-        //add action items into QuickAction
-        quickAction.addActionItem(pilihItem);
-        quickAction.addActionItem(semuaItem);
-
-        //Set listener for action item clicked
-        quickAction.setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {
-            @Override
-            public void onItemClick(QuickAction source, int pos, int actionId) {
-                ActionItem actionItem = quickAction.getActionItem(pos);
-
-                //here we can filter which action item was clicked with pos or actionId parameter
-                if (actionId == ID_PILIH_PESAN) {
-
-                } else if (actionId == ID_SEMUA_PESAN) {
-
-                }
-            }
-        });
-
-        imgMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                quickAction.show(v);
-            }
-        });
-
     }
 
     void InitControl(View v){

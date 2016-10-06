@@ -11,11 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ayz4sci.androidfactory.DownloadProgressView;
 import com.bpbatam.AppConstant;
+import com.bpbatam.enterprise.DistribusiActivity;
 import com.bpbatam.enterprise.PDFViewActivity_Distribusi;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.model.ListData;
@@ -48,11 +50,13 @@ public class frag_persuratan_pribadi extends Fragment {
 
     ImageView imgMenu;
     TextView txtLabel;
+    LinearLayout layout_button, btnDistribusi;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_permohonan_pribadi, container, false);
+        View view = inflater.inflate(R.layout.fragment_persuratan_pribadi, container, false);
 
         return view;
     }
@@ -101,6 +105,8 @@ public class frag_persuratan_pribadi extends Fragment {
     }
 
     void InitControl(View v){
+        layout_button = (LinearLayout)v.findViewById(R.id.layout_button);
+        btnDistribusi = (LinearLayout)v.findViewById(R.id.btnDistribusi);
         txtLabel = (TextView)v.findViewById(R.id.view2);
         if (AppConstant.ACTIVITY_FROM != null) txtLabel.setText(AppConstant.ACTIVITY_FROM);
         imgMenu = (ImageView)v.findViewById(R.id.imageView);
@@ -113,6 +119,16 @@ public class frag_persuratan_pribadi extends Fragment {
 
         downloadProgressView = (DownloadProgressView) v.findViewById(R.id.downloadProgressView);
         downloadManager = (DownloadManager) v.getContext().getSystemService(v.getContext().DOWNLOAD_SERVICE);
+
+        btnDistribusi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                layout_button.setVisibility(View.GONE);
+                Intent intent;
+                intent = new Intent(getActivity(), DistribusiActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
 
     }
 

@@ -130,6 +130,16 @@
                 android:layout_alignParentTop="true"
                 android:layout_toLeftOf="@+id/text_time" />
 
+            <ImageView
+                android:layout_width="@dimen/space_40"
+                android:layout_height="@dimen/space_30"
+                android:id="@+id/imageView5"
+                android:src="@drawable/circle_cc"
+                android:layout_toLeftOf="@+id/btnPrint"
+                android:layout_marginRight="@dimen/space_5"
+                android:layout_alignBottom="@+id/btnPrint"
+                android:layout_alignTop="@+id/btnPrint" />
+
             <RelativeLayout
                 android:id="@+id/btnPrint"
                 android:layout_height="@dimen/space_35"

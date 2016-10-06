@@ -1,6 +1,7 @@
 package com.bpbatam.enterprise.persuratan.fragment;
 
 import android.app.DownloadManager;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,13 +11,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ayz4sci.androidfactory.DownloadProgressView;
 import com.bpbatam.AppConstant;
+import com.bpbatam.enterprise.PDFViewActivityDisposisiDistribusi;
+import com.bpbatam.enterprise.PDFViewActivitySimpanKirim;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.model.ListData;
+import com.bpbatam.enterprise.persuratan.adapter.AdapterPersuratanDisimpan;
 import com.bpbatam.enterprise.persuratan.adapter.AdapterPersuratanPribadi;
 
 import java.util.ArrayList;
@@ -46,11 +51,13 @@ public class frag_persuratan_disimpan extends Fragment {
 
     ImageView imgMenu;
     TextView txtLabel;
+    LinearLayout layout_button, btnDelete;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_permohonan_pribadi, container, false);
+        View view = inflater.inflate(R.layout.fragment_persuratan_simpan, container, false);
 
         return view;
     }
@@ -99,6 +106,8 @@ public class frag_persuratan_disimpan extends Fragment {
     }
 
     void InitControl(View v){
+        layout_button = (LinearLayout)v.findViewById(R.id.layout_button);
+        btnDelete = (LinearLayout)v.findViewById(R.id.btnDelete);
         txtLabel = (TextView)v.findViewById(R.id.view2);
         if (AppConstant.ACTIVITY_FROM != null) txtLabel.setText(AppConstant.ACTIVITY_FROM);
         imgMenu = (ImageView)v.findViewById(R.id.imageView);
@@ -111,6 +120,13 @@ public class frag_persuratan_disimpan extends Fragment {
 
         downloadProgressView = (DownloadProgressView) v.findViewById(R.id.downloadProgressView);
         downloadManager = (DownloadManager) v.getContext().getSystemService(v.getContext().DOWNLOAD_SERVICE);
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                layout_button.setVisibility(View.GONE);
+            }
+        });
 
     }
 
@@ -126,7 +142,7 @@ public class frag_persuratan_disimpan extends Fragment {
 
         }
 
-        mAdapter = new AdapterPersuratanPribadi(v.getContext(), AryListData, new AdapterPersuratanPribadi.OnDownloadClicked() {
+        mAdapter = new AdapterPersuratanDisimpan(v.getContext(), AryListData, new AdapterPersuratanDisimpan.OnDownloadClicked() {
             @Override
             public void OnDownloadClicked(final String sUrl, boolean bStatus) {
                 mRecyclerView.setVisibility(View.GONE);
@@ -153,7 +169,9 @@ public class frag_persuratan_disimpan extends Fragment {
                         //Action to perform on success
                         mRecyclerView.setVisibility(View.VISIBLE);
                         rLayoutDownload.setVisibility(View.GONE);
-
+                        AppConstant.PDF_FILENAME = "DOWNLOAD_FILE_NAME.pdf";
+                        Intent intent = new Intent(getActivity(), PDFViewActivitySimpanKirim.class);
+                        getActivity().startActivity(intent);
                     }
 
                     @Override

@@ -81,6 +81,14 @@ public class AdapterPersuratanUmum extends  RecyclerView.Adapter<AdapterPersurat
             }
         });
 
+        holder.imgCC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, CC_Activity.class);
+                context.startActivity(intent);
+            }
+        });
+
         holder.listData = listData;
     }
 
@@ -101,7 +109,7 @@ public class AdapterPersuratanUmum extends  RecyclerView.Adapter<AdapterPersurat
 
         RelativeLayout btnDownload,
                 btnPrint;
-        ImageView imgStatus, imgChecklist;
+        ImageView imgStatus, imgChecklist, imgCC;
 
         ListData listData;
         public ViewHolder(View itemView,
@@ -118,7 +126,7 @@ public class AdapterPersuratanUmum extends  RecyclerView.Adapter<AdapterPersurat
             btnDownload = (RelativeLayout) itemView.findViewById(R.id.btnDownload);
             btnPrint = (RelativeLayout) itemView.findViewById(R.id.btnPrint);
             imgChecklist = (ImageView)itemView.findViewById(R.id.imageView15);
-
+            imgCC = (ImageView)itemView.findViewById(R.id.imageView5);
             btnDownload.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

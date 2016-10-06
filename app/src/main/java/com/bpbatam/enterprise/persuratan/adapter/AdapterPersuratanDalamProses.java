@@ -10,9 +10,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-
 import com.bpbatam.AppConstant;
-import com.bpbatam.enterprise.CC_Activity;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.disposisi.disposisi_detail;
 import com.bpbatam.enterprise.model.ListData;
@@ -22,12 +20,12 @@ import java.util.ArrayList;
 /**
  * Created by User on 9/19/2016.
  */
-public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersuratanPribadi.ViewHolder>{
+public class AdapterPersuratanDalamProses extends  RecyclerView.Adapter<AdapterPersuratanDalamProses.ViewHolder>{
 
     private ArrayList<ListData> mCourseArrayList;
     private Context context;
 
-    public AdapterPersuratanPribadi(Context context, ArrayList<ListData> mCourseArrayList, OnDownloadClicked listener) {
+    public AdapterPersuratanDalamProses(Context context, ArrayList<ListData> mCourseArrayList, OnDownloadClicked listener) {
         this.context = context;
         this.mCourseArrayList = mCourseArrayList;
         this.listener = listener;
@@ -107,7 +105,7 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
         ListData listData;
         public ViewHolder(View itemView,
                           Context context,
-                          final AdapterPersuratanPribadi mCourseAdapter) {
+                          final AdapterPersuratanDalamProses mCourseAdapter) {
             super(itemView);
 
             txtDate = (TextView)itemView.findViewById(R.id.text_Date);

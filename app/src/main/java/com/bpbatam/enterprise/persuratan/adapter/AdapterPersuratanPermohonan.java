@@ -44,7 +44,7 @@ public class AdapterPersuratanPermohonan extends  RecyclerView.Adapter<AdapterPe
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //Inflate layout
         View itemView = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.row_persuratan_umum, null);
+                R.layout.row_persuratan_permohonan, null);
 
         return new ViewHolder(itemView, context, this);
     }
@@ -100,7 +100,7 @@ public class AdapterPersuratanPermohonan extends  RecyclerView.Adapter<AdapterPe
 
         RelativeLayout btnDownload,
                 btnPrint;
-        ImageView imgStatus, imgChecklist;
+        ImageView imgStatus,  imgChecklist;
 
         ListData listData;
         public ViewHolder(View itemView,

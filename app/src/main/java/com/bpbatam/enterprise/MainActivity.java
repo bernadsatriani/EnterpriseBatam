@@ -16,8 +16,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.bpbatam.AppConstant;
-import com.bpbatam.enterprise.disposisi.fragment.frag_disposisi_permohonan_umum_pribadi;
-import com.bpbatam.enterprise.disposisi.fragment.frag_disposisi_riwayat_dalam_proses;
+import com.bpbatam.enterprise.disposisi.fragment.frag_disposisi_dalamproses;
+import com.bpbatam.enterprise.disposisi.fragment.frag_disposisi_permohonan;
+import com.bpbatam.enterprise.disposisi.fragment.frag_disposisi_pribadi;
+import com.bpbatam.enterprise.disposisi.fragment.frag_disposisi_riwayat;
+import com.bpbatam.enterprise.disposisi.fragment.frag_disposisi_umum;
 import com.bpbatam.enterprise.fragment.Frag_Beranda;
 import com.bpbatam.enterprise.fragment.frag_bbs;
 import com.bpbatam.enterprise.persuratan.fragment.frag_persuratan_pribadi;
@@ -104,27 +107,27 @@ public class MainActivity extends AppCompatActivity implements NavMenuFragment.F
                 break;
             //DISPOSISI------------------------------------------------
             case 30:
-                fragment = new frag_disposisi_permohonan_umum_pribadi();
+                fragment = new frag_disposisi_pribadi();
                 txtLabel.setText("DISPOSISI");
                 AppConstant.ACTIVITY_FROM = "Pribadi";
                 break;
             case 31:
-                fragment = new frag_disposisi_permohonan_umum_pribadi();
+                fragment = new frag_disposisi_umum();
                 txtLabel.setText("DISPOSISI");
                 AppConstant.ACTIVITY_FROM = "Umum";
                 break;
             case 32:
-                fragment = new frag_disposisi_permohonan_umum_pribadi();
+                fragment = new frag_disposisi_permohonan();
                 txtLabel.setText("DISPOSISI");
                 AppConstant.ACTIVITY_FROM = "Permohonan";
                 break;
             case 33:
-                fragment = new frag_disposisi_riwayat_dalam_proses();
+                fragment = new frag_disposisi_dalamproses();
                 txtLabel.setText("DISPOSISI");
                 AppConstant.ACTIVITY_FROM = "Dalam Proses";
                 break;
             case 34:
-                fragment = new frag_disposisi_riwayat_dalam_proses();
+                fragment = new frag_disposisi_riwayat();
                 txtLabel.setText("DISPOSISI");
                 AppConstant.ACTIVITY_FROM = "Riwayat";
                 break;

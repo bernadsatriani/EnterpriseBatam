@@ -1,4 +1,4 @@
-package com.bpbatam.enterprise.persuratan.fragment;
+package com.bpbatam.enterprise.disposisi.fragment;
 
 import android.app.DownloadManager;
 import android.content.Intent;
@@ -11,31 +11,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ayz4sci.androidfactory.DownloadProgressView;
 import com.bpbatam.AppConstant;
-import com.bpbatam.enterprise.PDFViewActivitySimpanKirim;
+import com.bpbatam.enterprise.PDFViewActivity;
+import com.bpbatam.enterprise.PDFViewActivity_Recall;
 import com.bpbatam.enterprise.R;
+import com.bpbatam.enterprise.disposisi.adapter.AdapterDisposisiRiwayat;
 import com.bpbatam.enterprise.model.ListData;
-import com.bpbatam.enterprise.persuratan.adapter.AdapterPersuratanDikembalikan;
-import com.bpbatam.enterprise.persuratan.adapter.AdapterPersuratanPribadi;
 
 import java.util.ArrayList;
-
-import ui.QuickAction.ActionItem;
-import ui.QuickAction.QuickAction;
 
 /**
  * Created by User on 9/19/2016.
  */
-public class frag_persuratan_dikembalikan extends Fragment {
-    //action id
-    private static final int ID_PILIH_PESAN     = 1;
-    private static final int ID_SEMUA_PESAN   = 2;
-
+public class frag_disposisi_dalamproses extends Fragment {
     RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private LinearLayoutManager mLayoutManager;
@@ -50,13 +42,11 @@ public class frag_persuratan_dikembalikan extends Fragment {
 
     ImageView imgMenu;
     TextView txtLabel;
-
-    LinearLayout layout_button, btnDelete;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_persuratan_dikembalikan, container, false);
+        View view = inflater.inflate(R.layout.fragment_disposisi_riwayat_dalamproses, container, false);
 
         return view;
     }
@@ -65,48 +55,9 @@ public class frag_persuratan_dikembalikan extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         InitControl(view);
         FillGrid(view);
-
-        ActionItem pilihItem 	= new ActionItem(ID_PILIH_PESAN, "Pilih Pesan", null);
-        ActionItem semuaItem 	= new ActionItem(ID_SEMUA_PESAN, "Semua Pesan", null);
-
-        pilihItem.setSticky(true);
-        semuaItem.setSticky(true);
-
-        //create QuickAction. Use QuickAction.VERTICAL or QuickAction.HORIZONTAL param to define layout
-        //orientation
-        final QuickAction quickAction = new QuickAction(getActivity(), QuickAction.VERTICAL);
-
-        //add action items into QuickAction
-        quickAction.addActionItem(pilihItem);
-        quickAction.addActionItem(semuaItem);
-
-        //Set listener for action item clicked
-        quickAction.setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {
-            @Override
-            public void onItemClick(QuickAction source, int pos, int actionId) {
-                ActionItem actionItem = quickAction.getActionItem(pos);
-
-                //here we can filter which action item was clicked with pos or actionId parameter
-                if (actionId == ID_PILIH_PESAN) {
-
-                } else if (actionId == ID_SEMUA_PESAN) {
-
-                }
-            }
-        });
-
-        imgMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                quickAction.show(v);
-            }
-        });
-
     }
 
     void InitControl(View v){
-        layout_button = (LinearLayout)v.findViewById(R.id.layout_button);
-        btnDelete = (LinearLayout)v.findViewById(R.id.btnDelete);
         txtLabel = (TextView)v.findViewById(R.id.view2);
         if (AppConstant.ACTIVITY_FROM != null) txtLabel.setText(AppConstant.ACTIVITY_FROM);
         imgMenu = (ImageView)v.findViewById(R.id.imageView);
@@ -119,12 +70,7 @@ public class frag_persuratan_dikembalikan extends Fragment {
 
         downloadProgressView = (DownloadProgressView) v.findViewById(R.id.downloadProgressView);
         downloadManager = (DownloadManager) v.getContext().getSystemService(v.getContext().DOWNLOAD_SERVICE);
-        btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                layout_button.setVisibility(View.GONE);
-            }
-        });
+
     }
 
     void FillGrid(View v){
@@ -139,7 +85,7 @@ public class frag_persuratan_dikembalikan extends Fragment {
 
         }
 
-        mAdapter = new AdapterPersuratanDikembalikan(v.getContext(), AryListData, new AdapterPersuratanDikembalikan.OnDownloadClicked() {
+        mAdapter = new AdapterDisposisiRiwayat(v.getContext(), AryListData, new AdapterDisposisiRiwayat.OnDownloadClicked() {
             @Override
             public void OnDownloadClicked(final String sUrl, boolean bStatus) {
                 mRecyclerView.setVisibility(View.GONE);
@@ -167,9 +113,8 @@ public class frag_persuratan_dikembalikan extends Fragment {
                         mRecyclerView.setVisibility(View.VISIBLE);
                         rLayoutDownload.setVisibility(View.GONE);
                         AppConstant.PDF_FILENAME = "DOWNLOAD_FILE_NAME.pdf";
-                        Intent intent = new Intent(getActivity(), PDFViewActivitySimpanKirim.class);
+                        Intent intent = new Intent(getActivity(), PDFViewActivity_Recall.class);
                         getActivity().startActivity(intent);
-
                     }
 
                     @Override
