@@ -52,6 +52,7 @@ public class frag_persuratan_pribadi extends Fragment {
     TextView txtLabel;
     LinearLayout layout_button, btnDistribusi;
 
+    String statusPesan;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -62,7 +63,8 @@ public class frag_persuratan_pribadi extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(final View view, Bundle savedInstanceState) {
+        statusPesan = AppConstant.TIDAK_PESAN;
         InitControl(view);
         FillGrid(view);
 
@@ -88,10 +90,13 @@ public class frag_persuratan_pribadi extends Fragment {
 
                 //here we can filter which action item was clicked with pos or actionId parameter
                 if (actionId == ID_PILIH_PESAN) {
-
+                    statusPesan = AppConstant.PILIH_PESAN;
+                    FillGrid(view);
                 } else if (actionId == ID_SEMUA_PESAN) {
-
+                    statusPesan = AppConstant.SEMUA_PESAN;
+                    FillGrid(view);
                 }
+                quickAction.dismiss();
             }
         });
 
@@ -140,6 +145,8 @@ public class frag_persuratan_pribadi extends Fragment {
             listData.setAtr1("Attachment " + i);
             listData.setAtr2("(5,88 mb)");
             listData.setAtr3("http://cottonsoft.co.nz/assets/img/our-company-history/history-2011-Paseo.jpg");
+            listData.setNama(statusPesan);
+            if (statusPesan.equals(AppConstant.PILIH_PESAN)) listData.setJekel("1");
             AryListData.add(listData);
 
         }

@@ -11,6 +11,7 @@ import com.squareup.picasso.Picasso;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -24,7 +25,7 @@ public class AppController extends Application {
         super.onCreate();
         mInstance = this;
         sessionManager = new SessionManager(getApplicationContext());
-        AppConstant.HASHID = md5(getDateTime() + "ipnet_bpbatam");
+
     }
 
     public static Context getAppContext() {
@@ -66,6 +67,8 @@ public class AppController extends Application {
                 .into(imageView);
     }
 
+
+
     public String md5(String s) {
         try {
             // Create MD5 Hash
@@ -93,8 +96,57 @@ public class AppController extends Application {
 
     public String getDateTime() {
         //SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
         Date date = new Date();
-        return dateFormat.format(date);
+        return dateFormat.format(date) + getTime();
     }
+
+    public String getTime() {
+        //SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar cal = Calendar.getInstance();
+
+        int second = cal.get(Calendar.SECOND);
+        int minute = cal.get(Calendar.MINUTE);
+        //12 hour format
+        int hour = cal.get(Calendar.HOUR_OF_DAY);
+
+        String sHour = String.valueOf(hour);
+        String sMinute= String.valueOf(minute);
+        String sSecond = String.valueOf(second);
+
+        if (sHour.length() < 2) sHour = "0" + sHour;
+        if (sMinute.length() < 2) sMinute = "0" + sMinute;
+        if (sSecond.length() < 2) sSecond = "0" + sSecond;
+
+        return sHour + sMinute + sSecond;
+    }
+
+    public String getHasPassword(String Password) throws NoSuchAlgorithmException {
+        return getSHA1(Password+"S.1bc29400");
+    }
+
+    public String getSHA1(String input)throws NoSuchAlgorithmException{
+
+        MessageDigest mDigest = MessageDigest.getInstance("SHA1");
+        byte[] result = mDigest.digest(input.getBytes());
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < result.length; i++) {
+            sb.append(Integer.toString((result[i] & 0xff) + 0x100, 16).substring(1));
+        }
+
+        return sb.toString();
+    }
+
+    public String getHashId(String sUserId, String sPassword)throws NoSuchAlgorithmException{
+        AppConstant.REQID = getDateTime();
+
+        String samplePassword =  getSHA1("21232f297a57a5a743894a0e4a801fc3S.1bc29400");
+        String sampleHashID = getSHA1(getDateTime() + sUserId + "bc12b22e93149c175cc034f69b031f35"+getSHA1("21232f297a57a5a743894a0e4a801fc3"+"S.1bc29400"));
+
+        /*String sResult = md5(getDateTime() + sUserId + "bc12b22e93149c175cc034f69b031f35" +
+                getHasPassword(sPassword));
+                ;*/
+        return sampleHashID;
+    }
+
 }

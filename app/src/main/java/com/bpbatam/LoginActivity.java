@@ -23,6 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -58,8 +59,13 @@ public class LoginActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId("admin1", "admin12345");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
 
-        AuthUser param = new AuthUser(AppConstant.HASHID, "admin1","admin12345");
+        AuthUser param = new AuthUser(AppConstant.HASHID, "admin1","admin12345", AppConstant.REQID);
         AuthUser getParam = AppController.getInstance().getSessionManager().getUserProfile();
         try{
             Call<AuthUser> call = NetworkManager.getNetworkService(this).loginUser(param);

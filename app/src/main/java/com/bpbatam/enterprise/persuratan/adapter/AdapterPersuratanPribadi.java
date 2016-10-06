@@ -52,8 +52,8 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        ListData listData = mCourseArrayList.get(position);
+    public void onBindViewHolder(final ViewHolder holder, int position) {
+        final ListData listData = mCourseArrayList.get(position);
         //Set text
         holder.txtDate.setText("Rabu, 21 Sept 2016");
         holder.txtTime.setText("12:37 PM");
@@ -68,11 +68,34 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
                 holder.imgChecklist.setVisibility(View.GONE);
             }else if (listData.getNama().equals(AppConstant.PILIH_PESAN)){
                 holder.imgChecklist.setVisibility(View.VISIBLE);
+
             }else if (listData.getNama().equals(AppConstant.SEMUA_PESAN)){
                 holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.check32));
+                listData.setJekel("1");
                 holder.imgChecklist.setVisibility(View.VISIBLE);
             }
         }
+
+        if (listData.getJekel() != null){
+            if (listData.getJekel().equals("1")){
+                holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.check32));
+            }else{
+                holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.circle));
+            }
+        }
+
+        holder.imgChecklist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (listData.getJekel().equals("1")){
+                    listData.setJekel("0");
+                    holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.circle));
+                }else{
+                    listData.setJekel("1");
+                    holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.check32));
+                }
+            }
+        });
 
         holder.btnPrint.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +104,7 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
                 v.getContext().startActivity(intent);
             }
         });
+
 
         holder.listData = listData;
     }

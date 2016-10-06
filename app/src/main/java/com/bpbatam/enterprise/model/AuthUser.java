@@ -13,11 +13,13 @@ public class AuthUser
     public  String hashid;
     public  String userid;
     public  String pass;
+    public String reqid;
 
-    public AuthUser(String hashid, String userid, String pass) {
+    public AuthUser(String hashid, String userid, String pass, String reqid) {
         this.hashid = hashid;
         this.userid = userid;
         this.pass = pass;
+        this.reqid = reqid;
     }
 
     public List<Datum> data;
