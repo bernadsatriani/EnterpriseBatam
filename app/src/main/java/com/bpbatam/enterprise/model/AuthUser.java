@@ -26,23 +26,23 @@ public class AuthUser
 
     public class Datum
     {
-        public String userId ;
-        public String userName ;
-        public String roleId ;
-        public String levelId ;
-        public String positionId ;
-        public String idNumber ;
-        public String deviceId ;
-        public String deviceType ;
-        public String userType ;
-        public String joinDate ;
+        public String user_id ;
+        public String user_name ;
+        public String role_id ;
+        public String level_id ;
+        public String position_id ;
+        public String id_number ;
+        public String device_id ;
+        public String device_type ;
+        public String user_type ;
+        public String join_date ;
         public String nik ;
         public String gender ;
-        public String postalCode ;
+        public String postal_code ;
         public String address1 ;
         public String address2 ;
-        public String birthDate ;
-        public String ishmrsUser ;
+        public String birth_date ;
+        public String ishmrs_user ;
 
     }
     

@@ -4,6 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.bpbatam.enterprise.disposisi.fragment.frag_disposisi_riwayat;
+import com.bpbatam.enterprise.fragment.Frag_Beranda_DISPOSISI_riwayat;
 import com.bpbatam.enterprise.fragment.Frag_Home_Detail;
 
 /**
@@ -35,7 +37,7 @@ public class ViewPagerAdapterHome extends FragmentStatePagerAdapter {
         }
         else             // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
         {
-            Frag_Home_Detail tab2 = new Frag_Home_Detail();
+            Frag_Beranda_DISPOSISI_riwayat tab2 = new Frag_Beranda_DISPOSISI_riwayat();
             return tab2;
         }
  

@@ -53,7 +53,7 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         final ListData listData = mCourseArrayList.get(position);
         //Set text
         holder.txtDate.setText("Rabu, 21 Sept 2016");
@@ -64,26 +64,18 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
         //holder.txtStatus.setText(listData.getAtr2());
 
         //AppController.getInstance().displayImage(context,listData.getAtr3(), holder.imgCover);
-        if (listData.getNama() != null){
-            if (listData.getNama().equals(AppConstant.TIDAK_PESAN)){
-                holder.imgChecklist.setVisibility(View.GONE);
-            }else if (listData.getNama().equals(AppConstant.PILIH_PESAN)){
-                holder.imgChecklist.setVisibility(View.VISIBLE);
-
-            }else if (listData.getNama().equals(AppConstant.SEMUA_PESAN)){
-                holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.check32));
-                listData.setJekel(AppConstant.SEMUA_PESAN);
-                holder.imgChecklist.setVisibility(View.VISIBLE);
-            }
-        }
 
         if (listData.getJekel() != null){
-            if (listData.getJekel().equals("2")){
+            if (listData.getJekel().equals(AppConstant.SEMUA_PESAN)){
+                holder.imgChecklist.setVisibility(View.VISIBLE);
                 holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.check32));
                 ButtonSelected(holder);
-            }else{
+            }else if (listData.getJekel().equals(AppConstant.PILIH_PESAN)){
+                holder.imgChecklist.setVisibility(View.VISIBLE);
                 ButtonNotSelected(holder);
                 holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.circle));
+            }else{
+                holder.imgChecklist.setVisibility(View.GONE);
             }
         }
 
@@ -91,13 +83,14 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
             @Override
             public void onClick(View view) {
                 if (listData.getJekel().equals("1")){
-                    listData.setJekel("2");
+                    mCourseArrayList.get(position).setJekel("2");
                     ButtonSelected(holder);
                     listener.OnDownloadClicked("", false);
                 }else{
-                    listener.OnDownloadClicked("", false);
-                    listData.setJekel("1");
+
+                    mCourseArrayList.get(position).setJekel("1");
                     ButtonNotSelected(holder);
+                    listener.OnDownloadClicked("", false);
                 }
             }
         });

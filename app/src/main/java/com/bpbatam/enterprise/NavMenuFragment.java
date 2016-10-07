@@ -21,7 +21,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bpbatam.AppConstant;
+import com.bpbatam.AppController;
 import com.bpbatam.enterprise.adapter.ExpandableListAdapter;
+import com.bpbatam.enterprise.model.AuthUser;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,7 +46,7 @@ public class NavMenuFragment extends Fragment {
     private static int[] iconSelected = null;
     private FragmentDrawerListener drawerListener;
     TextView tvVersion, txtDate;
-
+    TextView tvName, tvEmail;
     int iPosition;
 
     ExpandableListAdapter listAdapter;
@@ -106,6 +108,19 @@ public class NavMenuFragment extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_navigation_menu, container, false);
         tvVersion = (TextView) layout.findViewById(R.id.tVVersion);
         txtDate = (TextView) layout.findViewById(R.id.txtDate);
+        tvName = (TextView) layout.findViewById(R.id.name);
+        tvEmail = (TextView) layout.findViewById(R.id.email);
+
+        AuthUser authUser = AppController.getInstance().getSessionManager().getUserProfile();
+
+        for (AuthUser.Datum dat : authUser.data){
+            tvName.setText(dat.user_name);
+            tvEmail.setText(dat.nik);
+        }
+
+
+
+
         //txtDate.setText(getResources().getString(R.string.text_date).replace("[date]", AppConstant.strTgltrans) );
         //tvVersion.setText(getResources().getText(R.string.main_version) +  " " + GblFunction.getSoftwareVersion(getActivity()));
 

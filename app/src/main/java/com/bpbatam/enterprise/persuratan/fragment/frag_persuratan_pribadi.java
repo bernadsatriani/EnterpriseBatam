@@ -92,9 +92,11 @@ public class frag_persuratan_pribadi extends Fragment {
                 if (actionId == ID_PILIH_PESAN) {
                     statusPesan = AppConstant.PILIH_PESAN;
                     FillGrid(view);
+                    layout_button.setVisibility(View.GONE);
                 } else if (actionId == ID_SEMUA_PESAN) {
                     statusPesan = AppConstant.SEMUA_PESAN;
                     FillGrid(view);
+                    layout_button.setVisibility(View.VISIBLE);
                 }
                 quickAction.dismiss();
             }
@@ -146,7 +148,8 @@ public class frag_persuratan_pribadi extends Fragment {
             listData.setAtr2("(5,88 mb)");
             listData.setAtr3("http://cottonsoft.co.nz/assets/img/our-company-history/history-2011-Paseo.jpg");
             listData.setNama(statusPesan);
-            if (statusPesan.equals(AppConstant.PILIH_PESAN)) listData.setJekel("1");
+//            if (statusPesan.equals(AppConstant.PILIH_PESAN)) listData.setJekel("1");
+            listData.setJekel(statusPesan);
             AryListData.add(listData);
 
         }

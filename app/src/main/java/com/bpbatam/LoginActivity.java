@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         AuthUser param = new AuthUser(AppConstant.HASHID, "admin1", sPassword, AppConstant.REQID);
-        AuthUser getParam = AppController.getInstance().getSessionManager().getUserProfile();
+
         try{
             Call<AuthUser> call = NetworkManager.getNetworkService(this).loginUser(param);
             call.enqueue(new Callback<AuthUser>() {
