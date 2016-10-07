@@ -134,7 +134,7 @@
             <RelativeLayout
                 android:drawableLeft="@drawable/download24"
                 android:id="@+id/btnDownload"
-                android:background="@drawable/btn_shape_all_blue"
+                android:background="@drawable/btn_shape_all_transparant_blue"
                 android:onClick="onClick"
                 android:text="  lihat dokumen  "
                 android:textColor="#ffffff"
@@ -147,6 +147,8 @@
                 android:layout_width="103dp">
                 <ImageView
                     android:src="@drawable/downloadsave32"
+                    android:id="@+id/imgDownload"
+                    android:tint="@color/grey"
                     android:layout_width="@dimen/space_25"
                     android:layout_height="@dimen/space_25"
                     android:layout_marginRight="@dimen/space_3" />
@@ -157,14 +159,13 @@
                     android:gravity="center"
                     android:onClick="onClick"
                     android:text="lihat surat"
-                    android:textColor="#ffffff"
+                    android:tint="@color/grey_s"
                     android:textSize="@dimen/space_10"
                     font:name="GOTHAM_BLACK"
-
+                    android:id="@+id/textDownload"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
-                    android:layout_toEndOf="@+id/imageView16"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_marginLeft="@dimen/space_20" />

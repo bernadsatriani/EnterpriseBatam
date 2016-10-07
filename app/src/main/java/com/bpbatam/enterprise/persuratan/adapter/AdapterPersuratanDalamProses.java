@@ -44,7 +44,7 @@ public class AdapterPersuratanDalamProses extends  RecyclerView.Adapter<AdapterP
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //Inflate layout
         View itemView = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.row_persuratan_pribadi, null);
+                R.layout.row_persuratan_dalamproses, null);
 
         return new ViewHolder(itemView, context, this);
     }

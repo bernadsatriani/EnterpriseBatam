@@ -81,8 +81,8 @@
 
                 <ui.CustomtextView
                     font:name = "GOTHAM_LIGHT"
-
-                    android:textSize="@dimen/space_12"                    android:id="@+id/lbl_size"
+                    android:id="@+id/lbl_size"
+                    android:textSize="@dimen/space_12"
                     android:text="Attachemnt asdas asdas"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -132,9 +132,48 @@
                 android:layout_toLeftOf="@+id/text_time" />
 
             <RelativeLayout
+                android:id="@+id/btnPrint"
+                android:layout_height="@dimen/space_35"
+                android:background="@drawable/btn_shape_facebook"
+                android:onClick="onClick"
+                android:text="lihat detail"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/space_12"
+                android:layout_alignTop="@+id/btnDownload"
+                android:layout_toLeftOf="@+id/btnDownload"
+                android:layout_toStartOf="@+id/btnDownload"
+                android:layout_width="105dp"
+                android:layout_marginRight="@dimen/space_3"
+                android:layout_alignBottom="@+id/btnDownload">
+                <ImageView
+                    android:id="@+id/imgInfo"
+                    android:src="@drawable/info_32"
+                    android:layout_width="@dimen/space_25"
+                    android:layout_height="@dimen/space_25" />
+
+                <ui.CustomtextView
+                    android:id="@+id/textInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:onClick="onClick"
+                    android:text="lihat detail"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/space_10"
+                    font:name="GOTHAM_BLACK"
+
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="fill_vertical"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="@dimen/space_30" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:drawableLeft="@drawable/download24"
                 android:id="@+id/btnDownload"
-                android:background="@drawable/btn_shape_all_transparant_blue"
+                android:background="@drawable/btn_shape_all_blue"
                 android:onClick="onClick"
                 android:text="  lihat dokumen  "
                 android:textColor="#ffffff"
@@ -146,23 +185,23 @@
                 android:layout_alignEnd="@+id/layout_attachment"
                 android:layout_width="103dp">
                 <ImageView
-                    android:src="@drawable/downloadsave32"
                     android:id="@+id/imgDownload"
-                    android:tint="@color/grey"
+                    android:src="@drawable/downloadsave32"
                     android:layout_width="@dimen/space_25"
                     android:layout_height="@dimen/space_25"
                     android:layout_marginRight="@dimen/space_3" />
 
                 <ui.CustomtextView
+                    android:id="@+id/textDownload"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:onClick="onClick"
                     android:text="lihat surat"
-                    android:tint="@color/grey_s"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/space_10"
                     font:name="GOTHAM_BLACK"
-                    android:id="@+id/textDownload"
+
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"

@@ -52,6 +52,8 @@ public class frag_persuratan_umum extends Fragment {
     TextView txtLabel;
 
     LinearLayout layout_button, btnDisposisi, btnDistribusi;
+
+    String statusPesan;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -62,7 +64,9 @@ public class frag_persuratan_umum extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(final View view, Bundle savedInstanceState) {
+        statusPesan = AppConstant.TIDAK_PESAN;
+
         InitControl(view);
         FillGrid(view);
 
@@ -88,9 +92,13 @@ public class frag_persuratan_umum extends Fragment {
 
                 //here we can filter which action item was clicked with pos or actionId parameter
                 if (actionId == ID_PILIH_PESAN) {
-
+                    statusPesan = AppConstant.PILIH_PESAN;
+                    FillGrid(view);
+                    layout_button.setVisibility(View.GONE);
                 } else if (actionId == ID_SEMUA_PESAN) {
-
+                    statusPesan = AppConstant.SEMUA_PESAN;
+                    FillGrid(view);
+                    layout_button.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -147,6 +155,7 @@ public class frag_persuratan_umum extends Fragment {
             listData.setAtr1("Attachment " + i);
             listData.setAtr2("(5,88 mb)");
             listData.setAtr3("http://cottonsoft.co.nz/assets/img/our-company-history/history-2011-Paseo.jpg");
+            listData.setJekel(statusPesan);
             AryListData.add(listData);
 
         }
@@ -154,42 +163,56 @@ public class frag_persuratan_umum extends Fragment {
         mAdapter = new AdapterPersuratanUmum(v.getContext(), AryListData, new AdapterPersuratanUmum.OnDownloadClicked() {
             @Override
             public void OnDownloadClicked(final String sUrl, boolean bStatus) {
-                mRecyclerView.setVisibility(View.GONE);
-                rLayoutDownload.setVisibility(View.VISIBLE);
+                if (bStatus){
+                    mRecyclerView.setVisibility(View.GONE);
+                    rLayoutDownload.setVisibility(View.VISIBLE);
 
-                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(sUrl));
-                request.setTitle("TITLE");
-                request.setDescription("DESCRIPTION");
-                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                request.setDestinationInExternalPublicDir(AppConstant.FOLDER_DOWNLOAD, "DOWNLOAD_FILE_NAME.pdf");
-                request.allowScanningByMediaScanner();
-                downloadID = downloadManager.enqueue(request);
+                    DownloadManager.Request request = new DownloadManager.Request(Uri.parse(sUrl));
+                    request.setTitle("TITLE");
+                    request.setDescription("DESCRIPTION");
+                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                    request.setDestinationInExternalPublicDir(AppConstant.FOLDER_DOWNLOAD, "DOWNLOAD_FILE_NAME.pdf");
+                    request.allowScanningByMediaScanner();
+                    downloadID = downloadManager.enqueue(request);
 
-                downloadProgressView.show(downloadID, new DownloadProgressView.DownloadStatusListener() {
-                    @Override
-                    public void downloadFailed(int reason) {
-                        //Action to perform when download fails, reason as returned by DownloadManager.COLUMN_REASON
-                        mRecyclerView.setVisibility(View.VISIBLE);
-                        rLayoutDownload.setVisibility(View.GONE);
+                    downloadProgressView.show(downloadID, new DownloadProgressView.DownloadStatusListener() {
+                        @Override
+                        public void downloadFailed(int reason) {
+                            //Action to perform when download fails, reason as returned by DownloadManager.COLUMN_REASON
+                            mRecyclerView.setVisibility(View.VISIBLE);
+                            rLayoutDownload.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void downloadSuccessful() {
+                            //Action to perform on success
+                            mRecyclerView.setVisibility(View.VISIBLE);
+                            rLayoutDownload.setVisibility(View.GONE);
+                            AppConstant.PDF_FILENAME = "DOWNLOAD_FILE_NAME.pdf";
+                            Intent intent = new Intent(getActivity(), PDFViewActivityDisposisiDistribusi.class);
+                            getActivity().startActivity(intent);
+                        }
+
+                        @Override
+                        public void downloadCancelled() {
+                            //Action to perform when user press the cancel button
+                            mRecyclerView.setVisibility(View.VISIBLE);
+                            rLayoutDownload.setVisibility(View.GONE);
+                        }
+                    });
+                }else{
+                    boolean bDone = false;
+                    for (ListData dat : AryListData){
+                        if (dat.getJekel().equals("2")){
+                            bDone = true;
+                            break;
+                        }
                     }
+                    if (bDone){
+                        layout_button.setVisibility(View.VISIBLE);
+                    }else layout_button.setVisibility(View.GONE);
+                }
 
-                    @Override
-                    public void downloadSuccessful() {
-                        //Action to perform on success
-                        mRecyclerView.setVisibility(View.VISIBLE);
-                        rLayoutDownload.setVisibility(View.GONE);
-                        AppConstant.PDF_FILENAME = "DOWNLOAD_FILE_NAME.pdf";
-                        Intent intent = new Intent(getActivity(), PDFViewActivityDisposisiDistribusi.class);
-                        getActivity().startActivity(intent);
-                    }
-
-                    @Override
-                    public void downloadCancelled() {
-                        //Action to perform when user press the cancel button
-                        mRecyclerView.setVisibility(View.VISIBLE);
-                        rLayoutDownload.setVisibility(View.GONE);
-                    }
-                });
             }
         });
         // set the adapter object to the Recyclerview

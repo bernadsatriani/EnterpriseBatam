@@ -17,6 +17,7 @@ import com.ayz4sci.androidfactory.DownloadProgressView;
 import com.bpbatam.AppConstant;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.model.ListData;
+import com.bpbatam.enterprise.persuratan.adapter.AdapterPersuratanDalamProses;
 import com.bpbatam.enterprise.persuratan.adapter.AdapterPersuratanPribadi;
 
 import java.util.ArrayList;
@@ -89,7 +90,7 @@ public class frag_persuratan_dalam_proses extends Fragment {
 
         }
 
-        mAdapter = new AdapterPersuratanPribadi(v.getContext(), AryListData, new AdapterPersuratanPribadi.OnDownloadClicked() {
+        mAdapter = new AdapterPersuratanDalamProses(v.getContext(), AryListData, new AdapterPersuratanDalamProses.OnDownloadClicked() {
             @Override
             public void OnDownloadClicked(final String sUrl, boolean bStatus) {
                 mRecyclerView.setVisibility(View.GONE);

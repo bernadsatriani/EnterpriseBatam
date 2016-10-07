@@ -31,7 +31,7 @@ public class PDFViewActivitySimpanKirim extends AppCompatActivity implements OnP
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pdfview_ditolak_disetujui);
+        setContentView(R.layout.activity_pdfview_simpan_kirim);
 
         txtLabel = (TextView)findViewById(R.id.textLabel);
         pdfView = (PDFView)findViewById(R.id.pdfView);

@@ -2,6 +2,7 @@ package com.bpbatam.enterprise.persuratan.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,8 +52,8 @@ public class AdapterPersuratanUmum extends  RecyclerView.Adapter<AdapterPersurat
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        ListData listData = mCourseArrayList.get(position);
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
+        final ListData listData = mCourseArrayList.get(position);
         //Set text
         holder.txtDate.setText("Rabu, 21 Sept 2016");
         holder.txtTime.setText("12:37 PM");
@@ -62,16 +63,6 @@ public class AdapterPersuratanUmum extends  RecyclerView.Adapter<AdapterPersurat
         //holder.txtStatus.setText(listData.getAtr2());
 
         //AppController.getInstance().displayImage(context,listData.getAtr3(), holder.imgCover);
-        if (listData.getNama() != null){
-            if (listData.getNama().equals(AppConstant.TIDAK_PESAN)){
-                holder.imgChecklist.setVisibility(View.GONE);
-            }else if (listData.getNama().equals(AppConstant.PILIH_PESAN)){
-                holder.imgChecklist.setVisibility(View.VISIBLE);
-            }else if (listData.getNama().equals(AppConstant.SEMUA_PESAN)){
-                holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.check32));
-                holder.imgChecklist.setVisibility(View.VISIBLE);
-            }
-        }
 
         holder.btnPrint.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +80,61 @@ public class AdapterPersuratanUmum extends  RecyclerView.Adapter<AdapterPersurat
             }
         });
 
+        if (listData.getJekel() != null){
+            if (listData.getJekel().equals(AppConstant.SEMUA_PESAN)){
+                holder.imgChecklist.setVisibility(View.VISIBLE);
+                holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.check32));
+                ButtonSelected(holder);
+            }else if (listData.getJekel().equals(AppConstant.PILIH_PESAN)){
+                holder.imgChecklist.setVisibility(View.VISIBLE);
+                ButtonNotSelected(holder);
+                holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.circle));
+            }else{
+                holder.imgChecklist.setVisibility(View.GONE);
+            }
+        }
+
+        holder.imgChecklist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (listData.getJekel().equals("1")){
+                    mCourseArrayList.get(position).setJekel("2");
+                    ButtonSelected(holder);
+                    listener.OnDownloadClicked("", false);
+                }else{
+
+                    mCourseArrayList.get(position).setJekel("1");
+                    ButtonNotSelected(holder);
+                    listener.OnDownloadClicked("", false);
+                }
+            }
+        });
+
         holder.listData = listData;
+    }
+
+    void ButtonSelected(AdapterPersuratanUmum.ViewHolder holder){
+        holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.check32));
+        holder.imgInfo.setColorFilter(context.getResources().getColor(R.color.white));
+        holder.imgDownload.setColorFilter(context.getResources().getColor(R.color.white));
+        holder.textDownload.setTextColor(context.getResources().getColor(R.color.white));
+        holder.textInfo.setTextColor(context.getResources().getColor(R.color.white));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            holder.btnDownload.setBackground(context.getResources().getDrawable(R.drawable.btn_shape_all_blue));
+            holder.btnPrint.setBackground(context.getResources().getDrawable(R.drawable.btn_shape_facebook));
+        }
+    }
+
+    void ButtonNotSelected(AdapterPersuratanUmum.ViewHolder holder){
+        holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.circle));
+        holder.imgInfo.setColorFilter(context.getResources().getColor(R.color.grey));
+        holder.imgDownload.setColorFilter(context.getResources().getColor(R.color.grey));
+        holder.textDownload.setTextColor(context.getResources().getColor(R.color.grey));
+        holder.textInfo.setTextColor(context.getResources().getColor(R.color.grey));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            holder.btnDownload.setBackground(context.getResources().getDrawable(R.drawable.btn_shape_all_transparant_blue));
+            holder.btnPrint.setBackground(context.getResources().getDrawable(R.drawable.btn_shape_all_transparant_blue));
+        }
     }
 
     @Override
@@ -112,10 +157,19 @@ public class AdapterPersuratanUmum extends  RecyclerView.Adapter<AdapterPersurat
         ImageView imgStatus, imgChecklist, imgCC;
 
         ListData listData;
+
+        ImageView imgInfo,imgDownload;
+        TextView textInfo, textDownload;
+
         public ViewHolder(View itemView,
                           Context context,
                           final AdapterPersuratanUmum mCourseAdapter) {
             super(itemView);
+            imgInfo = (ImageView) itemView.findViewById(R.id.imgInfo);
+            imgDownload = (ImageView) itemView.findViewById(R.id.imgDownload);
+            textInfo = (TextView)itemView.findViewById(R.id.textInfo);
+            textDownload = (TextView)itemView.findViewById(R.id.textDownload);
+
 
             txtDate = (TextView)itemView.findViewById(R.id.text_Date);
             txtStatus = (TextView)itemView.findViewById(R.id.text_status);
