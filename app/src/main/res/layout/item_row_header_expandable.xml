@@ -13,8 +13,8 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_20"
-        android:layout_marginBottom="@dimen/space_30"
-        android:layout_marginTop="@dimen/space_10">
+        android:layout_marginBottom="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_20">
 
         <ImageView
             android:id="@+id/item_nav_menu_icon_image_view"

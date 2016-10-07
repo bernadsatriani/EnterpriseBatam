@@ -164,6 +164,7 @@ public class frag_persuratan_umum extends Fragment {
             @Override
             public void OnDownloadClicked(final String sUrl, boolean bStatus) {
                 if (bStatus){
+                    final boolean bLoad = true;
                     mRecyclerView.setVisibility(View.GONE);
                     rLayoutDownload.setVisibility(View.VISIBLE);
 
@@ -188,9 +189,13 @@ public class frag_persuratan_umum extends Fragment {
                             //Action to perform on success
                             mRecyclerView.setVisibility(View.VISIBLE);
                             rLayoutDownload.setVisibility(View.GONE);
+                            layout_button.setVisibility(View.GONE);
+
                             AppConstant.PDF_FILENAME = "DOWNLOAD_FILE_NAME.pdf";
                             Intent intent = new Intent(getActivity(), PDFViewActivityDisposisiDistribusi.class);
                             getActivity().startActivity(intent);
+
+
                         }
 
                         @Override

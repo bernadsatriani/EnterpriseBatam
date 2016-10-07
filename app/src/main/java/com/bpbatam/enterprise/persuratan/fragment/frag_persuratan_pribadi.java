@@ -182,6 +182,7 @@ public class frag_persuratan_pribadi extends Fragment {
                             //Action to perform on success
                             mRecyclerView.setVisibility(View.VISIBLE);
                             rLayoutDownload.setVisibility(View.GONE);
+                            layout_button.setVisibility(View.GONE);
                             AppConstant.PDF_FILENAME = "DOWNLOAD_FILE_NAME.pdf";
                             Intent intent;
                             intent = new Intent(getActivity(), PDFViewActivity_Distribusi.class);

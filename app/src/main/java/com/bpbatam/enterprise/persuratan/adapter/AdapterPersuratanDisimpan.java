@@ -105,7 +105,7 @@ public class AdapterPersuratanDisimpan extends  RecyclerView.Adapter<AdapterPers
 
     void ButtonNotSelected(AdapterPersuratanDisimpan.ViewHolder holder){
         holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.circle));
-        holder.imgDownload.setColorFilter(context.getResources().getColor(R.color.grey));
+        holder.imgDownload.setColorFilter(context.getResources().getColor(R.color.colorAccept));
         holder.textDownload.setTextColor(context.getResources().getColor(R.color.grey));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             holder.btnDownload.setBackground(context.getResources().getDrawable(R.drawable.btn_shape_all_transparant_blue));

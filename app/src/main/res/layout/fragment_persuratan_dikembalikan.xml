@@ -12,7 +12,7 @@
         android:background="@drawable/btn_shape_all_blue_search"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_45"
-        android:layout_margin="@dimen/space_5">
+        android:layout_margin="@dimen/space_14">
 
         <ui.CustomEditText
             android:id="@+id/text_search"
@@ -37,18 +37,16 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/space_5"
-        android:layout_marginRight="@dimen/space_5"
-        android:layout_marginBottom="@dimen/space_5">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/btn_shape_white"
-            android:layout_marginRight="@dimen/space_5"
-            android:layout_marginTop="@dimen/space_5">
+            android:layout_marginBottom="@dimen/space_14"
+            android:layout_marginLeft="@dimen/space_14"
+            android:layout_marginRight="@dimen/space_14">
             <RelativeLayout
                 android:id="@+id/contact_us_header_container"
                 android:layout_width="fill_parent"

@@ -13,7 +13,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/space_5">
+        android:layout_margin="@dimen/space_14">
 
         <RelativeLayout
             android:textColor="@color/white"
@@ -50,7 +50,7 @@
             android:minHeight="?attr/actionBarSize"
             android:layout_alignParentTop="true"
             android:orientation="horizontal"
-            android:layout_marginTop="@dimen/space_5">
+            android:layout_marginTop="@dimen/space_14">
 
 
             <ui.CustomtextView

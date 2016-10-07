@@ -177,6 +177,7 @@ public class frag_persuratan_disimpan extends Fragment {
                             //Action to perform on success
                             mRecyclerView.setVisibility(View.VISIBLE);
                             rLayoutDownload.setVisibility(View.GONE);
+                            layout_button.setVisibility(View.GONE);
                             AppConstant.PDF_FILENAME = "DOWNLOAD_FILE_NAME.pdf";
                             Intent intent = new Intent(getActivity(), PDFViewActivitySimpanKirim.class);
                             getActivity().startActivity(intent);

@@ -115,7 +115,7 @@ public class AdapterDisposisiPribadi extends  RecyclerView.Adapter<AdapterDispos
     void ButtonNotSelected(AdapterDisposisiPribadi.ViewHolder holder){
         holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.circle));
         holder.imgInfo.setColorFilter(context.getResources().getColor(R.color.grey));
-        holder.imgDownload.setColorFilter(context.getResources().getColor(R.color.grey));
+        holder.imgDownload.setColorFilter(context.getResources().getColor(R.color.colorAccept));
         holder.textDownload.setTextColor(context.getResources().getColor(R.color.grey));
         holder.textInfo.setTextColor(context.getResources().getColor(R.color.grey));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {

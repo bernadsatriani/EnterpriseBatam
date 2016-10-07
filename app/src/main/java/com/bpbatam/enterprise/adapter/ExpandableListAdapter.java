@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -100,10 +101,11 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             convertView = infalInflater.inflate(R.layout.item_row_header_expandable, null);
         }
 
+
         TextView lblListHeader = (TextView) convertView
                 .findViewById(R.id.textView);
 
-
+        LinearLayout layoutRowHeader = (LinearLayout) convertView.findViewById(R.id.item_nav_menu_container);
         ImageView imgMenu = (ImageView) convertView.findViewById(R.id.item_nav_menu_icon_image_view);
         ImageView arrow = (ImageView) convertView.findViewById(R.id.imageView10);
 
@@ -120,8 +122,10 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             case 2:
                 imgMenu.setBackgroundResource(R.drawable.gns_email);
                 if (isExpanded) {
+                    layoutRowHeader.setBackgroundColor(_context.getResources().getColor(R.color.colorSearch));
                     arrow.setImageDrawable(_context.getResources().getDrawable(R.drawable.minus));
                 } else {
+                    layoutRowHeader.setBackgroundColor(_context.getResources().getColor(R.color.colorSelectButton));
                     arrow.setImageDrawable(_context.getResources().getDrawable(R.drawable.plus));
                 }
                 break;
@@ -129,15 +133,21 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             case 3:
                 imgMenu.setBackgroundResource(R.drawable.document_white);
                 if (isExpanded) {
-
+                    layoutRowHeader.setBackgroundColor(_context.getResources().getColor(R.color.colorSearch));
                     arrow.setImageDrawable(_context.getResources().getDrawable(R.drawable.minus));
                 } else {
+                    layoutRowHeader.setBackgroundColor(_context.getResources().getColor(R.color.colorSelectButton));
                     arrow.setImageDrawable(_context.getResources().getDrawable(R.drawable.plus));
                 }
                 break;
         }
 
 
+        if (isExpanded) {
+            convertView.setSelected(true);
+        } else {
+            convertView.setSelected(false);
+        }
 
 
         lblListHeader.setTypeface(null, Typeface.BOLD);
