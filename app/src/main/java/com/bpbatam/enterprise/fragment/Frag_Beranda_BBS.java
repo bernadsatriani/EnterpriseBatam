@@ -1,6 +1,7 @@
 package com.bpbatam.enterprise.fragment;
 
 import android.app.DownloadManager;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,14 +13,24 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ayz4sci.androidfactory.DownloadProgressView;
 import com.bpbatam.AppConstant;
+import com.bpbatam.enterprise.PDFViewActivity_Edit;
 import com.bpbatam.enterprise.R;
+import com.bpbatam.enterprise.adapter.AdapterBBSDaftarPesanan_Beranda;
 import com.bpbatam.enterprise.bbs.adapter.AdapterBBSDaftarPesanan;
+import com.bpbatam.enterprise.model.BBS_LIST;
+import com.bpbatam.enterprise.model.BBS_LIST_Data;
 import com.bpbatam.enterprise.model.ListData;
+import com.bpbatam.enterprise.model.net.NetworkManager;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by User on 10/3/2016.
@@ -29,13 +40,18 @@ public class Frag_Beranda_BBS extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private LinearLayoutManager mLayoutManager;
 
-    ArrayList<ListData> AryListData;
+    //ArrayList<ListData> AryListData;
     ListData listData;
 
     RelativeLayout rLayoutDownload;
     DownloadProgressView downloadProgressView;
     private long downloadID;
     private DownloadManager downloadManager;
+
+
+    BBS_LIST bbs_list;
+    BBS_LIST_Data bbs_list_data;
+    ArrayList<BBS_LIST_Data> AryListData;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,7 +82,53 @@ public class Frag_Beranda_BBS extends Fragment {
     }
 
     void FillGrid(View v){
+        BBS_LIST paramBBBList = new BBS_LIST(AppConstant.HASHID, "admin1", AppConstant.REQID);
+
         AryListData = new ArrayList<>();
+        try{
+            Call<BBS_LIST> call = NetworkManager.getNetworkService(getActivity()).getBBS_List(paramBBBList);
+            call.enqueue(new Callback<BBS_LIST>() {
+                @Override
+                public void onResponse(Call<BBS_LIST> call, Response<BBS_LIST> response) {
+                    int code = response.code();
+                    bbs_list = response.body();
+
+                    int totalrow =  bbs_list.getData().length;
+
+
+                    Object[][]data = bbs_list.getData();
+                    String[] structur = bbs_list.getStructure();
+
+                    if (totalrow > 0){
+                        for (int i = 0; i < totalrow; i ++){
+                            bbs_list_data = new BBS_LIST_Data();
+                            String sId = String.valueOf(data[i][0]);
+                            sId = sId.replace(".0","");
+                            bbs_list_data.setBbs_id(Integer.parseInt(sId));
+                            bbs_list_data.setTitle(String.valueOf(data[i][1]));
+                            bbs_list_data.setName(String.valueOf(data[i][2]));
+                            bbs_list_data.setBbs_date(String.valueOf(data[i][3]));
+                            bbs_list_data.setCategory_id(String.valueOf(data[i][4]));
+                            bbs_list_data.setDescription(String.valueOf(data[i][5]));
+                            AryListData.add(bbs_list_data);
+                        }
+
+                        FillAdapter();
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<BBS_LIST> call, Throwable t) {
+                    String a = t.getMessage();
+                    a = a;
+                }
+            });
+        }catch (Exception e){
+            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
+        /*AryListData = new ArrayList<>();
 
         for(int i = 0; i < 10; i++){
             listData = new ListData();
@@ -75,9 +137,15 @@ public class Frag_Beranda_BBS extends Fragment {
             listData.setAtr3("http://cottonsoft.co.nz/assets/img/our-company-history/history-2011-Paseo.jpg");
             AryListData.add(listData);
 
-        }
+        }*/
 
-        mAdapter = new AdapterBBSDaftarPesanan(v.getContext(), AryListData, new AdapterBBSDaftarPesanan.OnDownloadClicked() {
+
+
+    }
+
+
+    void FillAdapter(){
+        mAdapter = new AdapterBBSDaftarPesanan_Beranda(getActivity(), AryListData, new AdapterBBSDaftarPesanan_Beranda.OnDownloadClicked() {
             @Override
             public void OnDownloadClicked(final String sUrl, boolean bStatus) {
                 mRecyclerView.setVisibility(View.GONE);
@@ -104,6 +172,9 @@ public class Frag_Beranda_BBS extends Fragment {
                         //Action to perform on success
                         mRecyclerView.setVisibility(View.VISIBLE);
                         rLayoutDownload.setVisibility(View.GONE);
+                        AppConstant.PDF_FILENAME = "DOWNLOAD_FILE_NAME.pdf";
+                        Intent intent = new Intent(getActivity(), PDFViewActivity_Edit.class);
+                        getActivity().startActivity(intent);
 
                     }
 
@@ -119,6 +190,4 @@ public class Frag_Beranda_BBS extends Fragment {
         // set the adapter object to the Recyclerview
         mRecyclerView.setAdapter(mAdapter);
     }
-
-
 }

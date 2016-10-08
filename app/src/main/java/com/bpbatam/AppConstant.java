@@ -20,6 +20,8 @@ public final class AppConstant {
 	public static final String LANGUAGE_DEFAULT = "en";
 	public static String HASHID ;
 	public static String REQID ;
+	public static String USER ;
+	public static String PASSWORD ;
 	public static String KEY_PASSWORD = "S.1bc29400";
 	public static String KEY_USER = "bc12b22e93149c175cc034f69b031f35";
 	public static String PILIH_PESAN = "1" ;

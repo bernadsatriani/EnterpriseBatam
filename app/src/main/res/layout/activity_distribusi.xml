@@ -20,16 +20,16 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/space_5"
-            android:layout_marginTop="@dimen/space_5"
-            android:layout_marginRight="@dimen/space_5"
+            android:layout_marginLeft="@dimen/space_14"
+            android:layout_marginTop="@dimen/space_14"
+            android:layout_marginRight="@dimen/space_14"
             android:background="@color/white"
             android:layout_above="@+id/btnDistribusi">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_40"
-                android:layout_margin="@dimen/space_5">
+                android:layout_margin="@dimen/space_10">
 
                 <ui.CustomtextView
                     font:name="GOTHAM_BOLD"
@@ -40,18 +40,39 @@
                     android:layout_height="match_parent"
                     android:gravity="center" />
 
-                <EditText
-                    android:id="@+id/text_distribusi"
+                <RelativeLayout
+                    android:layout_marginLeft="@dimen/space_10"
                     android:background="@drawable/btn_shape_kotak_blue"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/space_10" />
+                    android:layout_height="match_parent">
+
+                    <EditText
+                        android:id="@+id/text_distribusi"
+                        android:editable="false"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toLeftOf="@+id/imgDistribusi"
+                        android:layout_toStartOf="@+id/imgDistribusi" />
+
+                    <ImageView
+                        android:id="@+id/imgDistribusi"
+                        android:src="@drawable/plus"
+                        android:layout_width="@dimen/space_20"
+
+                        android:layout_height="@dimen/space_20"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true" />
+                </RelativeLayout>
+
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_45"
-                android:layout_margin="@dimen/space_5">
+                android:layout_marginLeft="@dimen/space_10"
+                android:layout_marginRight="@dimen/space_10">
 
                 <ui.CustomtextView
                     font:name="GOTHAM_BOLD"
@@ -63,17 +84,35 @@
                     android:gravity="fill_vertical"
                     android:paddingLeft="@dimen/space_10" />
 
-                <EditText
-                    android:id="@+id/text_cc"
+                <RelativeLayout
+                    android:layout_marginLeft="@dimen/space_10"
                     android:background="@drawable/btn_shape_kotak_blue"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/space_10" />
+                    android:layout_height="match_parent">
+
+                    <EditText
+                        android:id="@+id/text_cc"
+                        android:editable="false"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toLeftOf="@+id/imgCC"
+                        android:layout_toStartOf="@+id/imgCC" />
+
+                    <ImageView
+                        android:id="@+id/imgCC"
+                        android:src="@drawable/plus"
+                        android:layout_width="@dimen/space_20"
+
+                        android:layout_height="@dimen/space_20"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true" />
+                </RelativeLayout>
             </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="357dp">
 
                 <EditText
                     android:id="@+id/text_pesan"
@@ -83,9 +122,9 @@
                     android:hint="insert text here..."
 
                     android:gravity="top"
-                    android:layout_marginLeft="@dimen/space_5"
-                    android:layout_marginRight="@dimen/space_5"
-                    android:layout_alignParentTop="true" />
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="@dimen/space_20"
+                    android:layout_margin="@dimen/space_10" />
 
 
             </RelativeLayout>

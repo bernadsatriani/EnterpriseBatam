@@ -146,4 +146,12 @@ public class AppController extends Application {
         return sResult;
     }
 
+    public String getHashId(String sUserId)throws NoSuchAlgorithmException{
+        AppConstant.REQID = getDateTime();
+
+        String sResult = getSHA1(getDateTime() + sUserId +  AppConstant.KEY_USER);
+
+        return sResult;
+    }
+
 }

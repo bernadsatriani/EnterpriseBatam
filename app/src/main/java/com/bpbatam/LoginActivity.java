@@ -9,15 +9,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bpbatam.enterprise.MainActivity;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.model.AuthUser;
-import com.bpbatam.enterprise.model.DataAdmin;
+import com.bpbatam.enterprise.model.BBS_LIST;
 import com.bpbatam.enterprise.model.net.NetworkManager;
-import com.google.gson.JsonObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,8 +24,6 @@ import java.io.File;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -52,8 +48,10 @@ public class LoginActivity extends AppCompatActivity {
 
         String sPassword = "";
         try {
-            sPassword = AppController.getInstance().getSHA1("admin12345");
-            AppConstant.HASHID = AppController.getInstance().getHashId("admin1", sPassword);
+            AppConstant.USER = "admin1";
+            AppConstant.PASSWORD = "admin12345";
+            sPassword = AppController.getInstance().getSHA1(AppConstant.PASSWORD);
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER, sPassword);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
@@ -92,6 +90,16 @@ public class LoginActivity extends AppCompatActivity {
         }catch (Exception e){
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
+
+
+
+        try {
+            sPassword = AppController.getInstance().getSHA1("admin12345");
+            AppConstant.HASHID = AppController.getInstance().getHashId("admin1");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
 
     }
 
