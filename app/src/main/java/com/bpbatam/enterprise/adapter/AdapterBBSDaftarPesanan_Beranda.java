@@ -103,7 +103,13 @@ public class AdapterBBSDaftarPesanan_Beranda extends  RecyclerView.Adapter<Adapt
         //holder.txtStatus.setText(listData.getAtr2());
 
         //AppController.getInstance().displayImage(context,listData.getAtr3(), holder.imgCover);
-
+        holder.btnDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //https://www.dropbox.com/s/jadu92w71vnku3o/Wireframe.pdf?dl=0
+                listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
+            }
+        });
         holder.listData = listData;
     }
 
@@ -134,13 +140,6 @@ public class AdapterBBSDaftarPesanan_Beranda extends  RecyclerView.Adapter<Adapt
             lbl_Size = (TextView)itemView.findViewById(R.id.lbl_size);
             btnDownload = (RelativeLayout) itemView.findViewById(R.id.btnDownload);
 
-            btnDownload.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //https://www.dropbox.com/s/jadu92w71vnku3o/Wireframe.pdf?dl=0
-                    listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
-                }
-            });
 
 
         }

@@ -130,7 +130,10 @@ public class LoginActivity extends AppCompatActivity {
             folder = new File(sFolder + "/Batam");
             if (!folder.exists()) folder.mkdirs();
 
-            folder = new File(sFolder+ "/Batam/Download");
+            folder = new File(sFolder+ "/Batam/Enterprise");
+            if (!folder.exists()) folder.mkdirs();
+
+            folder = new File(sFolder+ "/Batam/Enterprise/Download");
             if (!folder.exists()) folder.mkdirs();
         }catch (Exception e){
             Log.d("Error", e.getMessage());

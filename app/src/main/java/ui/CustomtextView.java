@@ -31,6 +31,7 @@ public class CustomtextView extends TextView{
     private int GOTHAM_BOOK = 17;
     private int GOTHAM_LIGHT = 18;
     private int GOTHAM_MEDIUM = 19;
+    private int GOTHAM_LIGHTITALIC = 20;
 
     private int fontType;
     private int fontName;
@@ -90,6 +91,8 @@ public class CustomtextView extends TextView{
             setFontType(Typeface.createFromAsset(getContext().getAssets(), "GOTHAM-BOOK.ttf"));
         }else if (fontName == GOTHAM_LIGHT) {
             setFontType(Typeface.createFromAsset(getContext().getAssets(), "GOTHAM-LIGHT.TTF"));
+        }else if (fontName == GOTHAM_LIGHTITALIC) {
+            setFontType(Typeface.createFromAsset(getContext().getAssets(), "GOTHAM-LIGHTITALIC.otf"));
         }else if (fontName == GOTHAM_MEDIUM) {
             setFontType(Typeface.createFromAsset(getContext().getAssets(), "GOTHAM-MEDIUM.TTF"));
         }

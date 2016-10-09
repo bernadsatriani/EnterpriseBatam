@@ -177,6 +177,7 @@
             <enum name="GOTHAM_BOOK" value="17" />
             <enum name="GOTHAM_LIGHT" value="18" />
             <enum name="GOTHAM_MEDIUM" value="19" />
+            <enum name="GOTHAM_LIGHTITALIC" value="20" />
         </attr>
     </declare-styleable>
 

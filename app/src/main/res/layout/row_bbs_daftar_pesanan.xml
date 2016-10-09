@@ -67,7 +67,7 @@
                 android:layout_marginTop="@dimen/space_5">
 
                 <ui.CustomtextView
-                    font:name="GOTHAM_LIGHT"
+                    font:name="GOTHAM_LIGHTITALIC"
                     android:id="@+id/lbl_attach1"
                     android:textSize="@dimen/space_12"
                     android:text="Attachments :"
@@ -81,7 +81,7 @@
                     android:layout_alignParentStart="true" />
 
                 <ui.CustomtextView
-                    font:name="GOTHAM_LIGHT"
+                    font:name="GOTHAM_LIGHTITALIC"
                     android:id="@+id/lbl_attach"
                     android:textSize="@dimen/space_12"
                     android:text="Attachemnt asdas asdas"
@@ -89,7 +89,6 @@
                     android:layout_height="wrap_content"
                     android:textStyle="italic"
                     android:maxLines="1"
-                    android:layout_marginTop="-3dp"
                     android:layout_marginLeft="@dimen/space_5"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
@@ -98,7 +97,7 @@
                     android:layout_toEndOf="@+id/imageView6" />
 
                 <ui.CustomtextView
-                    font:name="GOTHAM_LIGHT"
+                    font:name="GOTHAM_LIGHTITALIC"
                     android:id="@+id/lbl_size"
                     android:textSize="@dimen/space_12"
                     android:layout_marginLeft="@dimen/space_5"
@@ -110,12 +109,12 @@
                     android:layout_below="@+id/lbl_attach"
                     android:layout_toRightOf="@+id/imageView6"
                     android:layout_toEndOf="@+id/imageView6"
-                    android:layout_marginTop="@dimen/space_2"
+                    android:layout_marginTop="1dp"
                     android:layout_marginBottom="@dimen/space_3"/>
 
                 <ImageView
                     android:layout_width="@dimen/space_25"
-                    android:layout_height="@dimen/space_25"
+                    android:layout_height="@dimen/space_30"
                     android:id="@+id/imageView6"
                     android:layout_below="@+id/lbl_attach1"
                     android:layout_alignParentLeft="true"
@@ -141,7 +140,6 @@
                     android:background="@drawable/btn_shape_all_blue"
 
                     android:gravity="center"
-                    android:onClick="onClick"
                     android:text="  lihat dokumen  "
                     android:textColor="#ffffff"
                     android:textSize="@dimen/space_12"
@@ -160,7 +158,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:onClick="onClick"
                         android:text="lihat dokumen"
                         android:textColor="#ffffff"
                         android:textSize="@dimen/space_10"

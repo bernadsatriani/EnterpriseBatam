@@ -2,11 +2,15 @@ package com.bpbatam.enterprise.fragment;
 
 import android.app.DownloadManager;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +30,7 @@ import com.bpbatam.enterprise.model.BBS_LIST_Data;
 import com.bpbatam.enterprise.model.ListData;
 import com.bpbatam.enterprise.model.net.NetworkManager;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -151,12 +156,21 @@ public class Frag_Beranda_BBS extends Fragment {
                 mRecyclerView.setVisibility(View.GONE);
                 rLayoutDownload.setVisibility(View.VISIBLE);
 
+
                 DownloadManager.Request request = new DownloadManager.Request(Uri.parse(sUrl));
                 request.setTitle("TITLE");
                 request.setDescription("DESCRIPTION");
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                request.setDestinationInExternalPublicDir(AppConstant.FOLDER_DOWNLOAD, "DOWNLOAD_FILE_NAME.pdf");
+               // request.setDestinationInExternalPublicDir(AppConstant.FOLDER_DOWNLOAD, "DOWNLOAD_FILE_NAME.pdf");
+
+                File root = new File(AppConstant.STORAGE_CARD + "/Download/");
+                Uri path = Uri.withAppendedPath(Uri.fromFile(root), "DOWNLOAD_FILE_NAME.pdf");
+                request.setDestinationUri(path);
+
+                //request.setDestinationInExternalFilesDir(getActivity() ,"", "DOWNLOAD_FILE_NAME.pdf");
                 request.allowScanningByMediaScanner();
+
+
                 downloadID = downloadManager.enqueue(request);
 
                 downloadProgressView.show(downloadID, new DownloadProgressView.DownloadStatusListener() {

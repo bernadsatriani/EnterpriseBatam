@@ -69,7 +69,7 @@
                 android:layout_marginRight="@dimen/space_5">
 
                 <ui.CustomtextView
-                    font:name="GOTHAM_LIGHT"
+                    font:name="GOTHAM_LIGHTITALIC"
                     android:textSize="@dimen/space_12"
                     android:id="@+id/lbl_attach"
                     android:text="Attachemnt"
@@ -80,7 +80,7 @@
                     android:maxLines="1" />
 
                 <ui.CustomtextView
-                    font:name="GOTHAM_LIGHT"
+                    font:name="GOTHAM_LIGHTITALIC"
                     android:textSize="@dimen/space_12"
                     android:id="@+id/lbl_size"
                     android:text="Attachemnt asdas asdas"
@@ -102,7 +102,6 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_shape_all"
                 android:gravity="center"
-                android:onClick="onClick"
                 android:text="Ditolak"
                 android:textColor="#ffffff"
 
