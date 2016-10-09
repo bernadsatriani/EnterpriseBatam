@@ -158,7 +158,7 @@
                     android:layout_height="match_parent"
                     android:onClick="onClick"
                     android:text="lihat detail"
-                    android:tint="@color/grey_s"
+                    android:textColor="@color/grey_s"
                     android:textSize="@dimen/space_10"
                     font:name="GOTHAM_BLACK"
 
@@ -200,7 +200,7 @@
                     android:gravity="center"
                     android:onClick="onClick"
                     android:text="lihat surat"
-                    android:tint="@color/grey_s"
+                    android:textColor="@color/grey_s"
                     android:textSize="@dimen/space_10"
                     font:name="GOTHAM_BLACK"
 

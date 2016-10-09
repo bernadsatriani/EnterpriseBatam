@@ -48,6 +48,7 @@
 
                     <EditText
                         android:id="@+id/text_distribusi"
+                        android:background="@color/transparant_pure"
                         android:editable="false"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -92,6 +93,7 @@
 
                     <EditText
                         android:id="@+id/text_cc"
+                        android:background="@color/transparant_pure"
                         android:editable="false"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

@@ -6,6 +6,7 @@ import android.support.multidex.MultiDex;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.crashlytics.android.Crashlytics;
 import com.squareup.picasso.Picasso;
 
 import java.security.MessageDigest;
@@ -13,6 +14,8 @@ import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import io.fabric.sdk.android.Fabric;
 
 /**
  * Created by User on 9/15/2016.
@@ -23,6 +26,7 @@ public class AppController extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
         mInstance = this;
         sessionManager = new SessionManager(getApplicationContext());
 

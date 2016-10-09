@@ -73,6 +73,10 @@
             </intent-filter>
         </activity>
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="520e8b28b13b5896be0eb1b4d1c4a24bc5965584" />
+
         <activity android:name=".MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
 
