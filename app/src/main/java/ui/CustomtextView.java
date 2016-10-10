@@ -92,7 +92,7 @@ public class CustomtextView extends TextView{
         }else if (fontName == GOTHAM_LIGHT) {
             setFontType(Typeface.createFromAsset(getContext().getAssets(), "GOTHAM-LIGHT.TTF"));
         }else if (fontName == GOTHAM_LIGHTITALIC) {
-            setFontType(Typeface.createFromAsset(getContext().getAssets(), "GOTHAM-LIGHTITALIC.otf"));
+            setFontType(Typeface.createFromAsset(getContext().getAssets(), "Gotham-LightItalic.otf"));
         }else if (fontName == GOTHAM_MEDIUM) {
             setFontType(Typeface.createFromAsset(getContext().getAssets(), "GOTHAM-MEDIUM.TTF"));
         }
