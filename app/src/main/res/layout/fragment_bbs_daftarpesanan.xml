@@ -33,7 +33,38 @@
                 android:id="@+id/layout_text"
                 android:background="@color/grey_ss"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/space_150">
+                android:layout_height="@dimen/space_225">
+
+                <EditText
+                    android:background="@drawable/edittext_mid"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_40"
+                    android:id="@+id/text_judul"
+                    android:hint="Judul"
+                    android:padding="@dimen/space_3"
+                    android:layout_marginTop="@dimen/space_4"
+                    android:layout_marginLeft="@dimen/space_5"
+                    android:layout_marginRight="@dimen/space_5"
+                    android:layout_marginBottom="@dimen/space_5"/>
+
+                <RelativeLayout
+                    android:id="@+id/layout_spinner"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_40"
+                    android:layout_below="@+id/text_judul"
+                    android:layout_marginLeft="@dimen/space_5"
+                    android:layout_marginRight="@dimen/space_5"
+                    android:layout_marginBottom="@dimen/space_5">
+
+                    <Spinner
+                        android:id="@+id/spinner_buletinboard"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        />
+                </RelativeLayout>
+
+
 
                 <EditText
                     android:id="@+id/text_isi"
@@ -49,7 +80,7 @@
                     android:layout_marginBottom="@dimen/space_5"
                     android:gravity="top"
                     android:padding="@dimen/space_3"
-                    android:layout_margin="@dimen/space_5" />
+                    android:layout_below="@+id/layout_spinner" />
 
             </RelativeLayout>
 
@@ -80,12 +111,34 @@
 
                 <LinearLayout
                     android:orientation="horizontal"
-                    android:layout_width="@dimen/space_160"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/linearLayout2"
                     android:layout_alignParentTop="true"
                     android:layout_toLeftOf="@+id/imageView12"
                     android:layout_toStartOf="@+id/imageView12">
+
+                    <RelativeLayout
+                        android:textSize="@dimen/space_10"
+                        android:drawableLeft="@drawable/upload"
+                        android:id="@+id/layout_btn_status"
+                        android:background="@drawable/btn_shape_all_transparant_blue"
+                        android:layout_width="@dimen/space_150"
+                        android:layout_height="@dimen/space_40"
+                        android:layout_weight="0.05"
+                        android:layout_marginLeft="@dimen/space_5"
+                        android:text="Lampirkan File"
+                        android:layout_marginRight="@dimen/space_10"
+                        android:layout_marginTop="@dimen/space_5"
+                        android:layout_marginBottom="@dimen/space_5">
+
+                        <Spinner
+                            android:id="@+id/spinner_status"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"></Spinner>
+
+
+                    </RelativeLayout>
 
                     <RelativeLayout
                         android:textSize="@dimen/space_10"

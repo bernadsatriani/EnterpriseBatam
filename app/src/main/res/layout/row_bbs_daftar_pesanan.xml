@@ -83,7 +83,7 @@
                 <ui.CustomtextView
                     font:name="GOTHAM_LIGHTITALIC"
                     android:id="@+id/lbl_attach"
-                    android:textSize="@dimen/space_10"
+                    android:textSize="@dimen/space_12"
                     android:text="Attachemnt asdas asdas"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -99,7 +99,7 @@
                 <ui.CustomtextView
                     font:name="GOTHAM_LIGHTITALIC"
                     android:id="@+id/lbl_size"
-                    android:textSize="@dimen/space_10"
+                    android:textSize="@dimen/space_12"
                     android:layout_marginLeft="@dimen/space_5"
                     android:text="Attachemnt asdas asdas asd asd"
                     android:layout_width="match_parent"

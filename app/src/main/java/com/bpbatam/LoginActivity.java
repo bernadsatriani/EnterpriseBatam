@@ -14,7 +14,6 @@ import android.widget.Toast;
 import com.bpbatam.enterprise.MainActivity;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.model.AuthUser;
-import com.bpbatam.enterprise.model.BBS_LIST;
 import com.bpbatam.enterprise.model.net.NetworkManager;
 
 import com.crashlytics.android.Crashlytics;
@@ -24,7 +23,6 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -53,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         try {
             AppConstant.USER = "admin1";
             AppConstant.PASSWORD = "admin12345";
-            sPassword = AppController.getInstance().getSHA1(AppConstant.PASSWORD);
+            sPassword = AppController.getInstance().md5(AppConstant.PASSWORD);
             AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER, sPassword);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -71,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
 
-        AuthUser param = new AuthUser(AppConstant.HASHID, "admin1", sPassword, AppConstant.REQID);
+        /*AuthUser param = new AuthUser(AppConstant.HASHID, "admin1", sPassword, AppConstant.REQID);
 
         try{
             Call<AuthUser> call = NetworkManager.getNetworkService(this).loginUser(param);
@@ -92,17 +90,7 @@ public class LoginActivity extends AppCompatActivity {
             });
         }catch (Exception e){
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-        }
-
-
-
-        try {
-            sPassword = AppController.getInstance().getSHA1("admin12345");
-            AppConstant.HASHID = AppController.getInstance().getHashId("admin1");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-
+        }*/
 
     }
 

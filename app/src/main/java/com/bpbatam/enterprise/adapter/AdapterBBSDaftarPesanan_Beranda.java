@@ -18,6 +18,7 @@ import com.bpbatam.enterprise.model.BBS_LIST_Data;
 import com.bpbatam.enterprise.model.net.NetworkManager;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,14 +29,13 @@ import retrofit2.Response;
  */
 public class AdapterBBSDaftarPesanan_Beranda extends  RecyclerView.Adapter<AdapterBBSDaftarPesanan_Beranda.ViewHolder>{
 
-    private ArrayList<BBS_LIST_Data> mCourseArrayList;
+    private BBS_LIST bbs_list;
     private Context context;
-    BBS_LIST_ATTACHMENT bbs_list_attachment ;
-    public AdapterBBSDaftarPesanan_Beranda(Context context, ArrayList<BBS_LIST_Data> mCourseArrayList, OnDownloadClicked listener) {
+    public AdapterBBSDaftarPesanan_Beranda(Context context, BBS_LIST bbs_list, OnDownloadClicked listener) {
         this.context = context;
-        this.mCourseArrayList = mCourseArrayList;
+        this.bbs_list = bbs_list;
         this.listener = listener;
-        if (mCourseArrayList == null) {
+        if (bbs_list == null) {
             throw new IllegalArgumentException("courses ArrayList must not be null");
         }
     }
@@ -55,49 +55,19 @@ public class AdapterBBSDaftarPesanan_Beranda extends  RecyclerView.Adapter<Adapt
         return new ViewHolder(itemView, context, this);
     }
 
-    void ViewFileSize(final ViewHolder holder, String bbs_id){
-        BBS_LIST_ATTACHMENT paramBBBList = new BBS_LIST_ATTACHMENT(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID, bbs_id);
-
-
-        try{
-            Call<BBS_LIST_ATTACHMENT> call = NetworkManager.getNetworkService(context).getBBS_List_Attachment(paramBBBList);
-            call.enqueue(new Callback<BBS_LIST_ATTACHMENT>() {
-                @Override
-                public void onResponse(Call<BBS_LIST_ATTACHMENT> call, Response<BBS_LIST_ATTACHMENT> response) {
-                    int code = response.code();
-                    bbs_list_attachment = response.body();
-
-                    int totalrow =  bbs_list_attachment.getData().length;
-
-
-                    Object[][]data = bbs_list_attachment.getData();
-                    String[] structur = bbs_list_attachment.getStructure();
-
-                    if (totalrow > 0){
-                        holder.lbl_Size.setText(String.valueOf(data[0][3]));
-                    }
-                }
-                @Override
-                public void onFailure(Call<BBS_LIST_ATTACHMENT> call, Throwable t) {
-                    String a = t.getMessage();
-                    a = a;
-                }
-            });
-        }catch (Exception e){
-            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
-        }
-
-    }
-
-
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        BBS_LIST_Data listData = mCourseArrayList.get(position);
+        List<BBS_LIST.Datum> listData = bbs_list.data;
+
         //Set text
-        holder.txtName.setText(listData.getName());
-        holder.txtDate.setText(listData.getBbs_date());
-        holder.lbl_Attach.setText(listData.getDescription());
-        holder.lbl_Size.setText(listData.getCategory_id());
+        holder.txtName.setText(listData.get(position).name);
+        holder.txtDate.setText(listData.get(position).bbs_date);
+        holder.lbl_Attach.setText(listData.get(position).title);
+
+        if (listData.get(position).attc_size != null){
+            holder.lbl_Size.setText("(" + listData.get(position).attc_size + ")");
+        }else
+            holder.lbl_Size.setText("");
 
         //ViewFileSize(holder,Integer.toString(listData.getBbs_id()));
         //holder.txtStatus.setText(listData.getAtr2());
@@ -115,7 +85,7 @@ public class AdapterBBSDaftarPesanan_Beranda extends  RecyclerView.Adapter<Adapt
 
     @Override
     public int getItemCount() {
-        return mCourseArrayList.size();
+        return bbs_list.data.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder
@@ -128,7 +98,7 @@ public class AdapterBBSDaftarPesanan_Beranda extends  RecyclerView.Adapter<Adapt
         ;
         RelativeLayout btnDownload;
         ImageView imgCover;
-        BBS_LIST_Data listData;
+        List<BBS_LIST.Datum> listData;
         public ViewHolder(View itemView,
                           final Context context,
                           final AdapterBBSDaftarPesanan_Beranda mCourseAdapter) {

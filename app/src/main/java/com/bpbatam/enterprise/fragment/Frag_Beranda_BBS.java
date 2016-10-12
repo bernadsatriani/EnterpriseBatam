@@ -2,21 +2,15 @@ package com.bpbatam.enterprise.fragment;
 
 import android.app.DownloadManager;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ayz4sci.androidfactory.DownloadProgressView;
@@ -26,6 +20,7 @@ import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.adapter.AdapterBBSDaftarPesanan_Beranda;
 import com.bpbatam.enterprise.bbs.adapter.AdapterBBSDaftarPesanan;
 import com.bpbatam.enterprise.model.BBS_LIST;
+import com.bpbatam.enterprise.model.BBS_LIST_old;
 import com.bpbatam.enterprise.model.BBS_LIST_Data;
 import com.bpbatam.enterprise.model.ListData;
 import com.bpbatam.enterprise.model.net.NetworkManager;
@@ -45,7 +40,7 @@ public class Frag_Beranda_BBS extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private LinearLayoutManager mLayoutManager;
 
-    //ArrayList<ListData> AryListData;
+    ArrayList<ListData> AryListData;
     ListData listData;
 
     RelativeLayout rLayoutDownload;
@@ -55,8 +50,7 @@ public class Frag_Beranda_BBS extends Fragment {
 
 
     BBS_LIST bbs_list;
-    BBS_LIST_Data bbs_list_data;
-    ArrayList<BBS_LIST_Data> AryListData;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,7 +64,8 @@ public class Frag_Beranda_BBS extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         InitControl(view);
-        FillGrid(view);
+        //FillGrid(view);
+        FillAdapter();
     }
 
     void InitControl(View v){
@@ -87,9 +82,8 @@ public class Frag_Beranda_BBS extends Fragment {
     }
 
     void FillGrid(View v){
-        BBS_LIST paramBBBList = new BBS_LIST(AppConstant.HASHID, "admin1", AppConstant.REQID);
+        BBS_LIST paramBBBList = new BBS_LIST(AppConstant.HASHID, "admin1", AppConstant.REQID, "1", "10");
 
-        AryListData = new ArrayList<>();
         try{
             Call<BBS_LIST> call = NetworkManager.getNetworkService(getActivity()).getBBS_List(paramBBBList);
             call.enqueue(new Callback<BBS_LIST>() {
@@ -98,14 +92,8 @@ public class Frag_Beranda_BBS extends Fragment {
                     int code = response.code();
                     bbs_list = response.body();
 
-                    int totalrow =  bbs_list.getData().length;
-
-
-                    Object[][]data = bbs_list.getData();
-                    String[] structur = bbs_list.getStructure();
-
-                    if (totalrow > 0){
-                        for (int i = 0; i < totalrow; i ++){
+                    if (bbs_list.data.size() > 0){
+                        /*for (int i = 0; i < totalrow; i ++){
                             bbs_list_data = new BBS_LIST_Data();
                             String sId = String.valueOf(data[i][0]);
                             sId = sId.replace(".0","");
@@ -117,7 +105,7 @@ public class Frag_Beranda_BBS extends Fragment {
                             bbs_list_data.setDescription(String.valueOf(data[i][5]));
                             AryListData.add(bbs_list_data);
                         }
-
+                        */
                         FillAdapter();
                     }
 
@@ -150,7 +138,17 @@ public class Frag_Beranda_BBS extends Fragment {
 
 
     void FillAdapter(){
-        mAdapter = new AdapterBBSDaftarPesanan_Beranda(getActivity(), AryListData, new AdapterBBSDaftarPesanan_Beranda.OnDownloadClicked() {
+        AryListData = new ArrayList<>();
+
+        for(int i = 0; i < 10; i++){
+            listData = new ListData();
+            listData.setAtr1("Attachment " + i);
+            listData.setAtr2("(5,88 mb)");
+            listData.setAtr3("http://cottonsoft.co.nz/assets/img/our-company-history/history-2011-Paseo.jpg");
+            AryListData.add(listData);
+
+        }
+        mAdapter = new AdapterBBSDaftarPesanan(getActivity(), AryListData, new AdapterBBSDaftarPesanan.OnDownloadClicked() {
             @Override
             public void OnDownloadClicked(final String sUrl, boolean bStatus) {
                 mRecyclerView.setVisibility(View.GONE);

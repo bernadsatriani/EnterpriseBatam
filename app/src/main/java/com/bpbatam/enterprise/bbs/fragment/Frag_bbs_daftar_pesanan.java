@@ -1,17 +1,21 @@
 package com.bpbatam.enterprise.bbs.fragment;
 
 import android.app.DownloadManager;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.ayz4sci.androidfactory.DownloadProgressView;
@@ -43,11 +47,17 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
     RelativeLayout layoutHeader;
 
     ImageView imgCancel, imgSave;
+
+    Spinner spnBuletin, spnStatus;
+
+    LayoutInflater inflater;
+    String[] stsStatus = {"tinggi", "sedang", "rendah"};;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_bbs_daftarpesanan, container, false);
+        inflater = inflater;
         setHasOptionsMenu(true);
         return view;
     }
@@ -56,9 +66,13 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         InitControl(view);
         FillGrid(view);
+        FillSpinner();
     }
 
     void InitControl(View v){
+        spnBuletin = (Spinner)v.findViewById(R.id.spinner_buletinboard);
+        spnStatus = (Spinner)v.findViewById(R.id.spinner_status);
+
         imgCancel = (ImageView)v.findViewById(R.id.imageView12);
         imgSave = (ImageView)v.findViewById(R.id.imageView11);
         txtTulisPesan = (TextView)v.findViewById(R.id.text_tulis_pesan);
@@ -99,6 +113,64 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
 
         downloadProgressView = (DownloadProgressView) v.findViewById(R.id.downloadProgressView);
         downloadManager = (DownloadManager) v.getContext().getSystemService(v.getContext().DOWNLOAD_SERVICE);
+
+    }
+
+    void FillSpinner(){
+        AryListData = new ArrayList<>();
+        listData = new ListData();
+        listData.setAtr1("Penting");
+        listData.setImg(R.drawable.ball_green);
+        AryListData.add(listData);
+
+        listData = new ListData();
+        listData.setAtr1("Sedang");
+        listData.setImg(R.drawable.ball_green);
+        AryListData.add(listData);
+
+        listData = new ListData();
+        listData.setAtr1("Rendah");
+        listData.setImg(R.drawable.ball_green);
+        AryListData.add(listData);
+
+
+        //spnStatus.setAdapter(new MyCustomAdapter(getActivity(), R.layout.spinner_row, stsStatus));
+    }
+
+    public class MyCustomAdapter extends ArrayAdapter<String> {
+
+        public MyCustomAdapter(Context context, int textViewResourceId,
+                               String[] objects) {
+            super(context, textViewResourceId, objects);
+            // TODO Auto-generated constructor stub
+        }
+
+        @Override
+        public View getDropDownView(int position, View convertView,
+                                    ViewGroup parent) {
+            // TODO Auto-generated method stub
+            return getCustomView(position, convertView, parent);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            // TODO Auto-generated method stub
+            return getCustomView(position, convertView, parent);
+        }
+
+        public View getCustomView(int position, View convertView, ViewGroup parent) {
+            // TODO Auto-generated method stub
+            //return super.getView(position, convertView, parent);
+
+            View row=inflater.inflate(R.layout.spinner_row, parent, false);
+            TextView label=(TextView)row.findViewById(R.id.text_isi);
+
+            ImageView icon=(ImageView)row.findViewById(R.id.img_status);
+
+            label.setText(stsStatus[position]);
+            return row;
+        }
+
 
     }
 

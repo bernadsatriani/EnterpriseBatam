@@ -3,6 +3,7 @@ package com.bpbatam.enterprise.model.net;
 import com.bpbatam.enterprise.model.ApiGithub;
 import com.bpbatam.enterprise.model.AuthUser;
 import com.bpbatam.enterprise.model.BBS_LIST;
+import com.bpbatam.enterprise.model.BBS_LIST_old;
 import com.bpbatam.enterprise.model.BBS_LIST_ATTACHMENT;
 import com.bpbatam.enterprise.model.DataAdmin;
 import com.bpbatam.enterprise.model.GitHubUser;

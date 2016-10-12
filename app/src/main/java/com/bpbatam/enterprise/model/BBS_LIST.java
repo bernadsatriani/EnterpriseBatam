@@ -1,44 +1,38 @@
 package com.bpbatam.enterprise.model;
 
-import java.util.Objects;
+import java.util.List;
 
 public class BBS_LIST {
-    private String code;
-    private Object[][] data;
-    private String[] structure;
+    public String code ;
+    public List<Datum> data ;
+
 
     public  String hashid;
     public  String userid;
     public String reqid;
+    public String min;
+    public String max;
 
-    public BBS_LIST(String hashid, String userid, String reqid) {
+    public BBS_LIST(String hashid, String userid, String reqid, String min, String max) {
         this.hashid = hashid;
         this.userid = userid;
         this.reqid = reqid;
+        this.min = min;
+        this.max = max;
     }
 
-    public String getCode() {
-        return this.code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public Object[][] getData() {
-        return this.data;
-    }
-
-    public void setData(Object[][] data) {
-        this.data = data;
-    }
-
-    public String[] getStructure() {
-        return this.structure;
-    }
-
-    public void setStructure(String[] structure) {
-        this.structure = structure;
+    public class Datum
+    {
+        public String attc_exist ;
+        public String attc_link ;
+        public int bbs_id ;
+        public String category_id ;
+        public String bbs_date ;
+        public String attc_size ;
+        public String name ;
+        public int attc_count ;
+        public String title ;
+        public String attc_type ;
     }
 
 
