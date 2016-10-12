@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "799269758436",
+    "firebase_url": "https://bp-batam.firebaseio.com",
+    "project_id": "bp-batam",
+    "storage_bucket": "bp-batam.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:799269758436:android:4bc0428c26107098",
+        "android_client_info": {
+          "package_name": "com.bpbatam.enterprise"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "799269758436-6hipqd6a0je3ne62feckhhn34c8c28lq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bpbatam.enterprise",
+            "certificate_hash": "1F181A87B12219A8F2C3C4239B80672C051378ED"
+          }
+        },
+        {
+          "client_id": "799269758436-uumf50vgfvkd5dv6bkt9tqt26js5j1je.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpCS_phb3KxJYJCUOnMnttpRApz0xx4H0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "799269758436-uumf50vgfvkd5dv6bkt9tqt26js5j1je.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

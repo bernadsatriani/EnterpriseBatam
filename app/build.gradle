@@ -31,6 +31,10 @@ android {
         multiDexEnabled true
     }
 
+    /*
+         MD5:  C4:37:51:1F:B5:C9:90:2C:79:D0:30:2A:CC:55:F8:F0
+         SHA1: 1F:18:1A:87:B1:22:19:A8:F2:C3:C4:23:9B:80:67:2C:05:13:78:ED
+     */
     signingConfigs {
         release {
             storeFile file("keystore_batam.jks")
@@ -120,4 +124,9 @@ dependencies {
     compile 'com.github.barteksc:AndroidPdfViewer:2.1.0'
     compile files('libs/picasso-2.5.2.jar')
 
+    //Firebase
+    compile 'com.google.firebase:firebase-core:9.0.1'
+    compile 'com.google.firebase:firebase-messaging:9.0.1'
 }
+
+apply plugin: 'com.google.gms.google-services'

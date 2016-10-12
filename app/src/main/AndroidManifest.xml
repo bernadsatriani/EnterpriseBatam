@@ -73,6 +73,13 @@
             </intent-filter>
         </activity>
 
+        <service
+            android:name="fcm.MyAndroidFirebaseMsgService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="520e8b28b13b5896be0eb1b4d1c4a24bc5965584" />
