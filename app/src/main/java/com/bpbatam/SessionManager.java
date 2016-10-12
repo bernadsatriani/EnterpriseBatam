@@ -219,10 +219,6 @@ public class SessionManager {
         return getStringData(REFRESH_TOKEN);
     }
 
-
-
-
-
     public void setLocale(String lang) {
         Locale myLocale;
         myLocale = new Locale(lang);

@@ -111,19 +111,14 @@ public class NavMenuFragment extends Fragment {
         tvName = (TextView) layout.findViewById(R.id.name);
         tvEmail = (TextView) layout.findViewById(R.id.email);
 
-/*
         AuthUser authUser = AppController.getInstance().getSessionManager().getUserProfile();
 
-        for (AuthUser.Datum dat : authUser.data){
-            tvName.setText(dat.user_name);
-            tvEmail.setText(dat.nik);
+        if (authUser.data.size() > 0){
+            for (AuthUser.Datum dat : authUser.data){
+                tvName.setText(dat.user_name);
+                tvEmail.setText(dat.nik);
+            }
         }
-*/
-
-        tvName.setText("Administrator_satu");
-        tvEmail.setText("3123124234234");
-
-
 
         //txtDate.setText(getResources().getString(R.string.text_date).replace("[date]", AppConstant.strTgltrans) );
         //tvVersion.setText(getResources().getText(R.string.main_version) +  " " + GblFunction.getSoftwareVersion(getActivity()));

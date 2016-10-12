@@ -13,9 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.SimpleAdapter;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.ayz4sci.androidfactory.DownloadProgressView;
@@ -26,6 +29,7 @@ import com.bpbatam.enterprise.bbs.adapter.AdapterBBSDaftarPesanan;
 import com.bpbatam.enterprise.model.ListData;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by User on 9/22/2016.
@@ -50,8 +54,8 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
 
     Spinner spnBuletin, spnStatus;
 
-    LayoutInflater inflater;
-    String[] stsStatus = {"tinggi", "sedang", "rendah"};;
+    SimpleAdapter adpGridView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -117,61 +121,28 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
     }
 
     void FillSpinner(){
-        AryListData = new ArrayList<>();
-        listData = new ListData();
-        listData.setAtr1("Penting");
-        listData.setImg(R.drawable.ball_green);
-        AryListData.add(listData);
 
-        listData = new ListData();
-        listData.setAtr1("Sedang");
-        listData.setImg(R.drawable.ball_green);
-        AryListData.add(listData);
+        String[] stsStatus = {"tinggi", "sedang", "rendah"};
 
-        listData = new ListData();
-        listData.setAtr1("Rendah");
-        listData.setImg(R.drawable.ball_green);
-        AryListData.add(listData);
+        ArrayList<HashMap<String, Object>> lstGrid;
+        HashMap<String, Object> mapGrid;
 
+        lstGrid = new ArrayList<HashMap<String,Object>>();
+        mapGrid = new HashMap<String, Object>();
+        mapGrid.put("img", R.drawable.ball_green);
+        mapGrid.put("description", "tinggi");
+        lstGrid.add(mapGrid);
 
-        //spnStatus.setAdapter(new MyCustomAdapter(getActivity(), R.layout.spinner_row, stsStatus));
-    }
+        mapGrid = new HashMap<String, Object>();
+        mapGrid.put("img", R.drawable.ball_green);
+        mapGrid.put("description", "sedang");
+        lstGrid.add(mapGrid);
 
-    public class MyCustomAdapter extends ArrayAdapter<String> {
+        adpGridView = new SimpleAdapter(getActivity(),  lstGrid, R.layout.spinner_row,
+                new String[] {"img","description"},
+                new int[] {R.id.img_status, R.id.text_isi});
 
-        public MyCustomAdapter(Context context, int textViewResourceId,
-                               String[] objects) {
-            super(context, textViewResourceId, objects);
-            // TODO Auto-generated constructor stub
-        }
-
-        @Override
-        public View getDropDownView(int position, View convertView,
-                                    ViewGroup parent) {
-            // TODO Auto-generated method stub
-            return getCustomView(position, convertView, parent);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            // TODO Auto-generated method stub
-            return getCustomView(position, convertView, parent);
-        }
-
-        public View getCustomView(int position, View convertView, ViewGroup parent) {
-            // TODO Auto-generated method stub
-            //return super.getView(position, convertView, parent);
-
-            View row=inflater.inflate(R.layout.spinner_row, parent, false);
-            TextView label=(TextView)row.findViewById(R.id.text_isi);
-
-            ImageView icon=(ImageView)row.findViewById(R.id.img_status);
-
-            label.setText(stsStatus[position]);
-            return row;
-        }
-
-
+        spnStatus.setAdapter(adpGridView);
     }
 
     void FillGrid(View v){

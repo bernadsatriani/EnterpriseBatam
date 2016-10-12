@@ -15,10 +15,10 @@ import android.widget.Toast;
 
 import com.ayz4sci.androidfactory.DownloadProgressView;
 import com.bpbatam.AppConstant;
+import com.bpbatam.AppController;
 import com.bpbatam.enterprise.PDFViewActivity_Edit;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.adapter.AdapterBBSDaftarPesanan_Beranda;
-import com.bpbatam.enterprise.bbs.adapter.AdapterBBSDaftarPesanan;
 import com.bpbatam.enterprise.model.BBS_LIST;
 import com.bpbatam.enterprise.model.BBS_LIST_old;
 import com.bpbatam.enterprise.model.BBS_LIST_Data;
@@ -26,6 +26,7 @@ import com.bpbatam.enterprise.model.ListData;
 import com.bpbatam.enterprise.model.net.NetworkManager;
 
 import java.io.File;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -64,8 +65,7 @@ public class Frag_Beranda_BBS extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         InitControl(view);
-        //FillGrid(view);
-        FillAdapter();
+        FillGrid(view);
     }
 
     void InitControl(View v){
@@ -82,6 +82,12 @@ public class Frag_Beranda_BBS extends Fragment {
     }
 
     void FillGrid(View v){
+        try {
+            AppConstant.USER = "admin1";
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
         BBS_LIST paramBBBList = new BBS_LIST(AppConstant.HASHID, "admin1", AppConstant.REQID, "1", "10");
 
         try{
@@ -90,25 +96,15 @@ public class Frag_Beranda_BBS extends Fragment {
                 @Override
                 public void onResponse(Call<BBS_LIST> call, Response<BBS_LIST> response) {
                     int code = response.code();
-                    bbs_list = response.body();
+                    if (code == 200){
+                        bbs_list = response.body();
 
-                    if (bbs_list.data.size() > 0){
-                        /*for (int i = 0; i < totalrow; i ++){
-                            bbs_list_data = new BBS_LIST_Data();
-                            String sId = String.valueOf(data[i][0]);
-                            sId = sId.replace(".0","");
-                            bbs_list_data.setBbs_id(Integer.parseInt(sId));
-                            bbs_list_data.setTitle(String.valueOf(data[i][1]));
-                            bbs_list_data.setName(String.valueOf(data[i][2]));
-                            bbs_list_data.setBbs_date(String.valueOf(data[i][3]));
-                            bbs_list_data.setCategory_id(String.valueOf(data[i][4]));
-                            bbs_list_data.setDescription(String.valueOf(data[i][5]));
-                            AryListData.add(bbs_list_data);
+                        if (bbs_list !=null){
+                            if (bbs_list.data.size() > 0){
+                                FillAdapter();
+                            }
                         }
-                        */
-                        FillAdapter();
                     }
-
                 }
 
                 @Override
@@ -138,7 +134,7 @@ public class Frag_Beranda_BBS extends Fragment {
 
 
     void FillAdapter(){
-        AryListData = new ArrayList<>();
+       /* AryListData = new ArrayList<>();
 
         for(int i = 0; i < 10; i++){
             listData = new ListData();
@@ -147,8 +143,8 @@ public class Frag_Beranda_BBS extends Fragment {
             listData.setAtr3("http://cottonsoft.co.nz/assets/img/our-company-history/history-2011-Paseo.jpg");
             AryListData.add(listData);
 
-        }
-        mAdapter = new AdapterBBSDaftarPesanan(getActivity(), AryListData, new AdapterBBSDaftarPesanan.OnDownloadClicked() {
+        }*/
+        mAdapter = new AdapterBBSDaftarPesanan_Beranda(getActivity(), bbs_list, new AdapterBBSDaftarPesanan_Beranda.OnDownloadClicked() {
             @Override
             public void OnDownloadClicked(final String sUrl, boolean bStatus) {
                 mRecyclerView.setVisibility(View.GONE);

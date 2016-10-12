@@ -1,14 +1,19 @@
 package com.bpbatam;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bpbatam.enterprise.MainActivity;
@@ -38,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
 
     Button btnLogin;
     AuthUser authUser;
+    ProgressDialog progress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,51 +52,6 @@ public class LoginActivity extends AppCompatActivity {
 
         InitControl();
         InitFolder();
-
-        String sPassword = "";
-        try {
-            AppConstant.USER = "admin1";
-            AppConstant.PASSWORD = "admin12345";
-            sPassword = AppController.getInstance().md5(AppConstant.PASSWORD);
-            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER, sPassword);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-
-        JSONObject params = new JSONObject();
-        try {
-            params.put("hashid", AppConstant.HASHID);
-            params.put("userid","admin1");
-            params.put("pass",sPassword);
-            params.put("reqid",AppConstant.REQID);
-            params.put("device_id","");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
-        /*AuthUser param = new AuthUser(AppConstant.HASHID, "admin1", sPassword, AppConstant.REQID);
-
-        try{
-            Call<AuthUser> call = NetworkManager.getNetworkService(this).loginUser(param);
-            call.enqueue(new Callback<AuthUser>() {
-                @Override
-                public void onResponse(Call<AuthUser> call, Response<AuthUser> response) {
-                    int code = response.code();
-                    authUser = response.body();
-
-                    AppController.getInstance().getSessionManager().setUserAccount(authUser);
-                }
-
-                @Override
-                public void onFailure(Call<AuthUser> call, Throwable t) {
-                    String a = t.getMessage();
-                    a = a;
-                }
-            });
-        }catch (Exception e){
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-        }*/
 
     }
 
@@ -102,11 +63,97 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent (LoginActivity.this, MainActivity.class);
+                /*Intent intent = new Intent (LoginActivity.this, MainActivity.class);
                 startActivity(intent);
-                finish();
+                finish();*/
+
+                ValidasiLogin();
             }
         });
+    }
+
+    void ValidasiLogin(){
+        progress = ProgressDialog.show(this, "Information",
+                "Checking data", true);
+
+        String sPassword = "";
+        try {
+            AppConstant.USER = txtUser.getText().toString().trim();
+            AppConstant.PASSWORD = txtPassword.getText().toString().trim();
+            sPassword = AppController.getInstance().md5(AppConstant.PASSWORD);
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER, sPassword);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        JSONObject params = new JSONObject();
+        try {
+            params.put("hashid", AppConstant.HASHID);
+            params.put("userid",AppConstant.USER );
+            params.put("pass",sPassword);
+            params.put("reqid",AppConstant.REQID);
+            params.put("device_id","");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        AuthUser param = new AuthUser(AppConstant.HASHID, AppConstant.USER , sPassword, AppConstant.REQID);
+
+        try{
+            Call<AuthUser> call = NetworkManager.getNetworkService(this).loginUser(param);
+            call.enqueue(new Callback<AuthUser>() {
+                @Override
+                public void onResponse(Call<AuthUser> call, Response<AuthUser> response) {
+                    int code = response.code();
+                    if (code == 200){
+                        progress.dismiss();
+                        authUser = response.body();
+                        AppController.getInstance().getSessionManager().setUserAccount(authUser);
+
+                        if (authUser.code.equals("95")){
+                            CustomeDialog();
+                        }else{
+                            Intent intent = new Intent (LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }else{
+                        progress.dismiss();
+                    }
+
+
+                }
+
+                @Override
+                public void onFailure(Call<AuthUser> call, Throwable t) {
+                    progress.dismiss();
+                    String a = t.getMessage();
+                    a = a;
+                }
+            });
+        }catch (Exception e){
+            progress.dismiss();
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    void CustomeDialog(){
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.custom_dialog);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        //dialog.setTitle("Title...");
+
+        TextView txtDismis = (TextView)dialog.findViewById(R.id.text_dismiss);
+        txtDismis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 
     void InitFolder(){

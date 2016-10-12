@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:font="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/transparant_pure"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_marginTop="@dimen/space_20"
+        android:layout_marginLeft="@dimen/space_20"
+        android:layout_marginRight="@dimen/space_20"
+        android:background="@drawable/btn_shape_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_100">
+
+        <ui.CustomtextView
+            font:name = "GOTHAM_BOLD"
+            android:textColor="@color/black"
+            android:textSize="@dimen/space_14"
+            android:gravity="center"
+            android:padding="@dimen/space_18"
+            android:text="Incorrect Username or Password Try Again !"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="@dimen/space_10"
+        android:layout_marginLeft="@dimen/space_20"
+        android:layout_marginRight="@dimen/space_20"
+        android:background="@drawable/btn_shape_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_50">
+
+        <ui.CustomtextView
+            android:id="@+id/text_dismiss"
+            font:name = "GOTHAM_BOLD"
+            android:textColor="@color/colorReject"
+            android:textSize="@dimen/space_18"
+            android:gravity="center"
+            android:text="DISMISS"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+</LinearLayout>
