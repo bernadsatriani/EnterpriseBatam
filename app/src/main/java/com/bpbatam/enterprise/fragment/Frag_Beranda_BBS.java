@@ -20,8 +20,6 @@ import com.bpbatam.enterprise.PDFViewActivity_Edit;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.adapter.AdapterBBSDaftarPesanan_Beranda;
 import com.bpbatam.enterprise.model.BBS_LIST;
-import com.bpbatam.enterprise.model.BBS_LIST_old;
-import com.bpbatam.enterprise.model.BBS_LIST_Data;
 import com.bpbatam.enterprise.model.ListData;
 import com.bpbatam.enterprise.model.net.NetworkManager;
 
@@ -83,12 +81,11 @@ public class Frag_Beranda_BBS extends Fragment {
 
     void FillGrid(View v){
         try {
-            AppConstant.USER = "admin1";
             AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        BBS_LIST paramBBBList = new BBS_LIST(AppConstant.HASHID, "admin1", AppConstant.REQID, "1", "10");
+        BBS_LIST paramBBBList = new BBS_LIST(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID, "1", "10");
 
         try{
             Call<BBS_LIST> call = NetworkManager.getNetworkService(getActivity()).getBBS_List(paramBBBList);

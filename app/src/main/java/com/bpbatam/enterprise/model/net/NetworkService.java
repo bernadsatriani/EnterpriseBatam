@@ -2,9 +2,8 @@ package com.bpbatam.enterprise.model.net;
 
 import com.bpbatam.enterprise.model.ApiGithub;
 import com.bpbatam.enterprise.model.AuthUser;
+import com.bpbatam.enterprise.model.BBS_CATEGORY;
 import com.bpbatam.enterprise.model.BBS_LIST;
-import com.bpbatam.enterprise.model.BBS_LIST_old;
-import com.bpbatam.enterprise.model.BBS_LIST_ATTACHMENT;
 import com.bpbatam.enterprise.model.DataAdmin;
 import com.bpbatam.enterprise.model.GitHubUser;
 import com.bpbatam.enterprise.model.ListUser;
@@ -46,8 +45,8 @@ public interface NetworkService {
     @POST("ep_api_services/ep_bbs/get_list")
     Call<BBS_LIST> getBBS_List(@Body BBS_LIST params);
 
-    @POST("ep_api_services/ep_bbs/get_bbs_attc")
-    Call<BBS_LIST_ATTACHMENT> getBBS_List_Attachment(@Body BBS_LIST_ATTACHMENT params);
+    @POST("ep_api_services/ep_bbs/get_category")
+    Call<BBS_CATEGORY> getBBS_Category(@Body BBS_CATEGORY params);
 
 
 }

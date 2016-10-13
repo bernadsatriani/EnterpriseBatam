@@ -8,21 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bpbatam.AppConstant;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.model.BBS_LIST;
-import com.bpbatam.enterprise.model.BBS_LIST_ATTACHMENT;
-import com.bpbatam.enterprise.model.BBS_LIST_Data;
-import com.bpbatam.enterprise.model.net.NetworkManager;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by User on 9/19/2016.

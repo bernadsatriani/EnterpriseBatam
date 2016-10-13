@@ -20,16 +20,27 @@ import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ayz4sci.androidfactory.DownloadProgressView;
 import com.bpbatam.AppConstant;
+import com.bpbatam.AppController;
 import com.bpbatam.enterprise.PDFViewActivity_Edit;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.bbs.adapter.AdapterBBSDaftarPesanan;
+import com.bpbatam.enterprise.model.BBS_CATEGORY;
 import com.bpbatam.enterprise.model.ListData;
+import com.bpbatam.enterprise.model.net.NetworkManager;
 
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import okhttp3.Request;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by User on 9/22/2016.
@@ -55,7 +66,9 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
     Spinner spnBuletin, spnStatus;
 
     SimpleAdapter adpGridView;
+    BBS_CATEGORY bbs_category;
 
+    String[] lstCategory;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -71,6 +84,7 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
         InitControl(view);
         FillGrid(view);
         FillSpinner();
+        FillSpinnerCategory();
     }
 
     void InitControl(View v){
@@ -129,20 +143,69 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
 
         lstGrid = new ArrayList<HashMap<String,Object>>();
         mapGrid = new HashMap<String, Object>();
-        mapGrid.put("img", R.drawable.ball_green);
+        mapGrid.put("img", R.drawable.ball_red);
         mapGrid.put("description", "tinggi");
         lstGrid.add(mapGrid);
 
         mapGrid = new HashMap<String, Object>();
-        mapGrid.put("img", R.drawable.ball_green);
+        mapGrid.put("img", R.drawable.ball_red);
         mapGrid.put("description", "sedang");
         lstGrid.add(mapGrid);
 
-        adpGridView = new SimpleAdapter(getActivity(),  lstGrid, R.layout.spinner_row,
+        mapGrid = new HashMap<String, Object>();
+        mapGrid.put("img", R.drawable.ball_green);
+        mapGrid.put("description", "rendah");
+        lstGrid.add(mapGrid);
+
+        adpGridView = new SimpleAdapter(getActivity(), lstGrid, R.layout.spinner_row,
                 new String[] {"img","description"},
                 new int[] {R.id.img_status, R.id.text_isi});
 
         spnStatus.setAdapter(adpGridView);
+    }
+
+    void FillSpinnerCategory(){
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        try{
+            BBS_CATEGORY bbs_categoryParams = new BBS_CATEGORY(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID);
+            Call<BBS_CATEGORY> call = NetworkManager.getNetworkService(getActivity()).getBBS_Category(bbs_categoryParams);
+            call.enqueue(new Callback<BBS_CATEGORY>() {
+                @Override
+                public void onResponse(Call<BBS_CATEGORY> call, Response<BBS_CATEGORY> response) {
+                    int code = response.code();
+                    if (code == 200){
+                        bbs_category = response.body();
+                        lstCategory = new String[9];
+
+                        lstCategory[0] = bbs_category.data.QNQ;
+                        lstCategory[1] = bbs_category.data.PDK;
+                        lstCategory[2] = bbs_category.data.FRU;
+                        lstCategory[3] = bbs_category.data.RUL;
+                        lstCategory[4] = bbs_category.data.KDS;
+                        lstCategory[5] = bbs_category.data.KSU;
+                        lstCategory[6] = bbs_category.data.INB;
+                        lstCategory[7] = bbs_category.data.PGU;
+                        lstCategory[8] = bbs_category.data.PDB;
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                                android.R.layout.simple_spinner_item, lstCategory);
+
+                        spnBuletin.setAdapter(adapter);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<BBS_CATEGORY> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
     void FillGrid(View v){

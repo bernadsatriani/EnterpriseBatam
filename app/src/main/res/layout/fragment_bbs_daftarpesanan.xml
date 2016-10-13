@@ -33,12 +33,13 @@
                 android:id="@+id/layout_text"
                 android:background="@color/grey_ss"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/space_225">
+                android:layout_height="@dimen/space_150">
 
                 <EditText
+                    android:textSize="@dimen/space_12"
                     android:background="@drawable/edittext_mid"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/space_40"
+                    android:layout_height="@dimen/space_30"
                     android:id="@+id/text_judul"
                     android:hint="Judul"
                     android:padding="@dimen/space_3"
@@ -51,7 +52,7 @@
                     android:id="@+id/layout_spinner"
                     android:background="@color/white"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/space_40"
+                    android:layout_height="@dimen/space_30"
                     android:layout_below="@+id/text_judul"
                     android:layout_marginLeft="@dimen/space_5"
                     android:layout_marginRight="@dimen/space_5"
@@ -67,10 +68,11 @@
 
 
                 <EditText
+                    android:textSize="@dimen/space_12"
                     android:id="@+id/text_isi"
                     android:layout_width="match_parent"
                     android:background="@drawable/edittext_mid"
-                    android:layout_height="@dimen/space_140"
+                    android:layout_height="@dimen/space_100"
                     android:layout_weight="1"
                     android:hint="Tulis Pesan"
                     android:layout_alignParentLeft="true"
@@ -124,7 +126,7 @@
                         android:id="@+id/layout_btn_status"
                         android:background="@drawable/btn_shape_all_transparant_blue"
                         android:layout_width="@dimen/space_150"
-                        android:layout_height="@dimen/space_40"
+                        android:layout_height="@dimen/space_35"
                         android:layout_weight="0.05"
                         android:layout_marginLeft="@dimen/space_5"
                         android:text="Lampirkan File"
@@ -146,7 +148,7 @@
                         android:id="@+id/layout_btn_lampiran"
                         android:background="@drawable/btn_shape_all_transparant_blue"
                         android:layout_width="@dimen/space_150"
-                        android:layout_height="@dimen/space_40"
+                        android:layout_height="@dimen/space_35"
                         android:layout_weight="0.05"
                         android:layout_marginLeft="@dimen/space_5"
                         android:text="Lampirkan File"
