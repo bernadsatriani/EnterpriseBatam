@@ -11,16 +11,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.ayz4sci.androidfactory.DownloadProgressView;
 import com.bpbatam.AppConstant;
+import com.bpbatam.AppController;
 import com.bpbatam.enterprise.PDFViewActivity_Edit;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.bbs.adapter.AdapterBBSDaftarPesanan;
 import com.bpbatam.enterprise.bbs.adapter.AdapterBBSSemuaPesanan;
+import com.bpbatam.enterprise.model.BBS_LIST;
 import com.bpbatam.enterprise.model.ListData;
+import com.bpbatam.enterprise.model.net.NetworkManager;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by User on 9/22/2016.
@@ -37,6 +46,8 @@ public class Frag_bbs_semua_pesanan extends Fragment {
     DownloadProgressView downloadProgressView;
     private long downloadID;
     private DownloadManager downloadManager;
+
+    BBS_LIST bbs_list;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,7 +78,7 @@ public class Frag_bbs_semua_pesanan extends Fragment {
     }
 
     void FillGrid(View v){
-        AryListData = new ArrayList<>();
+        /*AryListData = new ArrayList<>();
 
         for(int i = 0; i < 10; i++){
             listData = new ListData();
@@ -76,9 +87,45 @@ public class Frag_bbs_semua_pesanan extends Fragment {
             listData.setAtr3("http://cottonsoft.co.nz/assets/img/our-company-history/history-2011-Paseo.jpg");
             AryListData.add(listData);
 
-        }
+        }*/
 
-        mAdapter = new AdapterBBSSemuaPesanan(v.getContext(), AryListData, new AdapterBBSSemuaPesanan.OnDownloadClicked() {
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        BBS_LIST paramBBBList = new BBS_LIST(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID, "1", "10");
+
+        try{
+            Call<BBS_LIST> call = NetworkManager.getNetworkService(getActivity()).getBBS_List(paramBBBList);
+            call.enqueue(new Callback<BBS_LIST>() {
+                @Override
+                public void onResponse(Call<BBS_LIST> call, Response<BBS_LIST> response) {
+                    int code = response.code();
+                    if (code == 200){
+                        bbs_list = response.body();
+
+                        if (bbs_list !=null){
+                            if (bbs_list.data.size() > 0){
+                                FillAdapter();
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<BBS_LIST> call, Throwable t) {
+                    String a = t.getMessage();
+                    a = a;
+                }
+            });
+        }catch (Exception e){
+            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    void FillAdapter(){
+        mAdapter = new AdapterBBSSemuaPesanan(getActivity(), bbs_list, new AdapterBBSSemuaPesanan.OnDownloadClicked() {
             @Override
             public void OnDownloadClicked(final String sUrl, boolean bStatus) {
                 mRecyclerView.setVisibility(View.GONE);
@@ -122,5 +169,4 @@ public class Frag_bbs_semua_pesanan extends Fragment {
         // set the adapter object to the Recyclerview
         mRecyclerView.setAdapter(mAdapter);
     }
-
 }

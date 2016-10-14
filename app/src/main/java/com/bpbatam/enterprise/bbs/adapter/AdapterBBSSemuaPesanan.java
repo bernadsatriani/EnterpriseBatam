@@ -10,23 +10,24 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bpbatam.enterprise.R;
+import com.bpbatam.enterprise.model.BBS_LIST;
 import com.bpbatam.enterprise.model.ListData;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by User on 9/19/2016.
  */
 public class AdapterBBSSemuaPesanan extends  RecyclerView.Adapter<AdapterBBSSemuaPesanan.ViewHolder>{
-
-    private ArrayList<ListData> mCourseArrayList;
+    private BBS_LIST bbs_list;
     private Context context;
 
-    public AdapterBBSSemuaPesanan(Context context, ArrayList<ListData> mCourseArrayList, OnDownloadClicked listener) {
+    public AdapterBBSSemuaPesanan(Context context, BBS_LIST bbs_list, OnDownloadClicked listener) {
         this.context = context;
-        this.mCourseArrayList = mCourseArrayList;
+        this.bbs_list = bbs_list;
         this.listener = listener;
-        if (mCourseArrayList == null) {
+        if (bbs_list == null) {
             throw new IllegalArgumentException("courses ArrayList must not be null");
         }
     }
@@ -48,11 +49,15 @@ public class AdapterBBSSemuaPesanan extends  RecyclerView.Adapter<AdapterBBSSemu
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        ListData listData = mCourseArrayList.get(position);
+        List<BBS_LIST.Datum> listData = bbs_list.data;
         //Set text
-        holder.txtDate.setText("Senin, 29 Agustus 2016, pukul 02:02");
-        holder.lbl_Attach.setText(listData.getAtr1());
-        holder.lbl_Size.setText(listData.getAtr2());
+        holder.txtDate.setText(listData.get(position).bbs_date);
+        holder.lbl_Attach.setText(listData.get(position).title);
+
+        if (listData.get(position).attc_size != null){
+            holder.lbl_Size.setText("(" + listData.get(position).attc_size + " mb)");
+        }else
+            holder.lbl_Size.setText("");
 
         //holder.txtStatus.setText(listData.getAtr2());
 
@@ -63,7 +68,7 @@ public class AdapterBBSSemuaPesanan extends  RecyclerView.Adapter<AdapterBBSSemu
 
     @Override
     public int getItemCount() {
-        return mCourseArrayList.size();
+        return bbs_list.data.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder
@@ -74,7 +79,7 @@ public class AdapterBBSSemuaPesanan extends  RecyclerView.Adapter<AdapterBBSSemu
                 lbl_Size
         ;
         RelativeLayout btnDownload;
-        ListData listData;
+        List<BBS_LIST.Datum> listData;
         public ViewHolder(View itemView,
                           final Context context,
                           final AdapterBBSSemuaPesanan mCourseAdapter) {

@@ -30,6 +30,7 @@ public class BBS_LIST {
         public String bbs_date ;
         public String attc_size ;
         public String name ;
+        public String read_sts;
         public int attc_count ;
         public String title ;
         public String attc_type ;

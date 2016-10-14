@@ -3,6 +3,7 @@ package com.bpbatam;
 import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
+import android.telephony.TelephonyManager;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -29,6 +30,9 @@ public class AppController extends Application {
         Fabric.with(this, new Crashlytics());
         mInstance = this;
         sessionManager = new SessionManager(getApplicationContext());
+
+        TelephonyManager mngr = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+        AppConstant.IMEI =  mngr.getDeviceId();
 
     }
 

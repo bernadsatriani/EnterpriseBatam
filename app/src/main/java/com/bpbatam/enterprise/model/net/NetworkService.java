@@ -8,6 +8,7 @@ import com.bpbatam.enterprise.model.DataAdmin;
 import com.bpbatam.enterprise.model.GitHubUser;
 import com.bpbatam.enterprise.model.ListUser;
 import com.bpbatam.enterprise.model.LocationList;
+import com.bpbatam.enterprise.model.UpdateDeviceId;
 
 import java.util.List;
 
@@ -48,5 +49,6 @@ public interface NetworkService {
     @POST("ep_api_services/ep_bbs/get_category")
     Call<BBS_CATEGORY> getBBS_Category(@Body BBS_CATEGORY params);
 
-
+    @POST("ep_api_services/ep_user/update_deviceid")
+    Call<UpdateDeviceId> updateDeviceID(@Body UpdateDeviceId params);
 }

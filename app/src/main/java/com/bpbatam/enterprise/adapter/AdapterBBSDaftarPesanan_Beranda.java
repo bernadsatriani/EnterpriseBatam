@@ -55,7 +55,7 @@ public class AdapterBBSDaftarPesanan_Beranda extends  RecyclerView.Adapter<Adapt
         holder.lbl_Attach.setText(listData.get(position).title);
 
         if (listData.get(position).attc_size != null){
-            holder.lbl_Size.setText("(" + listData.get(position).attc_size + ")");
+            holder.lbl_Size.setText("(" + listData.get(position).attc_size + " mb)");
         }else
             holder.lbl_Size.setText("");
 

@@ -27,6 +27,8 @@ public final class AppConstant {
 	public static String PILIH_PESAN = "1" ;
 	public static String SEMUA_PESAN = "2" ;
 	public static String TIDAK_PESAN = "3" ;
+	public static String IMEI ;
+
 
 
 	public static String ACTIVITY_FROM;

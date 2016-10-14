@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.bpbatam.enterprise.MainActivity;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.model.AuthUser;
+import com.bpbatam.enterprise.model.UpdateDeviceId;
 import com.bpbatam.enterprise.model.net.NetworkManager;
 
 import com.crashlytics.android.Crashlytics;
@@ -42,7 +43,10 @@ public class LoginActivity extends AppCompatActivity {
         txtPassword;
 
     Button btnLogin;
+
     AuthUser authUser;
+    UpdateDeviceId updateDeviceId;
+
     ProgressDialog progress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +117,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (authUser.code.equals("95")){
                             CustomeDialog();
                         }else{
+                            fUpdateDeviceID();
                             Intent intent = new Intent (LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
@@ -136,6 +141,40 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
+
+    void fUpdateDeviceID(){
+        try {
+            AppConstant.USER = txtUser.getText().toString().trim();
+            AppConstant.PASSWORD = txtPassword.getText().toString().trim();
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        UpdateDeviceId params = new UpdateDeviceId(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID, AppConstant.IMEI);
+
+        try{
+            Call<UpdateDeviceId> call = NetworkManager.getNetworkService(this).updateDeviceID(params);
+            call.enqueue(new Callback<UpdateDeviceId>() {
+                @Override
+                public void onResponse(Call<UpdateDeviceId> call, Response<UpdateDeviceId> response) {
+                    int code = response.code();
+                    if (code == 200){
+                        updateDeviceId = response.body();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<UpdateDeviceId> call, Throwable t) {
+                    String a = t.getMessage();
+                    a = a;
+                }
+            });
+        }catch (Exception e){
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
 
     void CustomeDialog(){
         final Dialog dialog = new Dialog(this);

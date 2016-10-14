@@ -12,23 +12,24 @@ import android.widget.TextView;
 
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.bbs.bbs_komentar_activity;
+import com.bpbatam.enterprise.model.BBS_LIST;
 import com.bpbatam.enterprise.model.ListData;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by User on 9/19/2016.
  */
 public class AdapterBBSDaftarPesanan extends  RecyclerView.Adapter<AdapterBBSDaftarPesanan.ViewHolder>{
-
-    private ArrayList<ListData> mCourseArrayList;
+    private BBS_LIST bbs_list;
     private Context context;
 
-    public AdapterBBSDaftarPesanan(Context context, ArrayList<ListData> mCourseArrayList, OnDownloadClicked listener) {
+    public AdapterBBSDaftarPesanan(Context context, BBS_LIST bbs_list, OnDownloadClicked listener) {
         this.context = context;
-        this.mCourseArrayList = mCourseArrayList;
+        this.bbs_list = bbs_list;
         this.listener = listener;
-        if (mCourseArrayList == null) {
+        if (bbs_list == null) {
             throw new IllegalArgumentException("courses ArrayList must not be null");
         }
     }
@@ -50,40 +51,51 @@ public class AdapterBBSDaftarPesanan extends  RecyclerView.Adapter<AdapterBBSDaf
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        ListData listData = mCourseArrayList.get(position);
+        List<BBS_LIST.Datum> listData = bbs_list.data;
         //Set text
-        holder.txtDate.setText("Senin, 29 Agustus 2016, pukul 02:02");
-        holder.lbl_Attach.setText(listData.getAtr1());
-        holder.lbl_Size.setText(listData.getAtr2());
+        if (listData.get(position).read_sts.equals("N")){
+            holder.txtName.setText(listData.get(position).name);
+            holder.txtDate.setText(listData.get(position).bbs_date);
+            holder.lbl_Attach.setText(listData.get(position).title);
 
-        //holder.txtStatus.setText(listData.getAtr2());
+            if (listData.get(position).attc_size != null){
+                holder.lbl_Size.setText("(" + listData.get(position).attc_size + " mb)");
+            }else
+                holder.lbl_Size.setText("");
 
-        //AppController.getInstance().displayImage(context,listData.getAtr3(), holder.imgCover);
 
-        holder.listData = listData;
+            //holder.txtStatus.setText(listData.getAtr2());
+
+            //AppController.getInstance().displayImage(context,listData.getAtr3(), holder.imgCover);
+
+            holder.listData = listData;
+        }
+
     }
 
     @Override
     public int getItemCount() {
-        return mCourseArrayList.size();
+        return bbs_list.data.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener, View.OnLongClickListener {
 
         TextView txtDate,
+                txtName,
                 lbl_Attach,
                 lbl_Size
         ;
         RelativeLayout btnDownload;
         ImageView imgCover;
-        ListData listData;
+        List<BBS_LIST.Datum> listData;
         public ViewHolder(View itemView,
                           final Context context,
                           final AdapterBBSDaftarPesanan mCourseAdapter) {
             super(itemView);
             imgCover = (ImageView)itemView.findViewById(R.id.imageView7);
             txtDate = (TextView)itemView.findViewById(R.id.text_Date);
+            txtName = (TextView)itemView.findViewById(R.id.text_Name);
             lbl_Attach = (TextView)itemView.findViewById(R.id.lbl_attach);
             lbl_Size = (TextView)itemView.findViewById(R.id.lbl_size);
             btnDownload = (RelativeLayout) itemView.findViewById(R.id.btnDownload);
