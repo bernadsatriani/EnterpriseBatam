@@ -11,16 +11,18 @@ import android.widget.TextView;
 
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.model.BBS_LIST;
+import com.bpbatam.enterprise.model.ListData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by User on 9/19/2016.
  */
 public class AdapterBBSDaftarPesanan_Beranda extends  RecyclerView.Adapter<AdapterBBSDaftarPesanan_Beranda.ViewHolder>{
-
     private BBS_LIST bbs_list;
     private Context context;
+
     public AdapterBBSDaftarPesanan_Beranda(Context context, BBS_LIST bbs_list, OnDownloadClicked listener) {
         this.context = context;
         this.bbs_list = bbs_list;
@@ -40,7 +42,7 @@ public class AdapterBBSDaftarPesanan_Beranda extends  RecyclerView.Adapter<Adapt
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //Inflate layout
         View itemView = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.row_bbs_daftar_pesanan, null);
+                R.layout.row_bbs_semua_pesanan, null);
 
         return new ViewHolder(itemView, context, this);
     }
@@ -48,28 +50,21 @@ public class AdapterBBSDaftarPesanan_Beranda extends  RecyclerView.Adapter<Adapt
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         List<BBS_LIST.Datum> listData = bbs_list.data;
-
         //Set text
-        holder.txtName.setText(listData.get(position).name);
         holder.txtDate.setText(listData.get(position).bbs_date);
         holder.lbl_Attach.setText(listData.get(position).title);
+        holder.lbl_Judul.setText(listData.get(position).title);
+        holder.lbl_Isi.setText("");
 
         if (listData.get(position).attc_size != null){
             holder.lbl_Size.setText("(" + listData.get(position).attc_size + " mb)");
         }else
             holder.lbl_Size.setText("");
 
-        //ViewFileSize(holder,Integer.toString(listData.getBbs_id()));
         //holder.txtStatus.setText(listData.getAtr2());
 
         //AppController.getInstance().displayImage(context,listData.getAtr3(), holder.imgCover);
-        holder.btnDownload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //https://www.dropbox.com/s/jadu92w71vnku3o/Wireframe.pdf?dl=0
-                listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
-            }
-        });
+
         holder.listData = listData;
     }
 
@@ -82,24 +77,35 @@ public class AdapterBBSDaftarPesanan_Beranda extends  RecyclerView.Adapter<Adapt
             implements View.OnClickListener, View.OnLongClickListener {
 
         TextView txtDate,
-                txtName,
+                txtStatus,
                 lbl_Attach,
-                lbl_Size
-        ;
+                lbl_Size,
+                lbl_Judul,
+                lbl_Isi
+                        ;
+        ImageView imgStatus;
         RelativeLayout btnDownload;
-        ImageView imgCover;
         List<BBS_LIST.Datum> listData;
         public ViewHolder(View itemView,
                           final Context context,
                           final AdapterBBSDaftarPesanan_Beranda mCourseAdapter) {
             super(itemView);
-            imgCover = (ImageView)itemView.findViewById(R.id.imageView7);
+            imgStatus = (ImageView)itemView.findViewById(R.id.img_status);
+            txtStatus = (TextView)itemView.findViewById(R.id.text_status);
             txtDate = (TextView)itemView.findViewById(R.id.text_Date);
-            txtName = (TextView)itemView.findViewById(R.id.text_Name);
             lbl_Attach = (TextView)itemView.findViewById(R.id.lbl_attach);
             lbl_Size = (TextView)itemView.findViewById(R.id.lbl_size);
+            lbl_Judul = (TextView)itemView.findViewById(R.id.lbl_Judul);
+            lbl_Isi = (TextView)itemView.findViewById(R.id.lbl_Isi);
             btnDownload = (RelativeLayout) itemView.findViewById(R.id.btnDownload);
 
+            btnDownload.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //https://www.dropbox.com/s/jadu92w71vnku3o/Wireframe.pdf?dl=0
+                    listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
+                }
+            });
 
 
         }

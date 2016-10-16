@@ -53,6 +53,8 @@ public class AdapterBBSSemuaPesanan extends  RecyclerView.Adapter<AdapterBBSSemu
         //Set text
         holder.txtDate.setText(listData.get(position).bbs_date);
         holder.lbl_Attach.setText(listData.get(position).title);
+        holder.lbl_Judul.setText(listData.get(position).title);
+        holder.lbl_Isi.setText("");
 
         if (listData.get(position).attc_size != null){
             holder.lbl_Size.setText("(" + listData.get(position).attc_size + " mb)");
@@ -75,18 +77,26 @@ public class AdapterBBSSemuaPesanan extends  RecyclerView.Adapter<AdapterBBSSemu
             implements View.OnClickListener, View.OnLongClickListener {
 
         TextView txtDate,
+                txtStatus,
                 lbl_Attach,
-                lbl_Size
+                lbl_Size,
+                lbl_Judul,
+                lbl_Isi
         ;
+        ImageView imgStatus;
         RelativeLayout btnDownload;
         List<BBS_LIST.Datum> listData;
         public ViewHolder(View itemView,
                           final Context context,
                           final AdapterBBSSemuaPesanan mCourseAdapter) {
             super(itemView);
+            imgStatus = (ImageView)itemView.findViewById(R.id.img_status);
+            txtStatus = (TextView)itemView.findViewById(R.id.text_status);
             txtDate = (TextView)itemView.findViewById(R.id.text_Date);
             lbl_Attach = (TextView)itemView.findViewById(R.id.lbl_attach);
             lbl_Size = (TextView)itemView.findViewById(R.id.lbl_size);
+            lbl_Judul = (TextView)itemView.findViewById(R.id.lbl_Judul);
+            lbl_Isi = (TextView)itemView.findViewById(R.id.lbl_Isi);
             btnDownload = (RelativeLayout) itemView.findViewById(R.id.btnDownload);
 
             btnDownload.setOnClickListener(new View.OnClickListener() {

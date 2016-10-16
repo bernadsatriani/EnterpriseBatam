@@ -182,6 +182,31 @@
 
     </LinearLayout>
 
+    <RelativeLayout
+        android:background="@color/grey_ss"
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/space_5"
+        android:layout_height="@dimen/space_40">
+
+        <RelativeLayout
+            android:id="@+id/layout_spinner_category"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_30"
+            android:layout_marginTop="@dimen/space_5"
+            android:layout_marginLeft="@dimen/space_5"
+            android:layout_marginRight="@dimen/space_5"
+            android:layout_marginBottom="@dimen/space_5">
+
+            <Spinner
+                android:id="@+id/spinner_caetogory"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/my_recycler_view"

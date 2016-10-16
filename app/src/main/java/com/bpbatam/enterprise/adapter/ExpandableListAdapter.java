@@ -123,10 +123,10 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 imgMenu.setBackgroundResource(R.drawable.gns_email);
                 if (isExpanded) {
                     layoutRowHeader.setBackgroundColor(_context.getResources().getColor(R.color.colorSearch));
-                    arrow.setImageDrawable(_context.getResources().getDrawable(R.drawable.minus));
+                    arrow.setImageDrawable(_context.getResources().getDrawable(R.drawable.minus_white));
                 } else {
                     layoutRowHeader.setBackgroundColor(_context.getResources().getColor(R.color.colorSelectButton));
-                    arrow.setImageDrawable(_context.getResources().getDrawable(R.drawable.plus));
+                    arrow.setImageDrawable(_context.getResources().getDrawable(R.drawable.plus_white));
                 }
                 break;
 
@@ -134,10 +134,10 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 imgMenu.setBackgroundResource(R.drawable.document_white);
                 if (isExpanded) {
                     layoutRowHeader.setBackgroundColor(_context.getResources().getColor(R.color.colorSearch));
-                    arrow.setImageDrawable(_context.getResources().getDrawable(R.drawable.minus));
+                    arrow.setImageDrawable(_context.getResources().getDrawable(R.drawable.minus_white));
                 } else {
                     layoutRowHeader.setBackgroundColor(_context.getResources().getColor(R.color.colorSelectButton));
-                    arrow.setImageDrawable(_context.getResources().getDrawable(R.drawable.plus));
+                    arrow.setImageDrawable(_context.getResources().getDrawable(R.drawable.plus_white));
                 }
                 break;
         }

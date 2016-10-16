@@ -46,14 +46,31 @@
 
             </RelativeLayout>
 
-            <ui.CustomtextView
-                font:name="GOTHAM_LIGHT"
-                android:textSize="@dimen/space_12"
-                android:id="@+id/text_Date"
-                android:text="Senin, 29 Agustus 2016, pukul 02:02"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ui.CustomtextView
+                    font:name="GOTHAM_BOLD"
+                    android:id="@+id/text_Division"
+                    android:text="Division Staff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+                <ui.CustomtextView
+                    font:name="GOTHAM_LIGHT"
+                    android:textSize="@dimen/space_12"
+                    android:id="@+id/text_Date"
+                    android:text="Senin, 29 Agustus 2016, pukul 02:02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/space_10"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/layout_attachment"
@@ -64,7 +81,32 @@
                 android:layout_alignRight="@+id/text_time"
                 android:layout_alignEnd="@+id/text_time"
                 android:layout_marginRight="@dimen/space_10"
-                android:layout_marginTop="@dimen/space_5">
+                android:layout_marginTop="@dimen/space_14">
+
+                <ui.CustomtextView
+                    font:name="GOTHAM_BOLD"
+                    android:id="@+id/lbl_Judul"
+                    android:text="Tutorial Backup Hapus Email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:layout_marginTop="@dimen/space_7"
+                    android:layout_marginLeft="@dimen/space_7"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <ui.CustomtextView
+                    font:name="GOTHAM_LIGHT"
+                    android:id="@+id/lbl_Isi"
+                    android:textSize="@dimen/space_12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:layout_below="@+id/lbl_Judul"
+                    android:layout_marginTop="@dimen/space_3"
+                    android:layout_marginLeft="@dimen/space_7"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
 
                 <ui.CustomtextView
                     font:name="GOTHAM_LIGHTITALIC"
@@ -75,7 +117,8 @@
                     android:layout_height="wrap_content"
                     android:maxLines="1"
                     android:textStyle="italic"
-                    android:layout_marginTop="@dimen/space_3"
+                    android:layout_below="@+id/lbl_Isi"
+                    android:layout_marginTop="@dimen/space_7"
                     android:layout_marginLeft="@dimen/space_7"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
@@ -167,6 +210,27 @@
                         android:layout_alignParentRight="true"
                         android:layout_alignParentEnd="true" />
                 </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/space_18"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ball_red"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginBottom="@dimen/space_10"
+                    android:id="@+id/img_status" />
+
+                <ui.CustomtextView
+                    font:name = "GOTHAM_BOLD"
+                    android:text="tinggi"
+                    android:id="@+id/text_status"
+                    android:layout_marginBottom="@dimen/space_10"
+                    android:gravity="fill_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@+id/img_status"
+                    android:layout_toEndOf="@+id/img_status" />
 
 
             </RelativeLayout>

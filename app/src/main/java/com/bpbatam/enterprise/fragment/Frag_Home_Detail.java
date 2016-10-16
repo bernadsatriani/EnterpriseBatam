@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 
 import com.bpbatam.enterprise.R;
 import com.github.mikephil.charting.charts.LineChart;
@@ -16,12 +18,18 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by User on 9/23/2016.
  */
 public class Frag_Home_Detail extends Fragment {
 
+    ArrayList<HashMap<String, Object>> lstGrid;
+    HashMap<String, Object> mapGrid;
+    SimpleAdapter adpGridView;
+
+    Spinner spnMonth;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -37,6 +45,7 @@ public class Frag_Home_Detail extends Fragment {
     }
 
     void InitControl(View v){
+        spnMonth = (Spinner)v.findViewById(R.id.spinner_month);
         LineChart chart = (LineChart) v.findViewById(R.id.chart);
         chart = new LineChart(v.getContext());
         //getActivity().setContentView(chart);
@@ -77,5 +86,41 @@ public class Frag_Home_Detail extends Fragment {
 
         chart.getLayoutParams().height = height;
         chart.getLayoutParams().width = width;
+
+        FillSpinner();
+    }
+
+
+    void FillSpinner(){
+        lstGrid = new ArrayList<HashMap<String,Object>>();
+        mapGrid = new HashMap<String, Object>();
+        mapGrid.put("month", "January");
+        lstGrid.add(mapGrid);
+
+        mapGrid = new HashMap<String, Object>();
+        mapGrid.put("month", "February");
+        lstGrid.add(mapGrid);
+
+        mapGrid = new HashMap<String, Object>();
+        mapGrid.put("month", "March");
+        lstGrid.add(mapGrid);
+
+        mapGrid = new HashMap<String, Object>();
+        mapGrid.put("month", "April");
+        lstGrid.add(mapGrid);
+
+        mapGrid = new HashMap<String, Object>();
+        mapGrid.put("month", "May");
+        lstGrid.add(mapGrid);
+
+        mapGrid = new HashMap<String, Object>();
+        mapGrid.put("month", "June");
+        lstGrid.add(mapGrid);
+
+        adpGridView = new SimpleAdapter(getActivity(), lstGrid, R.layout.spinner_row_single,
+                new String[] {"month"},
+                new int[] {R.id.text_isi});
+
+        spnMonth.setAdapter(adpGridView);
     }
 }

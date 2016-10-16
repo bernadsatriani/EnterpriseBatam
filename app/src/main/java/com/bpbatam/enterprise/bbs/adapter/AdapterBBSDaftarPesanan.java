@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.bbs.bbs_komentar_activity;
 import com.bpbatam.enterprise.model.BBS_LIST;
+import com.bpbatam.enterprise.model.BBS_List_ByCategory;
 import com.bpbatam.enterprise.model.ListData;
 
 import java.util.ArrayList;
@@ -22,10 +23,10 @@ import java.util.List;
  * Created by User on 9/19/2016.
  */
 public class AdapterBBSDaftarPesanan extends  RecyclerView.Adapter<AdapterBBSDaftarPesanan.ViewHolder>{
-    private BBS_LIST bbs_list;
+    private BBS_List_ByCategory bbs_list;
     private Context context;
 
-    public AdapterBBSDaftarPesanan(Context context, BBS_LIST bbs_list, OnDownloadClicked listener) {
+    public AdapterBBSDaftarPesanan(Context context, BBS_List_ByCategory bbs_list, OnDownloadClicked listener) {
         this.context = context;
         this.bbs_list = bbs_list;
         this.listener = listener;
@@ -51,12 +52,14 @@ public class AdapterBBSDaftarPesanan extends  RecyclerView.Adapter<AdapterBBSDaf
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        List<BBS_LIST.Datum> listData = bbs_list.data;
+        List<BBS_List_ByCategory.Datum> listData = bbs_list.data;
         //Set text
         if (listData.get(position).read_sts.equals("N")){
             holder.txtName.setText(listData.get(position).name);
             holder.txtDate.setText(listData.get(position).bbs_date);
             holder.lbl_Attach.setText(listData.get(position).title);
+            holder.lbl_Judul.setText(listData.get(position).title);
+            holder.lbl_Isi.setText("");
 
             if (listData.get(position).attc_size != null){
                 holder.lbl_Size.setText("(" + listData.get(position).attc_size + " mb)");
@@ -83,19 +86,28 @@ public class AdapterBBSDaftarPesanan extends  RecyclerView.Adapter<AdapterBBSDaf
 
         TextView txtDate,
                 txtName,
+                txtDivisi,
+                txtStatus,
                 lbl_Attach,
-                lbl_Size
+                lbl_Size,
+                lbl_Judul,
+                lbl_Isi
         ;
         RelativeLayout btnDownload;
-        ImageView imgCover;
-        List<BBS_LIST.Datum> listData;
+        ImageView imgCover, imgStatus;
+        List<BBS_List_ByCategory.Datum> listData;
         public ViewHolder(View itemView,
                           final Context context,
                           final AdapterBBSDaftarPesanan mCourseAdapter) {
             super(itemView);
             imgCover = (ImageView)itemView.findViewById(R.id.imageView7);
+            imgStatus = (ImageView)itemView.findViewById(R.id.img_status);
             txtDate = (TextView)itemView.findViewById(R.id.text_Date);
             txtName = (TextView)itemView.findViewById(R.id.text_Name);
+            txtDivisi = (TextView)itemView.findViewById(R.id.text_Division);
+            txtStatus = (TextView)itemView.findViewById(R.id.text_status);
+            lbl_Judul = (TextView)itemView.findViewById(R.id.lbl_Judul);
+            lbl_Isi = (TextView)itemView.findViewById(R.id.lbl_Isi);
             lbl_Attach = (TextView)itemView.findViewById(R.id.lbl_attach);
             lbl_Size = (TextView)itemView.findViewById(R.id.lbl_size);
             btnDownload = (RelativeLayout) itemView.findViewById(R.id.btnDownload);

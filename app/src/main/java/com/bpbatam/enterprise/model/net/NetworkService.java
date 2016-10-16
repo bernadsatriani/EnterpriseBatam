@@ -4,6 +4,7 @@ import com.bpbatam.enterprise.model.ApiGithub;
 import com.bpbatam.enterprise.model.AuthUser;
 import com.bpbatam.enterprise.model.BBS_CATEGORY;
 import com.bpbatam.enterprise.model.BBS_LIST;
+import com.bpbatam.enterprise.model.BBS_List_ByCategory;
 import com.bpbatam.enterprise.model.DataAdmin;
 import com.bpbatam.enterprise.model.GitHubUser;
 import com.bpbatam.enterprise.model.ListUser;
@@ -45,6 +46,9 @@ public interface NetworkService {
 
     @POST("ep_api_services/ep_bbs/get_list")
     Call<BBS_LIST> getBBS_List(@Body BBS_LIST params);
+
+    @POST("ep_api_services/ep_bbs/get_list_bycat")
+    Call<BBS_List_ByCategory> getBBS_List_ByCat(@Body BBS_List_ByCategory params);
 
     @POST("ep_api_services/ep_bbs/get_category")
     Call<BBS_CATEGORY> getBBS_Category(@Body BBS_CATEGORY params);

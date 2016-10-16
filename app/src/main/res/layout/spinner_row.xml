@@ -17,6 +17,7 @@
     <ui.CustomtextView
         font:name = "GOTHAM_BOLD"
         android:textSize="@dimen/space_12"
+        android:textColor="@color/black"
         android:text="sedang"
         android:id="@+id/text_isi"
         android:layout_width="wrap_content"

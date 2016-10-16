@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -30,6 +31,7 @@ import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.bbs.adapter.AdapterBBSDaftarPesanan;
 import com.bpbatam.enterprise.model.BBS_CATEGORY;
 import com.bpbatam.enterprise.model.BBS_LIST;
+import com.bpbatam.enterprise.model.BBS_List_ByCategory;
 import com.bpbatam.enterprise.model.ListData;
 import com.bpbatam.enterprise.model.net.NetworkManager;
 
@@ -64,14 +66,14 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
 
     ImageView imgCancel, imgSave;
 
-    Spinner spnBuletin, spnStatus;
+    Spinner spnBuletin, spnStatus, spnCategory;
 
     SimpleAdapter adpGridView;
 
     BBS_CATEGORY bbs_category;
-
+    BBS_List_ByCategory bbs_list_byCategory;
     String[] lstCategory;
-    BBS_LIST bbs_list;
+    String sCategoryID = "";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -85,15 +87,17 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         InitControl(view);
-        FillGrid(view);
+
         FillSpinner();
         FillSpinnerCategory();
+
+
     }
 
     void InitControl(View v){
         spnBuletin = (Spinner)v.findViewById(R.id.spinner_buletinboard);
         spnStatus = (Spinner)v.findViewById(R.id.spinner_status);
-
+        spnCategory = (Spinner)v.findViewById(R.id.spinner_caetogory);
         imgCancel = (ImageView)v.findViewById(R.id.imageView12);
         imgSave = (ImageView)v.findViewById(R.id.imageView11);
         txtTulisPesan = (TextView)v.findViewById(R.id.text_tulis_pesan);
@@ -185,6 +189,46 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
                         bbs_category = response.body();
                         lstCategory = new String[9];
 
+                        ArrayList<HashMap<String, Object>> lstGrid;
+                        HashMap<String, Object> mapGrid;
+
+                        lstGrid = new ArrayList<HashMap<String,Object>>();
+                        mapGrid = new HashMap<String, Object>();
+                        mapGrid.put("description", bbs_category.data.QNQ);
+                        lstGrid.add(mapGrid);
+
+                        mapGrid = new HashMap<String, Object>();
+                        mapGrid.put("description", bbs_category.data.PDK);
+                        lstGrid.add(mapGrid);
+
+                        mapGrid = new HashMap<String, Object>();
+                        mapGrid.put("description", bbs_category.data.FRU);
+                        lstGrid.add(mapGrid);
+
+                        mapGrid = new HashMap<String, Object>();
+                        mapGrid.put("description", bbs_category.data.RUL);
+                        lstGrid.add(mapGrid);
+
+                        mapGrid = new HashMap<String, Object>();
+                        mapGrid.put("description", bbs_category.data.KDS);
+                        lstGrid.add(mapGrid);
+
+                        mapGrid = new HashMap<String, Object>();
+                        mapGrid.put("description", bbs_category.data.KSU);
+                        lstGrid.add(mapGrid);
+
+                        mapGrid = new HashMap<String, Object>();
+                        mapGrid.put("description", bbs_category.data.INB);
+                        lstGrid.add(mapGrid);
+
+                        mapGrid = new HashMap<String, Object>();
+                        mapGrid.put("description", bbs_category.data.PGU);
+                        lstGrid.add(mapGrid);
+
+                        mapGrid = new HashMap<String, Object>();
+                        mapGrid.put("description", bbs_category.data.PDB);
+                        lstGrid.add(mapGrid);
+/*
                         lstCategory[0] = bbs_category.data.QNQ;
                         lstCategory[1] = bbs_category.data.PDK;
                         lstCategory[2] = bbs_category.data.FRU;
@@ -196,8 +240,53 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
                         lstCategory[8] = bbs_category.data.PDB;
                         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                                 android.R.layout.simple_spinner_item, lstCategory);
+*/
 
-                        spnBuletin.setAdapter(adapter);
+                        adpGridView = new SimpleAdapter(getActivity(), lstGrid, R.layout.spinner_row_single,
+                                new String[] {"description"},
+                                new int[] {R.id.text_isi});
+                        spnBuletin.setAdapter(adpGridView);
+                        spnCategory.setAdapter(adpGridView);
+                        spnCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                switch (i){
+                                    case 0:
+                                        FillGrid("QNQ");
+                                        break;
+                                    case 1:
+                                        FillGrid("PDK");
+                                        break;
+                                    case 2:
+                                        FillGrid("FRU");
+                                        break;
+                                    case 3:
+                                        FillGrid("RUL");
+                                        break;
+                                    case 4:
+                                        FillGrid("KDS");
+                                        break;
+                                    case 5:
+                                        FillGrid("KSU");
+                                        break;
+                                    case 6:
+                                        FillGrid("INB");
+                                        break;
+                                    case 7:
+                                        FillGrid("PGU");
+                                        break;
+                                    case 8:
+                                        FillGrid("PDB");
+                                        break;
+                                }
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> adapterView) {
+
+                            }
+                        });
+
                     }
                 }
 
@@ -211,7 +300,7 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
         }
     }
 
-    void FillGrid(View v){
+    void FillGrid(String sCategory_id){
 /*        AryListData = new ArrayList<>();
 
         for(int i = 0; i < 10; i++){
@@ -228,27 +317,35 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        BBS_LIST paramBBBList = new BBS_LIST(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID, "1", "10");
+        BBS_List_ByCategory paramBBBList = new BBS_List_ByCategory(AppConstant.HASHID,
+                AppConstant.USER,
+                AppConstant.REQID,
+                sCategory_id,
+                "1",
+                "10");
 
         try{
-            Call<BBS_LIST> call = NetworkManager.getNetworkService(getActivity()).getBBS_List(paramBBBList);
-            call.enqueue(new Callback<BBS_LIST>() {
+            Call<BBS_List_ByCategory> call = NetworkManager.getNetworkService(getActivity()).getBBS_List_ByCat(paramBBBList);
+            call.enqueue(new Callback<BBS_List_ByCategory>() {
                 @Override
-                public void onResponse(Call<BBS_LIST> call, Response<BBS_LIST> response) {
+                public void onResponse(Call<BBS_List_ByCategory> call, Response<BBS_List_ByCategory> response) {
                     int code = response.code();
                     if (code == 200){
-                        bbs_list = response.body();
+                        bbs_list_byCategory = response.body();
 
-                        if (bbs_list !=null){
-                            if (bbs_list.data.size() > 0){
+                        if (bbs_list_byCategory !=null){
+                            if (bbs_list_byCategory.code.equals("00")){
+                                mRecyclerView.setVisibility(View.VISIBLE);
                                 FillAdapter();
+                            }else{
+                                mRecyclerView.setVisibility(View.GONE);
                             }
                         }
                     }
                 }
 
                 @Override
-                public void onFailure(Call<BBS_LIST> call, Throwable t) {
+                public void onFailure(Call<BBS_List_ByCategory> call, Throwable t) {
                     String a = t.getMessage();
                     a = a;
                 }
@@ -260,7 +357,7 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
     }
 
     void FillAdapter(){
-        mAdapter = new AdapterBBSDaftarPesanan(getActivity(), bbs_list, new AdapterBBSDaftarPesanan.OnDownloadClicked() {
+        mAdapter = new AdapterBBSDaftarPesanan(getActivity(), bbs_list_byCategory, new AdapterBBSDaftarPesanan.OnDownloadClicked() {
             @Override
             public void OnDownloadClicked(final String sUrl, boolean bStatus) {
                 mRecyclerView.setVisibility(View.GONE);
@@ -304,4 +401,5 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
         // set the adapter object to the Recyclerview
         mRecyclerView.setAdapter(mAdapter);
     }
+
 }

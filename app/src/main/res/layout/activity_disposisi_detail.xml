@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/navigationDrawerBackgroundDetail">
+    android:background="@color/colorSecondaryBackground">
 
     <include
         android:id="@+id/tool_bar"
@@ -19,9 +19,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/btn_shape_white"
-        android:layout_marginLeft="@dimen/space_10"
-        android:layout_marginRight="@dimen/space_10"
-        android:layout_marginBottom="@dimen/space_10"
+        android:layout_marginLeft="@dimen/space_14"
+        android:layout_marginRight="@dimen/space_14"
+        android:layout_marginBottom="@dimen/space_14"
         android:layout_below="@+id/tool_bar"
         android:layout_margin="@dimen/space_5">
 

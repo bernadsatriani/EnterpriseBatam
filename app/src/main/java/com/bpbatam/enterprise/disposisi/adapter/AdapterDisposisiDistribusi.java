@@ -52,7 +52,7 @@ public class AdapterDisposisiDistribusi extends  RecyclerView.Adapter<AdapterDis
         //AppController.getInstance().displayImage(context,listData.getAtr3(), holder.imgCover);
 
         if ((position%2) == 0) {
-            holder.layoutRow.setBackgroundColor(context.getResources().getColor(R.color.navigationDrawerBackgroundDetail));
+            holder.layoutRow.setBackgroundColor(context.getResources().getColor(R.color.colorListItem));
         }
         holder.listData = listData;
     }
