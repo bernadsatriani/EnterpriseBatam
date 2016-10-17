@@ -10,6 +10,7 @@ import com.bpbatam.enterprise.model.DataAdmin;
 import com.bpbatam.enterprise.model.GitHubUser;
 import com.bpbatam.enterprise.model.ListUser;
 import com.bpbatam.enterprise.model.LocationList;
+import com.bpbatam.enterprise.model.Persuratan_List_Folder;
 import com.bpbatam.enterprise.model.UpdateDeviceId;
 
 import java.util.List;
@@ -59,4 +60,9 @@ public interface NetworkService {
 
     @POST("ep_api_services/ep_user/update_deviceid")
     Call<UpdateDeviceId> updateDeviceID(@Body UpdateDeviceId params);
+
+
+    //PERSURATAN-------------------------------------------------------------------
+    @POST("ep_api_services/ep_mail/get_mail_list_by_folder")
+    Call<Persuratan_List_Folder> getMailFolder(@Body Persuratan_List_Folder params);
 }

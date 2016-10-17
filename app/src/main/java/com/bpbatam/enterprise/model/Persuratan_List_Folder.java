@@ -5,31 +5,35 @@ import java.util.List;
 public class Persuratan_List_Folder {
     public String code ;
     public List<Datum> data ;
+    public String hashid;
+    public String userid;
+    public String reqid;
+    public String folder_code;
+    public String min;
+    public String max;
 
-
-    public  String hashid;
-    public  String userid;
-    public String folder;
-
-    public Persuratan_List_Folder(String hashid, String userid, String reqid, String folder) {
+    public Persuratan_List_Folder(String hashid, String userid, String reqid, String folder_code,
+                                  String min, String max) {
         this.hashid = hashid;
+        this.reqid = reqid;
         this.userid = userid;
-        this.folder = folder;
+        this.folder_code = folder_code;
+        this.min = min;
+        this.max = max;
     }
 
     public class Datum
     {
-        public String attc_exist ;
-        public String attc_link ;
-        public int bbs_id ;
-        public String category_id ;
-        public String bbs_date ;
-        public String attc_size ;
-        public String name ;
-        public String read_sts;
-        public int attc_count ;
+        public int mail_id ;
         public String title ;
-        public String attc_type ;
+        public String folder_code ;
+        public String deadline ;
+        public String read_date ;
+        public String mail_date ;
+        public int approved_rule_id ;
+        public String flag;
+
+
     }
 
 

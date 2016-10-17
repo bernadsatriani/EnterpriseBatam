@@ -8,15 +8,15 @@
     <ImageView
         android:id="@+id/img_status"
         android:layout_marginTop="@dimen/space_7"
-        android:layout_marginBottom="@dimen/space_3"
+        android:layout_marginBottom="@dimen/space_5"
         android:layout_marginLeft="@dimen/space_14"
         android:src="@drawable/greenball"
-        android:layout_width="14dp"
-        android:layout_height="14dp" />
+        android:layout_width="16dp"
+        android:layout_height="16dp" />
 
     <ui.CustomtextView
         font:name = "GOTHAM_BOLD"
-        android:textSize="@dimen/space_12"
+        android:textSize="@dimen/space_14"
         android:textColor="@color/black"
         android:text="sedang"
         android:id="@+id/text_isi"
@@ -25,5 +25,6 @@
         android:layout_alignBottom="@+id/img_status"
         android:layout_toRightOf="@+id/img_status"
         android:layout_toEndOf="@+id/img_status"
+        android:layout_marginRight="@dimen/space_10"
         android:layout_marginLeft="@dimen/space_5" />
 </RelativeLayout>

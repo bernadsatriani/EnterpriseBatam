@@ -124,7 +124,7 @@
                         android:textSize="@dimen/space_10"
                         android:drawableLeft="@drawable/upload"
                         android:id="@+id/layout_btn_status"
-                        android:background="@drawable/btn_shape_all_transparant_blue"
+                        android:background="@drawable/btn_shape_all_transparant_blue_spinner"
                         android:layout_width="@dimen/space_150"
                         android:layout_height="@dimen/space_35"
                         android:layout_weight="0.05"
