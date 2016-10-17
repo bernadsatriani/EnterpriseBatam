@@ -59,7 +59,7 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
         //Set text
         holder.txtDate.setText(listData.mail_date);
         holder.txtTime.setText(listData.read_date);
-        holder.lbl_Attach.setText("");
+        holder.lbl_Attach.setText(listData.title);
         holder.lbl_Size.setText("");
 
         //holder.txtStatus.setText(listData.getAtr2());
@@ -98,6 +98,7 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
         holder.btnPrint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AppConstant.EMAIL_ID = listData.mail_id;
                 Intent intent = new Intent(context, disposisi_detail.class);
                 v.getContext().startActivity(intent);
             }
