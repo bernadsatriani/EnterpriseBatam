@@ -3,6 +3,7 @@ package com.bpbatam.enterprise.model.net;
 import com.bpbatam.enterprise.model.ApiGithub;
 import com.bpbatam.enterprise.model.AuthUser;
 import com.bpbatam.enterprise.model.BBS_CATEGORY;
+import com.bpbatam.enterprise.model.BBS_Insert;
 import com.bpbatam.enterprise.model.BBS_LIST;
 import com.bpbatam.enterprise.model.BBS_List_ByCategory;
 import com.bpbatam.enterprise.model.DataAdmin;
@@ -49,6 +50,9 @@ public interface NetworkService {
 
     @POST("ep_api_services/ep_bbs/get_list_bycat")
     Call<BBS_List_ByCategory> getBBS_List_ByCat(@Body BBS_List_ByCategory params);
+
+    @POST("ep_api_services/ep_bbs/insert")
+    Call<BBS_Insert> postBBSInsert(@Body BBS_Insert params);
 
     @POST("ep_api_services/ep_bbs/get_category")
     Call<BBS_CATEGORY> getBBS_Category(@Body BBS_CATEGORY params);

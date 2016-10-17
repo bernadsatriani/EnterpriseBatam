@@ -183,13 +183,14 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/layout_spinner_category"
         android:background="@color/grey_ss"
         android:layout_width="match_parent"
         android:layout_margin="@dimen/space_5"
         android:layout_height="@dimen/space_40">
 
         <RelativeLayout
-            android:id="@+id/layout_spinner_category"
+
             android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_30"

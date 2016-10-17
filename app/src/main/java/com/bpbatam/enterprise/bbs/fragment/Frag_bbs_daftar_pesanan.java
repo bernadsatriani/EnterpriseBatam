@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
@@ -30,10 +31,13 @@ import com.bpbatam.enterprise.PDFViewActivity_Edit;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.bbs.adapter.AdapterBBSDaftarPesanan;
 import com.bpbatam.enterprise.model.BBS_CATEGORY;
+import com.bpbatam.enterprise.model.BBS_Insert;
 import com.bpbatam.enterprise.model.BBS_LIST;
 import com.bpbatam.enterprise.model.BBS_List_ByCategory;
 import com.bpbatam.enterprise.model.ListData;
 import com.bpbatam.enterprise.model.net.NetworkManager;
+
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
@@ -62,7 +66,7 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
     private DownloadManager downloadManager;
 
     TextView txtTulisPesan;
-    RelativeLayout layoutHeader;
+    RelativeLayout layoutHeader, layout_spinner_category;
 
     ImageView imgCancel, imgSave;
 
@@ -72,8 +76,11 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
 
     BBS_CATEGORY bbs_category;
     BBS_List_ByCategory bbs_list_byCategory;
+    BBS_Insert bbs_insert;
     String[] lstCategory;
     String sCategoryID = "";
+
+    EditText txtJudul, txtIsi;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -90,11 +97,11 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
 
         FillSpinner();
         FillSpinnerCategory();
-
-
     }
 
     void InitControl(View v){
+        txtJudul = (EditText)v.findViewById(R.id.text_judul);
+        txtIsi = (EditText)v.findViewById(R.id.text_isi);
         spnBuletin = (Spinner)v.findViewById(R.id.spinner_buletinboard);
         spnStatus = (Spinner)v.findViewById(R.id.spinner_status);
         spnCategory = (Spinner)v.findViewById(R.id.spinner_caetogory);
@@ -102,6 +109,7 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
         imgSave = (ImageView)v.findViewById(R.id.imageView11);
         txtTulisPesan = (TextView)v.findViewById(R.id.text_tulis_pesan);
         layoutHeader = (RelativeLayout)v.findViewById(R.id.layout_header);
+        layout_spinner_category = (RelativeLayout)v.findViewById(R.id.layout_spinner_category);
         txtTulisPesan.setVisibility(View.VISIBLE);
         layoutHeader.setVisibility(View.GONE);
 
@@ -109,6 +117,7 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
             @Override
             public void onClick(View v) {
                 txtTulisPesan.setVisibility(View.GONE);
+                layout_spinner_category.setVisibility(View.GONE);
                 layoutHeader.setVisibility(View.VISIBLE);
             }
         });
@@ -117,6 +126,7 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
             @Override
             public void onClick(View v) {
                 txtTulisPesan.setVisibility(View.VISIBLE);
+                layout_spinner_category.setVisibility(View.VISIBLE);
                 layoutHeader.setVisibility(View.GONE);
             }
         });
@@ -124,7 +134,9 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
         imgSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ValidInputan();
                 txtTulisPesan.setVisibility(View.VISIBLE);
+                layout_spinner_category.setVisibility(View.VISIBLE);
                 layoutHeader.setVisibility(View.GONE);
             }
         });
@@ -139,6 +151,128 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
         downloadProgressView = (DownloadProgressView) v.findViewById(R.id.downloadProgressView);
         downloadManager = (DownloadManager) v.getContext().getSystemService(v.getContext().DOWNLOAD_SERVICE);
 
+    }
+    
+    boolean ValidInputan(){
+        boolean bDone = false;
+
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        String sTitle, sName, sStart_Periode, sEnd_Periode,sContent, sBbs_Date, sPriority_id, sRead, sCategory_Id,
+                sCreate_By, sCreate_Time, sReply_Id;
+
+        sTitle = txtJudul.getText().toString().trim();
+        sName = AppConstant.USER_NAME;
+        sStart_Periode = AppController.getInstance().getDate();
+        sEnd_Periode = AppController.getInstance().getDate();
+        sContent = txtIsi.getText().toString().trim();
+        sBbs_Date = AppController.getInstance().getDate();
+        sPriority_id = Integer.toString(spnStatus.getSelectedItemPosition());
+        sRead = "0";
+        sCreate_By = AppConstant.USER;
+        sCreate_Time = AppController.getInstance().getDateNTime();
+        sReply_Id = "0";
+        switch (spnBuletin.getSelectedItemPosition()){
+            case 0:
+                sCategory_Id = "QNQ";
+                break;
+            case 1:
+                sCategory_Id = "PDK";
+                break;
+            case 2:
+                sCategory_Id = "FRU";
+                break;
+            case 3:
+                sCategory_Id = "RUL";
+                break;
+            case 4:
+                sCategory_Id = "KDS";
+                break;
+            case 5:
+                sCategory_Id = "KSU";
+                break;
+            case 6:
+                sCategory_Id = "INB";
+                break;
+            case 7:
+                sCategory_Id = "PGU";
+                break;
+            case 8:
+                sCategory_Id = "PDB";
+                break;
+            default:
+                sCategory_Id = "QNQ";
+                break;
+        }
+
+
+        try{
+            BBS_Insert insertParam = new BBS_Insert(
+                    AppConstant.HASHID,
+                    AppConstant.USER,
+                    AppConstant.REQID,
+                    sTitle,
+                    sName,
+                    sStart_Periode,
+                    sEnd_Periode,
+                    sContent,
+                    sBbs_Date,
+                    sPriority_id,
+                    sRead,
+                    sCategory_Id,
+                    sCreate_By,
+                    sReply_Id
+            )
+                    ;
+
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("hashid", AppConstant.HASHID);
+            jsonObject.put("reqid", AppConstant.REQID);
+            jsonObject.put("userid", AppConstant.USER);
+            jsonObject.put("title", sTitle);
+            jsonObject.put("name", sName);
+            jsonObject.put("start_period", sStart_Periode);
+            jsonObject.put("end_period", sEnd_Periode);
+            jsonObject.put("content", sContent);
+            jsonObject.put("bbs_date", sBbs_Date);
+            jsonObject.put("priority_id", "1");
+            jsonObject.put("read", sRead);
+            jsonObject.put("category_id", sCategory_Id);
+            jsonObject.put("create_by", sCreate_By);
+            jsonObject.put("reply_id", "0");
+
+
+            Call<BBS_Insert> call = NetworkManager.getNetworkService(getActivity()).postBBSInsert(insertParam);
+            call.enqueue(new Callback<BBS_Insert>() {
+                @Override
+                public void onResponse(Call<BBS_Insert> call, Response<BBS_Insert> response) {
+                    int code = response.code();
+                    bbs_insert = response.body();
+                    if (code == 200){
+                        if (bbs_insert.code.equals("00")){
+                            Toast.makeText(getActivity(),bbs_insert.data, Toast.LENGTH_LONG).show();
+                            txtIsi.setText("");
+                            txtJudul.setText("");
+                        }else{
+                            Toast.makeText(getActivity(),bbs_insert.info, Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<BBS_Insert> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+
+        }
+
+        return bDone;
     }
 
     void FillSpinner(){
@@ -155,7 +289,7 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
         lstGrid.add(mapGrid);
 
         mapGrid = new HashMap<String, Object>();
-        mapGrid.put("img", R.drawable.ball_red);
+        mapGrid.put("img", R.drawable.ball_yellow);
         mapGrid.put("description", "sedang");
         lstGrid.add(mapGrid);
 

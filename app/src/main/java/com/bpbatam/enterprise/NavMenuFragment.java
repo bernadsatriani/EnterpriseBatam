@@ -115,6 +115,7 @@ public class NavMenuFragment extends Fragment {
 
         if (authUser.data.size() > 0){
             for (AuthUser.Datum dat : authUser.data){
+                AppConstant.USER_NAME = dat.user_name;
                 tvName.setText(dat.user_name);
                 tvEmail.setText(dat.nik);
             }

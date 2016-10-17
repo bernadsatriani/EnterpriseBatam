@@ -1,11 +1,17 @@
 package com.bpbatam;
 
 import android.app.Application;
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.support.multidex.MultiDex;
 import android.telephony.TelephonyManager;
+import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bpbatam.enterprise.R;
 import com.bumptech.glide.Glide;
 import com.crashlytics.android.Crashlytics;
 import com.squareup.picasso.Picasso;
@@ -110,6 +116,20 @@ public class AppController extends Application {
         return AppConstant.REQID;
     }
 
+    public String getDateNTime() {
+        //SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        return  dateFormat.format(date) + " " + getTime();
+    }
+
+    public String getDate() {
+        //SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        return  dateFormat.format(date);
+    }
+
     public String getTime() {
         //SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Calendar cal = Calendar.getInstance();
@@ -162,4 +182,23 @@ public class AppController extends Application {
         return sResult;
     }
 
+    public void CustomeDialog(Context context, String sTextIsi){
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.custom_dialog);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        TextView txtIsi = (TextView)dialog.findViewById(R.id.text_isi);
+        TextView txtDismis = (TextView)dialog.findViewById(R.id.text_dismiss);
+
+        txtIsi.setText(sTextIsi);
+        txtDismis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
 }
