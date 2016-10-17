@@ -32,10 +32,11 @@ android {
     }
 
     /*
+        keystore_batam.jks
          MD5:  C4:37:51:1F:B5:C9:90:2C:79:D0:30:2A:CC:55:F8:F0
          SHA1: 1F:18:1A:87:B1:22:19:A8:F2:C3:C4:23:9B:80:67:2C:05:13:78:ED
-     */
-    signingConfigs {
+
+         signingConfigs {
         release {
             storeFile file("keystore_batam.jks")
             storePassword "android"
@@ -47,6 +48,28 @@ android {
             storePassword "android"
             keyAlias "keybatam"
             keyPassword "android"
+        }
+    }
+     */
+
+    /*
+        bpbatam.jks
+         MD5:  5D:FE:12:2C:C0:61:12:D3:F5:87:EB:BB:BE:B5:9C:50
+         SHA1: F9:5E:89:1D:6A:DC:64:B3:C0:98:5C:27:A8:20:AA:52:A3:66:8E:71
+
+     */
+    signingConfigs {
+        release {
+            storeFile file("bpbatam.jks")
+            storePassword "t4ny4bri4n"
+            keyAlias "android"
+            keyPassword "t4ny4bri4n"
+        }
+        debug {
+            storeFile file("bpbatam.jks")
+            storePassword "t4ny4bri4n"
+            keyAlias "android"
+            keyPassword "t4ny4bri4n"
         }
     }
     buildTypes {

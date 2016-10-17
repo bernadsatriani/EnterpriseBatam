@@ -1,5 +1,6 @@
 package fcm;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -34,11 +35,16 @@ public class MyAndroidFirebaseMsgService extends FirebaseMessagingService {
 
         Uri notificationSoundURI = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder mNotificationBuilder = new NotificationCompat.Builder( this)
-                .setSmallIcon(R.mipmap.bp_batam_app_icon)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle("Notification")
                 .setContentText(messageBody)
                 .setAutoCancel( true )
                 .setSound(notificationSoundURI)
+                .setPriority(Notification.PRIORITY_MAX)
+                .setLights(0xff00ff00, 300, 100)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                .setVibrate(new long[]{1000, 1000})
+                .setTicker("New messages from EPBatam!")
                 .setContentIntent(resultIntent);
 
         NotificationManager notificationManager =

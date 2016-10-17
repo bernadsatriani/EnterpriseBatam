@@ -61,7 +61,7 @@
     <application
         android:name="com.bpbatam.AppController"
         android:allowBackup="true"
-        android:icon="@drawable/bp_batam_app_icon"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
