@@ -17,15 +17,22 @@ import android.widget.TextView;
 
 import com.ayz4sci.androidfactory.DownloadProgressView;
 import com.bpbatam.AppConstant;
+import com.bpbatam.AppController;
 import com.bpbatam.enterprise.PDFViewActivityDisposisiDistribusi;
 import com.bpbatam.enterprise.PDFViewActivitySimpanKirim;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.model.ListData;
+import com.bpbatam.enterprise.model.Persuratan_List_Folder;
+import com.bpbatam.enterprise.model.net.NetworkManager;
 import com.bpbatam.enterprise.persuratan.adapter.AdapterPersuratanDisimpan;
 import com.bpbatam.enterprise.persuratan.adapter.AdapterPersuratanPribadi;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import ui.QuickAction.ActionItem;
 import ui.QuickAction.QuickAction;
 
@@ -54,6 +61,8 @@ public class frag_persuratan_disimpan extends Fragment {
     LinearLayout layout_button, btnDelete;
 
     String statusPesan;
+
+    Persuratan_List_Folder persuratanListFolder;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -137,7 +146,41 @@ public class frag_persuratan_disimpan extends Fragment {
     }
 
     void FillGrid(View v){
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        Persuratan_List_Folder params = new Persuratan_List_Folder(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID, "SIM","1","10");
+        try{
+            Call<Persuratan_List_Folder> call = NetworkManager.getNetworkService(getActivity()).getMailFolder(params);
+            call.enqueue(new Callback<Persuratan_List_Folder>() {
+                @Override
+                public void onResponse(Call<Persuratan_List_Folder> call, Response<Persuratan_List_Folder> response) {
+                    int code = response.code();
+                    persuratanListFolder = response.body();
+                    if (code == 200){
+                        if (persuratanListFolder.code.equals("00")){
+                            FillAdapter();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Persuratan_List_Folder> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+
+        }
+
+    }
+
+    void FillAdapter(){
         AryListData = new ArrayList<>();
+/*
 
         for(int i = 0; i < 10; i++){
             listData = new ListData();
@@ -148,8 +191,9 @@ public class frag_persuratan_disimpan extends Fragment {
             AryListData.add(listData);
 
         }
+*/
 
-        mAdapter = new AdapterPersuratanDisimpan(v.getContext(), AryListData, new AdapterPersuratanDisimpan.OnDownloadClicked() {
+        mAdapter = new AdapterPersuratanDisimpan(getActivity(), persuratanListFolder, new AdapterPersuratanDisimpan.OnDownloadClicked() {
             @Override
             public void OnDownloadClicked(final String sUrl, boolean bStatus) {
                 if (bStatus){

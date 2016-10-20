@@ -24,11 +24,18 @@ import com.bpbatam.AppConstant;
 import com.bpbatam.AppController;
 import com.bpbatam.enterprise.adapter.ExpandableListAdapter;
 import com.bpbatam.enterprise.model.AuthUser;
+import com.bpbatam.enterprise.model.Persuratan_Folder;
+import com.bpbatam.enterprise.model.net.NetworkManager;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by User on 14/06/2016.
@@ -53,6 +60,9 @@ public class NavMenuFragment extends Fragment {
     ExpandableListView expListView;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
+
+
+    Persuratan_Folder persuratanFolder;
     public NavMenuFragment() {
 
     }
@@ -184,23 +194,93 @@ public class NavMenuFragment extends Fragment {
         listDataChild.put(listDataHeader.get(1), lstBBS);
 
         listDataHeader.add("PERSURATAN");
-        List<String>  lstPersuratan = new ArrayList<>();
-        lstPersuratan.add("Pribadi");
+        final List<String>  lstPersuratan = new ArrayList<>();
+
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        try{
+            Persuratan_Folder params = new Persuratan_Folder(AppConstant.HASHID , AppConstant.USER, AppConstant.REQID);
+            Call<Persuratan_Folder> call = NetworkManager.getNetworkService(getActivity()).getMailFolder(params);
+            call.enqueue(new Callback<Persuratan_Folder>() {
+                @Override
+                public void onResponse(Call<Persuratan_Folder> call, Response<Persuratan_Folder> response) {
+                    int code = response.code();
+                    persuratanFolder = response.body();
+                    if (persuratanFolder.code.equals("00")){
+                        for (Persuratan_Folder.Datum dat : persuratanFolder.data) {
+                            if (dat.folder_code.equals("FPR")) {
+                                lstPersuratan.add("Pribadi" + "#" + dat.total_count + "#" + dat.unread_count);
+                            }
+                        }
+
+                        for (Persuratan_Folder.Datum dat : persuratanFolder.data) {
+                            if (dat.folder_code.equals("FUM")) {
+                                lstPersuratan.add("Umum" + "#" + dat.total_count + "#" + dat.unread_count);
+                            }
+                        }
+
+                        for (Persuratan_Folder.Datum dat : persuratanFolder.data) {
+                            if (dat.folder_code.equals("PRM")) {
+                                lstPersuratan.add("Permohonan" + "#" + dat.total_count + "#" + dat.unread_count);
+                            }
+                        }
+
+                        for (Persuratan_Folder.Datum dat : persuratanFolder.data) {
+                            if (dat.folder_code.equals("DPR")) {
+                                lstPersuratan.add("Dalam Proses" + "#" + dat.total_count + "#" + dat.unread_count);
+                            }
+                        }
+
+                        for (Persuratan_Folder.Datum dat : persuratanFolder.data) {
+                            if (dat.folder_code.equals("SIM")) {
+                                lstPersuratan.add("Simpan" + "#" + dat.total_count + "#" + dat.unread_count);
+                            }
+                        }
+
+                        for (Persuratan_Folder.Datum dat : persuratanFolder.data){
+                            if (dat.folder_code.equals("DKM") ){
+                                lstPersuratan.add("Dikembalikan" + "#" + dat.total_count + "#" + dat.unread_count);
+                            }
+                        }
+
+
+                        listDataChild.put(listDataHeader.get(2), lstPersuratan);
+
+
+                        listDataHeader.add("DIPOSISI");
+                        List<String>  lstDisposisi = new ArrayList<>();
+                        lstDisposisi.add("Pribadi#0#0");
+                        lstDisposisi.add("Umum#0#0");
+                        lstDisposisi.add("Permohonan#0#0");
+                        lstDisposisi.add("Dalam Proses#0#0");
+                        lstDisposisi.add("Riwayat#0#0");
+                        listDataChild.put(listDataHeader.get(3), lstDisposisi);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Persuratan_Folder> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+
+        }
+
+
+        /*lstPersuratan.add("Pribadi");
         lstPersuratan.add("Umum");
         lstPersuratan.add("Permohonan");
         lstPersuratan.add("Dalam Proses");
         lstPersuratan.add("Simpan");
         lstPersuratan.add("Dikembalikan");
-        listDataChild.put(listDataHeader.get(2), lstPersuratan);
+        listDataChild.put(listDataHeader.get(2), lstPersuratan);*/
 
-        listDataHeader.add("DIPOSISI");
-        List<String>  lstDisposisi = new ArrayList<>();
-        lstDisposisi.add("Pribadi");
-        lstDisposisi.add("Umum");
-        lstDisposisi.add("Permohonan");
-        lstDisposisi.add("Dalam Proses");
-        lstDisposisi.add("Riwayat");
-        listDataChild.put(listDataHeader.get(3), lstDisposisi);
+
 
         listAdapter = new ExpandableListAdapter(getActivity(), listDataHeader, listDataChild);
 

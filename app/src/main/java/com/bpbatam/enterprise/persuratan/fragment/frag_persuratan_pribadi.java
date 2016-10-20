@@ -154,7 +154,7 @@ public class frag_persuratan_pribadi extends Fragment {
             e.printStackTrace();
         }
 
-        Persuratan_List_Folder params = new Persuratan_List_Folder(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID, "PRM","1","10");
+        Persuratan_List_Folder params = new Persuratan_List_Folder(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID, "FPR","1","10");
         try{
             Call<Persuratan_List_Folder> call = NetworkManager.getNetworkService(getActivity()).getMailFolder(params);
             call.enqueue(new Callback<Persuratan_List_Folder>() {

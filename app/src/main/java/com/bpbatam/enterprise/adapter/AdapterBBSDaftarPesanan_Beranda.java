@@ -52,14 +52,26 @@ public class AdapterBBSDaftarPesanan_Beranda extends  RecyclerView.Adapter<Adapt
         List<BBS_LIST.Datum> listData = bbs_list.data;
         //Set text
         holder.txtDate.setText(listData.get(position).bbs_date);
+        holder.txtTime.setText(listData.get(position).bbs_time);
         holder.lbl_Attach.setText(listData.get(position).title);
         holder.lbl_Judul.setText(listData.get(position).title);
         holder.lbl_Isi.setText("");
 
-        if (listData.get(position).attc_size != null){
+        holder.lbl_Size.setText("");
+
+        try{
+            if (listData.get(position).attc_data.size() > 0){
+                for(BBS_LIST.AttcData dat : listData.get(position).attc_data){
+                    holder.lbl_Size.setText("(" + dat.file_size + " mb)");
+                }
+            }
+        }catch (Exception e){
+
+        }
+       /* if (listData.get(position).attc_size != null){
             holder.lbl_Size.setText("(" + listData.get(position).attc_size + " mb)");
-        }else
-            holder.lbl_Size.setText("");
+        }else*/
+
 
         //holder.txtStatus.setText(listData.getAtr2());
 
@@ -77,6 +89,7 @@ public class AdapterBBSDaftarPesanan_Beranda extends  RecyclerView.Adapter<Adapt
             implements View.OnClickListener, View.OnLongClickListener {
 
         TextView txtDate,
+                txtTime,
                 txtStatus,
                 lbl_Attach,
                 lbl_Size,
@@ -92,6 +105,7 @@ public class AdapterBBSDaftarPesanan_Beranda extends  RecyclerView.Adapter<Adapt
             super(itemView);
             imgStatus = (ImageView)itemView.findViewById(R.id.img_status);
             txtStatus = (TextView)itemView.findViewById(R.id.text_status);
+            txtTime = (TextView)itemView.findViewById(R.id.text_time);
             txtDate = (TextView)itemView.findViewById(R.id.text_Date);
             lbl_Attach = (TextView)itemView.findViewById(R.id.lbl_attach);
             lbl_Size = (TextView)itemView.findViewById(R.id.lbl_size);

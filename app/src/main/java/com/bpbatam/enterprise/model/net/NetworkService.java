@@ -11,6 +11,7 @@ import com.bpbatam.enterprise.model.GitHubUser;
 import com.bpbatam.enterprise.model.ListUser;
 import com.bpbatam.enterprise.model.LocationList;
 import com.bpbatam.enterprise.model.Persuratan_Detail;
+import com.bpbatam.enterprise.model.Persuratan_Folder;
 import com.bpbatam.enterprise.model.Persuratan_List_Folder;
 import com.bpbatam.enterprise.model.UpdateDeviceId;
 
@@ -64,6 +65,9 @@ public interface NetworkService {
 
 
     //PERSURATAN-------------------------------------------------------------------
+    @POST("ep_api_services/ep_mail/get_folder")
+    Call<Persuratan_Folder> getMailFolder(@Body Persuratan_Folder params);
+
     @POST("ep_api_services/ep_mail/get_mail_list_by_folder")
     Call<Persuratan_List_Folder> getMailFolder(@Body Persuratan_List_Folder params);
 

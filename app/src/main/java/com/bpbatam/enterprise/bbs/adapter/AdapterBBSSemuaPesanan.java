@@ -56,10 +56,17 @@ public class AdapterBBSSemuaPesanan extends  RecyclerView.Adapter<AdapterBBSSemu
         holder.lbl_Judul.setText(listData.get(position).title);
         holder.lbl_Isi.setText("");
 
-        if (listData.get(position).attc_size != null){
-            holder.lbl_Size.setText("(" + listData.get(position).attc_size + " mb)");
-        }else
-            holder.lbl_Size.setText("");
+        holder.lbl_Size.setText("");
+
+        try{
+            if (listData.get(position).attc_data.size() > 0){
+                for(BBS_LIST.AttcData dat : listData.get(position).attc_data){
+                    holder.lbl_Size.setText("(" + dat.file_size + " mb)");
+                }
+            }
+        }catch (Exception e){
+
+        }
 
         //holder.txtStatus.setText(listData.getAtr2());
 

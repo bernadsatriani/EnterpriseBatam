@@ -14,6 +14,7 @@ import com.bpbatam.AppConstant;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.disposisi.disposisi_detail;
 import com.bpbatam.enterprise.model.ListData;
+import com.bpbatam.enterprise.model.Persuratan_List_Folder;
 
 import java.util.ArrayList;
 
@@ -22,14 +23,14 @@ import java.util.ArrayList;
  */
 public class AdapterPersuratanDalamProses extends  RecyclerView.Adapter<AdapterPersuratanDalamProses.ViewHolder>{
 
-    private ArrayList<ListData> mCourseArrayList;
+    Persuratan_List_Folder persuratanListFolder;
     private Context context;
 
-    public AdapterPersuratanDalamProses(Context context, ArrayList<ListData> mCourseArrayList, OnDownloadClicked listener) {
+    public AdapterPersuratanDalamProses(Context context, Persuratan_List_Folder persuratanListFolder, OnDownloadClicked listener) {
         this.context = context;
-        this.mCourseArrayList = mCourseArrayList;
+        this.persuratanListFolder = persuratanListFolder;
         this.listener = listener;
-        if (mCourseArrayList == null) {
+        if (persuratanListFolder == null) {
             throw new IllegalArgumentException("courses ArrayList must not be null");
         }
     }
@@ -51,22 +52,22 @@ public class AdapterPersuratanDalamProses extends  RecyclerView.Adapter<AdapterP
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        ListData listData = mCourseArrayList.get(position);
+        final Persuratan_List_Folder.Datum listData = persuratanListFolder.data.get(position);
         //Set text
-        holder.txtDate.setText("Rabu, 21 Sept 2016");
-        holder.txtTime.setText("12:37 PM");
-        holder.lbl_Attach.setText(listData.getAtr1());
-        holder.lbl_Size.setText(listData.getAtr2());
+        holder.txtDate.setText(listData.mail_date);
+        holder.txtTime.setText(listData.read_date);
+        holder.lbl_Attach.setText(listData.title);
+        holder.lbl_Size.setText("");
 
         //holder.txtStatus.setText(listData.getAtr2());
 
         //AppController.getInstance().displayImage(context,listData.getAtr3(), holder.imgCover);
-        if (listData.getNama() != null){
-            if (listData.getNama().equals(AppConstant.TIDAK_PESAN)){
+        if (listData.flag != null){
+            if (listData.flag.equals(AppConstant.TIDAK_PESAN)){
                 holder.imgChecklist.setVisibility(View.GONE);
-            }else if (listData.getNama().equals(AppConstant.PILIH_PESAN)){
+            }else if (listData.flag.equals(AppConstant.PILIH_PESAN)){
                 holder.imgChecklist.setVisibility(View.VISIBLE);
-            }else if (listData.getNama().equals(AppConstant.SEMUA_PESAN)){
+            }else if (listData.flag.equals(AppConstant.SEMUA_PESAN)){
                 holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.check32));
                 holder.imgChecklist.setVisibility(View.VISIBLE);
             }
@@ -75,6 +76,7 @@ public class AdapterPersuratanDalamProses extends  RecyclerView.Adapter<AdapterP
         holder.btnPrint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AppConstant.EMAIL_ID = listData.mail_id;
                 Intent intent = new Intent(context, disposisi_detail.class);
                 v.getContext().startActivity(intent);
             }
@@ -85,7 +87,7 @@ public class AdapterPersuratanDalamProses extends  RecyclerView.Adapter<AdapterP
 
     @Override
     public int getItemCount() {
-        return mCourseArrayList.size();
+        return persuratanListFolder.data.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder
@@ -102,7 +104,7 @@ public class AdapterPersuratanDalamProses extends  RecyclerView.Adapter<AdapterP
                 btnPrint;
         ImageView imgStatus,  imgChecklist;
 
-        ListData listData;
+        Persuratan_List_Folder.Datum listData;
         public ViewHolder(View itemView,
                           Context context,
                           final AdapterPersuratanDalamProses mCourseAdapter) {

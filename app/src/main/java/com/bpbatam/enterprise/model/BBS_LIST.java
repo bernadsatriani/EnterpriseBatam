@@ -21,19 +21,28 @@ public class BBS_LIST {
         this.max = max;
     }
 
+    public class AttcData
+    {
+        public String file_size ;
+        public int bbs_id ;
+        public String attc_link ;
+        public String file_type ;
+    }
+
     public class Datum
     {
-        public String attc_exist ;
-        public String attc_link ;
-        public int bbs_id ;
-        public String category_id ;
-        public String bbs_date ;
-        public String attc_size ;
-        public String name ;
-        public String read_sts;
-        public int attc_count ;
+        public String content ;
+        public String bbs_time ;
         public String title ;
-        public String attc_type ;
+        public String bbs_date ;
+        public int bbs_id ;
+        public String name ;
+        public int attc_count ;
+        public String category_id ;
+        public String bbs_by ;
+        public int total_read ;
+        public String read_sts ;
+        public List<AttcData> attc_data ;
     }
 
 

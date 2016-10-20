@@ -65,8 +65,14 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         }
 
         TextView txtData = (TextView) convertView.findViewById(R.id.textView);
+        TextView txtCount = (TextView) convertView.findViewById(R.id.textStatus1);
+        TextView txtUnread = (TextView) convertView.findViewById(R.id.textStatus2);
 
-        txtData.setText(childText);
+        String[] sResult = childText.trim().split("#");
+        txtData.setText(sResult[0].trim());
+        txtCount.setText(sResult[1].trim());
+        txtUnread.setText(sResult[2].trim());
+
         return convertView;
     }
 
