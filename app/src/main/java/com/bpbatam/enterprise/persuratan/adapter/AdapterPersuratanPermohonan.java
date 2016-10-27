@@ -97,8 +97,9 @@ public class AdapterPersuratanPermohonan extends  RecyclerView.Adapter<AdapterPe
             @Override
             public void onClick(View v) {
                 //https://www.dropbox.com/s/jadu92w71vnku3o/Wireframe.pdf?dl=0
-                getAttachment(Integer.toString(listData.mail_id));
-                //listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
+                //getAttachment(Integer.toString(listData.mail_id));
+                AppConstant.EMAIL_ID = listData.mail_id;
+                listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
             }
         });
 

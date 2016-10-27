@@ -10,12 +10,20 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bpbatam.AppConstant;
+import com.bpbatam.AppController;
+import com.bpbatam.enterprise.model.Persuratan_proses;
+import com.bpbatam.enterprise.model.net.NetworkManager;
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
 import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
 import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
 
 import java.io.File;
+import java.security.NoSuchAlgorithmException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by User on 9/24/2016.
@@ -28,6 +36,8 @@ public class PDFViewActivity_Recall extends AppCompatActivity implements OnPageC
     PDFView pdfView;
 
     RelativeLayout btnDistribusi;
+
+    Persuratan_proses persuratanProses;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,9 +70,45 @@ public class PDFViewActivity_Recall extends AppCompatActivity implements OnPageC
             @Override
             public void onClick(View v) {
                 finish();
+                vRecall();
             }
         });
 
+    }
+
+    void vRecall(){
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        try{
+            Persuratan_proses param = new Persuratan_proses(AppConstant.HASHID,
+                    AppConstant.USER,
+                    AppConstant.REQID,
+                    Integer.toString(AppConstant.EMAIL_ID));
+
+            Call<Persuratan_proses> call = NetworkManager.getNetworkService(this).postRecall(param);
+            call.enqueue(new Callback<Persuratan_proses>() {
+                @Override
+                public void onResponse(Call<Persuratan_proses> call, Response<Persuratan_proses> response) {
+                    int code = response.code();
+
+                    if (code == 200){
+                        persuratanProses = response.body();
+                        //AppController.getInstance().CustomeDialog(PDFViewActivityDitolakDisetujui.this, persuratanProses.info);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Persuratan_proses> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+
+        }
     }
 
     @Override

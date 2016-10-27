@@ -15,6 +15,7 @@ import com.bpbatam.enterprise.model.Persuratan_Attachment;
 import com.bpbatam.enterprise.model.Persuratan_Detail;
 import com.bpbatam.enterprise.model.Persuratan_Folder;
 import com.bpbatam.enterprise.model.Persuratan_List_Folder;
+import com.bpbatam.enterprise.model.Persuratan_proses;
 import com.bpbatam.enterprise.model.UpdateDeviceId;
 
 import java.util.List;
@@ -78,6 +79,15 @@ public interface NetworkService {
 
     @POST("ep_api_services/ep_mail/get_mail_attc")
     Call<Persuratan_Attachment> getMailAttachment(@Body Persuratan_Attachment params);
+
+    @POST("ep_api_services/ep_mail/approve_mail")
+    Call<Persuratan_proses> postDisetejui(@Body Persuratan_proses params);
+
+    @POST("ep_api_services/ep_mail/reject_mail")
+    Call<Persuratan_proses> postDitolak(@Body Persuratan_proses params);
+
+    @POST("ep_api_services/ep_mail/recall_mail")
+    Call<Persuratan_proses> postRecall(@Body Persuratan_proses params);
 
     //DISPOSISI-------------------------------------------------------------------------
     @POST("ep_api_services/ep_dispo/get_category")
