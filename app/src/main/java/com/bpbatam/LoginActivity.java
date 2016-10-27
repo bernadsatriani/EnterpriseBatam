@@ -1,13 +1,21 @@
 package com.bpbatam;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Environment;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -34,6 +42,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static java.security.AccessController.getContext;
+
 /**
  * A login screen that offers login via email/password.
  */
@@ -48,6 +58,8 @@ public class LoginActivity extends AppCompatActivity {
     UpdateDeviceId updateDeviceId;
 
     ProgressDialog progress;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,8 +67,9 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         InitControl();
-        InitFolder();
-
+//        InitFolder();accessgallery();
+        //accessPhoneState();
+        accessgallery();
     }
 
     void InitControl(){
@@ -211,6 +224,60 @@ public class LoginActivity extends AppCompatActivity {
             if (!folder.exists()) folder.mkdirs();
         }catch (Exception e){
             Log.d("Error", e.getMessage());
+        }
+    }
+
+    private void accessgallery() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!Settings.System.canWrite(this)) {
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE}, 2900);
+            } else {
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE}, 2900);
+            }
+        } else{
+            InitFolder();
+        }
+    }
+
+    private void accessPhoneState() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED)
+            {
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_PHONE_STATE},
+                        2901);
+
+            }
+            else    {
+            }
+        } else{
+
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case 2909:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                    //getphoto();
+                }
+                break;
+            case 2900:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //getpic();
+                    InitFolder();
+                }
+                break;
+            case 2901:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                    //TelephonyManager mngr = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
+                    //AppConstant.IMEI =  mngr.getDeviceId();
+                }
+                break;
         }
     }
 }

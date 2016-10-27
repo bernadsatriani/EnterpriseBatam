@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,7 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import okhttp3.Request;
 import retrofit2.Call;
@@ -75,12 +77,13 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
     SimpleAdapter adpGridView;
 
     BBS_CATEGORY bbs_category;
-    BBS_List_ByCategory bbs_list_byCategory;
+    BBS_List_ByCategory bbs_list_byCategory, bbs_list_byCategoryFull;
     BBS_Insert bbs_insert;
     String[] lstCategory;
     String sCategoryID = "";
 
     EditText txtJudul, txtIsi;
+    int iMin, iMax;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -94,7 +97,8 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         InitControl(view);
-
+        iMin = 1;
+        iMax = 10;
         FillSpinner();
         FillSpinnerCategory();
     }
@@ -151,6 +155,31 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
         downloadProgressView = (DownloadProgressView) v.findViewById(R.id.downloadProgressView);
         downloadManager = (DownloadManager) v.getContext().getSystemService(v.getContext().DOWNLOAD_SERVICE);
 
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                if(dy > 0) //check for scroll down
+                {
+                    int visibleItemCount = mLayoutManager.getChildCount();
+                    int totalItemCount = mLayoutManager.getItemCount();
+                    int pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
+
+                    if ( (visibleItemCount + pastVisiblesItems) >= totalItemCount)
+                    {
+                        if (iMax <= totalItemCount){
+                            iMin = iMax;
+                            iMax += 10;
+                            FillGridMore(sCategoryID);
+                        }
+                        //loading = false;
+                        Log.v("...", "Last Item Wow !");
+                        //Do pagination.. i.e. fetch new data
+                    }
+                }
+            }
+        });
     }
     
     boolean ValidInputan(){
@@ -386,30 +415,39 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
                             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                                 switch (i){
                                     case 0:
+                                        sCategoryID = "QNQ";
                                         FillGrid("QNQ");
                                         break;
                                     case 1:
+                                        sCategoryID = "PDK";
                                         FillGrid("PDK");
                                         break;
                                     case 2:
+                                        sCategoryID = "FRU";
                                         FillGrid("FRU");
                                         break;
                                     case 3:
+                                        sCategoryID = "RUL";
                                         FillGrid("RUL");
                                         break;
                                     case 4:
+                                        sCategoryID = "KDS";
                                         FillGrid("KDS");
                                         break;
                                     case 5:
+                                        sCategoryID = "KSU";
                                         FillGrid("KSU");
                                         break;
                                     case 6:
+                                        sCategoryID = "INB";
                                         FillGrid("INB");
                                         break;
                                     case 7:
+                                        sCategoryID = "PGU";
                                         FillGrid("PGU");
                                         break;
                                     case 8:
+                                        sCategoryID = "PDB";
                                         FillGrid("PDB");
                                         break;
                                 }
@@ -434,6 +472,72 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
         }
     }
 
+    void FillGridMore(String sCategory_id){
+/*        AryListData = new ArrayList<>();
+
+        for(int i = 0; i < 10; i++){
+            listData = new ListData();
+            listData.setAtr1("Attachment " + i);
+            listData.setAtr2("(5,88 mb)");
+            listData.setAtr3("http://cottonsoft.co.nz/assets/img/our-company-history/history-2011-Paseo.jpg");
+            AryListData.add(listData);
+
+        }*/
+
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        BBS_List_ByCategory paramBBBList = new BBS_List_ByCategory(AppConstant.HASHID,
+                AppConstant.USER,
+                AppConstant.REQID,
+                sCategory_id,
+                Integer.toString(iMin),
+                Integer.toString(iMax));
+
+        try{
+            Call<BBS_List_ByCategory> call = NetworkManager.getNetworkService(getActivity()).getBBS_List_ByCat(paramBBBList);
+            call.enqueue(new Callback<BBS_List_ByCategory>() {
+                @Override
+                public void onResponse(Call<BBS_List_ByCategory> call, Response<BBS_List_ByCategory> response) {
+                    int code = response.code();
+                    mRecyclerView.setVisibility(View.VISIBLE);
+                    if (code == 200){
+                        bbs_list_byCategory = response.body();
+
+                        if (bbs_list_byCategory !=null){
+                            if (bbs_list_byCategory.code.equals("00")){
+                                for (BBS_List_ByCategory.Datum dat : bbs_list_byCategory.data){
+                                    bbs_list_byCategoryFull.data.add(dat);
+                                }
+
+
+
+                                mAdapter.notifyItemInserted(bbs_list_byCategoryFull.data.size() - 1);
+                                mAdapter.notifyDataSetChanged();
+                                //FillAdapter();
+                                /*mRecyclerView.setAdapter(mAdapter);
+                                mRecyclerView.invalidate();*/
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<BBS_List_ByCategory> call, Throwable t) {
+                    String a = t.getMessage();
+                    a = a;
+                    mRecyclerView.setVisibility(View.VISIBLE);
+                }
+            });
+        }catch (Exception e){
+            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+            mRecyclerView.setVisibility(View.VISIBLE);
+        }
+
+    }
+
     void FillGrid(String sCategory_id){
 /*        AryListData = new ArrayList<>();
 
@@ -455,8 +559,8 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
                 AppConstant.USER,
                 AppConstant.REQID,
                 sCategory_id,
-                "1",
-                "10");
+                Integer.toString(iMin),
+                Integer.toString(iMax));
 
         try{
             Call<BBS_List_ByCategory> call = NetworkManager.getNetworkService(getActivity()).getBBS_List_ByCat(paramBBBList);
@@ -464,15 +568,14 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
                 @Override
                 public void onResponse(Call<BBS_List_ByCategory> call, Response<BBS_List_ByCategory> response) {
                     int code = response.code();
+                    mRecyclerView.setVisibility(View.VISIBLE);
                     if (code == 200){
                         bbs_list_byCategory = response.body();
 
                         if (bbs_list_byCategory !=null){
                             if (bbs_list_byCategory.code.equals("00")){
-                                mRecyclerView.setVisibility(View.VISIBLE);
+                                bbs_list_byCategoryFull = bbs_list_byCategory;
                                 FillAdapter();
-                            }else{
-                                mRecyclerView.setVisibility(View.GONE);
                             }
                         }
                     }
@@ -482,16 +585,18 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
                 public void onFailure(Call<BBS_List_ByCategory> call, Throwable t) {
                     String a = t.getMessage();
                     a = a;
+                    mRecyclerView.setVisibility(View.VISIBLE);
                 }
             });
         }catch (Exception e){
             Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+            mRecyclerView.setVisibility(View.VISIBLE);
         }
 
     }
 
     void FillAdapter(){
-        mAdapter = new AdapterBBSDaftarPesanan(getActivity(), bbs_list_byCategory, new AdapterBBSDaftarPesanan.OnDownloadClicked() {
+        mAdapter = new AdapterBBSDaftarPesanan(getActivity(), bbs_list_byCategoryFull, new AdapterBBSDaftarPesanan.OnDownloadClicked() {
             @Override
             public void OnDownloadClicked(final String sUrl, boolean bStatus) {
                 mRecyclerView.setVisibility(View.GONE);

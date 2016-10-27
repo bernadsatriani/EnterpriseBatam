@@ -11,19 +11,29 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bpbatam.AppConstant;
+import com.bpbatam.AppController;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.disposisi.disposisi_detail;
 import com.bpbatam.enterprise.model.ListData;
+import com.bpbatam.enterprise.model.Persuratan_Attachment;
 import com.bpbatam.enterprise.model.Persuratan_Detail;
 import com.bpbatam.enterprise.model.Persuratan_List_Folder;
+import com.bpbatam.enterprise.model.net.NetworkManager;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by User on 9/19/2016.
  */
 public class AdapterPersuratanPermohonan extends  RecyclerView.Adapter<AdapterPersuratanPermohonan.ViewHolder>{
     Persuratan_List_Folder persuratanListFolder;
+    Persuratan_Attachment persuratanAttachment;
     private Context context;
 
     public AdapterPersuratanPermohonan(Context context, Persuratan_List_Folder persuratanListFolder, OnDownloadClicked listener) {
@@ -83,7 +93,54 @@ public class AdapterPersuratanPermohonan extends  RecyclerView.Adapter<AdapterPe
             }
         });
 
+        holder.btnDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //https://www.dropbox.com/s/jadu92w71vnku3o/Wireframe.pdf?dl=0
+                getAttachment(Integer.toString(listData.mail_id));
+                //listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
+            }
+        });
+
         holder.listData = listData;
+    }
+
+    void getAttachment(String mail_id){
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        try{
+            Persuratan_Attachment params = new Persuratan_Attachment(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID, mail_id);
+            Call<Persuratan_Attachment> call = NetworkManager.getNetworkService(context).getMailAttachment(params);
+            call.enqueue(new Callback<Persuratan_Attachment>() {
+                @Override
+                public void onResponse(Call<Persuratan_Attachment> call, Response<Persuratan_Attachment> response) {
+                    int code = response.code();
+                    if (code == 200){
+                        persuratanAttachment = response.body();
+                        if (persuratanAttachment.code.equals("00")){
+                            for(Persuratan_Attachment.Datum dat : persuratanAttachment.data){
+                                if (dat.fileType.toUpperCase().equals("PDF"))
+                                listener.OnDownloadClicked(AppConstant.DOMAIN_URL + AppConstant.API_VERSION + dat.attcLink, true);
+                            }
+                        }else{
+                            AppController.getInstance().CustomeDialog(context, persuratanAttachment.info);
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Persuratan_Attachment> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+
+        }
+
     }
 
     @Override
@@ -120,16 +177,6 @@ public class AdapterPersuratanPermohonan extends  RecyclerView.Adapter<AdapterPe
             btnDownload = (RelativeLayout) itemView.findViewById(R.id.btnDownload);
             btnPrint = (RelativeLayout) itemView.findViewById(R.id.btnPrint);
             imgChecklist = (ImageView)itemView.findViewById(R.id.imageView15);
-
-            btnDownload.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //https://www.dropbox.com/s/jadu92w71vnku3o/Wireframe.pdf?dl=0
-                    listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
-                }
-            });
-
-
         }
 
         @Override

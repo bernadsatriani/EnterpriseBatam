@@ -23,7 +23,7 @@ android {
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
         applicationId "com.bpbatam.enterprise"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -147,9 +147,10 @@ dependencies {
     compile 'com.github.barteksc:AndroidPdfViewer:2.1.0'
     compile files('libs/picasso-2.5.2.jar')
 
-    //Firebase
-    compile 'com.google.firebase:firebase-core:9.0.1'
+    //
+    // 'com.google.firebase:firebase-core:9.0.1'
     compile 'com.google.firebase:firebase-messaging:9.0.1'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

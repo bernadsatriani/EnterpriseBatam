@@ -23,6 +23,11 @@ public class BBS_List_ByCategory {
         this.max = max;
     }
 
+    public String type;
+    public BBS_List_ByCategory(String type){
+        this.type = type;
+    }
+
     public class Datum
     {
         public String attc_exist ;

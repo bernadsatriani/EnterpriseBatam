@@ -19,7 +19,7 @@
     <string name="drawer_close">Slider Menu Closed</string>
 
     <!--MainMenu-->
-    <string name="lupa_password"><i><u>Lupa Password</u></i></string>
+    <string name="lupa_password"><i><u>Lupa Password </u></i></string>
     <string name="main_mytransaction">Transaksi Saya</string>
     <string name="main_home">Beranda</string>
     <string name="main_dashboard">Dashboard</string>

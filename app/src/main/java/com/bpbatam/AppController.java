@@ -4,6 +4,7 @@ import android.app.Application;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
+import android.provider.Settings;
 import android.support.multidex.MultiDex;
 import android.telephony.TelephonyManager;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.bpbatam.enterprise.R;
 import com.bumptech.glide.Glide;
 import com.crashlytics.android.Crashlytics;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.squareup.picasso.Picasso;
 
 import java.security.MessageDigest;
@@ -33,14 +35,16 @@ public class AppController extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Fabric.with(this, new Crashlytics());
+        //Fabric.with(this, new Crashlytics());
         mInstance = this;
         sessionManager = new SessionManager(getApplicationContext());
+        /*AppConstant.IMEI = Settings.Secure.getString(getContentResolver(),
+                Settings.Secure.ANDROID_ID);*/
 
-        TelephonyManager mngr = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
-        AppConstant.IMEI =  mngr.getDeviceId();
+        AppConstant.IMEI = FirebaseInstanceId.getInstance().getToken();
 
     }
+
 
     public static Context getAppContext() {
         return mInstance;

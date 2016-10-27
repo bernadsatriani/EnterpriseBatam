@@ -6,10 +6,12 @@ import com.bpbatam.enterprise.model.BBS_CATEGORY;
 import com.bpbatam.enterprise.model.BBS_Insert;
 import com.bpbatam.enterprise.model.BBS_LIST;
 import com.bpbatam.enterprise.model.BBS_List_ByCategory;
+import com.bpbatam.enterprise.model.DISPOSISI_Category;
 import com.bpbatam.enterprise.model.DataAdmin;
 import com.bpbatam.enterprise.model.GitHubUser;
 import com.bpbatam.enterprise.model.ListUser;
 import com.bpbatam.enterprise.model.LocationList;
+import com.bpbatam.enterprise.model.Persuratan_Attachment;
 import com.bpbatam.enterprise.model.Persuratan_Detail;
 import com.bpbatam.enterprise.model.Persuratan_Folder;
 import com.bpbatam.enterprise.model.Persuratan_List_Folder;
@@ -73,4 +75,11 @@ public interface NetworkService {
 
     @POST("ep_api_services/ep_mail/get_mail_detail")
     Call<Persuratan_Detail> getMailDetail(@Body Persuratan_Detail params);
+
+    @POST("ep_api_services/ep_mail/get_mail_attc")
+    Call<Persuratan_Attachment> getMailAttachment(@Body Persuratan_Attachment params);
+
+    //DISPOSISI-------------------------------------------------------------------------
+    @POST("ep_api_services/ep_dispo/get_category")
+    Call<DISPOSISI_Category> getCategory(@Body DISPOSISI_Category params);
 }

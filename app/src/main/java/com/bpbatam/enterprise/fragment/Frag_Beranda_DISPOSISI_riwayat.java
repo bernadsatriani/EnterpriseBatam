@@ -14,13 +14,23 @@ import android.widget.RelativeLayout;
 
 import com.ayz4sci.androidfactory.DownloadProgressView;
 import com.bpbatam.AppConstant;
+import com.bpbatam.AppController;
 import com.bpbatam.enterprise.PDFViewActivity;
 import com.bpbatam.enterprise.R;
+import com.bpbatam.enterprise.adapter.AdapterDisposisiRiwayat_Beranda;
 import com.bpbatam.enterprise.bbs.adapter.AdapterBBSDaftarPesanan;
 import com.bpbatam.enterprise.disposisi.adapter.AdapterDisposisiRiwayat;
+import com.bpbatam.enterprise.model.BBS_LIST;
+import com.bpbatam.enterprise.model.DISPOSISI_Category;
 import com.bpbatam.enterprise.model.ListData;
+import com.bpbatam.enterprise.model.net.NetworkManager;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by User on 10/3/2016.
@@ -38,6 +48,7 @@ public class Frag_Beranda_DISPOSISI_riwayat extends Fragment {
     private long downloadID;
     private DownloadManager downloadManager;
 
+    DISPOSISI_Category disposisiCategory;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -50,7 +61,7 @@ public class Frag_Beranda_DISPOSISI_riwayat extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         InitControl(view);
-        FillGrid(view);
+        FillGrid();
     }
 
     void InitControl(View v){
@@ -66,8 +77,40 @@ public class Frag_Beranda_DISPOSISI_riwayat extends Fragment {
 
     }
 
-    void FillGrid(View v){
-        AryListData = new ArrayList<>();
+
+    void FillGrid(){
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        DISPOSISI_Category param = new DISPOSISI_Category(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID);
+        try{
+            Call<DISPOSISI_Category> call = NetworkManager.getNetworkService(getActivity()).getCategory(param);
+            call.enqueue(new Callback<DISPOSISI_Category>() {
+                @Override
+                public void onResponse(Call<DISPOSISI_Category> call, Response<DISPOSISI_Category> response) {
+                    if (response.code() == 200){
+                        disposisiCategory = response.body();
+                        if (disposisiCategory.code.equals("00")){
+                            FillAdapter();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<DISPOSISI_Category> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+
+        }
+    }
+
+    void FillAdapter(){
+        /*AryListData = new ArrayList<>();
 
         for(int i = 0; i < 10; i++){
             listData = new ListData();
@@ -76,9 +119,9 @@ public class Frag_Beranda_DISPOSISI_riwayat extends Fragment {
             listData.setAtr3("http://cottonsoft.co.nz/assets/img/our-company-history/history-2011-Paseo.jpg");
             AryListData.add(listData);
 
-        }
+        }*/
 
-        mAdapter = new AdapterDisposisiRiwayat(v.getContext(), AryListData, new AdapterDisposisiRiwayat.OnDownloadClicked() {
+        mAdapter = new AdapterDisposisiRiwayat_Beranda(getActivity(), disposisiCategory, new AdapterDisposisiRiwayat_Beranda.OnDownloadClicked() {
             @Override
             public void OnDownloadClicked(final String sUrl, boolean bStatus) {
                 mRecyclerView.setVisibility(View.GONE);

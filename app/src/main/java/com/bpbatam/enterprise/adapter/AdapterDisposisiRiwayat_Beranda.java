@@ -10,27 +10,28 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bpbatam.enterprise.R;
-import com.bpbatam.enterprise.model.BBS_LIST;
+import com.bpbatam.enterprise.disposisi.adapter.AdapterDisposisiRiwayat;
+import com.bpbatam.enterprise.model.DISPOSISI_Category;
 import com.bpbatam.enterprise.model.ListData;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by User on 9/19/2016.
  */
-public class AdapterBBSDaftarPesanan_Beranda extends  RecyclerView.Adapter<AdapterBBSDaftarPesanan_Beranda.ViewHolder>{
-    private BBS_LIST bbs_list;
+public class AdapterDisposisiRiwayat_Beranda extends  RecyclerView.Adapter<AdapterDisposisiRiwayat_Beranda.ViewHolder>{
+    DISPOSISI_Category disposisiCategory;
     private Context context;
 
-    public AdapterBBSDaftarPesanan_Beranda(Context context, BBS_LIST bbs_list, OnDownloadClicked listener) {
+    public AdapterDisposisiRiwayat_Beranda(Context context, DISPOSISI_Category disposisiCategory, OnDownloadClicked listener) {
         this.context = context;
-        this.bbs_list = bbs_list;
+        this.disposisiCategory = disposisiCategory;
         this.listener = listener;
-        if (bbs_list == null) {
+        if (disposisiCategory == null) {
             throw new IllegalArgumentException("courses ArrayList must not be null");
         }
     }
+
 
     public interface OnDownloadClicked {
         public void OnDownloadClicked(String sUrl, boolean bStatus);
@@ -42,47 +43,26 @@ public class AdapterBBSDaftarPesanan_Beranda extends  RecyclerView.Adapter<Adapt
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //Inflate layout
         View itemView = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.row_bbs_semua_pesanan, null);
+                R.layout.row_disposisi_riwayat, null);
 
         return new ViewHolder(itemView, context, this);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        List<BBS_LIST.Datum> listData = bbs_list.data;
+        DISPOSISI_Category.Datum listData = disposisiCategory.data.get(position);
         //Set text
-        holder.txtDate.setText(listData.get(position).bbs_date);
-        holder.txtTime.setText(listData.get(position).bbs_time);
-        holder.lbl_Attach.setText(listData.get(position).title);
-        holder.lbl_Judul.setText(listData.get(position).title);
-        holder.lbl_Isi.setText(listData.get(position).content);
-
+        holder.txtDate.setText(listData.createTime);
+        holder.txtTime.setText(listData.createTime);
+        holder.lbl_Attach.setText(listData.description);
         holder.lbl_Size.setText("");
-
-        try{
-            if (listData.get(position).attc_data.size() > 0){
-                for(BBS_LIST.AttcData dat : listData.get(position).attc_data){
-                    holder.lbl_Size.setText("(" + dat.file_size + " mb) " + dat.file_type);
-                }
-            }
-        }catch (Exception e){
-
-        }
-       /* if (listData.get(position).attc_size != null){
-            holder.lbl_Size.setText("(" + listData.get(position).attc_size + " mb)");
-        }else*/
-
-
-        //holder.txtStatus.setText(listData.getAtr2());
-
-        //AppController.getInstance().displayImage(context,listData.getAtr3(), holder.imgCover);
 
         holder.listData = listData;
     }
 
     @Override
     public int getItemCount() {
-        return bbs_list.data.size();
+        return disposisiCategory.data.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder
@@ -90,27 +70,26 @@ public class AdapterBBSDaftarPesanan_Beranda extends  RecyclerView.Adapter<Adapt
 
         TextView txtDate,
                 txtTime,
-                txtStatus,
                 lbl_Attach,
                 lbl_Size,
-                lbl_Judul,
-                lbl_Isi
-                        ;
-        ImageView imgStatus;
+                txtStatus
+        ;
+
         RelativeLayout btnDownload;
-        List<BBS_LIST.Datum> listData;
+        ImageView imgStatus;
+
+        DISPOSISI_Category.Datum listData;
         public ViewHolder(View itemView,
-                          final Context context,
-                          final AdapterBBSDaftarPesanan_Beranda mCourseAdapter) {
+                          Context context,
+                          final AdapterDisposisiRiwayat_Beranda mCourseAdapter) {
             super(itemView);
-            imgStatus = (ImageView)itemView.findViewById(R.id.img_status);
+
+            txtDate = (TextView)itemView.findViewById(R.id.text_Date);
             txtStatus = (TextView)itemView.findViewById(R.id.text_status);
             txtTime = (TextView)itemView.findViewById(R.id.text_time);
-            txtDate = (TextView)itemView.findViewById(R.id.text_Date);
             lbl_Attach = (TextView)itemView.findViewById(R.id.lbl_attach);
             lbl_Size = (TextView)itemView.findViewById(R.id.lbl_size);
-            lbl_Judul = (TextView)itemView.findViewById(R.id.lbl_Judul);
-            lbl_Isi = (TextView)itemView.findViewById(R.id.lbl_Isi);
+            imgStatus = (ImageView) itemView.findViewById(R.id.imageView5);
             btnDownload = (RelativeLayout) itemView.findViewById(R.id.btnDownload);
 
             btnDownload.setOnClickListener(new View.OnClickListener() {
@@ -120,8 +99,6 @@ public class AdapterBBSDaftarPesanan_Beranda extends  RecyclerView.Adapter<Adapt
                     listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
                 }
             });
-
-
         }
 
         @Override

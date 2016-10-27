@@ -2,6 +2,7 @@ package fcm;
 
 import android.util.Log;
 
+import com.bpbatam.AppConstant;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
@@ -13,6 +14,7 @@ public class MyAndroidFirebaseInstanceIdService extends FirebaseInstanceIdServic
     public void onTokenRefresh() {
         //Get hold of the registration token
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+        AppConstant.IMEI = refreshedToken;
         //Log the token
         Log.d(TAG, "Refreshed token: " + refreshedToken);
     }
