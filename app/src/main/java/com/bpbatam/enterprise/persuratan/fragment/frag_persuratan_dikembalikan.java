@@ -41,8 +41,8 @@ import ui.QuickAction.QuickAction;
 public class frag_persuratan_dikembalikan extends Fragment {
     //action id
     private static final int ID_PILIH_PESAN     = 1;
-    private static final int ID_SEMUA_PESAN   = 2;
-
+    private static final int ID_SEMUA_PESAN     = 2;
+    private static final int ID_TIDAK_PESAN     = 3;
     RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private LinearLayoutManager mLayoutManager;
@@ -62,6 +62,7 @@ public class frag_persuratan_dikembalikan extends Fragment {
 
     String statusPesan;
     Persuratan_List_Folder persuratanListFolder;
+    Persuratan_List_Folder persuratanListFolderFill;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -75,10 +76,11 @@ public class frag_persuratan_dikembalikan extends Fragment {
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         statusPesan = AppConstant.TIDAK_PESAN;
         InitControl(view);
-        FillGrid(view);
+        FillGrid();
 
         ActionItem pilihItem 	= new ActionItem(ID_PILIH_PESAN, "Pilih Pesan", null);
         ActionItem semuaItem 	= new ActionItem(ID_SEMUA_PESAN, "Semua Pesan", null);
+        ActionItem kembaliItem 	= new ActionItem(ID_TIDAK_PESAN, "Kembali", null);
 
         pilihItem.setSticky(true);
         semuaItem.setSticky(true);
@@ -88,6 +90,7 @@ public class frag_persuratan_dikembalikan extends Fragment {
         final QuickAction quickAction = new QuickAction(getActivity(), QuickAction.VERTICAL);
 
         //add action items into QuickAction
+        quickAction.addActionItem(kembaliItem);
         quickAction.addActionItem(pilihItem);
         quickAction.addActionItem(semuaItem);
 
@@ -100,12 +103,19 @@ public class frag_persuratan_dikembalikan extends Fragment {
                 //here we can filter which action item was clicked with pos or actionId parameter
                 if (actionId == ID_PILIH_PESAN) {
                     statusPesan = AppConstant.PILIH_PESAN;
-                    FillGrid(view);
+                    FillGrid();
                     layout_button.setVisibility(View.GONE);
+                    quickAction.dismiss();
                 } else if (actionId == ID_SEMUA_PESAN) {
                     statusPesan = AppConstant.SEMUA_PESAN;
-                    FillGrid(view);
+                    FillGrid();
                     layout_button.setVisibility(View.VISIBLE);
+                    quickAction.dismiss();
+                }else if (actionId == ID_TIDAK_PESAN) {
+                    statusPesan = AppConstant.TIDAK_PESAN;
+                    FillGrid();
+                    layout_button.setVisibility(View.GONE);
+                    quickAction.dismiss();
                 }
             }
         });
@@ -138,11 +148,47 @@ public class frag_persuratan_dikembalikan extends Fragment {
             @Override
             public void onClick(View view) {
                 layout_button.setVisibility(View.GONE);
+                for (Persuratan_List_Folder.Datum dat : persuratanListFolder.data){
+                    if (dat.flag.equals("2")){
+                        vDelete(Integer.toString(dat.mail_id));
+                        break;
+                    }
+                }
+
             }
         });
     }
 
-    void FillGrid(View v){
+    void vDelete(String sMail_id){
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        Persuratan_List_Folder params = new Persuratan_List_Folder(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID, sMail_id);
+        try{
+            Call<Persuratan_List_Folder> call = NetworkManager.getNetworkService(getActivity()).postDelete(params);
+            call.enqueue(new Callback<Persuratan_List_Folder>() {
+                @Override
+                public void onResponse(Call<Persuratan_List_Folder> call, Response<Persuratan_List_Folder> response) {
+                    int code = response.code();
+                    if (code == 200){
+                        FillGrid();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Persuratan_List_Folder> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+
+        }
+    }
+
+    void FillGrid(){
         try {
             AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
         } catch (NoSuchAlgorithmException e) {
@@ -159,6 +205,14 @@ public class frag_persuratan_dikembalikan extends Fragment {
                     persuratanListFolder = response.body();
                     if (code == 200){
                         if (persuratanListFolder.code.equals("00")){
+                            int iIndex = 0;
+                            if (statusPesan.equals(AppConstant.PILIH_PESAN) || statusPesan.equals(AppConstant.SEMUA_PESAN)){
+                                for (Persuratan_List_Folder.Datum dat : persuratanListFolder.data){
+                                    persuratanListFolder.data.get(iIndex).flag = statusPesan;
+                                    iIndex += 1;
+                                }
+                            }
+
                             FillAdapter();
                         }
                     }
@@ -232,8 +286,9 @@ public class frag_persuratan_dikembalikan extends Fragment {
                     });
                 }else{
                     boolean bDone = false;
-                    for (ListData dat : AryListData){
-                        if (dat.getJekel().equals("2")){
+
+                    for (Persuratan_List_Folder.Datum dat : persuratanListFolder.data){
+                        if (dat.flag.equals("2")){
                             bDone = true;
                             break;
                         }

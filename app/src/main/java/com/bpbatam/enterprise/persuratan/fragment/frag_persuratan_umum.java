@@ -42,6 +42,7 @@ public class frag_persuratan_umum extends Fragment {
     //action id
     private static final int ID_PILIH_PESAN     = 1;
     private static final int ID_SEMUA_PESAN   = 2;
+    private static final int ID_TIDAK_PESAN     = 3;
 
     RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -81,6 +82,7 @@ public class frag_persuratan_umum extends Fragment {
 
         ActionItem pilihItem 	= new ActionItem(ID_PILIH_PESAN, "Pilih Pesan", null);
         ActionItem semuaItem 	= new ActionItem(ID_SEMUA_PESAN, "Semua Pesan", null);
+        ActionItem kembaliItem 	= new ActionItem(ID_TIDAK_PESAN, "Kembali", null);
 
         pilihItem.setSticky(true);
         semuaItem.setSticky(true);
@@ -90,6 +92,7 @@ public class frag_persuratan_umum extends Fragment {
         final QuickAction quickAction = new QuickAction(getActivity(), QuickAction.VERTICAL);
 
         //add action items into QuickAction
+        quickAction.addActionItem(kembaliItem);
         quickAction.addActionItem(pilihItem);
         quickAction.addActionItem(semuaItem);
 
@@ -104,10 +107,17 @@ public class frag_persuratan_umum extends Fragment {
                     statusPesan = AppConstant.PILIH_PESAN;
                     FillGrid(view);
                     layout_button.setVisibility(View.GONE);
+                    quickAction.dismiss();
                 } else if (actionId == ID_SEMUA_PESAN) {
                     statusPesan = AppConstant.SEMUA_PESAN;
                     FillGrid(view);
                     layout_button.setVisibility(View.VISIBLE);
+                    quickAction.dismiss();
+                }else if (actionId == ID_TIDAK_PESAN) {
+                    statusPesan = AppConstant.TIDAK_PESAN;
+                    FillGrid(view);
+                    layout_button.setVisibility(View.GONE);
+                    quickAction.dismiss();
                 }
             }
         });

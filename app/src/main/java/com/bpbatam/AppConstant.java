@@ -30,6 +30,7 @@ public final class AppConstant {
 	public static String TIDAK_PESAN = "3" ;
 	public static String IMEI ;
 	public static int EMAIL_ID ;
+	public static String POSITION_CHILD = "";
 
 
 	public static String ACTIVITY_FROM;

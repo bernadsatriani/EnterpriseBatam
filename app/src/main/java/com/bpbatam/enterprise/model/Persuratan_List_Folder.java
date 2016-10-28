@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Persuratan_List_Folder {
     public String code ;
+    public String info ;
     public List<Datum> data ;
     public String hashid;
     public String userid;
@@ -11,6 +12,14 @@ public class Persuratan_List_Folder {
     public String folder_code;
     public String min;
     public String max;
+    public String mail_id;
+
+    public Persuratan_List_Folder(String hashid, String userid, String reqid, String mail_id) {
+        this.hashid = hashid;
+        this.reqid = reqid;
+        this.userid = userid;
+        this.mail_id = mail_id;
+    }
 
     public Persuratan_List_Folder(String hashid, String userid, String reqid, String folder_code,
                                   String min, String max) {
@@ -32,7 +41,6 @@ public class Persuratan_List_Folder {
         public String mail_date ;
         public int approved_rule_id ;
         public String flag;
-
 
     }
 

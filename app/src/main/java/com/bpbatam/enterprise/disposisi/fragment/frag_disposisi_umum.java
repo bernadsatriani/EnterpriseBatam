@@ -37,6 +37,7 @@ public class frag_disposisi_umum extends Fragment {
     //action id
     private static final int ID_PILIH_PESAN     = 1;
     private static final int ID_SEMUA_PESAN   = 2;
+    private static final int ID_TIDAK_PESAN     = 3;
 
     RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -72,6 +73,7 @@ public class frag_disposisi_umum extends Fragment {
         statusPesan = AppConstant.TIDAK_PESAN;
         ActionItem pilihItem 	= new ActionItem(ID_PILIH_PESAN, "Pilih Pesan", null);
         ActionItem semuaItem 	= new ActionItem(ID_SEMUA_PESAN, "Semua Pesan", null);
+        ActionItem kembaliItem 	= new ActionItem(ID_TIDAK_PESAN, "Kembali", null);
 
         pilihItem.setSticky(true);
         semuaItem.setSticky(true);
@@ -81,6 +83,7 @@ public class frag_disposisi_umum extends Fragment {
         final QuickAction quickAction = new QuickAction(getActivity(), QuickAction.VERTICAL);
 
         //add action items into QuickAction
+        quickAction.addActionItem(kembaliItem);
         quickAction.addActionItem(pilihItem);
         quickAction.addActionItem(semuaItem);
 
@@ -99,7 +102,12 @@ public class frag_disposisi_umum extends Fragment {
                     statusPesan = AppConstant.SEMUA_PESAN;
                     FillGrid(view);
                     layout_button.setVisibility(View.VISIBLE);
+                }else if (actionId == ID_TIDAK_PESAN) {
+                    statusPesan = AppConstant.TIDAK_PESAN;
+                    FillGrid(view);
+                    layout_button.setVisibility(View.GONE);
                 }
+                quickAction.dismiss();
             }
         });
 
@@ -149,7 +157,7 @@ public class frag_disposisi_umum extends Fragment {
             listData.setAtr1("Attachment " + i);
             listData.setAtr2("(5,88 mb)");
             listData.setAtr3("http://cottonsoft.co.nz/assets/img/our-company-history/history-2011-Paseo.jpg");
-            listData.setNama(statusPesan);
+            listData.setJekel(statusPesan);
             AryListData.add(listData);
 
         }

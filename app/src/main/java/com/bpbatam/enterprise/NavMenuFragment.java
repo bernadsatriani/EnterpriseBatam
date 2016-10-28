@@ -62,6 +62,7 @@ public class NavMenuFragment extends Fragment {
     HashMap<String, List<String>> listDataChild;
 
 
+
     Persuratan_Folder persuratanFolder;
     public NavMenuFragment() {
 
@@ -120,7 +121,7 @@ public class NavMenuFragment extends Fragment {
         txtDate = (TextView) layout.findViewById(R.id.txtDate);
         tvName = (TextView) layout.findViewById(R.id.name);
         tvEmail = (TextView) layout.findViewById(R.id.email);
-
+        AppConstant.POSITION_CHILD = "0";
         AuthUser authUser = AppController.getInstance().getSessionManager().getUserProfile();
 
         if (authUser.data.size() > 0){
@@ -292,14 +293,17 @@ public class NavMenuFragment extends Fragment {
                 int iGroup, iChild;
                 iGroup = groupPosition;
                 iChild = childPosition;
+                int index = parent.getFlatListPosition(ExpandableListView.getPackedPositionForChild(groupPosition, childPosition));
                 if (iGroup == 2 || iGroup == 3){
+                    //parent.setItemChecked(index, true);
+                    AppConstant.POSITION_CHILD = iGroup + "" + iChild;
+                    listAdapter.notifyDataSetChanged();
                     mDrawerLayout.closeDrawer(containerView);
-
                     String sPosition = Integer.toString(iGroup) + Integer.toString(iChild)  ;
                     iPosition =  Integer.parseInt(sPosition);
                 }
 
-                return false;
+                return true;
             }
         });
 
@@ -309,6 +313,8 @@ public class NavMenuFragment extends Fragment {
                 int iGroup, iChild;
                 iGroup = groupPosition;
                 if (iGroup == 0 || iGroup == 1){
+                    AppConstant.POSITION_CHILD = String.valueOf(iGroup);
+                    listAdapter.notifyDataSetChanged();
                     String sPosition = Integer.toString(iGroup) + "0"  ;
                     iPosition =  Integer.parseInt(sPosition);
                     mDrawerLayout.closeDrawer(containerView);

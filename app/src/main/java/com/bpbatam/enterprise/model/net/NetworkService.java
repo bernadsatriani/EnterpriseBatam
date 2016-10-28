@@ -89,6 +89,12 @@ public interface NetworkService {
     @POST("ep_api_services/ep_mail/recall_mail")
     Call<Persuratan_proses> postRecall(@Body Persuratan_proses params);
 
+    @POST("ep_api_services/ep_mail/save_mail_to_draft")
+    Call<Persuratan_proses> postSave(@Body Persuratan_proses params);
+
+    @POST("ep_api_services/ep_mail/delete_mail")
+    Call<Persuratan_List_Folder> postDelete(@Body Persuratan_List_Folder params);
+
     //DISPOSISI-------------------------------------------------------------------------
     @POST("ep_api_services/ep_dispo/get_category")
     Call<DISPOSISI_Category> getCategory(@Body DISPOSISI_Category params);

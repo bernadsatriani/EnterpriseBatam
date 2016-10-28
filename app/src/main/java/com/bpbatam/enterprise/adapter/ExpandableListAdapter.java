@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bpbatam.AppConstant;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.model.ListData;
 
@@ -64,9 +65,18 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             convertView = infalInflater.inflate(R.layout.item_row_detail_expandable, null);
         }
 
+        String sPosition = groupPosition + "" + childPosition;
+
         TextView txtData = (TextView) convertView.findViewById(R.id.textView);
         TextView txtCount = (TextView) convertView.findViewById(R.id.textStatus1);
         TextView txtUnread = (TextView) convertView.findViewById(R.id.textStatus2);
+        LinearLayout LayoutRow = (LinearLayout)convertView.findViewById(R.id.layoutRowDetail);
+
+        LayoutRow.setBackgroundColor(convertView.getResources().getColor(R.color.navigationDrawerBackgroundDetail));
+
+        if (sPosition.equals(AppConstant.POSITION_CHILD)){
+            LayoutRow.setBackgroundColor(convertView.getResources().getColor(R.color.navigationDrawerSelectedBackgroundDetail));
+        }
 
         String[] sResult = childText.trim().split("#");
         txtData.setText(sResult[0].trim());
@@ -115,12 +125,25 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         ImageView imgMenu = (ImageView) convertView.findViewById(R.id.item_nav_menu_icon_image_view);
         ImageView arrow = (ImageView) convertView.findViewById(R.id.imageView10);
 
+
+        String sPosition = String.valueOf(groupPosition);
         switch (groupPosition){
             case 0:
+                if (sPosition.equals(AppConstant.POSITION_CHILD)){
+                    layoutRowHeader.setBackgroundColor(_context.getResources().getColor(R.color.colorSearch));
+                }else{
+                    layoutRowHeader.setBackgroundColor(_context.getResources().getColor(R.color.colorSelectButton));
+                }
+
                 imgMenu.setBackgroundResource(R.drawable.gns_home_white);
                 arrow.setImageDrawable(null);
                 break;
             case 1:
+                if (sPosition.equals(AppConstant.POSITION_CHILD)){
+                    layoutRowHeader.setBackgroundColor(_context.getResources().getColor(R.color.colorSearch));
+                }else{
+                    layoutRowHeader.setBackgroundColor(_context.getResources().getColor(R.color.colorSelectButton));
+                }
                 arrow.setImageDrawable(null);
                 imgMenu.setBackgroundResource(R.drawable.flag_grey);
 

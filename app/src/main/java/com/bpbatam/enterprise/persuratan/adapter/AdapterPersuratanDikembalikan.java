@@ -1,6 +1,7 @@
 package com.bpbatam.enterprise.persuratan.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.bpbatam.AppConstant;
 import com.bpbatam.enterprise.R;
+import com.bpbatam.enterprise.disposisi.disposisi_detail;
 import com.bpbatam.enterprise.model.ListData;
 import com.bpbatam.enterprise.model.Persuratan_List_Folder;
 
@@ -86,6 +88,25 @@ public class AdapterPersuratanDikembalikan extends  RecyclerView.Adapter<Adapter
                 }
             }
         });
+
+        holder.btnDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //https://www.dropbox.com/s/jadu92w71vnku3o/Wireframe.pdf?dl=0
+                AppConstant.EMAIL_ID = listData.mail_id;
+                listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
+            }
+        });
+
+        holder.btnPrint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppConstant.EMAIL_ID = listData.mail_id;
+                Intent intent = new Intent(context, disposisi_detail.class);
+                v.getContext().startActivity(intent);
+            }
+        });
+
         holder.listData = listData;
     }
 
@@ -93,8 +114,11 @@ public class AdapterPersuratanDikembalikan extends  RecyclerView.Adapter<Adapter
         holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.check32));
         holder.imgDownload.setColorFilter(context.getResources().getColor(R.color.white));
         holder.textDownload.setTextColor(context.getResources().getColor(R.color.white));
+        holder.textInfo.setTextColor(context.getResources().getColor(R.color.white));
+        holder.imgInfo.setColorFilter(context.getResources().getColor(R.color.white));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             holder.btnDownload.setBackground(context.getResources().getDrawable(R.drawable.btn_shape_all_blue));
+            holder.btnPrint.setBackground(context.getResources().getDrawable(R.drawable.btn_shape_facebook));
         }
     }
 
@@ -102,8 +126,11 @@ public class AdapterPersuratanDikembalikan extends  RecyclerView.Adapter<Adapter
         holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.circle));
         holder.imgDownload.setColorFilter(context.getResources().getColor(R.color.colorAccept));
         holder.textDownload.setTextColor(context.getResources().getColor(R.color.grey));
+        holder.textInfo.setTextColor(context.getResources().getColor(R.color.grey));
+        holder.imgInfo.setColorFilter(context.getResources().getColor(R.color.grey));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             holder.btnDownload.setBackground(context.getResources().getDrawable(R.drawable.btn_shape_all_transparant_blue));
+            holder.btnPrint.setBackground(context.getResources().getDrawable(R.drawable.btn_shape_all_transparant_blue));
         }
     }
 
@@ -119,11 +146,11 @@ public class AdapterPersuratanDikembalikan extends  RecyclerView.Adapter<Adapter
                 txtTime,
                 lbl_Attach,
                 lbl_Size,
-                txtStatus;
-        ;
+                txtStatus,
+                textInfo;
 
-        RelativeLayout btnDownload;
-        ImageView imgStatus, imgChecklist;
+        RelativeLayout btnDownload, btnPrint;
+        ImageView imgStatus, imgChecklist, imgInfo;
 
         Persuratan_List_Folder.Datum listData;
 
@@ -134,9 +161,11 @@ public class AdapterPersuratanDikembalikan extends  RecyclerView.Adapter<Adapter
                           Context context,
                           final AdapterPersuratanDikembalikan mCourseAdapter) {
             super(itemView);
+            imgInfo = (ImageView) itemView.findViewById(R.id.imgInfo);
+            textInfo = (TextView)itemView.findViewById(R.id.textInfo);
             imgDownload = (ImageView) itemView.findViewById(R.id.imgDownload);
             textDownload = (TextView)itemView.findViewById(R.id.textDownload);
-
+            btnPrint = (RelativeLayout) itemView.findViewById(R.id.btnPrint);
             txtDate = (TextView)itemView.findViewById(R.id.text_Date);
             txtStatus = (TextView)itemView.findViewById(R.id.text_status);
             txtTime = (TextView)itemView.findViewById(R.id.text_time);
@@ -145,14 +174,6 @@ public class AdapterPersuratanDikembalikan extends  RecyclerView.Adapter<Adapter
             imgStatus = (ImageView) itemView.findViewById(R.id.imageView5);
             btnDownload = (RelativeLayout) itemView.findViewById(R.id.btnDownload);
             imgChecklist = (ImageView)itemView.findViewById(R.id.imageView15);
-            btnDownload.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //https://www.dropbox.com/s/jadu92w71vnku3o/Wireframe.pdf?dl=0
-                    listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
-                }
-            });
-
 
         }
 
