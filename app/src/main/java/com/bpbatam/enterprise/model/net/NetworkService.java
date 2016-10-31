@@ -8,6 +8,7 @@ import com.bpbatam.enterprise.model.BBS_LIST;
 import com.bpbatam.enterprise.model.BBS_List_ByCategory;
 import com.bpbatam.enterprise.model.DISPOSISI_Category;
 import com.bpbatam.enterprise.model.DataAdmin;
+import com.bpbatam.enterprise.model.Disposisi_Folder;
 import com.bpbatam.enterprise.model.GitHubUser;
 import com.bpbatam.enterprise.model.ListUser;
 import com.bpbatam.enterprise.model.LocationList;
@@ -98,4 +99,10 @@ public interface NetworkService {
     //DISPOSISI-------------------------------------------------------------------------
     @POST("ep_api_services/ep_dispo/get_category")
     Call<DISPOSISI_Category> getCategory(@Body DISPOSISI_Category params);
+
+    @POST("ep_api_services/ep_dispo/get_folder")
+    Call<Disposisi_Folder> getDisposisiFolder(@Body Disposisi_Folder params);
+
+    @POST("ep_api_services/ep_dispo/get_dispo_list_by_folder")
+    Call<Persuratan_List_Folder> getDisposisiFolder(@Body Persuratan_List_Folder params);
 }

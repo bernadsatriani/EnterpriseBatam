@@ -30,7 +30,7 @@ public class PDFViewActivity extends AppCompatActivity implements OnPageChangeLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pdfview_recall);
+        setContentView(R.layout.activity_pdfview_deafult);
 
         txtLabel = (TextView)findViewById(R.id.textLabel);
         pdfView = (PDFView)findViewById(R.id.pdfView);

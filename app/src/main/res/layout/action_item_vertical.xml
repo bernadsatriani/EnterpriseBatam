@@ -23,7 +23,7 @@
 		android:paddingRight="10dip"
 		android:text="Chart"
 		android:textColor="#fff"
-		android:layout_marginTop="@dimen/space_5"
-		android:layout_marginBottom="@dimen/space_5" />
+		android:layout_marginTop="@dimen/space_14"
+		android:layout_marginBottom="@dimen/space_14" />
 									         
 </LinearLayout>         

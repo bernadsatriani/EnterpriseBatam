@@ -139,22 +139,23 @@
         </RelativeLayout>
 
         <LinearLayout
-            android:visibility="gone"
+            android:visibility="visible"
+            android:orientation="vertical"
             android:id="@+id/layout_button"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true">
 
             <LinearLayout
                 android:id="@+id/btnDistribusi"
+                android:visibility="gone"
                 android:orientation="horizontal"
                 android:background="@color/colorAccept"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_40"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:gravity="center"
-                android:layout_weight="1">
+                android:gravity="center">
 
                 <ui.CustomtextView
                     font:name = "GOTHAM_BOLD"
@@ -173,6 +174,30 @@
                     android:layout_gravity="fill_vertical"
                     android:layout_width="@dimen/space_20"
                     android:layout_height="match_parent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:background="@color/colorSearch"
+                android:visibility="gone"
+                android:id="@+id/layout_button_kembali"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_above="@+id/layout_button">
+
+                <ui.CustomtextView
+                    font:name = "GOTHAM_BOLD"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/space_14"
+                    android:text="KEMBALI"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+
+                    android:paddingRight="@dimen/space_5"
+                    android:layout_marginLeft="@dimen/space_10" />
+
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>

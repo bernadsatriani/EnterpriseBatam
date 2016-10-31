@@ -4,38 +4,44 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     >
-	    
-	<ScrollView 
+
+	<ScrollView
 		android:id="@+id/scroller"
-		android:layout_marginTop="16dip"
+		android:backgroundTint="@color/colorSearch"
     	android:layout_width="wrap_content"
     	android:layout_height="wrap_content"
-    	android:background="@drawable/popup"
+    	android:background="@drawable/btn_shape_all_blue_menu"
     	android:fadingEdgeLength="5dip"
-    	android:scrollbars="none">
-        
+    	android:scrollbars="none"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentEnd="true">
+
     	<LinearLayout
 	    	android:id="@+id/tracks"
 	    	android:orientation="vertical"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1"
-	        android:padding="10dip"/>
-       
+	        android:padding="@dimen/space_5"/>
+
 	</ScrollView >
- 	
- 	<ImageView
-        android:id="@+id/arrow_up"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/arrow_up" />
-        
- 	<ImageView
+
+	<ImageView
         android:id="@+id/arrow_down"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
     	android:layout_below="@id/scroller"
       	android:layout_marginTop="-4dip"
         android:src="@drawable/arrow_down" />
+
+	<ImageView
+		android:visibility="gone"
+       android:id="@+id/arrow_up"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:src="@drawable/arrow_up"
+		android:layout_alignParentTop="true"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true" />
 
 </RelativeLayout>

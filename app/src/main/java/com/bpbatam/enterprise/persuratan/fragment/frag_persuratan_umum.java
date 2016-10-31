@@ -59,7 +59,7 @@ public class frag_persuratan_umum extends Fragment {
     ImageView imgMenu;
     TextView txtLabel;
 
-    LinearLayout layout_button, btnDisposisi, btnDistribusi;
+    LinearLayout layout_button, btnDisposisi, btnDistribusi, layoutKembali;
 
     String statusPesan;
     Persuratan_List_Folder persuratanListFolder;
@@ -82,7 +82,6 @@ public class frag_persuratan_umum extends Fragment {
 
         ActionItem pilihItem 	= new ActionItem(ID_PILIH_PESAN, "Pilih Pesan", null);
         ActionItem semuaItem 	= new ActionItem(ID_SEMUA_PESAN, "Semua Pesan", null);
-        ActionItem kembaliItem 	= new ActionItem(ID_TIDAK_PESAN, "Kembali", null);
 
         pilihItem.setSticky(true);
         semuaItem.setSticky(true);
@@ -92,7 +91,6 @@ public class frag_persuratan_umum extends Fragment {
         final QuickAction quickAction = new QuickAction(getActivity(), QuickAction.VERTICAL);
 
         //add action items into QuickAction
-        quickAction.addActionItem(kembaliItem);
         quickAction.addActionItem(pilihItem);
         quickAction.addActionItem(semuaItem);
 
@@ -106,17 +104,14 @@ public class frag_persuratan_umum extends Fragment {
                 if (actionId == ID_PILIH_PESAN) {
                     statusPesan = AppConstant.PILIH_PESAN;
                     FillGrid(view);
-                    layout_button.setVisibility(View.GONE);
+                    layout_button.setVisibility(View.GONE);;
+                    layoutKembali.setVisibility(View.VISIBLE);
                     quickAction.dismiss();
                 } else if (actionId == ID_SEMUA_PESAN) {
                     statusPesan = AppConstant.SEMUA_PESAN;
                     FillGrid(view);
                     layout_button.setVisibility(View.VISIBLE);
-                    quickAction.dismiss();
-                }else if (actionId == ID_TIDAK_PESAN) {
-                    statusPesan = AppConstant.TIDAK_PESAN;
-                    FillGrid(view);
-                    layout_button.setVisibility(View.GONE);
+                    layoutKembali.setVisibility(View.VISIBLE);
                     quickAction.dismiss();
                 }
             }
@@ -132,7 +127,8 @@ public class frag_persuratan_umum extends Fragment {
     }
 
     void InitControl(View v){
-        layout_button = (LinearLayout)v.findViewById(R.id.layout_button);
+        layoutKembali = (LinearLayout)v.findViewById(R.id.layout_button_kembali);
+        layout_button = (LinearLayout)v.findViewById(R.id.layout_button_distri_dispos);
         btnDisposisi = (LinearLayout)v.findViewById(R.id.btnDisposisi);
         btnDistribusi = (LinearLayout)v.findViewById(R.id.btnDistribusi);
         txtLabel = (TextView)v.findViewById(R.id.view2);
@@ -148,11 +144,11 @@ public class frag_persuratan_umum extends Fragment {
         downloadProgressView = (DownloadProgressView) v.findViewById(R.id.downloadProgressView);
         downloadManager = (DownloadManager) v.getContext().getSystemService(v.getContext().DOWNLOAD_SERVICE);
 
-
         btnDisposisi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 layout_button.setVisibility(View.GONE);
+
             }
         });
 
@@ -162,6 +158,16 @@ public class frag_persuratan_umum extends Fragment {
                 layout_button.setVisibility(View.GONE);
                 Intent intent = new Intent(getActivity(), DistribusiActivity.class);
                 getActivity().startActivity(intent);
+            }
+        });
+
+        layoutKembali.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                statusPesan = AppConstant.TIDAK_PESAN;
+                FillGrid(view);
+                layout_button.setVisibility(View.GONE);
+                layoutKembali.setVisibility(View.GONE);
             }
         });
     }
@@ -183,6 +189,13 @@ public class frag_persuratan_umum extends Fragment {
                     persuratanListFolder = response.body();
                     if (code == 200){
                         if (persuratanListFolder.code.equals("00")){
+                            int iIndex = 0;
+                            if (statusPesan.equals(AppConstant.PILIH_PESAN) || statusPesan.equals(AppConstant.SEMUA_PESAN)){
+                                for (Persuratan_List_Folder.Datum dat : persuratanListFolder.data){
+                                    persuratanListFolder.data.get(iIndex).flag = statusPesan;
+                                    iIndex += 1;
+                                }
+                            }
                             FillAdapter();
                         }
                     }
@@ -260,15 +273,17 @@ public class frag_persuratan_umum extends Fragment {
                     });
                 }else{
                     boolean bDone = false;
-                    for (ListData dat : AryListData){
-                        if (dat.getJekel().equals("2")){
+                    for (Persuratan_List_Folder.Datum dat : persuratanListFolder.data){
+                        if (dat.flag.equals("2")){
                             bDone = true;
                             break;
                         }
                     }
                     if (bDone){
                         layout_button.setVisibility(View.VISIBLE);
-                    }else layout_button.setVisibility(View.GONE);
+                    }else{
+                        layout_button.setVisibility(View.GONE);
+                    }
                 }
 
             }

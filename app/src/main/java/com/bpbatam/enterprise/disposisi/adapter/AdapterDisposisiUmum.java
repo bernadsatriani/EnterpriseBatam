@@ -12,9 +12,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bpbatam.AppConstant;
+import com.bpbatam.enterprise.CC_Activity;
 import com.bpbatam.enterprise.DistribusiActivity;
 import com.bpbatam.enterprise.R;
+import com.bpbatam.enterprise.disposisi.disposisi_detail;
 import com.bpbatam.enterprise.model.ListData;
+import com.bpbatam.enterprise.model.Persuratan_List_Folder;
 
 import java.util.ArrayList;
 
@@ -22,15 +25,14 @@ import java.util.ArrayList;
  * Created by User on 9/19/2016.
  */
 public class AdapterDisposisiUmum extends  RecyclerView.Adapter<AdapterDisposisiUmum.ViewHolder>{
-
-    private ArrayList<ListData> mCourseArrayList;
+    Persuratan_List_Folder persuratanListFolder;
     private Context context;
 
-    public AdapterDisposisiUmum(Context context, ArrayList<ListData> mCourseArrayList, OnDownloadClicked listener) {
+    public AdapterDisposisiUmum(Context context, Persuratan_List_Folder persuratanListFolder, OnDownloadClicked listener) {
         this.context = context;
-        this.mCourseArrayList = mCourseArrayList;
+        this.persuratanListFolder = persuratanListFolder;
         this.listener = listener;
-        if (mCourseArrayList == null) {
+        if (persuratanListFolder == null) {
             throw new IllegalArgumentException("courses ArrayList must not be null");
         }
     }
@@ -52,19 +54,19 @@ public class AdapterDisposisiUmum extends  RecyclerView.Adapter<AdapterDisposisi
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        final ListData listData = mCourseArrayList.get(position);
+        final Persuratan_List_Folder.Datum listData = persuratanListFolder.data.get(position);
         //Set text
-        holder.txtDate.setText("Rabu, 21 Sept 2016");
-        holder.txtTime.setText("12:37 PM");
-        holder.lbl_Attach.setText(listData.getAtr1());
-        holder.lbl_Size.setText(listData.getAtr2());
+        holder.txtDate.setText(listData.mail_date);
+        holder.txtTime.setText(listData.read_date);
+        holder.lbl_Attach.setText(listData.title);
+        holder.lbl_Size.setText("");
 
-        if (listData.getJekel() != null){
-            if (listData.getJekel().equals(AppConstant.SEMUA_PESAN)){
+        if (listData.flag != null){
+            if (listData.flag.equals(AppConstant.SEMUA_PESAN)){
                 holder.imgChecklist.setVisibility(View.VISIBLE);
                 holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.check32));
                 ButtonSelected(holder);
-            }else if (listData.getJekel().equals(AppConstant.PILIH_PESAN)){
+            }else if (listData.flag.equals(AppConstant.PILIH_PESAN)){
                 holder.imgChecklist.setVisibility(View.VISIBLE);
                 ButtonNotSelected(holder);
                 holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.circle));
@@ -76,23 +78,42 @@ public class AdapterDisposisiUmum extends  RecyclerView.Adapter<AdapterDisposisi
         holder.imgChecklist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (listData.getJekel().equals("1")){
-                    mCourseArrayList.get(position).setJekel("2");
+                if (listData.flag.equals("1")){
+                    listData.flag = "2";
                     ButtonSelected(holder);
                     listener.OnDownloadClicked("", false);
                 }else{
-
-                    mCourseArrayList.get(position).setJekel("1");
+                    listData.flag = "1";
                     ButtonNotSelected(holder);
                     listener.OnDownloadClicked("", false);
                 }
             }
         });
+
         holder.imgCC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, DistribusiActivity.class);
+                AppConstant.EMAIL_ID = listData.mail_id;
+                Intent intent = new Intent(context, CC_Activity.class);
                 context.startActivity(intent);
+            }
+        });
+
+        holder.btnPrint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppConstant.EMAIL_ID = listData.mail_id;
+                Intent intent = new Intent(context, disposisi_detail.class);
+                v.getContext().startActivity(intent);
+            }
+        });
+
+        holder.btnDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //https://www.dropbox.com/s/jadu92w71vnku3o/Wireframe.pdf?dl=0
+                AppConstant.EMAIL_ID = listData.mail_id;
+                listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
             }
         });
         holder.listData = listData;
@@ -124,7 +145,7 @@ public class AdapterDisposisiUmum extends  RecyclerView.Adapter<AdapterDisposisi
 
     @Override
     public int getItemCount() {
-        return mCourseArrayList.size();
+        return persuratanListFolder.data.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder
@@ -144,7 +165,7 @@ public class AdapterDisposisiUmum extends  RecyclerView.Adapter<AdapterDisposisi
         ImageView imgInfo,imgDownload;
         TextView textInfo, textDownload;
 
-        ListData listData;
+        Persuratan_List_Folder.Datum listData;
         public ViewHolder(View itemView,
                           Context context,
                           final AdapterDisposisiUmum mCourseAdapter) {
@@ -165,14 +186,6 @@ public class AdapterDisposisiUmum extends  RecyclerView.Adapter<AdapterDisposisi
             btnPrint = (RelativeLayout) itemView.findViewById(R.id.btnPrint);
             imgCC = (ImageView)itemView.findViewById(R.id.imageView5);
             imgChecklist = (ImageView)itemView.findViewById(R.id.imageView15);
-
-            btnDownload.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //https://www.dropbox.com/s/jadu92w71vnku3o/Wireframe.pdf?dl=0
-                    listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
-                }
-            });
         }
 
         @Override

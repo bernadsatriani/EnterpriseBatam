@@ -9,8 +9,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bpbatam.AppConstant;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.model.ListData;
+import com.bpbatam.enterprise.model.Persuratan_List_Folder;
 
 import java.util.ArrayList;
 
@@ -18,15 +20,14 @@ import java.util.ArrayList;
  * Created by User on 9/19/2016.
  */
 public class AdapterDisposisiRiwayat extends  RecyclerView.Adapter<AdapterDisposisiRiwayat.ViewHolder>{
-
-    private ArrayList<ListData> mCourseArrayList;
+    Persuratan_List_Folder persuratanListFolder;
     private Context context;
 
-    public AdapterDisposisiRiwayat(Context context, ArrayList<ListData> mCourseArrayList, OnDownloadClicked listener) {
+    public AdapterDisposisiRiwayat(Context context, Persuratan_List_Folder persuratanListFolder, OnDownloadClicked listener) {
         this.context = context;
-        this.mCourseArrayList = mCourseArrayList;
+        this.persuratanListFolder = persuratanListFolder;
         this.listener = listener;
-        if (mCourseArrayList == null) {
+        if (persuratanListFolder == null) {
             throw new IllegalArgumentException("courses ArrayList must not be null");
         }
     }
@@ -48,19 +49,27 @@ public class AdapterDisposisiRiwayat extends  RecyclerView.Adapter<AdapterDispos
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        ListData listData = mCourseArrayList.get(position);
+        final Persuratan_List_Folder.Datum listData = persuratanListFolder.data.get(position);
         //Set text
-        holder.txtDate.setText("Rabu, 21 Sept 2016");
-        holder.txtTime.setText("12:37 PM");
-        holder.lbl_Attach.setText(listData.getAtr1());
-        holder.lbl_Size.setText(listData.getAtr2());
+        holder.txtDate.setText(listData.mail_date);
+        holder.txtTime.setText(listData.read_date);
+        holder.lbl_Attach.setText(listData.title);
+        holder.lbl_Size.setText("");
 
+        holder.btnDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //https://www.dropbox.com/s/jadu92w71vnku3o/Wireframe.pdf?dl=0
+                AppConstant.EMAIL_ID = listData.mail_id;
+                listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
+            }
+        });
         holder.listData = listData;
     }
 
     @Override
     public int getItemCount() {
-        return mCourseArrayList.size();
+        return persuratanListFolder.data.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder
@@ -76,7 +85,7 @@ public class AdapterDisposisiRiwayat extends  RecyclerView.Adapter<AdapterDispos
         RelativeLayout btnDownload;
         ImageView imgStatus;
 
-        ListData listData;
+        Persuratan_List_Folder.Datum listData;
         public ViewHolder(View itemView,
                           Context context,
                           final AdapterDisposisiRiwayat mCourseAdapter) {
@@ -89,14 +98,6 @@ public class AdapterDisposisiRiwayat extends  RecyclerView.Adapter<AdapterDispos
             lbl_Size = (TextView)itemView.findViewById(R.id.lbl_size);
             imgStatus = (ImageView) itemView.findViewById(R.id.imageView5);
             btnDownload = (RelativeLayout) itemView.findViewById(R.id.btnDownload);
-
-            btnDownload.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //https://www.dropbox.com/s/jadu92w71vnku3o/Wireframe.pdf?dl=0
-                    listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
-                }
-            });
         }
 
         @Override

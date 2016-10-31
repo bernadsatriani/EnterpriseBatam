@@ -24,6 +24,7 @@ import com.bpbatam.AppConstant;
 import com.bpbatam.AppController;
 import com.bpbatam.enterprise.adapter.ExpandableListAdapter;
 import com.bpbatam.enterprise.model.AuthUser;
+import com.bpbatam.enterprise.model.Disposisi_Folder;
 import com.bpbatam.enterprise.model.Persuratan_Folder;
 import com.bpbatam.enterprise.model.net.NetworkManager;
 
@@ -64,6 +65,7 @@ public class NavMenuFragment extends Fragment {
 
 
     Persuratan_Folder persuratanFolder;
+    Disposisi_Folder disposisiFolder;
     public NavMenuFragment() {
 
     }
@@ -251,15 +253,15 @@ public class NavMenuFragment extends Fragment {
 
                         listDataChild.put(listDataHeader.get(2), lstPersuratan);
 
-
-                        listDataHeader.add("DIPOSISI");
+                        FillMenuDisposisi();
+                        /*listDataHeader.add("DIPOSISI");
                         List<String>  lstDisposisi = new ArrayList<>();
                         lstDisposisi.add("Pribadi#0#0");
                         lstDisposisi.add("Umum#0#0");
                         lstDisposisi.add("Permohonan#0#0");
                         lstDisposisi.add("Dalam Proses#0#0");
                         lstDisposisi.add("Riwayat#0#0");
-                        listDataChild.put(listDataHeader.get(3), lstDisposisi);
+                        listDataChild.put(listDataHeader.get(3), lstDisposisi);*/
                     }
                 }
 
@@ -271,16 +273,6 @@ public class NavMenuFragment extends Fragment {
         }catch (Exception e){
 
         }
-
-
-        /*lstPersuratan.add("Pribadi");
-        lstPersuratan.add("Umum");
-        lstPersuratan.add("Permohonan");
-        lstPersuratan.add("Dalam Proses");
-        lstPersuratan.add("Simpan");
-        lstPersuratan.add("Dikembalikan");
-        listDataChild.put(listDataHeader.get(2), lstPersuratan);*/
-
 
 
         listAdapter = new ExpandableListAdapter(getActivity(), listDataHeader, listDataChild);
@@ -328,6 +320,77 @@ public class NavMenuFragment extends Fragment {
         });
     }
 
+
+    void FillMenuDisposisi(){
+        listDataHeader.add("DIPOSISI");
+        final List<String>  lstDisposisi = new ArrayList<>();
+
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        try{
+            Disposisi_Folder params = new Disposisi_Folder(AppConstant.HASHID , AppConstant.USER, AppConstant.REQID);
+            Call<Disposisi_Folder> call = NetworkManager.getNetworkService(getActivity()).getDisposisiFolder(params);
+            call.enqueue(new Callback<Disposisi_Folder>() {
+                @Override
+                public void onResponse(Call<Disposisi_Folder> call, Response<Disposisi_Folder> response) {
+                    int code = response.code();
+                    disposisiFolder = response.body();
+                    if (persuratanFolder.code.equals("00")){
+                        for (Disposisi_Folder.Datum dat : disposisiFolder.data) {
+                            if (dat.folder_code.equals("DFPR")) {
+                                lstDisposisi.add("Pribadi" + "#" + dat.total_count + "#" + dat.unread_count);
+                            }
+                        }
+
+                        for (Disposisi_Folder.Datum dat : disposisiFolder.data) {
+                            if (dat.folder_code.equals("DFUM")) {
+                                lstDisposisi.add("Umum" + "#" + dat.total_count + "#" + dat.unread_count);
+                            }
+                        }
+
+                        for (Disposisi_Folder.Datum dat : disposisiFolder.data) {
+                            if (dat.folder_code.equals("DPRM")) {
+                                lstDisposisi.add("Permohonan" + "#" + dat.total_count + "#" + dat.unread_count);
+                            }
+                        }
+
+                        for (Disposisi_Folder.Datum dat : disposisiFolder.data) {
+                            if (dat.folder_code.equals("DDPR")) {
+                                lstDisposisi.add("Dalam Proses" + "#" + dat.total_count + "#" + dat.unread_count);
+                            }
+                        }
+
+                        for (Disposisi_Folder.Datum dat : disposisiFolder.data) {
+                            if (dat.folder_code.equals("DRWY")) {
+                                lstDisposisi.add("Riwayat" + "#" + dat.total_count + "#" + dat.unread_count);
+                            }
+                        }
+
+                        for (Disposisi_Folder.Datum dat : disposisiFolder.data){
+                            if (dat.folder_code.equals("DDKM") ){
+                                lstDisposisi.add("Dikembalikan" + "#" + dat.total_count + "#" + dat.unread_count);
+                            }
+                        }
+
+
+                        listDataChild.put(listDataHeader.get(3), lstDisposisi);
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Disposisi_Folder> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+
+        }
+    }
 
     public void setUp(int fragmentId, DrawerLayout drawerLayout, final Toolbar toolbar) {
         containerView = getActivity().findViewById(fragmentId);

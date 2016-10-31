@@ -58,7 +58,7 @@ public class frag_persuratan_dikembalikan extends Fragment {
     ImageView imgMenu;
     TextView txtLabel;
 
-    LinearLayout layout_button, btnDelete;
+    LinearLayout layout_button, btnDelete, layoutKembali;
 
     String statusPesan;
     Persuratan_List_Folder persuratanListFolder;
@@ -80,7 +80,6 @@ public class frag_persuratan_dikembalikan extends Fragment {
 
         ActionItem pilihItem 	= new ActionItem(ID_PILIH_PESAN, "Pilih Pesan", null);
         ActionItem semuaItem 	= new ActionItem(ID_SEMUA_PESAN, "Semua Pesan", null);
-        ActionItem kembaliItem 	= new ActionItem(ID_TIDAK_PESAN, "Kembali", null);
 
         pilihItem.setSticky(true);
         semuaItem.setSticky(true);
@@ -90,7 +89,6 @@ public class frag_persuratan_dikembalikan extends Fragment {
         final QuickAction quickAction = new QuickAction(getActivity(), QuickAction.VERTICAL);
 
         //add action items into QuickAction
-        quickAction.addActionItem(kembaliItem);
         quickAction.addActionItem(pilihItem);
         quickAction.addActionItem(semuaItem);
 
@@ -104,17 +102,15 @@ public class frag_persuratan_dikembalikan extends Fragment {
                 if (actionId == ID_PILIH_PESAN) {
                     statusPesan = AppConstant.PILIH_PESAN;
                     FillGrid();
-                    layout_button.setVisibility(View.GONE);
+                    btnDelete.setVisibility(View.GONE);
+
+                    layoutKembali.setVisibility(View.VISIBLE);
                     quickAction.dismiss();
                 } else if (actionId == ID_SEMUA_PESAN) {
                     statusPesan = AppConstant.SEMUA_PESAN;
                     FillGrid();
-                    layout_button.setVisibility(View.VISIBLE);
-                    quickAction.dismiss();
-                }else if (actionId == ID_TIDAK_PESAN) {
-                    statusPesan = AppConstant.TIDAK_PESAN;
-                    FillGrid();
-                    layout_button.setVisibility(View.GONE);
+                    btnDelete.setVisibility(View.VISIBLE);
+                    layoutKembali.setVisibility(View.VISIBLE);
                     quickAction.dismiss();
                 }
             }
@@ -131,6 +127,7 @@ public class frag_persuratan_dikembalikan extends Fragment {
 
     void InitControl(View v){
         layout_button = (LinearLayout)v.findViewById(R.id.layout_button);
+        layoutKembali = (LinearLayout)v.findViewById(R.id.layout_button_kembali);
         btnDelete = (LinearLayout)v.findViewById(R.id.btnDelete);
         txtLabel = (TextView)v.findViewById(R.id.view2);
         if (AppConstant.ACTIVITY_FROM != null) txtLabel.setText(AppConstant.ACTIVITY_FROM);
@@ -155,6 +152,16 @@ public class frag_persuratan_dikembalikan extends Fragment {
                     }
                 }
 
+            }
+        });
+
+        layoutKembali.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                statusPesan = AppConstant.TIDAK_PESAN;
+                FillGrid();
+                btnDelete.setVisibility(View.GONE);
+                layoutKembali.setVisibility(View.GONE);
             }
         });
     }
@@ -270,7 +277,7 @@ public class frag_persuratan_dikembalikan extends Fragment {
                             //Action to perform on success
                             mRecyclerView.setVisibility(View.VISIBLE);
                             rLayoutDownload.setVisibility(View.GONE);
-                            layout_button.setVisibility(View.GONE);
+                            btnDelete.setVisibility(View.GONE);
                             AppConstant.PDF_FILENAME = "DOWNLOAD_FILE_NAME.pdf";
                             Intent intent = new Intent(getActivity(), PDFViewActivitySimpanKirim.class);
                             getActivity().startActivity(intent);
@@ -294,8 +301,8 @@ public class frag_persuratan_dikembalikan extends Fragment {
                         }
                     }
                     if (bDone){
-                        layout_button.setVisibility(View.VISIBLE);
-                    }else layout_button.setVisibility(View.GONE);
+                        btnDelete.setVisibility(View.VISIBLE);
+                    }else btnDelete.setVisibility(View.GONE);
                 }
 
             }

@@ -18,14 +18,21 @@ import android.widget.TextView;
 
 import com.ayz4sci.androidfactory.DownloadProgressView;
 import com.bpbatam.AppConstant;
+import com.bpbatam.AppController;
 import com.bpbatam.enterprise.DistribusiActivity;
 import com.bpbatam.enterprise.PDFViewActivity_Distribusi;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.disposisi.adapter.AdapterDisposisiPribadi;
 import com.bpbatam.enterprise.model.ListData;
+import com.bpbatam.enterprise.model.Persuratan_List_Folder;
+import com.bpbatam.enterprise.model.net.NetworkManager;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import ui.QuickAction.ActionItem;
 import ui.QuickAction.QuickAction;
 
@@ -55,7 +62,8 @@ public class frag_disposisi_pribadi extends Fragment {
     TextView txtLabel;
 
     String statusPesan;
-    LinearLayout layout_button, btnDistribusi;
+    LinearLayout layout_button, btnDistribusi, layoutKembali;
+    Persuratan_List_Folder persuratanListFolder;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -72,7 +80,6 @@ public class frag_disposisi_pribadi extends Fragment {
         statusPesan = AppConstant.TIDAK_PESAN;
         ActionItem pilihItem 	= new ActionItem(ID_PILIH_PESAN, "Pilih Pesan", null);
         ActionItem semuaItem 	= new ActionItem(ID_SEMUA_PESAN, "Semua Pesan", null);
-        ActionItem kembaliItem 	= new ActionItem(ID_TIDAK_PESAN, "Kembali", null);
 
         pilihItem.setSticky(true);
         semuaItem.setSticky(true);
@@ -82,7 +89,6 @@ public class frag_disposisi_pribadi extends Fragment {
         final QuickAction quickAction = new QuickAction(getActivity(), QuickAction.VERTICAL);
 
         //add action items into QuickAction
-        quickAction.addActionItem(kembaliItem);
         quickAction.addActionItem(pilihItem);
         quickAction.addActionItem(semuaItem);
 
@@ -96,15 +102,14 @@ public class frag_disposisi_pribadi extends Fragment {
                 if (actionId == ID_PILIH_PESAN) {
                     statusPesan = AppConstant.PILIH_PESAN;
                     FillGrid(view);
-                    layout_button.setVisibility(View.GONE);
+                    btnDistribusi.setVisibility(View.GONE);
+
+                    layoutKembali.setVisibility(View.VISIBLE);
                 } else if (actionId == ID_SEMUA_PESAN) {
                     statusPesan = AppConstant.SEMUA_PESAN;
                     FillGrid(view);
-                    layout_button.setVisibility(View.VISIBLE);
-                }else if (actionId == ID_TIDAK_PESAN) {
-                    statusPesan = AppConstant.TIDAK_PESAN;
-                    FillGrid(view);
-                    layout_button.setVisibility(View.GONE);
+                    btnDistribusi.setVisibility(View.VISIBLE);
+                    layoutKembali.setVisibility(View.VISIBLE);
                 }
                 quickAction.dismiss();
             }
@@ -120,6 +125,7 @@ public class frag_disposisi_pribadi extends Fragment {
     }
 
     void InitControl(View v){
+        layoutKembali = (LinearLayout)v.findViewById(R.id.layout_button_kembali);
         layout_button = (LinearLayout)v.findViewById(R.id.layout_button);
         btnDistribusi = (LinearLayout)v.findViewById(R.id.btnDistribusi);
         txtLabel = (TextView)v.findViewById(R.id.view2);
@@ -146,12 +152,62 @@ public class frag_disposisi_pribadi extends Fragment {
             }
         });
 
+        layoutKembali.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                statusPesan = AppConstant.TIDAK_PESAN;
+                FillGrid(view);
+                btnDistribusi.setVisibility(View.GONE);
+                layoutKembali.setVisibility(View.GONE);
+            }
+        });
+
     }
 
     void FillGrid(View v){
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        Persuratan_List_Folder params = new Persuratan_List_Folder(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID, "DFPR","1","10");
+        try{
+            Call<Persuratan_List_Folder> call = NetworkManager.getNetworkService(getActivity()).getDisposisiFolder(params);
+            call.enqueue(new Callback<Persuratan_List_Folder>() {
+                @Override
+                public void onResponse(Call<Persuratan_List_Folder> call, Response<Persuratan_List_Folder> response) {
+                    int code = response.code();
+                    persuratanListFolder = response.body();
+                    if (code == 200){
+                        if (persuratanListFolder.code.equals("00")){
+                            int iIndex = 0;
+                            if (statusPesan.equals(AppConstant.PILIH_PESAN) || statusPesan.equals(AppConstant.SEMUA_PESAN)){
+                                for (Persuratan_List_Folder.Datum dat : persuratanListFolder.data){
+                                    persuratanListFolder.data.get(iIndex).flag = statusPesan;
+                                    iIndex += 1;
+                                }
+                            }
+                            FillAdapter();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Persuratan_List_Folder> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+
+        }
+
+    }
+
+    void FillAdapter(){
         AryListData = new ArrayList<>();
 
-        for(int i = 0; i < 10; i++){
+        /*for(int i = 0; i < 10; i++){
             listData = new ListData();
             listData.setAtr1("Attachment " + i);
             listData.setAtr2("(5,88 mb)");
@@ -159,9 +215,9 @@ public class frag_disposisi_pribadi extends Fragment {
             listData.setJekel(statusPesan);
             AryListData.add(listData);
 
-        }
+        }*/
 
-        mAdapter = new AdapterDisposisiPribadi(v.getContext(), AryListData, new AdapterDisposisiPribadi.OnDownloadClicked() {
+        mAdapter = new AdapterDisposisiPribadi(getActivity(), persuratanListFolder, new AdapterDisposisiPribadi.OnDownloadClicked() {
             @Override
             public void OnDownloadClicked(final String sUrl, boolean bStatus) {
                 if (bStatus){
@@ -204,8 +260,8 @@ public class frag_disposisi_pribadi extends Fragment {
                     });
                 }else{
                     boolean bDone = false;
-                    for (ListData dat : AryListData){
-                        if (dat.getJekel().equals("2")){
+                    for (Persuratan_List_Folder.Datum dat : persuratanListFolder.data){
+                        if (dat.flag.equals("2")){
                             bDone = true;
                             break;
                         }
