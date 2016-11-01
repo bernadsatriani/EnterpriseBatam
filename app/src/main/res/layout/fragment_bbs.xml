@@ -69,29 +69,6 @@
                 android:layout_marginLeft="@dimen/space_5" />
 
 
-
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tabs"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/space_40"
-                android:background="@color/white"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                app:tabGravity="fill"
-                app:tabIndicatorColor="@color/black"
-                app:tabIndicatorHeight="3dp"
-                app:tabMode="fixed"
-                app:tabPaddingBottom="-1dp"
-                app:tabPaddingEnd="-1dp"
-                app:tabPaddingStart="-1dp"
-                app:tabPaddingTop="-1dp"
-                font:name="GOTHAM_BOLD"
-                font:tabTextColor="@color/black"
-                style="@style/MyTabLayoutTextAppearance"
-                android:elevation="2dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"/>
-
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
@@ -103,6 +80,236 @@
                 android:tint="@color/black"
                 android:layout_marginLeft="@dimen/space_5" />
         </RelativeLayout>
+
+        <LinearLayout
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ui.CustomtextView
+                android:visibility="visible"
+                font:name= "GOTHAM_BLACK"
+                font:type= "bold"
+                android:id="@+id/text_tulis_pesan"
+                android:text="Tulis Pesan Disini"
+                android:background="@drawable/btn_shape_all_grey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_5"
+                android:gravity="center" />
+
+            <RelativeLayout
+                android:visibility="visible"
+                android:id="@+id/layout_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:id="@+id/layout_text"
+                    android:background="@drawable/btn_shape_all_transparant_blue_bbs"
+                    android:layout_width="match_parent"
+                    android:layout_margin="@dimen/space_5"
+                    android:layout_height="180dp">
+
+                    <RelativeLayout
+                        android:id="@+id/layout_header2"
+                        android:background="@drawable/btn_shape_all_transparant_blue_bbs_header"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/space_40">
+
+                        <LinearLayout
+                            android:id="@+id/layout_button_kembali"
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:src="@drawable/close"
+                                android:layout_marginLeft="@dimen/space_14"
+                                android:layout_width="@dimen/space_14"
+                                android:layout_height="match_parent" />
+
+                            <ui.CustomtextView
+                                font:name = "GOTHAM_BLACK"
+                                android:textColor="@color/white"
+                                android:gravity="fill_vertical"
+                                android:layout_marginLeft="@dimen/space_10"
+                                android:text="Kembali"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent" />
+                        </LinearLayout>
+
+                        <ui.CustomtextView
+                            font:name = "GOTHAM_BLACK"
+                            android:id="@+id/text_publikasi"
+                            android:gravity="fill_vertical"
+                            android:layout_alignParentRight="true"
+                            android:text="Publikasikan"
+                            android:textColor="@color/white"
+                            android:layout_marginRight="@dimen/space_20"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent" />
+                    </RelativeLayout>
+
+                    <EditText
+                        android:textSize="@dimen/space_12"
+                        android:background="@drawable/edittext_mid"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/space_30"
+                        android:id="@+id/text_judul"
+                        android:hint="Judul"
+
+                        android:paddingLeft="@dimen/space_10"
+
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginRight="1dp"
+                        android:layout_marginBottom="1dp"/>
+
+                    <EditText
+                        android:textSize="@dimen/space_12"
+                        android:id="@+id/text_isi"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/edittext_mid"
+                        android:layout_height="@dimen/space_65"
+                        android:layout_weight="1"
+                        android:hint="Tulis Pesan"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginRight="1dp"
+                        android:gravity="top"
+                        android:paddingTop="3dp"
+                        android:paddingLeft="@dimen/space_10"
+                        android:layout_below="@+id/text_judul" />
+
+                    <RelativeLayout
+                        android:id="@+id/layout_spinner"
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/btn_shape_all_transparant_blue_bbs_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/space_40"
+                        android:layout_below="@+id/text_isi">
+
+                        <Spinner
+                            android:id="@+id/spinner_buletinboard"
+                            android:layout_marginRight="@dimen/space_10"
+                            android:paddingTop="@dimen/space_5"
+                            android:paddingLeft="@dimen/space_14"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            />
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_below="@+id/layout_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/linearLayout2"
+                        android:layout_alignParentTop="true"
+                        android:layout_toLeftOf="@+id/imageView12"
+                        android:layout_toStartOf="@+id/imageView12">
+
+                        <RelativeLayout
+                            android:textSize="@dimen/space_10"
+                            android:drawableLeft="@drawable/upload"
+                            android:id="@+id/layout_btn_status"
+                            android:background="@drawable/btn_shape_all_transparant_blue_spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/space_35"
+                            android:layout_weight="2"
+                            android:layout_marginLeft="@dimen/space_5"
+                            android:text="Lampirkan File"
+                            android:layout_marginRight="@dimen/space_10"
+                            android:layout_marginTop="@dimen/space_5"
+                            android:layout_marginBottom="@dimen/space_5">
+
+                            <Spinner
+                                android:id="@+id/spinner_status"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"></Spinner>
+
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:textSize="@dimen/space_10"
+                            android:id="@+id/layout_btn_lampiran"
+                            android:background="@drawable/btn_shape_all_transparant_blue"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/space_35"
+                            android:layout_weight="1.5"
+                            android:layout_marginLeft="@dimen/space_5"
+                            android:text="Lampirkan File"
+                            android:layout_marginRight="@dimen/space_10"
+                            android:layout_marginTop="@dimen/space_5"
+                            android:layout_marginBottom="@dimen/space_5">
+
+                            <ui.CustomtextView
+                                font:name = "GOTHAM_BOLD"
+                                android:textSize="@dimen/space_10"
+                                android:textColor="@color/black"
+                                android:id="@+id/btn_lampiran"
+                                android:background="@color/transparant_pure"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/space_40"
+                                android:layout_weight="1"
+                                android:layout_marginLeft="@dimen/space_40"
+                                android:text="Lampirkan File"
+                                android:gravity="fill_vertical"
+                                android:layout_toLeftOf="@+id/imageView16"
+                                android:layout_toStartOf="@+id/imageView16" />
+
+
+                            <ImageView
+                                android:src="@drawable/addfile"
+                                android:layout_width="@dimen/space_25"
+                                android:layout_height="@dimen/space_25"
+                                android:layout_marginRight="@dimen/space_10"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentEnd="true"
+                                android:id="@+id/imageView16" />
+
+                        </RelativeLayout>
+                    </LinearLayout>
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_40"
+            android:background="@color/colorSearch"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/black"
+            app:tabIndicatorHeight="5dp"
+            app:tabMode="fixed"
+            app:tabPaddingBottom="-1dp"
+            app:tabPaddingEnd="-1dp"
+            app:tabPaddingStart="-1dp"
+            app:tabPaddingTop="-1dp"
+            font:name="GOTHAM_BOLD"
+            font:tabTextColor="@color/white"
+            style="@style/MyTabLayoutTextAppearance"
+            android:elevation="2dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
 
         <View
             android:layout_width="match_parent"

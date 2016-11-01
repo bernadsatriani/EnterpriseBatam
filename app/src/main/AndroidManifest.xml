@@ -130,6 +130,11 @@
         <activity android:name=".disposisi.disposisi_detail"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
 
+        <activity android:name=".persuratan.persuratan_detail"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+
+        <activity android:name=".ListUserActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>

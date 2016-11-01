@@ -61,6 +61,8 @@ public class PDFViewActivityDisposisiDistribusi extends AppCompatActivity implem
         btnDistribusi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AppConstant.USER_DISTRI = "";
+                AppConstant.USER_CC = "";
                 Intent intent = new Intent(getBaseContext(), DistribusiActivity.class);
                 startActivity(intent);
             }

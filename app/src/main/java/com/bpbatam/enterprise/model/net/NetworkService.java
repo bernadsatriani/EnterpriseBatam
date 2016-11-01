@@ -8,6 +8,8 @@ import com.bpbatam.enterprise.model.BBS_LIST;
 import com.bpbatam.enterprise.model.BBS_List_ByCategory;
 import com.bpbatam.enterprise.model.DISPOSISI_Category;
 import com.bpbatam.enterprise.model.DataAdmin;
+import com.bpbatam.enterprise.model.Diposisi_List_Folder;
+import com.bpbatam.enterprise.model.Disposisi_Detail;
 import com.bpbatam.enterprise.model.Disposisi_Folder;
 import com.bpbatam.enterprise.model.GitHubUser;
 import com.bpbatam.enterprise.model.ListUser;
@@ -34,8 +36,6 @@ public interface NetworkService {
     @GET("group/{id}/users")
     Call<List<ApiGithub>> getGroupList(@Path("id") int groupId) ;
 
-    @GET("users/{user}")
-    Call<ListUser> getUserList(@Path("user") String user) ;
 
     @GET("users/{user}")
     Call<GitHubUser> getUser(@Path("user") String user);
@@ -67,6 +67,9 @@ public interface NetworkService {
     @POST("ep_api_services/ep_user/update_deviceid")
     Call<UpdateDeviceId> updateDeviceID(@Body UpdateDeviceId params);
 
+
+    @POST("ep_api_services/ep_user/search_user")
+    Call<ListUser> getListUser(@Body ListUser params);
 
     //PERSURATAN-------------------------------------------------------------------
     @POST("ep_api_services/ep_mail/get_folder")
@@ -104,5 +107,8 @@ public interface NetworkService {
     Call<Disposisi_Folder> getDisposisiFolder(@Body Disposisi_Folder params);
 
     @POST("ep_api_services/ep_dispo/get_dispo_list_by_folder")
-    Call<Persuratan_List_Folder> getDisposisiFolder(@Body Persuratan_List_Folder params);
+    Call<Diposisi_List_Folder> getDisposisiFolder(@Body Diposisi_List_Folder params);
+
+    @POST("ep_api_services/ep_dispo/get_dispo_detail")
+    Call<Disposisi_Detail> geDisposisiDetail(@Body Disposisi_Detail params);
 }

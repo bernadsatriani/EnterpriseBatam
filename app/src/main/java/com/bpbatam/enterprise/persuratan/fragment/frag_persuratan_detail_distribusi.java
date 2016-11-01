@@ -1,4 +1,4 @@
-package com.bpbatam.enterprise.disposisi.fragment;
+package com.bpbatam.enterprise.persuratan.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.disposisi.adapter.AdapterDisposisiDistribusi;
-import com.bpbatam.enterprise.disposisi.adapter.AdapterDisposisiTertanda;
 import com.bpbatam.enterprise.model.ListData;
 
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ import java.util.ArrayList;
 /**
  * Created by User on 10/1/2016.
  */
-public class frag_disposisi_detail_tertanda extends Fragment {
+public class frag_persuratan_detail_distribusi extends Fragment {
     RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private LinearLayoutManager mLayoutManager;
@@ -31,7 +30,7 @@ public class frag_disposisi_detail_tertanda extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_content_tertanda, container, false);
+        View view = inflater.inflate(R.layout.fragment_content, container, false);
         setHasOptionsMenu(true);
         return view;
     }
@@ -55,36 +54,31 @@ public class frag_disposisi_detail_tertanda extends Fragment {
         AryListData = new ArrayList<>();
 
         listData = new ListData();
-        listData.setAtr1("Departemen");
-        listData.setAtr2("Seksi Media dan Aplikasi (Staff)");
-        listData.setAtr3("External");
+        listData.setAtr1("Departemen (Posisi)");
+        listData.setAtr2("Finance");
         AryListData.add(listData);
 
         listData = new ListData();
         listData.setAtr1("Nama");
-        listData.setAtr2("Nurul Yuniarti");
-        listData.setAtr3("Unit IP");
+        listData.setAtr2("");
         AryListData.add(listData);
 
         listData = new ListData();
-        listData.setAtr1("Tipe Persetujuan");
-        listData.setAtr2("Persetujuan");
-        listData.setAtr3("Persetujuan");
+        listData.setAtr1("Terkirim");
+        listData.setAtr2("20 Sep 2016 | 15:30");
         AryListData.add(listData);
 
         listData = new ListData();
-        listData.setAtr1("Status Persetujuan");
-        listData.setAtr2("Disetujui");
-        listData.setAtr3("Ditolak");
+        listData.setAtr1("Dibaca");
+        listData.setAtr2("");
         AryListData.add(listData);
 
         listData = new ListData();
-        listData.setAtr1("Tanggal Persetujuan");
-        listData.setAtr2("21 Sep 2016 17:53");
-        listData.setAtr3("21 Sep 2016 17:53");
+        listData.setAtr1("Distributor");
+        listData.setAtr2("Unit IP");
         AryListData.add(listData);
 
-        mAdapter = new AdapterDisposisiTertanda(getContext(), AryListData);
+        mAdapter = new AdapterDisposisiDistribusi(getContext(), AryListData);
         mRecyclerView.setAdapter(mAdapter);
     }
 

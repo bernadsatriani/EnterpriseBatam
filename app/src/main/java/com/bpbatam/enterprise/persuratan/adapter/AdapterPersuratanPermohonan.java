@@ -19,6 +19,7 @@ import com.bpbatam.enterprise.model.Persuratan_Attachment;
 import com.bpbatam.enterprise.model.Persuratan_Detail;
 import com.bpbatam.enterprise.model.Persuratan_List_Folder;
 import com.bpbatam.enterprise.model.net.NetworkManager;
+import com.bpbatam.enterprise.persuratan.persuratan_detail;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -88,7 +89,7 @@ public class AdapterPersuratanPermohonan extends  RecyclerView.Adapter<AdapterPe
             @Override
             public void onClick(View v) {
                 AppConstant.EMAIL_ID = listData.mail_id;
-                Intent intent = new Intent(context, disposisi_detail.class);
+                Intent intent = new Intent(context, persuratan_detail.class);
                 v.getContext().startActivity(intent);
             }
         });

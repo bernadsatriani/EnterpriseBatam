@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bpbatam.AppConstant;
 import com.bpbatam.enterprise.R;
+import com.bpbatam.enterprise.model.Diposisi_List_Folder;
 import com.bpbatam.enterprise.model.ListData;
 import com.bpbatam.enterprise.model.Persuratan_List_Folder;
 
@@ -20,11 +21,11 @@ import java.util.ArrayList;
  * Created by User on 9/19/2016.
  */
 public class AdapterDisposisiDalamProses extends  RecyclerView.Adapter<AdapterDisposisiDalamProses.ViewHolder>{
-    Persuratan_List_Folder persuratanListFolder;
+    Diposisi_List_Folder persuratanListFolder;
 
     private Context context;
 
-    public AdapterDisposisiDalamProses(Context context, Persuratan_List_Folder persuratanListFolder, OnDownloadClicked listener) {
+    public AdapterDisposisiDalamProses(Context context, Diposisi_List_Folder persuratanListFolder, OnDownloadClicked listener) {
         this.context = context;
         this.persuratanListFolder = persuratanListFolder;
         this.listener = listener;
@@ -50,9 +51,9 @@ public class AdapterDisposisiDalamProses extends  RecyclerView.Adapter<AdapterDi
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final Persuratan_List_Folder.Datum listData = persuratanListFolder.data.get(position);
+        final Diposisi_List_Folder.Datum listData = persuratanListFolder.data.get(position);
         //Set text
-        holder.txtDate.setText(listData.mail_date);
+        holder.txtDate.setText(listData.dispo_date);
         holder.txtTime.setText(listData.read_date);
         holder.lbl_Attach.setText(listData.title);
         holder.lbl_Size.setText("");
@@ -73,7 +74,7 @@ public class AdapterDisposisiDalamProses extends  RecyclerView.Adapter<AdapterDi
             @Override
             public void onClick(View v) {
                 //https://www.dropbox.com/s/jadu92w71vnku3o/Wireframe.pdf?dl=0
-                AppConstant.EMAIL_ID = listData.mail_id;
+                AppConstant.EMAIL_ID = listData.dispo_id;
                 listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
             }
         });
@@ -100,7 +101,7 @@ public class AdapterDisposisiDalamProses extends  RecyclerView.Adapter<AdapterDi
         RelativeLayout btnDownload;
         ImageView imgStatus;
 
-        Persuratan_List_Folder.Datum listData;
+        Diposisi_List_Folder.Datum listData;
         public ViewHolder(View itemView,
                           Context context,
                           final AdapterDisposisiDalamProses mCourseAdapter) {

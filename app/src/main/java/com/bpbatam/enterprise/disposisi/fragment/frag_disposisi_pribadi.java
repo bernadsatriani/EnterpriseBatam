@@ -23,6 +23,7 @@ import com.bpbatam.enterprise.DistribusiActivity;
 import com.bpbatam.enterprise.PDFViewActivity_Distribusi;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.disposisi.adapter.AdapterDisposisiPribadi;
+import com.bpbatam.enterprise.model.Diposisi_List_Folder;
 import com.bpbatam.enterprise.model.ListData;
 import com.bpbatam.enterprise.model.Persuratan_List_Folder;
 import com.bpbatam.enterprise.model.net.NetworkManager;
@@ -63,7 +64,7 @@ public class frag_disposisi_pribadi extends Fragment {
 
     String statusPesan;
     LinearLayout layout_button, btnDistribusi, layoutKembali;
-    Persuratan_List_Folder persuratanListFolder;
+    Diposisi_List_Folder persuratanListFolder;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -171,19 +172,20 @@ public class frag_disposisi_pribadi extends Fragment {
             e.printStackTrace();
         }
 
-        Persuratan_List_Folder params = new Persuratan_List_Folder(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID, "DFPR","1","10");
+        Diposisi_List_Folder params = new Diposisi_List_Folder(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID, "DFPR","1","10");
         try{
-            Call<Persuratan_List_Folder> call = NetworkManager.getNetworkService(getActivity()).getDisposisiFolder(params);
-            call.enqueue(new Callback<Persuratan_List_Folder>() {
+            Call<Diposisi_List_Folder> call = NetworkManager.getNetworkService(getActivity()).getDisposisiFolder(params);
+            call.enqueue(new Callback<Diposisi_List_Folder>() {
                 @Override
-                public void onResponse(Call<Persuratan_List_Folder> call, Response<Persuratan_List_Folder> response) {
+                public void onResponse(Call<Diposisi_List_Folder> call, Response<Diposisi_List_Folder> response) {
                     int code = response.code();
                     persuratanListFolder = response.body();
                     if (code == 200){
                         if (persuratanListFolder.code.equals("00")){
+                            AppConstant.diposisiListFolder = persuratanListFolder;
                             int iIndex = 0;
                             if (statusPesan.equals(AppConstant.PILIH_PESAN) || statusPesan.equals(AppConstant.SEMUA_PESAN)){
-                                for (Persuratan_List_Folder.Datum dat : persuratanListFolder.data){
+                                for (Diposisi_List_Folder.Datum dat : persuratanListFolder.data){
                                     persuratanListFolder.data.get(iIndex).flag = statusPesan;
                                     iIndex += 1;
                                 }
@@ -194,7 +196,7 @@ public class frag_disposisi_pribadi extends Fragment {
                 }
 
                 @Override
-                public void onFailure(Call<Persuratan_List_Folder> call, Throwable t) {
+                public void onFailure(Call<Diposisi_List_Folder> call, Throwable t) {
 
                 }
             });
@@ -260,7 +262,7 @@ public class frag_disposisi_pribadi extends Fragment {
                     });
                 }else{
                     boolean bDone = false;
-                    for (Persuratan_List_Folder.Datum dat : persuratanListFolder.data){
+                    for (Diposisi_List_Folder.Datum dat : persuratanListFolder.data){
                         if (dat.flag.equals("2")){
                             bDone = true;
                             break;

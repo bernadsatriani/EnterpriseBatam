@@ -99,16 +99,18 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
         InitControl(view);
         iMin = 1;
         iMax = 10;
-        FillSpinner();
+//        FillSpinner();
         FillSpinnerCategory();
     }
 
     void InitControl(View v){
+        spnCategory = (Spinner)v.findViewById(R.id.spinner_caetogory);
+        /*
         txtJudul = (EditText)v.findViewById(R.id.text_judul);
         txtIsi = (EditText)v.findViewById(R.id.text_isi);
         spnBuletin = (Spinner)v.findViewById(R.id.spinner_buletinboard);
         spnStatus = (Spinner)v.findViewById(R.id.spinner_status);
-        spnCategory = (Spinner)v.findViewById(R.id.spinner_caetogory);
+
         imgCancel = (ImageView)v.findViewById(R.id.imageView12);
         imgSave = (ImageView)v.findViewById(R.id.imageView11);
         txtTulisPesan = (TextView)v.findViewById(R.id.text_tulis_pesan);
@@ -144,6 +146,7 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
                 layoutHeader.setVisibility(View.GONE);
             }
         });
+*/
 
         mRecyclerView = (RecyclerView)v.findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -408,7 +411,7 @@ public class Frag_bbs_daftar_pesanan extends Fragment {
                         adpGridView = new SimpleAdapter(getActivity(), lstGrid, R.layout.spinner_row_single,
                                 new String[] {"description"},
                                 new int[] {R.id.text_isi});
-                        spnBuletin.setAdapter(adpGridView);
+                        //spnBuletin.setAdapter(adpGridView);
                         spnCategory.setAdapter(adpGridView);
                         spnCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override

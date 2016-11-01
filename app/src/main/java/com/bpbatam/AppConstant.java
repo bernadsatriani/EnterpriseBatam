@@ -4,6 +4,9 @@ import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
 
+import com.bpbatam.enterprise.model.Diposisi_List_Folder;
+import com.bpbatam.enterprise.model.Persuratan_List_Folder;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -31,7 +34,7 @@ public final class AppConstant {
 	public static String IMEI ;
 	public static int EMAIL_ID ;
 	public static String POSITION_CHILD = "";
-
+	public static Diposisi_List_Folder diposisiListFolder;
 
 	public static String ACTIVITY_FROM;
 
@@ -51,4 +54,8 @@ public final class AppConstant {
 	public static String PDFVIEW_FROM;
 	public static String PDFVIEW_SOURCE;
 	public static String PDF_FILENAME;
+
+	public static boolean B_USER_DISITRI ;
+	public static String USER_DISTRI = "";
+	public static String USER_CC = "";
 }

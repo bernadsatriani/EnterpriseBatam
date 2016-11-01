@@ -2,7 +2,7 @@ package com.bpbatam.enterprise.model;
 
 import java.util.List;
 
-public class Persuratan_List_Folder {
+public class Diposisi_List_Folder {
     public String code ;
     public String info ;
     public List<Datum> data ;
@@ -36,13 +36,13 @@ public class Persuratan_List_Folder {
     public String dispo_origin;
     public String content;
 
-    public Persuratan_List_Folder(String hashid, String userid, String reqid, String password,
-                                  String dead_line, String dispo_num, String priority,
-                                  String retensi, String related_mail, String related_dispo,
-                                  String sender, String dispo_date, String mail_no, String mail_date,
-                                  String receive_date, String about, String receiver,
-                                  String dispositior, String dispo_category, String create_by,
-                                  String dispo_parent, String dispo_origin, String content) {
+    public Diposisi_List_Folder(String hashid, String userid, String reqid, String password,
+                                String dead_line, String dispo_num, String priority,
+                                String retensi, String related_mail, String related_dispo,
+                                String sender, String dispo_date, String mail_no, String mail_date,
+                                String receive_date, String about, String receiver,
+                                String dispositior, String dispo_category, String create_by,
+                                String dispo_parent, String dispo_origin, String content) {
         this.hashid = hashid;
         this.reqid = reqid;
         this.userid = userid;
@@ -68,15 +68,15 @@ public class Persuratan_List_Folder {
         this.content = content;
     }
 
-    public Persuratan_List_Folder(String hashid, String userid, String reqid, String mail_id) {
+    public Diposisi_List_Folder(String hashid, String userid, String reqid, String mail_id) {
         this.hashid = hashid;
         this.reqid = reqid;
         this.userid = userid;
         this.mail_id = mail_id;
     }
 
-    public Persuratan_List_Folder(String hashid, String userid, String reqid, String folder_code,
-                                  String min, String max) {
+    public Diposisi_List_Folder(String hashid, String userid, String reqid, String folder_code,
+                                String min, String max) {
         this.hashid = hashid;
         this.reqid = reqid;
         this.userid = userid;
@@ -87,15 +87,21 @@ public class Persuratan_List_Folder {
 
     public class Datum
     {
-        public int mail_id ;
+        public String dispo_loc ;
         public String title ;
-        public String folder_code ;
-        public String deadline ;
+        public String priority ;
         public String read_date ;
-        public String mail_date ;
-        public int approved_rule_id ;
+        public String dispo_cc ;
+        public String dead_line ;
+        public String attc_exist ;
+        public int dispo_id ;
+        public String read_time ;
+        public String dispo_date ;
+        public String dispo_by ;
+        public String name ;
+        public String category ;
+        public String dispo_num ;
         public String flag;
-
     }
 
 

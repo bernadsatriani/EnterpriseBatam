@@ -14,7 +14,9 @@ import com.bpbatam.AppConstant;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.disposisi.disposisi_detail;
 import com.bpbatam.enterprise.model.ListData;
+import com.bpbatam.enterprise.model.Persuratan_Detail;
 import com.bpbatam.enterprise.model.Persuratan_List_Folder;
+import com.bpbatam.enterprise.persuratan.persuratan_detail;
 
 import java.util.ArrayList;
 
@@ -77,7 +79,7 @@ public class AdapterPersuratanDalamProses extends  RecyclerView.Adapter<AdapterP
             @Override
             public void onClick(View v) {
                 AppConstant.EMAIL_ID = listData.mail_id;
-                Intent intent = new Intent(context, disposisi_detail.class);
+                Intent intent = new Intent(context, persuratan_detail.class);
                 v.getContext().startActivity(intent);
             }
         });

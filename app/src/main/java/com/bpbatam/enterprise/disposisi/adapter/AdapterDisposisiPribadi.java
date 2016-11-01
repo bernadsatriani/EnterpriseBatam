@@ -16,6 +16,7 @@ import com.bpbatam.enterprise.CC_Activity;
 import com.bpbatam.enterprise.DistribusiActivity;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.disposisi.disposisi_detail;
+import com.bpbatam.enterprise.model.Diposisi_List_Folder;
 import com.bpbatam.enterprise.model.ListData;
 import com.bpbatam.enterprise.model.Persuratan_List_Folder;
 import com.bpbatam.enterprise.persuratan.adapter.AdapterPersuratanUmum;
@@ -26,10 +27,10 @@ import java.util.ArrayList;
  * Created by User on 9/19/2016.
  */
 public class AdapterDisposisiPribadi extends  RecyclerView.Adapter<AdapterDisposisiPribadi.ViewHolder>{
-    Persuratan_List_Folder persuratanListFolder;
+    Diposisi_List_Folder persuratanListFolder;
     private Context context;
 
-    public AdapterDisposisiPribadi(Context context, Persuratan_List_Folder persuratanListFolder, OnDownloadClicked listener) {
+    public AdapterDisposisiPribadi(Context context, Diposisi_List_Folder persuratanListFolder, OnDownloadClicked listener) {
         this.context = context;
         this.persuratanListFolder = persuratanListFolder;
         this.listener = listener;
@@ -55,9 +56,9 @@ public class AdapterDisposisiPribadi extends  RecyclerView.Adapter<AdapterDispos
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        final Persuratan_List_Folder.Datum listData = persuratanListFolder.data.get(position);
+        final Diposisi_List_Folder.Datum listData = persuratanListFolder.data.get(position);
         //Set text
-        holder.txtDate.setText(listData.mail_date);
+        holder.txtDate.setText(listData.dispo_date);
         holder.txtTime.setText(listData.read_date);
         holder.lbl_Attach.setText(listData.title);
         holder.lbl_Size.setText("");
@@ -95,7 +96,7 @@ public class AdapterDisposisiPribadi extends  RecyclerView.Adapter<AdapterDispos
         holder.imgCC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppConstant.EMAIL_ID = listData.mail_id;
+                AppConstant.EMAIL_ID = listData.dispo_id;
                 Intent intent = new Intent(context, CC_Activity.class);
                 context.startActivity(intent);
             }
@@ -104,7 +105,7 @@ public class AdapterDisposisiPribadi extends  RecyclerView.Adapter<AdapterDispos
         holder.btnPrint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AppConstant.EMAIL_ID = listData.mail_id;
+                AppConstant.EMAIL_ID = listData.dispo_id;
                 Intent intent = new Intent(context, disposisi_detail.class);
                 v.getContext().startActivity(intent);
             }
@@ -159,7 +160,7 @@ public class AdapterDisposisiPribadi extends  RecyclerView.Adapter<AdapterDispos
         ImageView imgInfo,imgDownload;
         TextView textInfo, textDownload;
 
-        Persuratan_List_Folder.Datum listData;
+        Diposisi_List_Folder.Datum listData;
         public ViewHolder(View itemView,
                           Context context,
                           final AdapterDisposisiPribadi mCourseAdapter) {

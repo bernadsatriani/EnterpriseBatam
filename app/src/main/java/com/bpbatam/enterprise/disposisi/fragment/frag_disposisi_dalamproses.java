@@ -22,6 +22,7 @@ import com.bpbatam.enterprise.PDFViewActivity_Recall;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.disposisi.adapter.AdapterDisposisiDalamProses;
 import com.bpbatam.enterprise.disposisi.adapter.AdapterDisposisiRiwayat;
+import com.bpbatam.enterprise.model.Diposisi_List_Folder;
 import com.bpbatam.enterprise.model.ListData;
 import com.bpbatam.enterprise.model.Persuratan_List_Folder;
 import com.bpbatam.enterprise.model.net.NetworkManager;
@@ -51,7 +52,7 @@ public class frag_disposisi_dalamproses extends Fragment {
 
     ImageView imgMenu;
     TextView txtLabel;
-    Persuratan_List_Folder persuratanListFolder;
+    Diposisi_List_Folder persuratanListFolder;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -89,12 +90,12 @@ public class frag_disposisi_dalamproses extends Fragment {
             e.printStackTrace();
         }
 
-        Persuratan_List_Folder params = new Persuratan_List_Folder(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID, "DDPR","1","10");
+        Diposisi_List_Folder params = new Diposisi_List_Folder(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID, "DDPR","1","10");
         try{
-            Call<Persuratan_List_Folder> call = NetworkManager.getNetworkService(getActivity()).getDisposisiFolder(params);
-            call.enqueue(new Callback<Persuratan_List_Folder>() {
+            Call<Diposisi_List_Folder> call = NetworkManager.getNetworkService(getActivity()).getDisposisiFolder(params);
+            call.enqueue(new Callback<Diposisi_List_Folder>() {
                 @Override
-                public void onResponse(Call<Persuratan_List_Folder> call, Response<Persuratan_List_Folder> response) {
+                public void onResponse(Call<Diposisi_List_Folder> call, Response<Diposisi_List_Folder> response) {
                     int code = response.code();
                     persuratanListFolder = response.body();
                     if (code == 200){
@@ -105,7 +106,7 @@ public class frag_disposisi_dalamproses extends Fragment {
                 }
 
                 @Override
-                public void onFailure(Call<Persuratan_List_Folder> call, Throwable t) {
+                public void onFailure(Call<Diposisi_List_Folder> call, Throwable t) {
 
                 }
             });

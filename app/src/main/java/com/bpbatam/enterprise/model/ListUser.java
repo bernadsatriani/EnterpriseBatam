@@ -1,46 +1,33 @@
 package com.bpbatam.enterprise.model;
 
+import java.util.List;
+
 /**
  * Created by User on 20/07/2016.
  */
 public class ListUser {
 
-    public class Results{
-        public String login;
-        public String name;
+    public String code ;
+    public List<Datum> data ;
+
+    public String hashid;
+    public String userid;
+    public String reqid;
+    public String keyword;
+
+    public ListUser(String hashid, String userid, String reqid, String keyword) {
+        this.hashid = hashid;
+        this.reqid = reqid;
+        this.userid = userid;
+        this.keyword = keyword;
     }
 
-    public class Links
+    public class Datum
     {
-        public String self ;
-        public String prev ;
-        public String next ;
-        public String first ;
-        public String last ;
+        public String id_jabatan ;
+        public String user_id ;
+        public String user_name ;
+        public String nama_jabatan ;
     }
-
-    public class Meta
-    {
-        public double benchmark ;
-        public int current_page ;
-        public int total_page ;
-        public int limit ;
-        public int total_row ;
-    }
-
-    public class Server
-    {
-        public String REQUEST_METHOD ;
-        public String CONTENT_TYPE ;
-        public String REMOTE_ADDR ;
-        public String HTTP_USER_AGENT ;
-    }
-
-    public Messages messages ;
-    public Results results ;
-    public Meta _meta ;
-    public Server _server ;
-    public Links _links ;
-    public String language ;
 
 }
