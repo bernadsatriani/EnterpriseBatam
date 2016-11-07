@@ -14,6 +14,16 @@
        Base application theme, dependent on API level. This theme is replaced
        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
    -->
+    <style name="Base.Widget.Design.TabLayout.Tebal" parent="android:Widget">
+        <item name="tabIndicatorColor">?attr/colorAccent</item>
+        <item name="tabIndicatorHeight">2dp</item>
+        <item name="tabPaddingStart">12dp</item>
+        <item name="tabPaddingEnd">12dp</item>
+        <item name="tabBackground">?attr/selectableItemBackground</item>
+        <item name="tabTextAppearance">@style/AppTheme.TextAppearance.Design.Tab</item>
+        <item name="tabSelectedTextColor">@color/white</item>
+    </style>
+
     <style name="Base.Widget.Design.TabLayout" parent="android:Widget">
         <item name="tabIndicatorColor">?attr/colorAccent</item>
         <item name="tabIndicatorHeight">2dp</item>
@@ -32,6 +42,8 @@
     <style name="MyTabLayoutTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
         <item name="android:textSize">10sp</item>
         <item name="android:textAllCaps">true</item>
+        <item name="tabSelectedTextColor">@color/white</item>
+        <item name="tabIndicatorHeight">5dp</item>
     </style>
 
     <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">

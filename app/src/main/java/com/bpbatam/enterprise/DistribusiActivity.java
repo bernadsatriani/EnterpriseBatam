@@ -15,9 +15,17 @@ import android.widget.TextView;
 
 import com.bpbatam.AppConstant;
 import com.bpbatam.AppController;
+import com.bpbatam.enterprise.disposisi.adapter.AdapterDisposisiDistribusi;
 import com.bpbatam.enterprise.model.Diposisi_List_Folder;
+import com.bpbatam.enterprise.model.Disposisi_Detail;
+import com.bpbatam.enterprise.model.ListData;
+import com.bpbatam.enterprise.model.net.NetworkManager;
 
 import java.security.NoSuchAlgorithmException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by User on 10/3/2016.
@@ -32,6 +40,15 @@ public class DistribusiActivity extends AppCompatActivity {
     ImageView imgDistri, imgCC;
 
     Diposisi_List_Folder diposisiListFolder;
+    Disposisi_Detail disposisiDetail;
+
+    String dead_line,  dispo_num,  priority,
+            retensi,  related_mail,  related_dispo,
+            sender,  dispo_date,  mail_no,  mail_date,
+            receive_date,  about,  receiver,
+            dispositior,  dispo_category,  create_by,
+            dispo_parent,  dispo_origin,  content, dispo_dist, dispo_cc;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +76,7 @@ public class DistribusiActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (ValidateInnput()){
-                    SendDiposisi();
+                    getDispoDetail();
                     finish();
                 }
 
@@ -95,13 +112,13 @@ public class DistribusiActivity extends AppCompatActivity {
 
     boolean ValidateInnput(){
         boolean sReturn = true;
-        String sDistri = txtDistribusi.getText().toString().trim();
-        String sCC = txtCC.getText().toString().trim();
+        dispo_dist = txtDistribusi.getText().toString().trim();
+        dispo_cc= txtCC.getText().toString().trim();
 
-        if (sDistri.equals("")){
+        if (dispo_dist.equals("")){
             AppController.getInstance().CustomeDialog(getBaseContext(),"Data distribusi belum diisi");
             sReturn = false;
-        }else if (sCC.equals("")){
+        }else if (dispo_cc.equals("")){
             AppController.getInstance().CustomeDialog(getBaseContext(),"Data distribusi belum diisi");
             sReturn = false;
         }
@@ -120,46 +137,112 @@ public class DistribusiActivity extends AppCompatActivity {
 
 
         try {
-
-
-            String dead_line,  dispo_num,  priority,
-                    retensi,  related_mail,  related_dispo,
-                    sender,  dispo_date,  mail_no,  mail_date,
-                    receive_date,  about,  receiver,
-                    dispositior,  dispo_category,  create_by,
-                    dispo_parent,  dispo_origin,  content;
-
             content = txtPesan.getText().toString().trim();
 
             for (Diposisi_List_Folder.Datum dat : AppConstant.diposisiListFolder.data){
                 dead_line = dat.dead_line;
                 dispo_num = dat.dispo_num;
                 priority = dat.priority;
-                //retensi = dat.re
-                //related_mail = dat.re
-                //related_dispo = dat.re
-                //mail_no = dat.m
-                //mail_date = dat.m
-                //receive_date = dat.r
-                //about = dat.a
-                //receiver = dat.receiver
-                //dispositior = dat.dispositior
-                //dispo_category = dat.dispo_category
-                //create_by = dat.create_by
-                //dispo_parent = dat.dispo_parent
-                //dispo_origin = dat.dispo_origin
-
+                dispo_category = dat.category;
             }
 
-
-            /*Diposisi_List_Folder param = new Diposisi_List_Folder(AppConstant.HASHID,
+            Diposisi_List_Folder param = new Diposisi_List_Folder(AppConstant.HASHID,
                     AppConstant.USER,
                     AppConstant.REQID,
-                    sPassword,*/
+                    sPassword,
+                    dead_line,
+                    dispo_num,
+                    priority,
+                    retensi,
+                    related_mail,
+                    related_dispo,
+                    sender,
+                    dispo_date,
+                    mail_no,
+                    mail_date,
+                    receive_date,
+                    about,
+                    receiver,
+                    dispositior,
+                    dispo_category,
+                    create_by,
+                    dispo_parent,
+                    dispo_origin,
+                    content,
+                    dispo_dist,
+                    dispo_cc);
+
+            Call<Diposisi_List_Folder> call = NetworkManager.getNetworkService(this).postSendDisposisi(param);
+            call.enqueue(new Callback<Diposisi_List_Folder>() {
+                @Override
+                public void onResponse(Call<Diposisi_List_Folder> call, Response<Diposisi_List_Folder> response) {
+                    int code = response.code();
+                    if (code == 200){
+                        diposisiListFolder = response.body();
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<Diposisi_List_Folder> call, Throwable t) {
+
+                }
+            });
         }catch (Exception e){
 
         }
 
+    }
+
+    void getDispoDetail(){
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        Disposisi_Detail params = new Disposisi_Detail(AppConstant.HASHID,
+                AppConstant.USER,
+                AppConstant.REQID,
+                Integer.toString(AppConstant.EMAIL_ID));
+
+        try{
+            Call<Disposisi_Detail> call = NetworkManager.getNetworkService(this).getDisposisiDetail(params);
+            call.enqueue(new Callback<Disposisi_Detail>() {
+                @Override
+                public void onResponse(Call<Disposisi_Detail> call, Response<Disposisi_Detail> response) {
+                    int code = response.code();
+                    disposisiDetail = response.body();
+                    if (code == 200){
+                        if (disposisiDetail.code.equals("00")){
+                            for(Disposisi_Detail.Datum dat : disposisiDetail.data){
+                                retensi = dat.retensi;
+                                related_mail = dat.related_mail;
+                                related_dispo = dat.related_dispo;
+                                mail_no = dat.mail_no;
+                                mail_date = dat.mail_date;
+                                receive_date = dat.receive_date;
+                                about = dat.about;
+                                receiver = dat.receiver;
+                                dispositior = dat.dispositior;
+                                create_by = dat.create_by;
+                                dispo_parent = Integer.toString(dat.dispo_parent);
+                                dispo_origin = Integer.toString(dat.dispo_origin);
+                            }
+
+                            SendDiposisi();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Disposisi_Detail> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+
+        }
     }
 
     @Override

@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,16 +15,17 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.bpbatam.enterprise.FragmentLifecycle;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.adapter.ViewPagerAdapterHome;
 
 /**
  * Created by User on 10/3/2016.
  */
-public class Frag_Beranda extends Fragment {
+public class Frag_Beranda extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
 
     ImageView imgBSS, imgPERSURATAN, imgDISPOSISI;
-    FrameLayout frameBBS, framePersuratan;
+    FrameLayout frameBBS, framePersuratan, frmDisposisi;
     LinearLayout layoutDisposisiDetail, layoutBBS, layoutPERSURATAN, layoutDISPOSISI;
 
     boolean stsBBS, stsPERSURATAN, stsDISPOSISI;
@@ -32,16 +34,14 @@ public class Frag_Beranda extends Fragment {
     CharSequence Titles[]={"Detail","Riwayat"};
     int Numboftabs =2;
 
-    ViewPager pager;
-    ViewPagerAdapterHome adapter;
-    TabLayout tabs;
     Fragment fragment;
+    SwipeRefreshLayout swipeRefreshLayout;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_beranda, container, false);
-
         return view;
     }
 
@@ -58,29 +58,17 @@ public class Frag_Beranda extends Fragment {
     }
 
     void InitControl(View v){
+        swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_layout);
         layoutBBS = (LinearLayout)v.findViewById(R.id.layout_bbs);
         layoutPERSURATAN = (LinearLayout)v.findViewById(R.id.layout_persuratan);
         layoutDISPOSISI = (LinearLayout)v.findViewById(R.id.layout_disposisi);
 
-
-        layoutDisposisiDetail = (LinearLayout)v.findViewById(R.id.layout_disposisi_detail);
         imgBSS = (ImageView)v.findViewById(R.id.imgplus_bbs);
         imgPERSURATAN = (ImageView)v.findViewById(R.id.imgplus_persuratan);
         imgDISPOSISI = (ImageView)v.findViewById(R.id.imgplus_disposisi);
         frameBBS = (FrameLayout)v.findViewById(R.id.frame_bbs);
         framePersuratan = (FrameLayout)v.findViewById(R.id.frame_persuratan);
-        pager = (ViewPager)v.findViewById(R.id.pager);
-        tabs = (TabLayout)v.findViewById(R.id.tabs);
-
-        tabs.setSelectedTabIndicatorColor(getActivity().getResources().getColor(R.color.black));
-        adapter =  new ViewPagerAdapterHome(getFragmentManager(),Titles,Numboftabs);
-
-        // Assigning ViewPager View and setting the adapter
-        pager.setAdapter(adapter);
-
-        //tabs.setSelectedTabIndicatorColor(v.getResources().getColor(R.color.black));
-
-        tabs.setupWithViewPager(pager);
+        frmDisposisi = (FrameLayout)v.findViewById(R.id.frame_diposisi);
 
         layoutBBS.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,6 +105,11 @@ public class Frag_Beranda extends Fragment {
                 FillFormDisposisi();
             }
         });
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setColorSchemeColors(getActivity().getResources().getColor(R.color.colorSearch),
+                getActivity().getResources().getColor(R.color.Green),
+                getActivity().getResources().getColor(R.color.b7_orange),
+                getActivity().getResources().getColor(R.color.red));
     }
 
     void FillFormBBS(){
@@ -162,13 +155,33 @@ public class Frag_Beranda extends Fragment {
     void FillFormDisposisi(){
         if (stsDISPOSISI){
             imgDISPOSISI.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.minus));
-            layoutDisposisiDetail.setVisibility(View.VISIBLE);
+            frmDisposisi.setVisibility(View.VISIBLE);
         }else{
             imgDISPOSISI.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.plus));
-            layoutDisposisiDetail.setVisibility(View.GONE);
+            frmDisposisi.setVisibility(View.GONE);
         }
 
+        fragment = null;
+        fragment = new Frag_Beranda_DISPOSISI_riwayat();
+
+        if (fragment != null) {
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.frame_diposisi, fragment);
+            fragmentTransaction.commit();
+        }
 
     }
 
+    @Override
+    public void onRefresh() {
+        stsBBS = true;
+        stsPERSURATAN = false;
+        stsDISPOSISI = false;
+
+        FillFormBBS();
+        FillFormPersuratan();
+        FillFormDisposisi();
+        swipeRefreshLayout.setRefreshing(false);
+    }
 }

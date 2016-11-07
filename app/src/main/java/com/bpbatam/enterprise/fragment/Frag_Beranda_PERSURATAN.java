@@ -14,11 +14,13 @@ import android.widget.RelativeLayout;
 
 import com.ayz4sci.androidfactory.DownloadProgressView;
 import com.bpbatam.AppConstant;
+import com.bpbatam.AppController;
 import com.bpbatam.enterprise.PDFViewActivity_Distribusi;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.adapter.AdapterBerandaPersuratan;
 import com.bpbatam.enterprise.model.ListData;
 
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -86,11 +88,17 @@ public class Frag_Beranda_PERSURATAN extends Fragment {
                 rLayoutDownload.setVisibility(View.VISIBLE);
 
                 DownloadManager.Request request = new DownloadManager.Request(Uri.parse(sUrl));
-                request.setTitle("TITLE");
+                AppConstant.PDF_FILENAME = AppController.getInstance().getFileName(sUrl);
+                request.setTitle(AppConstant.PDF_FILENAME);
+
                 request.setDescription("DESCRIPTION");
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                request.setDestinationInExternalPublicDir(AppConstant.FOLDER_DOWNLOAD, "DOWNLOAD_FILE_NAME.pdf");
-                request.allowScanningByMediaScanner();
+                // request.setDestinationInExternalPublicDir(AppConstant.FOLDER_DOWNLOAD, "DOWNLOAD_FILE_NAME.pdf");
+
+                File root = new File(AppConstant.STORAGE_CARD + "/Download/");
+                Uri path = Uri.withAppendedPath(Uri.fromFile(root), AppConstant.PDF_FILENAME);
+                request.setDestinationUri(path);
+
                 downloadID = downloadManager.enqueue(request);
 
                 downloadProgressView.show(downloadID, new DownloadProgressView.DownloadStatusListener() {
@@ -106,7 +114,6 @@ public class Frag_Beranda_PERSURATAN extends Fragment {
                         //Action to perform on success
                         mRecyclerView.setVisibility(View.VISIBLE);
                         rLayoutDownload.setVisibility(View.GONE);
-                        AppConstant.PDF_FILENAME = "DOWNLOAD_FILE_NAME.pdf";
                         Intent intent = new Intent (getActivity(), PDFViewActivity_Distribusi.class);
                         getActivity().startActivity(intent);
 

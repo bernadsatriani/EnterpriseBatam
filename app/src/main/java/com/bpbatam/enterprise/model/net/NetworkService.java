@@ -23,10 +23,14 @@ import com.bpbatam.enterprise.model.UpdateDeviceId;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 /**
@@ -60,6 +64,22 @@ public interface NetworkService {
 
     @POST("ep_api_services/ep_bbs/insert")
     Call<BBS_Insert> postBBSInsert(@Body BBS_Insert params);
+
+    @POST("ep_api_services/ep_bbs/update_bbs")
+    Call<BBS_Insert> postBBSUpdate(@Body BBS_Insert params);
+
+    @Multipart
+    @POST("portal/upload.php")
+    Call<BBS_Insert> postBBSInsertAttachmentOnly(@Part("user_id") RequestBody user_id,
+                                                 @Part("id") RequestBody id,
+                                                 @Part("fileKey") RequestBody file_key,
+                                                 @Part MultipartBody.Part file);
+
+    @POST("ep_api_services/ep_bbs/delete")
+    Call<BBS_Insert> postBBSDelete(@Body BBS_Insert params);
+
+    @POST("ep_api_services/ep_bbs/delete_attachment")
+    Call<BBS_Insert> postBBSDeleteAttachment(@Body BBS_Insert params);
 
     @POST("ep_api_services/ep_bbs/get_category")
     Call<BBS_CATEGORY> getBBS_Category(@Body BBS_CATEGORY params);
@@ -110,5 +130,11 @@ public interface NetworkService {
     Call<Diposisi_List_Folder> getDisposisiFolder(@Body Diposisi_List_Folder params);
 
     @POST("ep_api_services/ep_dispo/get_dispo_detail")
-    Call<Disposisi_Detail> geDisposisiDetail(@Body Disposisi_Detail params);
+    Call<Disposisi_Detail> getDisposisiDetail(@Body Disposisi_Detail params);
+
+
+    @POST("ep_api_services/ep_dispo/send_dispo_new")
+    Call<Diposisi_List_Folder> postSendDisposisi(@Body Diposisi_List_Folder params);
+
+
 }

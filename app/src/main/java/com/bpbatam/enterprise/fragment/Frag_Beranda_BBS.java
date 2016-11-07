@@ -16,12 +16,14 @@ import android.widget.Toast;
 import com.ayz4sci.androidfactory.DownloadProgressView;
 import com.bpbatam.AppConstant;
 import com.bpbatam.AppController;
+import com.bpbatam.enterprise.PDFViewActivity;
 import com.bpbatam.enterprise.PDFViewActivity_Edit;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.adapter.AdapterBBSDaftarPesanan_Beranda;
 import com.bpbatam.enterprise.model.BBS_LIST;
 import com.bpbatam.enterprise.model.ListData;
 import com.bpbatam.enterprise.model.net.NetworkManager;
+import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
 
 import java.io.File;
 import java.security.NoSuchAlgorithmException;
@@ -55,7 +57,7 @@ public class Frag_Beranda_BBS extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_bbs_semuapesanan, container, false);
+        View view = inflater.inflate(R.layout.fragment_bbs_beranda, container, false);
         setHasOptionsMenu(true);
         return view;
     }
@@ -144,25 +146,30 @@ public class Frag_Beranda_BBS extends Fragment {
         mAdapter = new AdapterBBSDaftarPesanan_Beranda(getActivity(), bbs_list, new AdapterBBSDaftarPesanan_Beranda.OnDownloadClicked() {
             @Override
             public void OnDownloadClicked(final String sUrl, boolean bStatus) {
-                mRecyclerView.setVisibility(View.GONE);
-                rLayoutDownload.setVisibility(View.VISIBLE);
-
-
                 DownloadManager.Request request = new DownloadManager.Request(Uri.parse(sUrl));
-                request.setTitle("TITLE");
-                request.setDescription("DESCRIPTION");
-                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-               // request.setDestinationInExternalPublicDir(AppConstant.FOLDER_DOWNLOAD, "DOWNLOAD_FILE_NAME.pdf");
+                AppConstant.PDF_FILENAME = AppController.getInstance().getFileName(sUrl);
+                File file = new File(AppConstant.STORAGE_CARD + "/Download/" + AppConstant.PDF_FILENAME);
+                if (file.exists()){
+                    Intent intent = new Intent(getActivity(), PDFViewActivity.class);
+                    getActivity().startActivity(intent);
+                }else{
+                    mRecyclerView.setVisibility(View.GONE);
+                    rLayoutDownload.setVisibility(View.VISIBLE);
 
-                File root = new File(AppConstant.STORAGE_CARD + "/Download/");
-                Uri path = Uri.withAppendedPath(Uri.fromFile(root), "DOWNLOAD_FILE_NAME.pdf");
-                request.setDestinationUri(path);
+                    request.setTitle(AppConstant.PDF_FILENAME);
 
-                //request.setDestinationInExternalFilesDir(getActivity() ,"", "DOWNLOAD_FILE_NAME.pdf");
-                request.allowScanningByMediaScanner();
+                    request.setDescription("DESCRIPTION");
+                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                    // request.setDestinationInExternalPublicDir(AppConstant.FOLDER_DOWNLOAD, "DOWNLOAD_FILE_NAME.pdf");
+
+                    File root = new File(AppConstant.STORAGE_CARD + "/Download/");
+                    Uri path = Uri.withAppendedPath(Uri.fromFile(root), AppConstant.PDF_FILENAME);
+                    request.setDestinationUri(path);
+
+                    downloadID = downloadManager.enqueue(request);
+                }
 
 
-                downloadID = downloadManager.enqueue(request);
 
                 downloadProgressView.show(downloadID, new DownloadProgressView.DownloadStatusListener() {
                     @Override
@@ -177,8 +184,7 @@ public class Frag_Beranda_BBS extends Fragment {
                         //Action to perform on success
                         mRecyclerView.setVisibility(View.VISIBLE);
                         rLayoutDownload.setVisibility(View.GONE);
-                        AppConstant.PDF_FILENAME = "DOWNLOAD_FILE_NAME.pdf";
-                        Intent intent = new Intent(getActivity(), PDFViewActivity_Edit.class);
+                        Intent intent = new Intent(getActivity(), PDFViewActivity.class);
                         getActivity().startActivity(intent);
 
                     }

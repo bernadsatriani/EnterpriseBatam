@@ -20,6 +20,7 @@ import com.squareup.picasso.Picasso;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -204,5 +205,19 @@ public class AppController extends Application {
         });
 
         dialog.show();
+    }
+
+    public String getFileName(String sPath){
+        String sResult;
+        sResult = sPath.substring(sPath.lastIndexOf('/') + 1);
+        return sResult;
+    }
+
+    public String getFileSize(double lengthFile){
+        String sResult;
+        DecimalFormat precision = new DecimalFormat("0.00");
+        double dFileSize = lengthFile / 1024;
+        sResult = "(" + precision.format(dFileSize) + " kb)";
+        return sResult;
     }
 }

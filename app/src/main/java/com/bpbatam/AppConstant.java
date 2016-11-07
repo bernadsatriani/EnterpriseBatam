@@ -34,12 +34,14 @@ public final class AppConstant {
 	public static String IMEI ;
 	public static int EMAIL_ID ;
 	public static String POSITION_CHILD = "";
+	public static String BBS_LINK = "";
 	public static Diposisi_List_Folder diposisiListFolder;
 
 	public static String ACTIVITY_FROM;
 
 
 	public static final String DOMAIN_URL = "http://182.253.221.109:44311";
+	public static final String DOMAIN_URL_UPLOAD = "http://demo.ipnetsoft.com";
 	public final static String API_VERSION = "/";
 
 	public static JSONArray gPostJson;

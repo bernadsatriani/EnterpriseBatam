@@ -135,6 +135,9 @@
 
         <activity android:name=".ListUserActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+
+        <activity android:name=".bbs.BBS_edit_berita"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>

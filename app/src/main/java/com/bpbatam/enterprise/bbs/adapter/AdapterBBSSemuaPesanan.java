@@ -1,6 +1,7 @@
 package com.bpbatam.enterprise.bbs.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,10 +10,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bpbatam.AppConstant;
 import com.bpbatam.enterprise.R;
+import com.bpbatam.enterprise.bbs.BBS_edit_berita;
 import com.bpbatam.enterprise.model.BBS_LIST;
 import com.bpbatam.enterprise.model.ListData;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,20 +52,26 @@ public class AdapterBBSSemuaPesanan extends  RecyclerView.Adapter<AdapterBBSSemu
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        List<BBS_LIST.Datum> listData = bbs_list.data;
+    public void onBindViewHolder(final ViewHolder holder, int position) {
+        final BBS_LIST.Datum listData = bbs_list.data.get(position);
         //Set text
-        holder.txtDate.setText(listData.get(position).bbs_date);
-        holder.lbl_Attach.setText(listData.get(position).title);
-        holder.lbl_Judul.setText(listData.get(position).title);
-        holder.lbl_Isi.setText(listData.get(position).content);
+        holder.txtDate.setText(listData.bbs_date);
+        holder.lbl_Attach.setText(listData.title);
+        holder.lbl_Judul.setText(listData.title);
+        //holder.lbl_Isi.setText(listData.content);
 
         holder.lbl_Size.setText("");
 
+        DecimalFormat precision = new DecimalFormat("0.00");
+        holder.btnDokumen.setVisibility(View.GONE);
         try{
-            if (listData.get(position).attc_data.size() > 0){
-                for(BBS_LIST.AttcData dat : listData.get(position).attc_data){
-                    holder.lbl_Size.setText("(" + dat.file_size + " mb) " + dat.file_type);
+            if (listData.attc_data.size() > 0){
+                for(BBS_LIST.AttcData dat : listData.attc_data){
+                    String fileName = dat.attc_link.substring(dat.attc_link.lastIndexOf('/') + 1);
+                    double dFileSize = Double.parseDouble(dat.file_size) / 1024;
+                    holder.lbl_Attach.setText(fileName);
+                    holder.lbl_Size.setText("(" + precision.format(dFileSize) + " kb)" );
+                    holder.btnDokumen.setVisibility(View.VISIBLE);
                 }
             }
         }catch (Exception e){
@@ -72,6 +82,40 @@ public class AdapterBBSSemuaPesanan extends  RecyclerView.Adapter<AdapterBBSSemu
 
         //AppController.getInstance().displayImage(context,listData.getAtr3(), holder.imgCover);
 
+        holder.btnDokumen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppConstant.EMAIL_ID = listData.bbs_id;
+                try{
+                    AppConstant.BBS_LINK = listData.attc_data.get(0).attc_link;
+                    listener.OnDownloadClicked(listData.attc_data.get(0).attc_link, true);
+                }catch (Exception e){
+                    AppConstant.BBS_LINK = "";
+                    listener.OnDownloadClicked("", false);
+                }
+
+            }
+        });
+
+        holder.btnDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppConstant.EMAIL_ID = listData.bbs_id;
+                try{
+                    AppConstant.BBS_LINK = listData.attc_data.get(0).attc_link;
+                }catch (Exception e){
+                    AppConstant.BBS_LINK = "";
+                }
+                Intent mIntent = new Intent(context, BBS_edit_berita.class);
+                mIntent.putExtra("BBS_NAME", listData.name);
+                mIntent.putExtra("BBS_SIZE", holder.lbl_Size.getText().toString());
+                mIntent.putExtra("BBS_JUDUL", listData.title);
+                mIntent.putExtra("BBS_ISI", listData.content);
+                mIntent.putExtra("BBS_DATE", listData.bbs_date);
+                mIntent.putExtra("BBS_READ", listData.read_sts);
+                context.startActivity(mIntent);
+            }
+        });
         holder.listData = listData;
     }
 
@@ -87,12 +131,11 @@ public class AdapterBBSSemuaPesanan extends  RecyclerView.Adapter<AdapterBBSSemu
                 txtStatus,
                 lbl_Attach,
                 lbl_Size,
-                lbl_Judul,
-                lbl_Isi
+                lbl_Judul
         ;
         ImageView imgStatus;
-        RelativeLayout btnDownload;
-        List<BBS_LIST.Datum> listData;
+        RelativeLayout btnDownload, btnDokumen;
+        BBS_LIST.Datum listData;
         public ViewHolder(View itemView,
                           final Context context,
                           final AdapterBBSSemuaPesanan mCourseAdapter) {
@@ -103,16 +146,17 @@ public class AdapterBBSSemuaPesanan extends  RecyclerView.Adapter<AdapterBBSSemu
             lbl_Attach = (TextView)itemView.findViewById(R.id.lbl_attach);
             lbl_Size = (TextView)itemView.findViewById(R.id.lbl_size);
             lbl_Judul = (TextView)itemView.findViewById(R.id.lbl_Judul);
-            lbl_Isi = (TextView)itemView.findViewById(R.id.lbl_Isi);
+            //lbl_Isi = (TextView)itemView.findViewById(R.id.lbl_Isi);
             btnDownload = (RelativeLayout) itemView.findViewById(R.id.btnDownload);
+            btnDokumen = (RelativeLayout) itemView.findViewById(R.id.layout_dokumen);
 
-            btnDownload.setOnClickListener(new View.OnClickListener() {
+            /*btnDownload.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //https://www.dropbox.com/s/jadu92w71vnku3o/Wireframe.pdf?dl=0
                     listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
                 }
-            });
+            });*/
 
 
         }

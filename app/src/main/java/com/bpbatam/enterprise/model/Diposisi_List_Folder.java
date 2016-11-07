@@ -34,6 +34,8 @@ public class Diposisi_List_Folder {
     public String create_by;
     public String dispo_parent;
     public String dispo_origin;
+    public String dispo_dist;
+    public String dispo_cc;
     public String content;
 
     public Diposisi_List_Folder(String hashid, String userid, String reqid, String password,
@@ -42,7 +44,8 @@ public class Diposisi_List_Folder {
                                 String sender, String dispo_date, String mail_no, String mail_date,
                                 String receive_date, String about, String receiver,
                                 String dispositior, String dispo_category, String create_by,
-                                String dispo_parent, String dispo_origin, String content) {
+                                String dispo_parent, String dispo_origin, String content, String dispo_dist,
+                                String dispo_cc) {
         this.hashid = hashid;
         this.reqid = reqid;
         this.userid = userid;
@@ -66,6 +69,8 @@ public class Diposisi_List_Folder {
         this.dispo_parent = dispo_parent;
         this.dispo_origin = dispo_origin;
         this.content = content;
+        this.dispo_dist = dispo_dist;
+        this.dispo_cc = dispo_cc;
     }
 
     public Diposisi_List_Folder(String hashid, String userid, String reqid, String mail_id) {

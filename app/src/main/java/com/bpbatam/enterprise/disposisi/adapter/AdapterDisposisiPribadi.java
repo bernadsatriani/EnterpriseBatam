@@ -111,6 +111,15 @@ public class AdapterDisposisiPribadi extends  RecyclerView.Adapter<AdapterDispos
             }
         });
 
+        holder.btnDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppConstant.EMAIL_ID = listData.dispo_id;
+                //https://www.dropbox.com/s/jadu92w71vnku3o/Wireframe.pdf?dl=0
+                listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
+            }
+        });
+
         holder.listData = listData;
     }
 
@@ -182,13 +191,7 @@ public class AdapterDisposisiPribadi extends  RecyclerView.Adapter<AdapterDispos
             imgCC = (ImageView)itemView.findViewById(R.id.imageView5);
             imgChecklist = (ImageView)itemView.findViewById(R.id.imageView15);
 
-            btnDownload.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //https://www.dropbox.com/s/jadu92w71vnku3o/Wireframe.pdf?dl=0
-                    listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
-                }
-            });
+
         }
 
         @Override

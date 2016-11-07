@@ -1,6 +1,10 @@
 package com.bpbatam.enterprise.fragment;
 
+import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -8,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -30,10 +35,17 @@ import com.bpbatam.enterprise.persuratan.adapter.ViewPagerAdapterPersuratanPermo
 
 import org.json.JSONObject;
 
+import java.io.File;
 import java.security.NoSuchAlgorithmException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -43,7 +55,8 @@ import retrofit2.Response;
  */
 public class frag_bbs extends Fragment {
 
-    ImageView imgMenu;
+    int CODE_FILE = 45;
+    ImageView imgMenu, imgDelete;
     CharSequence Titles[]={"Daftar Pesan","Semua Pesan"};
     int Numboftabs =2;
 
@@ -51,8 +64,8 @@ public class frag_bbs extends Fragment {
     ViewPagerAdapterBBS adapter;
     TabLayout tabs;
 
-    TextView txtTulisPesan, text_publikasi;
-    RelativeLayout layoutHeader;
+    TextView txtTulisPesan, text_publikasi, txtFileName, txtSize;
+    RelativeLayout layoutHeader, layoutBtnLampiran, layoutAttachment;
 
     Spinner spnBuletin, spnStatus, spnCategory;
 
@@ -65,6 +78,8 @@ public class frag_bbs extends Fragment {
 
     EditText txtJudul, txtIsi;
     LinearLayout layout_button_kembali;
+    String sFile_Size, sFile_Type, sBBS_id, sFile_Path;
+    Uri uri;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -77,22 +92,38 @@ public class frag_bbs extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         InitControl(view);
+        layoutAttachment.setVisibility(View.GONE);
         FillSpinner();
         FillSpinnerCategory();
     }
 
     void InitControl(View v){
+        txtFileName = (TextView)v.findViewById(R.id.text_attachment);
+        txtSize = (TextView)v.findViewById(R.id.text_size);
+        imgDelete = (ImageView)v.findViewById(R.id.img_delete);
+        layoutAttachment = (RelativeLayout)v.findViewById(R.id.layout_attachment);
         txtJudul = (EditText)v.findViewById(R.id.text_judul);
         txtIsi = (EditText)v.findViewById(R.id.text_isi);
         spnBuletin = (Spinner)v.findViewById(R.id.spinner_buletinboard);
         spnStatus = (Spinner)v.findViewById(R.id.spinner_status);
         spnCategory = (Spinner)v.findViewById(R.id.spinner_caetogory);
         layout_button_kembali = (LinearLayout) v.findViewById(R.id.layout_button_kembali);
+        layoutBtnLampiran = (RelativeLayout) v.findViewById(R.id.layout_btn_lampiran);
         text_publikasi = (TextView) v.findViewById(R.id.text_publikasi);
         txtTulisPesan = (TextView)v.findViewById(R.id.text_tulis_pesan);
         layoutHeader = (RelativeLayout)v.findViewById(R.id.layout_header);
         txtTulisPesan.setVisibility(View.VISIBLE);
         layoutHeader.setVisibility(View.GONE);
+
+        imgDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sFile_Path = "";
+                sFile_Size = "";
+                sFile_Type = "";
+                layoutAttachment.setVisibility(View.GONE);
+            }
+        });
 
         txtTulisPesan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,6 +151,16 @@ public class frag_bbs extends Fragment {
         });
 
 
+        layoutBtnLampiran.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sFile_Size = "";
+                sFile_Type = "";
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("file/*");
+                startActivityForResult(intent, CODE_FILE);
+            }
+        });
 
         imgMenu = (ImageView)v.findViewById(R.id.imageView);
         pager = (ViewPager)v.findViewById(R.id.pager);
@@ -234,6 +275,8 @@ public class frag_bbs extends Fragment {
                     bbs_insert = response.body();
                     if (code == 200){
                         if (bbs_insert.code.equals("00")){
+                            sBBS_id = bbs_insert.bbs_id;
+                            sendBBSAttachment();
                             Toast.makeText(getActivity(),bbs_insert.data, Toast.LENGTH_LONG).show();
                             txtIsi.setText("");
                             txtJudul.setText("");
@@ -373,4 +416,84 @@ public class frag_bbs extends Fragment {
         }
     }
 
+    public synchronized void onActivityResult(final int requestCode, int resultCode, final Intent data) {
+        if (requestCode == CODE_FILE){
+            if (resultCode == Activity.RESULT_OK) {
+                uri = data.getData();
+                File f = new File(uri.getPath());
+                sFile_Path = f.getPath();
+                sFile_Size = Long.toString(f.length());
+                sFile_Type = f.getPath().substring(f.getPath().lastIndexOf(".") + 1); // Without dot jpg, png
+
+                DecimalFormat precision = new DecimalFormat("0.00");
+                double dFileSize = Double.parseDouble(sFile_Size) / 1024;
+
+                String sFileName = AppController.getInstance().getFileName(f.getPath());
+                layoutAttachment.setVisibility(View.VISIBLE);
+                txtFileName.setText(sFileName);
+                txtSize.setText("(" + precision.format(dFileSize) + " kb)");
+            }
+        }
+
+    }
+
+    void sendBBSAttachment(){
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        try{
+            BBS_Insert param = new BBS_Insert(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID,
+                    sBBS_id,
+                    sFile_Path,
+                    sFile_Type,
+                    sFile_Size
+                    );
+
+            File file = new File(uri.getPath());
+            RequestBody requestFile =
+                    RequestBody.create(MediaType.parse("multipart/form-data"), file);
+
+            // MultipartBody.Part is used to send also the actual file name
+            MultipartBody.Part body =
+                    MultipartBody.Part.createFormData("files", file.getName(), requestFile);
+
+            RequestBody user_id =
+                    RequestBody.create(
+                            MediaType.parse("multipart/form-data"), AppConstant.USER);
+
+            RequestBody id =
+                    RequestBody.create(
+                            MediaType.parse("multipart/form-data"), "bbs");
+
+
+            RequestBody fileKey =
+                    RequestBody.create(
+                            MediaType.parse("multipart/form-data"), sBBS_id);
+
+            Call<BBS_Insert> call = NetworkManager.getNetworkServiceUpload(getActivity()).postBBSInsertAttachmentOnly(
+                    user_id,
+                    id,
+                    fileKey, body);
+            call.enqueue(new Callback<BBS_Insert>() {
+                @Override
+                public void onResponse(Call<BBS_Insert> call, Response<BBS_Insert> response) {
+                    int code = response.code();
+                    bbs_insert = null;
+                    if(code == 200){
+                        bbs_insert = response.body();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<BBS_Insert> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
 }

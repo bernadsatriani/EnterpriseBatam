@@ -7,13 +7,13 @@
     android:layout_height="match_parent"
     android:background="@color/colorSecondaryBackground">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:font="http://schemas.android.com/apk/res-auto"
-        xmlns:app="http://schemas.android.com/tools"
+    <LinearLayout
+        android:layout_margin="@dimen/space_14"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/space_14">
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
 
         <RelativeLayout
             android:textColor="@color/white"
@@ -112,7 +112,7 @@
                     android:background="@drawable/btn_shape_all_transparant_blue_bbs"
                     android:layout_width="match_parent"
                     android:layout_margin="@dimen/space_5"
-                    android:layout_height="180dp">
+                    android:layout_height="220dp">
 
                     <RelativeLayout
                         android:id="@+id/layout_header2"
@@ -155,7 +155,7 @@
                     </RelativeLayout>
 
                     <EditText
-                        android:textSize="@dimen/space_12"
+                        android:textSize="@dimen/space_14"
                         android:background="@drawable/edittext_mid"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/space_30"
@@ -165,15 +165,15 @@
                         android:paddingLeft="@dimen/space_10"
 
                         android:layout_marginLeft="1dp"
-                        android:layout_marginRight="1dp"
-                        android:layout_marginBottom="1dp"/>
+                        android:layout_marginRight="1dp"/>
 
                     <EditText
-                        android:textSize="@dimen/space_12"
+                        android:layout_marginTop="-1dp"
+                        android:textSize="@dimen/space_14"
                         android:id="@+id/text_isi"
                         android:layout_width="match_parent"
                         android:background="@drawable/edittext_mid"
-                        android:layout_height="@dimen/space_65"
+                        android:layout_height="@dimen/space_75"
                         android:layout_weight="1"
                         android:hint="Tulis Pesan"
                         android:layout_alignParentLeft="true"
@@ -185,6 +185,57 @@
                         android:paddingLeft="@dimen/space_10"
                         android:layout_below="@+id/text_judul" />
 
+                    <RelativeLayout
+                        android:id="@+id/layout_attachment"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginRight="1dp"
+                        android:background="@color/colorSecondaryBackground"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/space_35">
+
+                        <ImageView
+                            android:id="@+id/img_attachemnt"
+                            android:layout_marginLeft="@dimen/space_14"
+                            android:src="@drawable/pdf"
+                            android:layout_width="@dimen/space_22"
+                            android:layout_height="match_parent" />
+
+                        <ImageView
+                            android:layout_alignParentRight="true"
+                            android:id="@+id/img_delete"
+                            android:layout_marginRight="@dimen/space_14"
+                            android:src="@drawable/close"
+                            android:tint="@color/colorSearch"
+                            android:layout_width="@dimen/space_18"
+                            android:layout_height="match_parent" />
+
+                        <ui.CustomtextView
+                            font:name = "GOTHAM_LIGHTITALIC"
+                            android:id="@+id/text_size"
+                            android:text="(53.5 kb)"
+                            android:textSize="@dimen/space_12"
+                            android:gravity="center"
+                            android:layout_marginRight="@dimen/space_14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_toLeftOf="@+id/img_delete"
+                            android:layout_toStartOf="@+id/img_delete" />
+
+                        <ui.CustomtextView
+                            font:name = "GOTHAM_LIGHTITALIC"
+                            android:id="@+id/text_attachment"
+                            android:text="sample_pdf.pdf asdas asdasd asdasdasd"
+                            android:gravity="fill_vertical"
+                            android:maxLines="1"
+                            android:textSize="@dimen/space_12"
+                            android:layout_marginLeft="@dimen/space_14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_toRightOf="@+id/img_attachemnt"
+                            android:layout_toEndOf="@+id/img_attachemnt"
+                            android:layout_toLeftOf="@+id/text_size"
+                            android:layout_toStartOf="@+id/text_size" />
+                    </RelativeLayout>
                     <RelativeLayout
                         android:id="@+id/layout_spinner"
                         android:layout_alignParentBottom="true"
@@ -216,13 +267,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/linearLayout2"
-                        android:layout_alignParentTop="true"
-                        android:layout_toLeftOf="@+id/imageView12"
-                        android:layout_toStartOf="@+id/imageView12">
+                        android:layout_alignParentTop="true">
 
                         <RelativeLayout
                             android:textSize="@dimen/space_10"
-                            android:drawableLeft="@drawable/upload"
                             android:id="@+id/layout_btn_status"
                             android:background="@drawable/btn_shape_all_transparant_blue_spinner"
                             android:layout_width="match_parent"
@@ -257,18 +305,18 @@
 
                             <ui.CustomtextView
                                 font:name = "GOTHAM_BOLD"
-                                android:textSize="@dimen/space_10"
+                                android:textSize="@dimen/space_12"
                                 android:textColor="@color/black"
                                 android:id="@+id/btn_lampiran"
                                 android:background="@color/transparant_pure"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/space_40"
                                 android:layout_weight="1"
-                                android:layout_marginLeft="@dimen/space_40"
                                 android:text="Lampirkan File"
-                                android:gravity="fill_vertical"
+                                android:gravity="fill_vertical|center"
                                 android:layout_toLeftOf="@+id/imageView16"
-                                android:layout_toStartOf="@+id/imageView16" />
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true" />
 
 
                             <ImageView
@@ -289,27 +337,47 @@
 
         </LinearLayout>
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tabs"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/space_40"
-            android:background="@color/colorSearch"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:tabGravity="fill"
-            app:tabIndicatorColor="@color/black"
-            app:tabIndicatorHeight="5dp"
-            app:tabMode="fixed"
-            app:tabPaddingBottom="-1dp"
-            app:tabPaddingEnd="-1dp"
-            app:tabPaddingStart="-1dp"
-            app:tabPaddingTop="-1dp"
-            font:name="GOTHAM_BOLD"
-            font:tabTextColor="@color/white"
-            style="@style/MyTabLayoutTextAppearance"
-            android:elevation="2dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"/>
+            android:layout_height="@dimen/space_40">
+
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_40"
+                android:background="@color/colorSearch"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:tabGravity="fill"
+                app:tabIndicatorColor="@color/black"
+                app:tabIndicatorHeight="5dp"
+                app:tabMode="fixed"
+                app:tabPaddingBottom="-1dp"
+                app:tabPaddingEnd="-1dp"
+                app:tabPaddingStart="-1dp"
+                app:tabPaddingTop="-1dp"
+                font:name="GOTHAM_BOLD"
+                font:tabTextColor="@color/white"
+                style="@style/MyTabLayoutTextAppearance"
+                android:elevation="2dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"/>
+
+            <RelativeLayout
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <View
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/white"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"/>
+            </RelativeLayout>
+
+        </RelativeLayout>
+
 
         <View
             android:layout_width="match_parent"

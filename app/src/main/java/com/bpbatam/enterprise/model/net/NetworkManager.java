@@ -46,4 +46,23 @@ public class NetworkManager {
         return  networkService;
     }
 
+
+    public static NetworkService getNetworkServiceUpload(Context context){
+        okHttpClient = new OkHttpClient.Builder()
+                .readTimeout(60, TimeUnit.SECONDS)
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .build();
+
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+                .create();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(AppConstant.DOMAIN_URL_UPLOAD + AppConstant.API_VERSION)
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+        NetworkService networkService = retrofit.create(NetworkService.class);
+        return  networkService;
+    }
 }

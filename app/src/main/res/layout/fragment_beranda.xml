@@ -1,228 +1,207 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe_refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:font="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/tools"
-    android:background="@color/colorSecondaryBackground">
+    xmlns:font="http://schemas.android.com/apk/res-auto"    >
 
-    <LinearLayout
-        android:orientation="vertical"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/tools"
+        android:background="@color/colorSecondaryBackground">
 
         <LinearLayout
-            android:id="@+id/layout_bbs"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/space_14"
-            android:layout_marginRight="@dimen/space_14"
-            android:layout_marginTop="@dimen/space_14">
-
-            <RelativeLayout
-                android:background="@color/white"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_40">
-
-                <ImageView
-                    android:src="@drawable/flag_grey"
-                    android:tint="@color/black"
-                    android:layout_width="@dimen/space_16"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginLeft="@dimen/space_10"
-                    android:id="@+id/imageView8" />
-
-                <ImageView
-                    android:id="@+id/imgplus_bbs"
-                    android:src="@drawable/plus"
-                    android:layout_width="@dimen/space_20"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginRight="@dimen/space_10" />
-
-                <ui.CustomtextView
-                    font:name = "GOTHAM_BLACK"
-                    android:textColor="@color/black"
-                    android:text="BBS"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_toLeftOf="@+id/imgplus_bbs"
-                    android:layout_toRightOf="@+id/imageView8"
-                    android:layout_toEndOf="@+id/imageView8"
-                    android:layout_marginRight="@dimen/space_40"
-                    android:layout_marginLeft="@dimen/space_5"
-                    android:gravity="fill_vertical" />
-            </RelativeLayout>
-
-            <FrameLayout
-                android:visibility="gone"
-                android:id="@+id/frame_bbs"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_225"
-                android:background="@color/white"></FrameLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layout_persuratan"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_14"
-            android:layout_marginLeft="@dimen/space_14"
-            android:layout_marginRight="@dimen/space_14">
-
-            <RelativeLayout
-                android:background="@color/white"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_40">
-
-                <ImageView
-                    android:src="@drawable/ic_email_2"
-                    android:tint="@color/black"
-                    android:layout_width="@dimen/space_16"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginLeft="@dimen/space_10"
-                    android:id="@+id/imageView9" />
-
-                <ImageView
-                    android:id="@+id/imgplus_persuratan"
-                    android:src="@drawable/plus"
-                    android:layout_width="@dimen/space_20"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginRight="@dimen/space_10" />
-
-                <ui.CustomtextView
-                    font:name = "GOTHAM_BLACK"
-                    android:textColor="@color/black"
-                    android:text="PERSURATAN"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_toLeftOf="@+id/imgplus_persuratan"
-                    android:layout_toRightOf="@+id/imageView9"
-                    android:layout_toEndOf="@+id/imageView9"
-                    android:layout_marginRight="@dimen/space_40"
-                    android:layout_marginLeft="@dimen/space_5"
-                    android:gravity="fill_vertical" />
-            </RelativeLayout>
-
-            <FrameLayout
-                android:visibility="gone"
-                android:id="@+id/frame_persuratan"
-                android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:background="@color/white"></FrameLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layout_disposisi"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_14"
-            android:layout_marginRight="@dimen/space_14"
-            android:layout_marginLeft="@dimen/space_14"
-            android:background="@color/white">
-
-            <RelativeLayout
-                android:background="@color/white"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_40">
-
-                <ImageView
-                    android:src="@drawable/document_black"
-                    android:tint="@color/black"
-                    android:layout_width="@dimen/space_16"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginLeft="@dimen/space_10"
-                    android:id="@+id/imageView10" />
-
-                <ImageView
-                    android:id="@+id/imgplus_disposisi"
-                    android:src="@drawable/plus"
-                    android:layout_width="@dimen/space_20"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginRight="@dimen/space_10" />
-
-                <ui.CustomtextView
-                    font:name = "GOTHAM_BLACK"
-                    android:textColor="@color/black"
-                    android:text="DISPOSISI"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_toLeftOf="@+id/imgplus_disposisi"
-                    android:layout_toRightOf="@+id/imageView10"
-                    android:layout_toEndOf="@+id/imageView10"
-                    android:layout_marginRight="@dimen/space_40"
-                    android:layout_marginLeft="@dimen/space_5"
-                    android:gravity="fill_vertical" />
-            </RelativeLayout>
+            android:layout_height="match_parent">
 
             <LinearLayout
-                android:id="@+id/layout_disposisi_detail"
+                android:id="@+id/layout_bbs"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="270dp">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_14"
+                android:layout_marginRight="@dimen/space_14"
+                android:layout_marginTop="@dimen/space_14">
 
-                <android.support.design.widget.TabLayout
-                    android:id="@+id/tabs"
-                    android:layout_width="208dp"
-                    android:layout_height="@dimen/space_40"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                    app:tabGravity="fill"
-                    app:tabIndicatorColor="@color/black"
-                    app:tabIndicatorHeight="3dp"
-                    app:tabMode="fixed"
-                    app:tabPaddingBottom="-1dp"
-                    app:tabPaddingEnd="-1dp"
-                    app:tabPaddingStart="-1dp"
-                    app:tabPaddingTop="-1dp"
-                    font:tabTextColor="@color/black"
-                    android:elevation="2dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
+                <RelativeLayout
                     android:background="@color/white"
-                    android:layout_gravity="right">
-                </android.support.design.widget.TabLayout>
-
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/pager"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/white"/>
+                    android:layout_height="@dimen/space_40">
+
+                    <ImageView
+                        android:src="@drawable/flag_grey"
+                        android:tint="@color/black"
+                        android:layout_width="@dimen/space_16"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="@dimen/space_10"
+                        android:id="@+id/imageView8" />
+
+                    <ImageView
+                        android:id="@+id/imgplus_bbs"
+                        android:src="@drawable/plus"
+                        android:layout_width="@dimen/space_20"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginRight="@dimen/space_10" />
+
+                    <ui.CustomtextView
+                        font:name = "GOTHAM_BLACK"
+                        android:textColor="@color/black"
+                        android:text="BBS"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toLeftOf="@+id/imgplus_bbs"
+                        android:layout_toRightOf="@+id/imageView8"
+                        android:layout_toEndOf="@+id/imageView8"
+                        android:layout_marginRight="@dimen/space_40"
+                        android:layout_marginLeft="@dimen/space_5"
+                        android:gravity="fill_vertical" />
+                </RelativeLayout>
+
+                <FrameLayout
+                    android:visibility="gone"
+                    android:id="@+id/frame_bbs"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_225"
+                    android:background="@color/white"></FrameLayout>
             </LinearLayout>
 
             <LinearLayout
-                android:background="@color/colorSecondaryBackground"
+                android:id="@+id/layout_persuratan"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/space_30"></LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_14"
+                android:layout_marginLeft="@dimen/space_14"
+                android:layout_marginRight="@dimen/space_14">
+
+                <RelativeLayout
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_40">
+
+                    <ImageView
+                        android:src="@drawable/ic_email_2"
+                        android:tint="@color/black"
+                        android:layout_width="@dimen/space_16"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="@dimen/space_10"
+                        android:id="@+id/imageView9" />
+
+                    <ImageView
+                        android:id="@+id/imgplus_persuratan"
+                        android:src="@drawable/plus"
+                        android:layout_width="@dimen/space_20"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginRight="@dimen/space_10" />
+
+                    <ui.CustomtextView
+                        font:name = "GOTHAM_BLACK"
+                        android:textColor="@color/black"
+                        android:text="PERSURATAN"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toLeftOf="@+id/imgplus_persuratan"
+                        android:layout_toRightOf="@+id/imageView9"
+                        android:layout_toEndOf="@+id/imageView9"
+                        android:layout_marginRight="@dimen/space_40"
+                        android:layout_marginLeft="@dimen/space_5"
+                        android:gravity="fill_vertical" />
+                </RelativeLayout>
+
+                <FrameLayout
+                    android:visibility="gone"
+                    android:id="@+id/frame_persuratan"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:background="@color/white"></FrameLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_disposisi"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_14"
+                android:layout_marginRight="@dimen/space_14"
+                android:layout_marginLeft="@dimen/space_14"
+                android:background="@color/white">
+
+                <RelativeLayout
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_40">
+
+                    <ImageView
+                        android:src="@drawable/document_black"
+                        android:tint="@color/black"
+                        android:layout_width="@dimen/space_16"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="@dimen/space_10"
+                        android:id="@+id/imageView10" />
+
+                    <ImageView
+                        android:id="@+id/imgplus_disposisi"
+                        android:src="@drawable/plus"
+                        android:layout_width="@dimen/space_20"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginRight="@dimen/space_10" />
+
+                    <ui.CustomtextView
+                        font:name = "GOTHAM_BLACK"
+                        android:textColor="@color/black"
+                        android:text="DISPOSISI"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toLeftOf="@+id/imgplus_disposisi"
+                        android:layout_toRightOf="@+id/imageView10"
+                        android:layout_toEndOf="@+id/imageView10"
+                        android:layout_marginRight="@dimen/space_40"
+                        android:layout_marginLeft="@dimen/space_5"
+                        android:gravity="fill_vertical" />
+                </RelativeLayout>
+
+                <FrameLayout
+                    android:visibility="gone"
+                    android:id="@+id/frame_diposisi"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_225"
+                    android:background="@color/white"></FrameLayout>
+
+                <LinearLayout
+                    android:background="@color/colorSecondaryBackground"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_30"></LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.v4.widget.SwipeRefreshLayout>
 
-</android.support.v4.widget.NestedScrollView>

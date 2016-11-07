@@ -25,6 +25,7 @@ import com.bpbatam.enterprise.model.DISPOSISI_Category;
 import com.bpbatam.enterprise.model.ListData;
 import com.bpbatam.enterprise.model.net.NetworkManager;
 
+import java.io.File;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
@@ -128,11 +129,17 @@ public class Frag_Beranda_DISPOSISI_riwayat extends Fragment {
                 rLayoutDownload.setVisibility(View.VISIBLE);
 
                 DownloadManager.Request request = new DownloadManager.Request(Uri.parse(sUrl));
-                request.setTitle("TITLE");
+                AppConstant.PDF_FILENAME = AppController.getInstance().getFileName(sUrl);
+                request.setTitle(AppConstant.PDF_FILENAME);
+
                 request.setDescription("DESCRIPTION");
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                request.setDestinationInExternalPublicDir(AppConstant.FOLDER_DOWNLOAD, "DOWNLOAD_FILE_NAME.pdf");
-                request.allowScanningByMediaScanner();
+                // request.setDestinationInExternalPublicDir(AppConstant.FOLDER_DOWNLOAD, "DOWNLOAD_FILE_NAME.pdf");
+
+                File root = new File(AppConstant.STORAGE_CARD + "/Download/");
+                Uri path = Uri.withAppendedPath(Uri.fromFile(root), AppConstant.PDF_FILENAME);
+                request.setDestinationUri(path);
+
                 downloadID = downloadManager.enqueue(request);
 
                 downloadProgressView.show(downloadID, new DownloadProgressView.DownloadStatusListener() {
@@ -148,7 +155,6 @@ public class Frag_Beranda_DISPOSISI_riwayat extends Fragment {
                         //Action to perform on success
                         mRecyclerView.setVisibility(View.VISIBLE);
                         rLayoutDownload.setVisibility(View.GONE);
-                        AppConstant.PDF_FILENAME = "DOWNLOAD_FILE_NAME.pdf";
                         Intent intent = new Intent(getActivity(), PDFViewActivity.class);
                         getActivity().startActivity(intent);
                     }

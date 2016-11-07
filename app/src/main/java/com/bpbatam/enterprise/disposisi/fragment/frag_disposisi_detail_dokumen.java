@@ -12,6 +12,7 @@ import com.bpbatam.AppConstant;
 import com.bpbatam.AppController;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.disposisi.adapter.AdapterDisposisiDistribusi;
+import com.bpbatam.enterprise.model.Disposisi_Detail;
 import com.bpbatam.enterprise.model.ListData;
 import com.bpbatam.enterprise.model.Persuratan_Detail;
 import com.bpbatam.enterprise.model.net.NetworkManager;
@@ -34,7 +35,7 @@ public class frag_disposisi_detail_dokumen extends Fragment {
     ArrayList<ListData> AryListData;
     ListData listData;
 
-    Persuratan_Detail persuratanDetail;
+    Disposisi_Detail persuratanDetail;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,34 +69,34 @@ public class frag_disposisi_detail_dokumen extends Fragment {
             e.printStackTrace();
         }
 
-        Persuratan_Detail params = new Persuratan_Detail(AppConstant.HASHID,
+        Disposisi_Detail params = new Disposisi_Detail(AppConstant.HASHID,
                 AppConstant.USER,
                 AppConstant.REQID,
                 Integer.toString(AppConstant.EMAIL_ID));
 
         try{
-            Call<Persuratan_Detail> call = NetworkManager.getNetworkService(getActivity()).getMailDetail(params);
-            call.enqueue(new Callback<Persuratan_Detail>() {
+            Call<Disposisi_Detail> call = NetworkManager.getNetworkService(getActivity()).getDisposisiDetail(params);
+            call.enqueue(new Callback<Disposisi_Detail>() {
                 @Override
-                public void onResponse(Call<Persuratan_Detail> call, Response<Persuratan_Detail> response) {
+                public void onResponse(Call<Disposisi_Detail> call, Response<Disposisi_Detail> response) {
                     int code = response.code();
                     persuratanDetail = response.body();
                     if (code == 200){
                         if (persuratanDetail.code.equals("00")){
-                            for(Persuratan_Detail.Datum dat : persuratanDetail.data){
+                            for(Disposisi_Detail.Datum dat : persuratanDetail.data){
                                 listData = new ListData();
                                 listData.setAtr1("Judul");
-                                listData.setAtr2(dat.title);
+                                //listData.setAtr2(dat.title);
                                 AryListData.add(listData);
 
                                 listData = new ListData();
                                 listData.setAtr1("Kode Klarifikasi");
-                                listData.setAtr2(dat.category);
+                                //listData.setAtr2(dat.category);
                                 AryListData.add(listData);
 
                                 listData = new ListData();
                                 listData.setAtr1("No Dokumen");
-                                listData.setAtr2("");
+                                listData.setAtr2(dat.mail_no);
                                 AryListData.add(listData);
 
                                 listData = new ListData();
@@ -117,7 +118,7 @@ public class frag_disposisi_detail_dokumen extends Fragment {
                 }
 
                 @Override
-                public void onFailure(Call<Persuratan_Detail> call, Throwable t) {
+                public void onFailure(Call<Disposisi_Detail> call, Throwable t) {
 
                 }
             });

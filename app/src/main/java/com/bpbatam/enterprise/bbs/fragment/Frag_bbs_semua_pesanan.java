@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import com.ayz4sci.androidfactory.DownloadProgressView;
 import com.bpbatam.AppConstant;
 import com.bpbatam.AppController;
+import com.bpbatam.enterprise.PDFViewActivity;
 import com.bpbatam.enterprise.PDFViewActivity_Edit;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.bbs.adapter.AdapterBBSDaftarPesanan;
@@ -24,6 +26,7 @@ import com.bpbatam.enterprise.model.BBS_LIST;
 import com.bpbatam.enterprise.model.ListData;
 import com.bpbatam.enterprise.model.net.NetworkManager;
 
+import java.io.File;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
@@ -34,7 +37,7 @@ import retrofit2.Response;
 /**
  * Created by User on 9/22/2016.
  */
-public class Frag_bbs_semua_pesanan extends Fragment {
+public class Frag_bbs_semua_pesanan extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
     RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private LinearLayoutManager mLayoutManager;
@@ -48,6 +51,7 @@ public class Frag_bbs_semua_pesanan extends Fragment {
     private DownloadManager downloadManager;
 
     BBS_LIST bbs_list;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,10 +65,11 @@ public class Frag_bbs_semua_pesanan extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         InitControl(view);
-        FillGrid(view);
+        FillGrid();
     }
 
     void InitControl(View v){
+        swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_layout);
         mRecyclerView = (RecyclerView)v.findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(v.getContext());
@@ -75,9 +80,14 @@ public class Frag_bbs_semua_pesanan extends Fragment {
         downloadProgressView = (DownloadProgressView) v.findViewById(R.id.downloadProgressView);
         downloadManager = (DownloadManager) v.getContext().getSystemService(v.getContext().DOWNLOAD_SERVICE);
 
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setColorSchemeColors(getActivity().getResources().getColor(R.color.colorSearch),
+                getActivity().getResources().getColor(R.color.Green),
+                getActivity().getResources().getColor(R.color.b7_orange),
+                getActivity().getResources().getColor(R.color.red));
     }
 
-    void FillGrid(View v){
+    void FillGrid(){
         /*AryListData = new ArrayList<>();
 
         for(int i = 0; i < 10; i++){
@@ -102,6 +112,7 @@ public class Frag_bbs_semua_pesanan extends Fragment {
                 @Override
                 public void onResponse(Call<BBS_LIST> call, Response<BBS_LIST> response) {
                     int code = response.code();
+                    swipeRefreshLayout.setRefreshing(false);
                     if (code == 200){
                         bbs_list = response.body();
 
@@ -117,10 +128,12 @@ public class Frag_bbs_semua_pesanan extends Fragment {
                 public void onFailure(Call<BBS_LIST> call, Throwable t) {
                     String a = t.getMessage();
                     a = a;
+                    swipeRefreshLayout.setRefreshing(false);
                 }
             });
         }catch (Exception e){
             Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+            swipeRefreshLayout.setRefreshing(false);
         }
     }
 
@@ -128,16 +141,28 @@ public class Frag_bbs_semua_pesanan extends Fragment {
         mAdapter = new AdapterBBSSemuaPesanan(getActivity(), bbs_list, new AdapterBBSSemuaPesanan.OnDownloadClicked() {
             @Override
             public void OnDownloadClicked(final String sUrl, boolean bStatus) {
-                mRecyclerView.setVisibility(View.GONE);
-                rLayoutDownload.setVisibility(View.VISIBLE);
-
                 DownloadManager.Request request = new DownloadManager.Request(Uri.parse(sUrl));
-                request.setTitle("TITLE");
-                request.setDescription("DESCRIPTION");
-                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                request.setDestinationInExternalPublicDir(AppConstant.FOLDER_DOWNLOAD, "DOWNLOAD_FILE_NAME.pdf");
-                request.allowScanningByMediaScanner();
-                downloadID = downloadManager.enqueue(request);
+                AppConstant.PDF_FILENAME = AppController.getInstance().getFileName(sUrl);
+                File file = new File(AppConstant.STORAGE_CARD + "/Download/" + AppConstant.PDF_FILENAME);
+                if (file.exists()){
+                    Intent intent = new Intent(getActivity(), PDFViewActivity.class);
+                    getActivity().startActivity(intent);
+                }else{
+                    mRecyclerView.setVisibility(View.GONE);
+                    rLayoutDownload.setVisibility(View.VISIBLE);
+
+                    request.setTitle(AppConstant.PDF_FILENAME);
+
+                    request.setDescription("DESCRIPTION");
+                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                    // request.setDestinationInExternalPublicDir(AppConstant.FOLDER_DOWNLOAD, "DOWNLOAD_FILE_NAME.pdf");
+
+                    File root = new File(AppConstant.STORAGE_CARD + "/Download/");
+                    Uri path = Uri.withAppendedPath(Uri.fromFile(root), AppConstant.PDF_FILENAME);
+                    request.setDestinationUri(path);
+
+                    downloadID = downloadManager.enqueue(request);
+                }
 
                 downloadProgressView.show(downloadID, new DownloadProgressView.DownloadStatusListener() {
                     @Override
@@ -152,8 +177,7 @@ public class Frag_bbs_semua_pesanan extends Fragment {
                         //Action to perform on success
                         mRecyclerView.setVisibility(View.VISIBLE);
                         rLayoutDownload.setVisibility(View.GONE);
-                        AppConstant.PDF_FILENAME = "DOWNLOAD_FILE_NAME.pdf";
-                        Intent intent = new Intent(getActivity(), PDFViewActivity_Edit.class);
+                        Intent intent = new Intent(getActivity(), PDFViewActivity.class);
                         getActivity().startActivity(intent);
                     }
 
@@ -168,5 +192,10 @@ public class Frag_bbs_semua_pesanan extends Fragment {
         });
         // set the adapter object to the Recyclerview
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void onRefresh() {
+        FillGrid();
     }
 }

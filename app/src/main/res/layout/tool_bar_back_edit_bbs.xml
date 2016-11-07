@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:font="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:theme="@style/ToolbarColoredBackArrow"
+    android:elevation="2dp"
+    tools:ignore="UnusedAttribute">
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout2"
+        android:layout_margin="@dimen/space_5"
+        android:layout_below="@+id/tool_bar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/space_20"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/img_back"
+            android:layout_toEndOf="@+id/img_back">
+
+            <ui.CustomtextView
+                font:name = "GOTHAM_LIGHT"
+                android:id="@+id/textLabel"
+                android:text="Edit Berita"
+                android:textColor="@color/colorSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:textSize="@dimen/space_18"
+                android:layout_centerVertical="true"/>
+
+            <ui.CustomtextView
+                font:name = "GOTHAM_BOLD"
+                android:id="@+id/textLabel2"
+                android:text="PUBLIKASIKAN"
+                android:textColor="@color/colorSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:textSize="@dimen/space_16"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
+
+        <ImageView
+            android:layout_width="@dimen/space_35"
+            android:layout_height="@dimen/space_35"
+            android:id="@+id/img_back"
+            android:src="@drawable/arrow_back_white"
+            android:tint="@color/colorSearch"/>
+
+    </RelativeLayout>
+
+
+</android.support.v7.widget.Toolbar>
+
