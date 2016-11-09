@@ -82,7 +82,16 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         txtData.setText(sResult[0].trim());
         txtCount.setText(sResult[1].trim());
         txtUnread.setText(sResult[2].trim());
+        if (sResult[2].trim().equals("0")){
+            txtUnread.setVisibility(View.GONE);
+        }
 
+        for (String dat : AppConstant.AryListMenuChek){
+            if (dat.equals(sPosition)){
+                txtUnread.setVisibility(View.GONE);
+                return convertView;
+            }
+        }
         return convertView;
     }
 

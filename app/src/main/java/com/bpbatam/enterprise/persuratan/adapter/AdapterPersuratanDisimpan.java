@@ -16,15 +16,22 @@ import com.bpbatam.enterprise.CC_Activity;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.disposisi.disposisi_detail;
 import com.bpbatam.enterprise.model.ListData;
+import com.bpbatam.enterprise.model.Persuratan_Attachment;
 import com.bpbatam.enterprise.model.Persuratan_List_Folder;
+import com.bpbatam.enterprise.model.net.NetworkManager;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by User on 9/19/2016.
  */
 public class AdapterPersuratanDisimpan extends  RecyclerView.Adapter<AdapterPersuratanDisimpan.ViewHolder>{
-
+    Persuratan_Attachment persuratanAttachment;
     Persuratan_List_Folder persuratanListFolder;
     private Context context;
 
@@ -74,6 +81,58 @@ public class AdapterPersuratanDisimpan extends  RecyclerView.Adapter<AdapterPers
                 holder.imgChecklist.setVisibility(View.GONE);
             }
         }
+
+        final DecimalFormat precision = new DecimalFormat("0.00");
+        try{
+            Persuratan_Attachment param = new Persuratan_Attachment(AppConstant.HASHID, AppConstant.USER,
+                    AppConstant.REQID, Integer.toString(listData.mail_id));
+
+            Call<Persuratan_Attachment> call = NetworkManager.getNetworkService(context).getMailAttachment(param);
+            call.enqueue(new Callback<Persuratan_Attachment>() {
+                @Override
+                public void onResponse(Call<Persuratan_Attachment> call, Response<Persuratan_Attachment> response) {
+                    int code = response.code();
+                    if (code == 200){
+                        persuratanAttachment = response.body();
+                        if (persuratanAttachment.code.equals("00")){
+                            for(Persuratan_Attachment.Datum dat : persuratanAttachment.data){
+                                listData.attach_link = dat.attcLink;
+                                listData.file_size = dat.fileSize;
+                                listData.file_type = dat.fileType;
+                            }
+
+                            if (listData.file_size != null ){
+                                String fileName = listData.attach_link.substring(listData.attach_link.lastIndexOf('/') + 1);
+                                double dFileSize = Double.parseDouble(listData.file_size) / 1024;
+                                holder.lbl_Attach.setText(fileName);
+                                holder.lbl_Size.setText("(" + precision.format(dFileSize) + " kb)" );
+                            }
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Persuratan_Attachment> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+
+        }
+
+        holder.btnDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //https://www.dropbox.com/s/jadu92w71vnku3o/Wireframe.pdf?dl=0
+
+                if (listData.file_size != null && !listData.file_size.equals("")){
+                    listener.OnDownloadClicked(listData.attach_link, true);
+                }
+
+                //listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
+            }
+        });
 
         holder.imgChecklist.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,6 +207,7 @@ public class AdapterPersuratanDisimpan extends  RecyclerView.Adapter<AdapterPers
             imgStatus = (ImageView) itemView.findViewById(R.id.imageView5);
             btnDownload = (RelativeLayout) itemView.findViewById(R.id.btnDownload);
             imgChecklist = (ImageView)itemView.findViewById(R.id.imageView15);
+/*
             btnDownload.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -155,6 +215,7 @@ public class AdapterPersuratanDisimpan extends  RecyclerView.Adapter<AdapterPers
                     listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
                 }
             });
+*/
 
 
         }

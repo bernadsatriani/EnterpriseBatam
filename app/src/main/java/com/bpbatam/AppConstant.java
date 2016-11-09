@@ -10,6 +10,8 @@ import com.bpbatam.enterprise.model.Persuratan_List_Folder;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 
 public final class AppConstant {
 	// Shared Preferences
@@ -36,6 +38,8 @@ public final class AppConstant {
 	public static String POSITION_CHILD = "";
 	public static String BBS_LINK = "";
 	public static Diposisi_List_Folder diposisiListFolder;
+	public static ArrayList<String> AryListMenuChek;
+
 
 	public static String ACTIVITY_FROM;
 

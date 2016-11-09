@@ -19,9 +19,16 @@ import com.bpbatam.enterprise.PDFViewActivity_Distribusi;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.adapter.AdapterBerandaPersuratan;
 import com.bpbatam.enterprise.model.ListData;
+import com.bpbatam.enterprise.model.Persuratan_List_Folder;
+import com.bpbatam.enterprise.model.net.NetworkManager;
 
 import java.io.File;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by User on 10/3/2016.
@@ -39,6 +46,8 @@ public class Frag_Beranda_PERSURATAN extends Fragment {
     DownloadProgressView downloadProgressView;
     private long downloadID;
     private DownloadManager downloadManager;
+
+    Persuratan_List_Folder persuratanListFolder;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -51,7 +60,7 @@ public class Frag_Beranda_PERSURATAN extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         InitControl(view);
-        FillGrid(view);
+        FillGrid();
 
 
     }
@@ -69,19 +78,44 @@ public class Frag_Beranda_PERSURATAN extends Fragment {
 
     }
 
-    void FillGrid(View v){
-        AryListData = new ArrayList<>();
+    void FillGrid(){
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
 
-        for(int i = 0; i < 10; i++){
-            listData = new ListData();
-            listData.setAtr1("Attachment " + i);
-            listData.setAtr2("(5,88 mb)");
-            listData.setAtr3("http://cottonsoft.co.nz/assets/img/our-company-history/history-2011-Paseo.jpg");
-            AryListData.add(listData);
+        Persuratan_List_Folder params = new Persuratan_List_Folder(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID, "FPR","1","10");
+        try{
+            Call<Persuratan_List_Folder> call = NetworkManager.getNetworkService(getActivity()).getMailFolder(params);
+            call.enqueue(new Callback<Persuratan_List_Folder>() {
+                @Override
+                public void onResponse(Call<Persuratan_List_Folder> call, Response<Persuratan_List_Folder> response) {
+                    int code = response.code();
+                    persuratanListFolder = response.body();
+                    if (code == 200){
+                        if (persuratanListFolder.code.equals("00")){
+                            int iIndex = 0;
+
+                            FillAdapter();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Persuratan_List_Folder> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
 
         }
 
-        mAdapter = new AdapterBerandaPersuratan(v.getContext(), AryListData, new AdapterBerandaPersuratan.OnDownloadClicked() {
+    }
+
+    void FillAdapter(){
+
+        mAdapter = new AdapterBerandaPersuratan(getActivity(), persuratanListFolder, new AdapterBerandaPersuratan.OnDownloadClicked() {
             @Override
             public void OnDownloadClicked(final String sUrl, boolean bStatus) {
                 mRecyclerView.setVisibility(View.GONE);

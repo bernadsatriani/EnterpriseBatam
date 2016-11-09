@@ -10,29 +10,44 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bpbatam.AppConstant;
+import com.bpbatam.AppController;
 import com.bpbatam.enterprise.DistribusiActivity;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.disposisi.disposisi_detail;
 import com.bpbatam.enterprise.model.ListData;
+import com.bpbatam.enterprise.model.Persuratan_Attachment;
+import com.bpbatam.enterprise.model.Persuratan_List_Folder;
+import com.bpbatam.enterprise.model.net.NetworkManager;
+import com.bpbatam.enterprise.persuratan.persuratan_detail;
 
+import org.json.JSONObject;
+
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by User on 9/19/2016.
  */
 public class AdapterBerandaPersuratan extends  RecyclerView.Adapter<AdapterBerandaPersuratan.ViewHolder>{
+    Persuratan_List_Folder persuratanListFolder;
 
-    private ArrayList<ListData> mCourseArrayList;
+    Persuratan_Attachment persuratanAttachment;
     private Context context;
 
-    public AdapterBerandaPersuratan(Context context, ArrayList<ListData> mCourseArrayList, OnDownloadClicked listener) {
+    public AdapterBerandaPersuratan(Context context, Persuratan_List_Folder persuratanListFolder, AdapterBerandaPersuratan.OnDownloadClicked listener) {
         this.context = context;
-        this.mCourseArrayList = mCourseArrayList;
+        this.persuratanListFolder = persuratanListFolder;
         this.listener = listener;
-        if (mCourseArrayList == null) {
+        if (persuratanListFolder == null) {
             throw new IllegalArgumentException("courses ArrayList must not be null");
         }
     }
+
     public interface OnDownloadClicked {
         public void OnDownloadClicked(String sUrl, boolean bStatus);
     }
@@ -50,12 +65,49 @@ public class AdapterBerandaPersuratan extends  RecyclerView.Adapter<AdapterBeran
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        ListData listData = mCourseArrayList.get(position);
+        final Persuratan_List_Folder.Datum listData = persuratanListFolder.data.get(position);
         //Set text
-        holder.txtDate.setText("Rabu, 21 Sept 2016");
-        holder.txtTime.setText("12:37 PM");
-        holder.lbl_Attach.setText(listData.getAtr1());
-        holder.lbl_Size.setText(listData.getAtr2());
+        holder.txtDate.setText(listData.mail_date);
+        holder.txtTime.setText(listData.mail_time);
+        holder.lbl_Attach.setText(listData.title);
+        holder.lbl_Size.setText("");
+
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        try{
+            Persuratan_Attachment param = new Persuratan_Attachment(AppConstant.HASHID, AppConstant.USER,
+                    AppConstant.REQID, Integer.toString(listData.mail_id));
+
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("hashid", AppConstant.HASHID);
+            jsonObject.put("reqid", AppConstant.REQID);
+            jsonObject.put("userid", AppConstant.USER);
+            jsonObject.put("mail_id", listData.mail_id);
+
+            Call<Persuratan_Attachment> call = NetworkManager.getNetworkService(context).getMailAttachment(param);
+            call.enqueue(new Callback<Persuratan_Attachment>() {
+                @Override
+                public void onResponse(Call<Persuratan_Attachment> call, Response<Persuratan_Attachment> response) {
+                    int code = response.code();
+                    if (code == 200){
+                        persuratanAttachment = response.body();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Persuratan_Attachment> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+
+        }
+
+
 
         //holder.txtStatus.setText(listData.getAtr2());
 
@@ -63,7 +115,8 @@ public class AdapterBerandaPersuratan extends  RecyclerView.Adapter<AdapterBeran
         holder.btnPrint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, disposisi_detail.class);
+                AppConstant.EMAIL_ID = listData.mail_id;
+                Intent intent = new Intent(context, persuratan_detail.class);
                 v.getContext().startActivity(intent);
             }
         });
@@ -73,7 +126,7 @@ public class AdapterBerandaPersuratan extends  RecyclerView.Adapter<AdapterBeran
 
     @Override
     public int getItemCount() {
-        return mCourseArrayList.size();
+        return persuratanListFolder.data.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder
@@ -91,7 +144,7 @@ public class AdapterBerandaPersuratan extends  RecyclerView.Adapter<AdapterBeran
                 btnPrint;
         ImageView imgStatus;
 
-        ListData listData;
+        Persuratan_List_Folder.Datum listData;
         public ViewHolder(View itemView,
                           Context context,
                           final AdapterBerandaPersuratan mCourseAdapter) {

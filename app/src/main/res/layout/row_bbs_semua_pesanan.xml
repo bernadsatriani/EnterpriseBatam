@@ -64,18 +64,6 @@
                 android:layout_marginTop="@dimen/space_5">
 
                 <ui.CustomtextView
-                    font:name="GOTHAM_BOLD"
-                    android:id="@+id/lbl_Judul"
-                    android:text="Tutorial Backup Hapus Email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:layout_marginTop="@dimen/space_7"
-                    android:layout_marginLeft="@dimen/space_7"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
-
-                <ui.CustomtextView
                     font:name="GOTHAM_LIGHTITALIC"
                     android:id="@+id/lbl_attach"
                     android:textSize="@dimen/space_12"
@@ -127,7 +115,6 @@
                     android:layout_marginLeft="@dimen/space_14"
                     android:layout_marginRight="@dimen/space_14"
                     android:layout_height="@dimen/space_30"
-                    android:layout_marginTop="@dimen/space_10"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
                     android:layout_toRightOf="@+id/lbl_attach1"
@@ -160,6 +147,20 @@
                     android:layout_alignLeft="@+id/lbl_Judul"
                     android:layout_alignStart="@+id/lbl_Judul"
                     android:layout_alignTop="@+id/layout_dokumen" />
+
+                <ui.CustomtextView
+                    android:layout_marginTop="@dimen/space_10"
+                    android:layout_marginBottom="@dimen/space_10"
+                    font:name="GOTHAM_BOLD"
+                    android:id="@+id/lbl_Judul"
+                    android:text="Tutorial Backup Hapus Email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:layout_marginLeft="@dimen/space_14"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
 
 
             </RelativeLayout>

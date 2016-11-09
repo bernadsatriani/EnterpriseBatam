@@ -115,6 +115,8 @@ public class BBS_edit_berita extends AppCompatActivity {
         txtAttach.setText(sFileName);
         txtSize.setText(sSize);
 
+        if (sSize.equals("")) layoutAttachment.setVisibility(View.GONE);
+
         FillSpinner();
         FillSpinnerCategory();
     }

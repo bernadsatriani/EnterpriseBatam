@@ -93,8 +93,12 @@ public class Persuratan_List_Folder {
         public String deadline ;
         public String read_date ;
         public String mail_date ;
+        public String mail_time ;
         public int approved_rule_id ;
         public String flag;
+        public String attach_link;
+        public String file_type;
+        public String file_size;
 
     }
 

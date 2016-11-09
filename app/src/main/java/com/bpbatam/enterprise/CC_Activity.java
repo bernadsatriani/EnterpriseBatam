@@ -12,10 +12,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bpbatam.AppConstant;
+import com.bpbatam.AppController;
 import com.bpbatam.enterprise.adapter.AdapterCC;
 import com.bpbatam.enterprise.model.ListData;
+import com.bpbatam.enterprise.model.Persuratan_Detail;
+import com.bpbatam.enterprise.model.net.NetworkManager;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by setia.n on 10/4/2016.
@@ -31,12 +39,21 @@ public class CC_Activity extends AppCompatActivity {
     TextView txtLabel;
 
     Toolbar toolbar;
+    Persuratan_Detail persuratanDetail;
+
+    String sReadDate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cc);
 
         InitContol();
+
+        try{
+            sReadDate = getIntent().getExtras().getString("READ_DATE");
+        }catch (Exception e){
+            sReadDate = "";
+        }
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -57,9 +74,9 @@ public class CC_Activity extends AppCompatActivity {
     }
 
     void FillGrid() {
-        AryListData = new ArrayList<>();
 
-        for (int i = 0; i < 1; i++) {
+
+        /*for (int i = 0; i < 1; i++) {
             listData = new ListData();
             listData.setAtr1("Seksi Media dan Aplikasi " + i);
             listData.setAtr2("Rizal Safani S.Kom");
@@ -71,6 +88,55 @@ public class CC_Activity extends AppCompatActivity {
 
         mAdapter = new AdapterCC(this,AryListData);
         mRecyclerView.setAdapter(mAdapter);
+*/
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        try{
+            Persuratan_Detail param = new Persuratan_Detail(AppConstant.HASHID,
+                    AppConstant.USER,
+                    AppConstant.REQID,
+                    Integer.toString(AppConstant.EMAIL_ID));
+            Call<Persuratan_Detail> call = NetworkManager.getNetworkService(this).getMailDetail(param);
+            call.enqueue(new Callback<Persuratan_Detail>() {
+                @Override
+                public void onResponse(Call<Persuratan_Detail> call, Response<Persuratan_Detail> response) {
+                    int code = response.code();
+                    if (code == 200){
+                        persuratanDetail = response.body();
+                        int iIndex = 0;
+                        AryListData = new ArrayList<>();
+                        for(Persuratan_Detail.Datum dat : persuratanDetail.data){
+                            for(Persuratan_Detail.ApprovalState dat1 : persuratanDetail.data.get(iIndex).approval_state){
+                                listData = new ListData();
+                                listData.setAtr1(dat1.deptartement);
+                                listData.setAtr2(dat1.user_name);
+                                listData.setAtr3(dat.mail_date);
+                                listData.setNama(sReadDate);
+                                AryListData.add(listData);
+                            }
+
+                            iIndex += 1;
+                        }
+                        mAdapter = new AdapterCC(getBaseContext(),AryListData);
+                        mRecyclerView.setAdapter(mAdapter);
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Persuratan_Detail> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+
+        }
+
+
     }
 
     @Override

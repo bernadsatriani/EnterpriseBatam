@@ -22,6 +22,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -43,7 +44,7 @@ public class AppController extends Application {
                 Settings.Secure.ANDROID_ID);*/
 
         AppConstant.IMEI = FirebaseInstanceId.getInstance().getToken();
-
+        AppConstant.AryListMenuChek = new ArrayList<>();
     }
 
 

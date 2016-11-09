@@ -35,12 +35,16 @@ public class BBS_List_ByCategory {
         public int bbs_id ;
         public String category_id ;
         public String bbs_date ;
+        public String create_time ;
+        public String bbs_by ;
         public String attc_size ;
         public String name ;
         public String read_sts;
         public int attc_count ;
         public String title ;
         public String attc_type ;
+        public int reply_count;
+
     }
 
 

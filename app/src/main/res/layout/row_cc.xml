@@ -11,49 +11,74 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_55">
 
-        <ui.CustomtextView
-            font:name = "GOTHAM_LIGHT"
-            android:id="@+id/text_departemen"
-            android:text="Departemen (Posisi)"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="fill_vertical"
-            android:layout_marginLeft="@dimen/space_5"
-            android:layout_weight="1"
-            android:textSize="12sp" />
+            android:layout_weight="1">
 
-        <ui.CustomtextView
-            font:name = "GOTHAM_LIGHT"
-            android:text="Nama"
-            android:id="@+id/text_nama"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="fill_vertical"
-            android:layout_marginLeft="@dimen/space_5"
-            android:layout_weight="1"
-            android:textSize="12sp" />
+            <ui.CustomtextView
+                font:name = "GOTHAM_LIGHT"
+                android:id="@+id/text_departemen"
+                android:text="Departemen (Posisi)"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="fill_vertical"
+                android:layout_marginLeft="@dimen/space_5"
+                android:textSize="12sp" />
 
-        <ui.CustomtextView
-            font:name = "GOTHAM_LIGHT"
-            android:text="Terkirim"
-            android:id="@+id/text_terkirim"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="fill_vertical"
-            android:layout_marginLeft="@dimen/space_5"
-            android:layout_weight="1"
-            android:textSize="12sp" />
+        </RelativeLayout>
 
-        <ui.CustomtextView
-            font:name = "GOTHAM_LIGHT"
-            android:text="Dibaca"
-            android:id="@+id/text_dibaca"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="fill_vertical"
-            android:layout_marginLeft="@dimen/space_5"
-            android:layout_weight="1"
-            android:textSize="12sp" />
+            android:layout_weight="1">
+
+            <ui.CustomtextView
+                font:name = "GOTHAM_LIGHT"
+                android:text="Nama"
+                android:id="@+id/text_nama"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="fill_vertical"
+                android:layout_marginLeft="@dimen/space_5"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ui.CustomtextView
+                font:name = "GOTHAM_LIGHT"
+                android:text="Terkirim"
+                android:id="@+id/text_terkirim"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="fill_vertical"
+                android:layout_marginLeft="@dimen/space_5"
+                android:textSize="12sp" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ui.CustomtextView
+                font:name = "GOTHAM_LIGHT"
+                android:text="Dibaca"
+                android:id="@+id/text_dibaca"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="fill_vertical"
+                android:layout_marginLeft="@dimen/space_5"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
     </LinearLayout>
 
 </LinearLayout>

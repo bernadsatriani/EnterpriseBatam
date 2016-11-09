@@ -60,6 +60,9 @@ public class AdapterBBSDaftarPesanan_Beranda extends  RecyclerView.Adapter<Adapt
         holder.lbl_Attach.setText(listData.title + " "+listData.content);
         holder.lbl_Judul.setText(listData.title + " "+listData.content);
         //holder.lbl_Isi.setText(listData.content);
+        holder.imgPDF.setVisibility(View.GONE);
+        holder.lbl_Attach1.setVisibility(View.GONE);
+        holder.lbl_Attach.setVisibility(View.GONE);
 
         holder.lbl_Size.setText("");
         holder.btnDokumen.setVisibility(View.GONE);
@@ -73,6 +76,10 @@ public class AdapterBBSDaftarPesanan_Beranda extends  RecyclerView.Adapter<Adapt
                     holder.lbl_Size.setText("(" + precision.format(dFileSize) + " kb)" );
 
                     holder.btnDokumen.setVisibility(View.VISIBLE);
+                    holder.imgPDF.setVisibility(View.VISIBLE);
+                    holder.imgPDF.setVisibility(View.VISIBLE);
+                    holder.lbl_Attach1.setVisibility(View.VISIBLE);
+                    holder.lbl_Attach.setVisibility(View.VISIBLE);
                 }
             }
         }catch (Exception e){
@@ -137,21 +144,24 @@ public class AdapterBBSDaftarPesanan_Beranda extends  RecyclerView.Adapter<Adapt
                 txtTime,
                 txtStatus,
                 lbl_Attach,
+                lbl_Attach1,
                 lbl_Size,
                 lbl_Judul
                         ;
-        ImageView imgStatus;
+        ImageView imgStatus, imgPDF;
         RelativeLayout btnDownload, btnDokumen;
         BBS_LIST.Datum listData;
         public ViewHolder(View itemView,
                           final Context context,
                           final AdapterBBSDaftarPesanan_Beranda mCourseAdapter) {
             super(itemView);
-            imgStatus = (ImageView)itemView.findViewById(R.id.img_status);
+
+            imgPDF = (ImageView)itemView.findViewById(R.id.imageView6);
             txtStatus = (TextView)itemView.findViewById(R.id.text_status);
             txtTime = (TextView)itemView.findViewById(R.id.text_time);
             txtDate = (TextView)itemView.findViewById(R.id.text_Date);
             lbl_Attach = (TextView)itemView.findViewById(R.id.lbl_attach);
+            lbl_Attach1 = (TextView)itemView.findViewById(R.id.lbl_attach1);
             lbl_Size = (TextView)itemView.findViewById(R.id.lbl_size);
             lbl_Judul = (TextView)itemView.findViewById(R.id.lbl_Judul);
             //lbl_Isi = (TextView)itemView.findViewById(R.id.lbl_Isi);

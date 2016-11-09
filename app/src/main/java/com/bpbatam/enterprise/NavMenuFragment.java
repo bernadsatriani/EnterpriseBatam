@@ -289,6 +289,7 @@ public class NavMenuFragment extends Fragment {
                 if (iGroup == 2 || iGroup == 3){
                     //parent.setItemChecked(index, true);
                     AppConstant.POSITION_CHILD = iGroup + "" + iChild;
+                    AppConstant.AryListMenuChek.add(iGroup + "" + iChild);
                     listAdapter.notifyDataSetChanged();
                     mDrawerLayout.closeDrawer(containerView);
                     String sPosition = Integer.toString(iGroup) + Integer.toString(iChild)  ;

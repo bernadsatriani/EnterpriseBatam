@@ -22,6 +22,7 @@ import com.bpbatam.enterprise.model.net.NetworkManager;
 import com.bpbatam.enterprise.persuratan.persuratan_detail;
 
 import java.security.NoSuchAlgorithmException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,7 +63,7 @@ public class AdapterPersuratanPermohonan extends  RecyclerView.Adapter<AdapterPe
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         final Persuratan_List_Folder.Datum listData = persuratanListFolder.data.get(position);
         //Set text
         holder.txtDate.setText(listData.mail_date);
@@ -94,29 +95,12 @@ public class AdapterPersuratanPermohonan extends  RecyclerView.Adapter<AdapterPe
             }
         });
 
-        holder.btnDownload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //https://www.dropbox.com/s/jadu92w71vnku3o/Wireframe.pdf?dl=0
-                //getAttachment(Integer.toString(listData.mail_id));
-                AppConstant.EMAIL_ID = listData.mail_id;
-                listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
-            }
-        });
-
-        holder.listData = listData;
-    }
-
-    void getAttachment(String mail_id){
-        try {
-            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-
+        final DecimalFormat precision = new DecimalFormat("0.00");
         try{
-            Persuratan_Attachment params = new Persuratan_Attachment(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID, mail_id);
-            Call<Persuratan_Attachment> call = NetworkManager.getNetworkService(context).getMailAttachment(params);
+            Persuratan_Attachment param = new Persuratan_Attachment(AppConstant.HASHID, AppConstant.USER,
+                    AppConstant.REQID, Integer.toString(listData.mail_id));
+
+            Call<Persuratan_Attachment> call = NetworkManager.getNetworkService(context).getMailAttachment(param);
             call.enqueue(new Callback<Persuratan_Attachment>() {
                 @Override
                 public void onResponse(Call<Persuratan_Attachment> call, Response<Persuratan_Attachment> response) {
@@ -125,12 +109,19 @@ public class AdapterPersuratanPermohonan extends  RecyclerView.Adapter<AdapterPe
                         persuratanAttachment = response.body();
                         if (persuratanAttachment.code.equals("00")){
                             for(Persuratan_Attachment.Datum dat : persuratanAttachment.data){
-                                if (dat.fileType.toUpperCase().equals("PDF"))
-                                listener.OnDownloadClicked(AppConstant.DOMAIN_URL + AppConstant.API_VERSION + dat.attcLink, true);
+                                listData.attach_link = dat.attcLink;
+                                listData.file_size = dat.fileSize;
+                                listData.file_type = dat.fileType;
                             }
-                        }else{
-                            AppController.getInstance().CustomeDialog(context, persuratanAttachment.info);
+
+                            if (listData.file_size != null ){
+                                String fileName = listData.attach_link.substring(listData.attach_link.lastIndexOf('/') + 1);
+                                double dFileSize = Double.parseDouble(listData.file_size) / 1024;
+                                holder.lbl_Attach.setText(fileName);
+                                holder.lbl_Size.setText("(" + precision.format(dFileSize) + " kb)" );
+                            }
                         }
+
                     }
                 }
 
@@ -143,6 +134,19 @@ public class AdapterPersuratanPermohonan extends  RecyclerView.Adapter<AdapterPe
 
         }
 
+        holder.btnDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //https://www.dropbox.com/s/jadu92w71vnku3o/Wireframe.pdf?dl=0
+
+                if (listData.file_size != null && !listData.file_size.equals("")){
+                    listener.OnDownloadClicked(listData.attach_link, true);
+                }
+
+                //listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
+            }
+        });
+        holder.listData = listData;
     }
 
     @Override
