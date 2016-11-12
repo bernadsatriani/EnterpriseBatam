@@ -4,6 +4,7 @@ import android.app.Application;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.provider.Settings;
 import android.support.multidex.MultiDex;
 import android.telephony.TelephonyManager;
@@ -79,6 +80,12 @@ public class AppController extends Application {
 
     }
 
+    public void displayImageSDCard(Context context, Uri uri, ImageView imageView) {
+        Glide.with(context)
+                .load(uri)
+                .into(imageView);
+
+    }
 
     public void displayImagePicasso(Context context, String uri, ImageView imageView) {
         Picasso picasso = Picasso.with(context);
@@ -221,4 +228,12 @@ public class AppController extends Application {
         sResult = "(" + precision.format(dFileSize) + " kb)";
         return sResult;
     }
+
+    public String getFileExtension(String sPath){
+        String sResult;
+        sResult = sPath.substring(sPath.lastIndexOf(".") + 1);
+        return sResult;
+    }
+
+
 }

@@ -155,6 +155,7 @@ public class AdapterBBSDaftarPesanan extends  RecyclerView.Adapter<AdapterBBSDaf
                     AppConstant.EMAIL_ID = listData.bbs_id;
                     try{
                         AppConstant.BBS_LINK = listData.attc_link;
+                        if (listData.attc_link == null) AppConstant.BBS_LINK = "";
                     }catch (Exception e){
                         AppConstant.BBS_LINK = "";
                     }

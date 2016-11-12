@@ -16,7 +16,7 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="118dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
@@ -46,12 +46,14 @@
                 android:gravity="right"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
+                android:paddingRight="@dimen/space_5"
                 android:layout_marginRight="@dimen/space_5"
                 android:layout_alignBottom="@+id/imageView4"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="@dimen/space_2" />
 
-            <RelativeLayout
+            <LinearLayout
+                android:orientation="horizontal"
                 android:id="@+id/layout_attachment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -63,64 +65,112 @@
                 android:layout_marginRight="@dimen/space_5"
                 android:layout_marginTop="@dimen/space_5">
 
-                <ui.CustomtextView
-                    font:name = "GOTHAM_LIGHTITALIC"
-                    android:id="@+id/lbl_attach"
-                    android:text="Attachemnt"
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/space_12"
-                    android:maxLines="1"
-                    android:textStyle="italic"
-                    android:layout_alignTop="@+id/imageView6"
-                    android:layout_toRightOf="@+id/imageView6"
-                    android:layout_toEndOf="@+id/imageView6"
-                    android:layout_marginRight="@dimen/space_45"
-                    android:layout_marginLeft="@dimen/space_3"/>
+                    android:layout_weight="1">
 
-                <ui.CustomtextView
-                    font:name = "GOTHAM_LIGHTITALIC"
-                    android:id="@+id/lbl_size"
-                    android:textSize="@dimen/space_12"
-                    android:text="Attachemnt asdas asdas"
+                    <ui.CustomtextView
+                        android:layout_marginTop="@dimen/space_10"
+                        android:layout_marginBottom="@dimen/space_10"
+                        font:name="GOTHAM_BOLD"
+                        android:id="@+id/lbl_Judul"
+                        android:text="Tutorial Backup Hapus Email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:layout_marginLeft="@dimen/space_14"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true" />
+
+                    <RelativeLayout
+                        android:id="@+id/layout_attachment1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorListItem"
+                        android:layout_below="@+id/text_Date"
+                        android:layout_alignRight="@+id/text_time"
+                        android:layout_alignEnd="@+id/text_time"
+                        android:layout_marginLeft="@dimen/space_5"
+                        android:layout_marginRight="@dimen/space_5">
+
+                        <ui.CustomtextView
+                            font:name = "GOTHAM_LIGHTITALIC"
+                            android:id="@+id/lbl_label"
+                            android:text="Attachemnts "
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/space_12"
+                            android:maxLines="1"
+                            android:textStyle="italic"
+                            android:layout_marginRight="@dimen/space_45"
+                            android:layout_marginLeft="@dimen/space_7"/>
+
+                        <ui.CustomtextView
+                            font:name = "GOTHAM_LIGHTITALIC"
+                            android:id="@+id/lbl_attach"
+                            android:text="Attachemnt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/space_12"
+                            android:maxLines="1"
+                            android:textStyle="italic"
+                            android:layout_alignTop="@+id/imageView6"
+                            android:layout_toRightOf="@+id/imageView6"
+                            android:layout_toEndOf="@+id/imageView6"
+                            android:layout_marginRight="@dimen/space_45"
+                            android:layout_marginLeft="@dimen/space_3"/>
+
+                        <ui.CustomtextView
+                            font:name = "GOTHAM_LIGHTITALIC"
+                            android:id="@+id/lbl_size"
+                            android:textSize="@dimen/space_12"
+                            android:text="Attachemnt asdas asdas"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/lbl_attach"
+                            android:maxLines="1"
+                            android:layout_alignBottom="@+id/imageView6"
+                            android:layout_toRightOf="@+id/imageView6"
+                            android:layout_toEndOf="@+id/imageView6"
+                            android:layout_marginRight="@dimen/space_45"
+                            android:layout_marginLeft="@dimen/space_3"
+                            android:textStyle="italic" />
+
+                        <ImageView
+                            android:layout_width="@dimen/space_25"
+                            android:layout_height="@dimen/space_30"
+                            android:id="@+id/imageView6"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:src="@drawable/pdf"
+                            android:layout_marginLeft="@dimen/space_7"
+                            android:layout_marginTop="@dimen/space_16"
+                            android:layout_marginBottom="@dimen/space_10" />
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/lbl_attach"
-                    android:maxLines="1"
-                    android:layout_alignBottom="@+id/imageView6"
-                    android:layout_toRightOf="@+id/imageView6"
-                    android:layout_toEndOf="@+id/imageView6"
-                    android:layout_marginRight="@dimen/space_45"
-                    android:layout_marginLeft="@dimen/space_3"
-                    android:textStyle="italic" />
-
-                <ImageView
-                    android:layout_width="@dimen/space_25"
-                    android:layout_height="@dimen/space_30"
-                    android:id="@+id/imageView6"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:src="@drawable/pdf"
-                    android:layout_marginLeft="@dimen/space_7"
-                    android:layout_marginTop="@dimen/space_10"
-                    android:layout_marginBottom="@dimen/space_10" />
-
-                <ImageView
-                    android:visibility="gone"
-                    android:layout_width="@dimen/space_25"
-                    android:layout_height="@dimen/space_25"
-                    android:id="@+id/imageView15"
-                    android:layout_alignTop="@+id/lbl_attach"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:src="@drawable/circle_kosong"
-                    android:layout_marginTop="@dimen/space_3"
-                    android:layout_marginRight="@dimen/space_10" />
-
-
-            </RelativeLayout>
-
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_weight="9">
+                    <ImageView
+                        android:visibility="gone"
+                        android:layout_width="@dimen/space_25"
+                        android:layout_height="@dimen/space_25"
+                        android:id="@+id/imageView15"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:src="@drawable/circle_kosong"
+                        android:layout_marginTop="@dimen/space_3"
+                        android:layout_marginRight="@dimen/space_10" />
+                </RelativeLayout>
+            </LinearLayout>
             <ImageView
                 android:layout_width="@dimen/space_20"
                 android:layout_height="@dimen/space_20"
@@ -132,7 +182,7 @@
 
             <RelativeLayout
                 android:id="@+id/btnPrint"
-                android:layout_height="@dimen/space_35"
+                android:layout_height="@dimen/space_30"
                 android:background="@drawable/btn_shape_all_transparant_blue"
                 android:text="lihat detail"
                 android:textColor="#ffffff"
@@ -178,6 +228,7 @@
                 android:layout_height="@dimen/space_30"
                 android:layout_below="@+id/layout_attachment"
                 android:layout_marginTop="@dimen/space_7"
+                android:layout_marginBottom="@dimen/space_10"
                 android:layout_alignRight="@+id/layout_attachment"
                 android:layout_alignEnd="@+id/layout_attachment"
                 android:layout_width="103dp">

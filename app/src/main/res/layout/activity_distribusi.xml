@@ -69,48 +69,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_45"
-                android:layout_marginLeft="@dimen/space_10"
-                android:layout_marginRight="@dimen/space_10">
-
-                <ui.CustomtextView
-                    font:name="GOTHAM_BOLD"
-                    android:text="CC"
-                    android:textColor="@color/white"
-                    android:background="@color/colorSearch"
-                    android:layout_width="120dp"
-                    android:layout_height="match_parent"
-                    android:gravity="fill_vertical"
-                    android:paddingLeft="@dimen/space_10" />
-
-                <RelativeLayout
-                    android:layout_marginLeft="@dimen/space_10"
-                    android:background="@drawable/btn_shape_kotak_blue"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <EditText
-                        android:id="@+id/text_cc"
-                        android:background="@color/transparant_pure"
-                        android:editable="false"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_toLeftOf="@+id/imgCC"
-                        android:layout_toStartOf="@+id/imgCC" />
-
-                    <ImageView
-                        android:id="@+id/imgCC"
-                        android:src="@drawable/plus"
-                        android:layout_width="@dimen/space_20"
-
-                        android:layout_height="@dimen/space_20"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentEnd="true" />
-                </RelativeLayout>
-            </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"

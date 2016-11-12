@@ -18,7 +18,9 @@ import com.bpbatam.AppController;
 import com.bpbatam.enterprise.disposisi.adapter.AdapterDisposisiDistribusi;
 import com.bpbatam.enterprise.model.Diposisi_List_Folder;
 import com.bpbatam.enterprise.model.Disposisi_Detail;
+import com.bpbatam.enterprise.model.Disposisi_Distribusi;
 import com.bpbatam.enterprise.model.ListData;
+import com.bpbatam.enterprise.model.Persuratan_Distribusi;
 import com.bpbatam.enterprise.model.net.NetworkManager;
 
 import java.security.NoSuchAlgorithmException;
@@ -31,16 +33,19 @@ import retrofit2.Response;
  * Created by User on 10/3/2016.
  */
 public class DistribusiActivity extends AppCompatActivity {
-    EditText txtDistribusi, txtCC, txtPesan;
+    EditText txtDistribusi, txtPesan;
     TextView txtLabel;
     RelativeLayout btnKirim;
 
     Toolbar toolbar;
 
-    ImageView imgDistri, imgCC;
+    ImageView imgDistri;
 
     Diposisi_List_Folder diposisiListFolder;
     Disposisi_Detail disposisiDetail;
+
+    Disposisi_Distribusi disposisiDistribusi;
+    Persuratan_Distribusi persuratanDistribusi;
 
     String dead_line,  dispo_num,  priority,
             retensi,  related_mail,  related_dispo,
@@ -62,13 +67,11 @@ public class DistribusiActivity extends AppCompatActivity {
 
     void InitControl(){
         imgDistri = (ImageView)findViewById(R.id.imgDistribusi);
-        imgCC = (ImageView)findViewById(R.id.imgCC);
         txtLabel = (TextView)findViewById(R.id.textLabel);
         txtLabel.setText(AppConstant.PDF_FILENAME);
 
         toolbar = (Toolbar)findViewById(R.id.tool_bar);
         txtDistribusi = (EditText)findViewById(R.id.text_distribusi);
-        txtCC = (EditText)findViewById(R.id.text_cc);
         txtPesan = (EditText)findViewById(R.id.text_pesan);
         btnKirim = (RelativeLayout)findViewById(R.id.btnKirim);
 
@@ -76,7 +79,12 @@ public class DistribusiActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (ValidateInnput()){
-                    getDispoDetail();
+                    if (AppConstant.B_DISPOS){
+                        SendDiposisi();
+                    }else{
+                        SendPersuratan();
+                    }
+
                     finish();
                 }
 
@@ -92,14 +100,6 @@ public class DistribusiActivity extends AppCompatActivity {
             }
         });
 
-        imgCC.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AppConstant.B_USER_DISITRI = false;
-                Intent mIntent = new Intent(getBaseContext(), ListUserActivity.class);
-                startActivity(mIntent);
-            }
-        });
     }
 
     @Override
@@ -113,12 +113,9 @@ public class DistribusiActivity extends AppCompatActivity {
     boolean ValidateInnput(){
         boolean sReturn = true;
         dispo_dist = txtDistribusi.getText().toString().trim();
-        dispo_cc= txtCC.getText().toString().trim();
 
+        dispo_dist = dispo_dist.replace("#","||");
         if (dispo_dist.equals("")){
-            AppController.getInstance().CustomeDialog(getBaseContext(),"Data distribusi belum diisi");
-            sReturn = false;
-        }else if (dispo_cc.equals("")){
             AppController.getInstance().CustomeDialog(getBaseContext(),"Data distribusi belum diisi");
             sReturn = false;
         }
@@ -127,6 +124,85 @@ public class DistribusiActivity extends AppCompatActivity {
     }
 
     void SendDiposisi(){
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            content = txtPesan.getText().toString().trim();
+
+            Disposisi_Distribusi param = new Disposisi_Distribusi(AppConstant.HASHID,
+                    AppConstant.USER,
+                    AppConstant.REQID,
+                    AppConstant.DISPO_ID,
+                    dispo_dist);
+
+            Call<Disposisi_Distribusi> call = NetworkManager.getNetworkService(this).postSendDistribusiDispos(param);
+            call.enqueue(new Callback<Disposisi_Distribusi>() {
+                @Override
+                public void onResponse(Call<Disposisi_Distribusi> call, Response<Disposisi_Distribusi> response) {
+                    int code = response.code();
+                    if (code == 200){
+                        disposisiDistribusi = response.body();
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<Disposisi_Distribusi> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+
+        }
+
+    }
+
+    void SendPersuratan(){
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            content = txtPesan.getText().toString().trim();
+
+            Persuratan_Distribusi param = new Persuratan_Distribusi(AppConstant.HASHID,
+                    AppConstant.USER,
+                    AppConstant.REQID,
+                    AppConstant.DISPO_ID,
+                    dispo_dist);
+
+            Call<Persuratan_Distribusi> call = NetworkManager.getNetworkService(this).postSendDistribusiPersuratan(param);
+            call.enqueue(new Callback<Persuratan_Distribusi>() {
+                @Override
+                public void onResponse(Call<Persuratan_Distribusi> call, Response<Persuratan_Distribusi> response) {
+                    int code = response.code();
+                    if (code == 200){
+                        persuratanDistribusi = response.body();
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<Persuratan_Distribusi> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+
+        }
+
+    }
+
+
+    void SendDiposisiOld(){
         String sPassword = "";
         try {
             sPassword = AppController.getInstance().md5("admin");
@@ -262,6 +338,5 @@ public class DistribusiActivity extends AppCompatActivity {
         super.onResume();
         // put your code here...
         txtDistribusi.setText(AppConstant.USER_DISTRI);
-        txtCC.setText(AppConstant.USER_CC);
     }
 }

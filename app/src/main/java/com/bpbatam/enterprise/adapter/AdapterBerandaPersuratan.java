@@ -24,6 +24,7 @@ import com.bpbatam.enterprise.persuratan.persuratan_detail;
 import org.json.JSONObject;
 
 import java.security.NoSuchAlgorithmException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -64,13 +65,17 @@ public class AdapterBerandaPersuratan extends  RecyclerView.Adapter<AdapterBeran
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         final Persuratan_List_Folder.Datum listData = persuratanListFolder.data.get(position);
         //Set text
         holder.txtDate.setText(listData.mail_date);
         holder.txtTime.setText(listData.mail_time);
+        holder.txtJudul.setText(listData.title);
         holder.lbl_Attach.setText(listData.title);
         holder.lbl_Size.setText("");
+
+
+        holder.layoutAttc.setVisibility(View.GONE);
 
         try {
             AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
@@ -78,15 +83,10 @@ public class AdapterBerandaPersuratan extends  RecyclerView.Adapter<AdapterBeran
             e.printStackTrace();
         }
 
+        final DecimalFormat precision = new DecimalFormat("0.00");
         try{
             Persuratan_Attachment param = new Persuratan_Attachment(AppConstant.HASHID, AppConstant.USER,
                     AppConstant.REQID, Integer.toString(listData.mail_id));
-
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("hashid", AppConstant.HASHID);
-            jsonObject.put("reqid", AppConstant.REQID);
-            jsonObject.put("userid", AppConstant.USER);
-            jsonObject.put("mail_id", listData.mail_id);
 
             Call<Persuratan_Attachment> call = NetworkManager.getNetworkService(context).getMailAttachment(param);
             call.enqueue(new Callback<Persuratan_Attachment>() {
@@ -95,6 +95,24 @@ public class AdapterBerandaPersuratan extends  RecyclerView.Adapter<AdapterBeran
                     int code = response.code();
                     if (code == 200){
                         persuratanAttachment = response.body();
+                        if (persuratanAttachment.code.equals("00")){
+                            for(Persuratan_Attachment.Datum dat : persuratanAttachment.data){
+                                listData.attach_link = dat.attcLink;
+                                listData.file_size = dat.fileSize;
+                                listData.file_type = dat.fileType;
+                            }
+
+                            if (listData.file_size != null ){
+                                String fileName = listData.attach_link.substring(listData.attach_link.lastIndexOf('/') + 1);
+                                double dFileSize = Double.parseDouble(listData.file_size) / 1024;
+                                holder.lbl_Attach.setText(fileName);
+                                holder.lbl_Size.setText("(" + precision.format(dFileSize) + " kb)" );
+
+                                holder.layoutAttc.setVisibility(View.VISIBLE);
+                            }
+
+                        }
+
                     }
                 }
 
@@ -106,8 +124,6 @@ public class AdapterBerandaPersuratan extends  RecyclerView.Adapter<AdapterBeran
         }catch (Exception e){
 
         }
-
-
 
         //holder.txtStatus.setText(listData.getAtr2());
 
@@ -134,6 +150,7 @@ public class AdapterBerandaPersuratan extends  RecyclerView.Adapter<AdapterBeran
 
         TextView txtDate,
                 txtTime,
+                txtJudul,
                 lbl_Attach,
                 lbl_Size,
                 txtStatus
@@ -141,7 +158,7 @@ public class AdapterBerandaPersuratan extends  RecyclerView.Adapter<AdapterBeran
         ;
 
         RelativeLayout btnDownload,
-                btnPrint;
+                btnPrint, layoutAttc;
         ImageView imgStatus;
 
         Persuratan_List_Folder.Datum listData;
@@ -149,6 +166,8 @@ public class AdapterBerandaPersuratan extends  RecyclerView.Adapter<AdapterBeran
                           Context context,
                           final AdapterBerandaPersuratan mCourseAdapter) {
             super(itemView);
+            txtJudul = (TextView)itemView.findViewById(R.id.lbl_Judul);
+            layoutAttc = (RelativeLayout) itemView.findViewById(R.id.layout_attachment1);
 
             txtDate = (TextView)itemView.findViewById(R.id.text_Date);
             txtStatus = (TextView)itemView.findViewById(R.id.text_status);

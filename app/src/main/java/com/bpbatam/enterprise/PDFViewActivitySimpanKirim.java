@@ -1,11 +1,13 @@
 package com.bpbatam.enterprise;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -38,11 +40,12 @@ public class PDFViewActivitySimpanKirim extends AppCompatActivity implements OnP
     LinearLayout btnSimpan, btnKirim;
     Persuratan_proses persuratanProses;
 
+    ImageView imgView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pdfview_simpan_kirim);
-
+        imgView = (ImageView)findViewById(R.id.imgView);
         txtLabel = (TextView)findViewById(R.id.textLabel);
         pdfView = (PDFView)findViewById(R.id.pdfView);
         toolbar = (Toolbar)findViewById(R.id.tool_bar);
@@ -65,6 +68,15 @@ public class PDFViewActivitySimpanKirim extends AppCompatActivity implements OnP
                     .onLoad(this)
                     .scrollHandle(new DefaultScrollHandle(this))
                     .load();
+        }
+
+        String sFileExtension = AppController.getInstance().getFileExtension(AppConstant.PDF_FILENAME);
+        if (!sFileExtension.toUpperCase().equals("PDF") && !sFileExtension.toUpperCase().equals("TXT")){
+            pdfView.setVisibility(View.GONE);
+            imgView.setVisibility(View.VISIBLE);
+            Uri uri = Uri.fromFile(new File(AppConstant.STORAGE_CARD + "/Download/" + AppConstant.PDF_FILENAME));
+
+            AppController.getInstance().displayImageSDCard(getBaseContext(), uri, imgView);
         }
 
         btnSimpan.setOnClickListener(new View.OnClickListener() {

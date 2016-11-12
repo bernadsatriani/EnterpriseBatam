@@ -65,8 +65,13 @@ public class AdapterPersuratanDisimpan extends  RecyclerView.Adapter<AdapterPers
         //Set text
         holder.txtDate.setText(listData.mail_date);
         holder.txtTime.setText(listData.read_date);
+        holder.txtJudul.setText(listData.title);
         holder.lbl_Attach.setText(listData.title);
         holder.lbl_Size.setText("");
+
+
+        holder.layoutAttc.setVisibility(View.GONE);
+
 
         if (listData.flag != null){
             if (listData.flag.equals(AppConstant.SEMUA_PESAN)){
@@ -106,6 +111,8 @@ public class AdapterPersuratanDisimpan extends  RecyclerView.Adapter<AdapterPers
                                 double dFileSize = Double.parseDouble(listData.file_size) / 1024;
                                 holder.lbl_Attach.setText(fileName);
                                 holder.lbl_Size.setText("(" + precision.format(dFileSize) + " kb)" );
+
+                                holder.layoutAttc.setVisibility(View.VISIBLE);
                             }
                         }
 
@@ -124,13 +131,13 @@ public class AdapterPersuratanDisimpan extends  RecyclerView.Adapter<AdapterPers
         holder.btnDownload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //https://www.dropbox.com/s/jadu92w71vnku3o/Wireframe.pdf?dl=0
-
-                if (listData.file_size != null && !listData.file_size.equals("")){
+                AppConstant.DISPO_ID = Integer.toString(listData.mail_id);
+                AppConstant.EMAIL_ID = listData.mail_id;
+                /*if (listData.file_size != null && !listData.file_size.equals("")){
                     listener.OnDownloadClicked(listData.attach_link, true);
-                }
+                }*/
 
-                //listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
+                listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
             }
         });
 
@@ -180,12 +187,13 @@ public class AdapterPersuratanDisimpan extends  RecyclerView.Adapter<AdapterPers
 
         TextView txtDate,
                 txtTime,
+                txtJudul,
                 lbl_Attach,
                 lbl_Size,
                 txtStatus;
         ;
 
-        RelativeLayout btnDownload;
+        RelativeLayout btnDownload, layoutAttc;
         ImageView imgStatus, imgChecklist;
 
         ImageView imgDownload;
@@ -196,6 +204,9 @@ public class AdapterPersuratanDisimpan extends  RecyclerView.Adapter<AdapterPers
                           Context context,
                           final AdapterPersuratanDisimpan mCourseAdapter) {
             super(itemView);
+            txtJudul = (TextView)itemView.findViewById(R.id.lbl_Judul);
+            layoutAttc = (RelativeLayout) itemView.findViewById(R.id.layout_attachment1);
+
             imgDownload = (ImageView) itemView.findViewById(R.id.imgDownload);
             textDownload = (TextView)itemView.findViewById(R.id.textDownload);
 

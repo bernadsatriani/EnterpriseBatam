@@ -12,16 +12,24 @@ import android.widget.TextView;
 import com.bpbatam.AppConstant;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.model.Diposisi_List_Folder;
+import com.bpbatam.enterprise.model.Disposisi_Attachment;
 import com.bpbatam.enterprise.model.ListData;
 import com.bpbatam.enterprise.model.Persuratan_List_Folder;
+import com.bpbatam.enterprise.model.net.NetworkManager;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by User on 9/19/2016.
  */
 public class AdapterDisposisiRiwayat extends  RecyclerView.Adapter<AdapterDisposisiRiwayat.ViewHolder>{
     Diposisi_List_Folder persuratanListFolder;
+    Disposisi_Attachment disposisiAttachment;
     private Context context;
 
     public AdapterDisposisiRiwayat(Context context, Diposisi_List_Folder persuratanListFolder, OnDownloadClicked listener) {
@@ -49,19 +57,67 @@ public class AdapterDisposisiRiwayat extends  RecyclerView.Adapter<AdapterDispos
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         final Diposisi_List_Folder.Datum listData = persuratanListFolder.data.get(position);
         //Set text
         holder.txtDate.setText(listData.dispo_date);
         holder.txtTime.setText(listData.read_date);
+        holder.txtJudul.setText(listData.title);
         holder.lbl_Attach.setText(listData.title);
         holder.lbl_Size.setText("");
+
+
+        holder.layoutAttc.setVisibility(View.GONE);
+        final DecimalFormat precision = new DecimalFormat("0.00");
+        try{
+            Disposisi_Attachment param = new Disposisi_Attachment(AppConstant.HASHID, AppConstant.USER,
+                    AppConstant.REQID, Integer.toString(listData.dispo_id));
+
+            Call<Disposisi_Attachment> call = NetworkManager.getNetworkService(context).getDisposisiAttachment(param);
+            call.enqueue(new Callback<Disposisi_Attachment>() {
+                @Override
+                public void onResponse(Call<Disposisi_Attachment> call, Response<Disposisi_Attachment> response) {
+                    int code = response.code();
+                    if (code == 200){
+                        disposisiAttachment = response.body();
+                        if (disposisiAttachment.code.equals("00")){
+                            for(Disposisi_Attachment.Datum dat : disposisiAttachment.data){
+                                listData.attach_link = dat.attcLink;
+                                listData.file_size = dat.fileSize;
+                                listData.file_type = dat.fileType;
+                            }
+
+                            if (listData.file_size != null ){
+                                String fileName = listData.attach_link.substring(listData.attach_link.lastIndexOf('/') + 1);
+                                double dFileSize = Double.parseDouble(listData.file_size) / 1024;
+                                holder.lbl_Attach.setText(fileName);
+                                holder.lbl_Size.setText("(" + precision.format(dFileSize) + " kb)" );
+
+                                holder.layoutAttc.setVisibility(View.VISIBLE);
+                            }
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Disposisi_Attachment> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+
+        }
 
         holder.btnDownload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //https://www.dropbox.com/s/jadu92w71vnku3o/Wireframe.pdf?dl=0
                 AppConstant.EMAIL_ID = listData.dispo_id;
+                AppConstant.DISPO_ID = Integer.toString(listData.dispo_id);
+                /*if (listData.file_size != null && !listData.file_size.equals("")){
+                    listener.OnDownloadClicked(listData.attach_link, true);
+                }*/
                 listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
             }
         });
@@ -78,12 +134,13 @@ public class AdapterDisposisiRiwayat extends  RecyclerView.Adapter<AdapterDispos
 
         TextView txtDate,
                 txtTime,
+                txtJudul,
                 lbl_Attach,
                 lbl_Size,
                 txtStatus
         ;
 
-        RelativeLayout btnDownload;
+        RelativeLayout btnDownload, layoutAttc;
         ImageView imgStatus;
 
         Diposisi_List_Folder.Datum listData;
@@ -91,6 +148,8 @@ public class AdapterDisposisiRiwayat extends  RecyclerView.Adapter<AdapterDispos
                           Context context,
                           final AdapterDisposisiRiwayat mCourseAdapter) {
             super(itemView);
+            txtJudul = (TextView)itemView.findViewById(R.id.lbl_Judul);
+            layoutAttc = (RelativeLayout) itemView.findViewById(R.id.layout_attachment1);
 
             txtDate = (TextView)itemView.findViewById(R.id.text_Date);
             txtStatus = (TextView)itemView.findViewById(R.id.text_status);

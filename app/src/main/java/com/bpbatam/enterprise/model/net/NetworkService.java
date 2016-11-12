@@ -10,13 +10,17 @@ import com.bpbatam.enterprise.model.BBS_List_ByCategory;
 import com.bpbatam.enterprise.model.DISPOSISI_Category;
 import com.bpbatam.enterprise.model.DataAdmin;
 import com.bpbatam.enterprise.model.Diposisi_List_Folder;
+import com.bpbatam.enterprise.model.Disposisi_Attachment;
 import com.bpbatam.enterprise.model.Disposisi_Detail;
+import com.bpbatam.enterprise.model.Disposisi_Distribusi;
 import com.bpbatam.enterprise.model.Disposisi_Folder;
+import com.bpbatam.enterprise.model.Disposisi_Riwayat;
 import com.bpbatam.enterprise.model.GitHubUser;
 import com.bpbatam.enterprise.model.ListUser;
 import com.bpbatam.enterprise.model.LocationList;
 import com.bpbatam.enterprise.model.Persuratan_Attachment;
 import com.bpbatam.enterprise.model.Persuratan_Detail;
+import com.bpbatam.enterprise.model.Persuratan_Distribusi;
 import com.bpbatam.enterprise.model.Persuratan_Folder;
 import com.bpbatam.enterprise.model.Persuratan_List_Folder;
 import com.bpbatam.enterprise.model.Persuratan_proses;
@@ -123,6 +127,10 @@ public interface NetworkService {
     @POST("ep_api_services/ep_mail/delete_mail")
     Call<Persuratan_List_Folder> postDelete(@Body Persuratan_List_Folder params);
 
+
+    @POST("ep_api_services/ep_mail/distribution_mail")
+    Call<Persuratan_Distribusi> postSendDistribusiPersuratan(@Body Persuratan_Distribusi params);
+
     //DISPOSISI-------------------------------------------------------------------------
     @POST("ep_api_services/ep_dispo/get_category")
     Call<DISPOSISI_Category> getCategory(@Body DISPOSISI_Category params);
@@ -140,5 +148,13 @@ public interface NetworkService {
     @POST("ep_api_services/ep_dispo/send_dispo_new")
     Call<Diposisi_List_Folder> postSendDisposisi(@Body Diposisi_List_Folder params);
 
+    @POST("ep_api_services/ep_dispo/distribution_dispo")
+    Call<Disposisi_Distribusi> postSendDistribusiDispos(@Body Disposisi_Distribusi params);
+
+    @POST("ep_api_services/ep_dispo/get_dispo_attc")
+    Call<Disposisi_Attachment> getDisposisiAttachment(@Body Disposisi_Attachment params);
+
+    @POST("ep_api_services/ep_dispo/get_dispo_origin")
+    Call<Disposisi_Riwayat> getDisposisiRiwayat(@Body Disposisi_Riwayat params);
 
 }

@@ -145,6 +145,8 @@ public class frag_disposisi_dalamproses extends Fragment implements SwipeRefresh
             public void OnDownloadClicked(final String sUrl, boolean bStatus) {
                 DownloadManager.Request request = new DownloadManager.Request(Uri.parse(sUrl));
                 AppConstant.PDF_FILENAME = AppController.getInstance().getFileName(sUrl);
+                AppConstant.PDF_FILENAME = AppConstant.PDF_FILENAME.replace("%20"," ");
+
                 File file = new File(AppConstant.STORAGE_CARD + "/Download/" + AppConstant.PDF_FILENAME);
                 if (file.exists()){
                     Intent intent = new Intent(getActivity(), PDFViewActivity_Recall.class);

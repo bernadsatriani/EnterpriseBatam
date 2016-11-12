@@ -22,9 +22,15 @@
             android:layout_height="422dp"
             android:layout_marginLeft="@dimen/space_10"
             android:layout_marginRight="@dimen/space_10"
-            android:layout_above="@+id/btnDistribusi"
             android:layout_alignParentTop="true"
             android:layout_marginTop="@dimen/space_10">
+
+            <ImageView
+                android:visibility="gone"
+                android:layout_margin="@dimen/space_10"
+                android:id="@+id/imgView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
             <com.github.barteksc.pdfviewer.PDFView
                 android:id="@+id/pdfView"

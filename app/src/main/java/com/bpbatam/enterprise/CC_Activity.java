@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.bpbatam.AppConstant;
 import com.bpbatam.AppController;
 import com.bpbatam.enterprise.adapter.AdapterCC;
+import com.bpbatam.enterprise.model.Disposisi_Detail;
 import com.bpbatam.enterprise.model.ListData;
 import com.bpbatam.enterprise.model.Persuratan_Detail;
 import com.bpbatam.enterprise.model.net.NetworkManager;
@@ -40,7 +41,7 @@ public class CC_Activity extends AppCompatActivity {
 
     Toolbar toolbar;
     Persuratan_Detail persuratanDetail;
-
+    Disposisi_Detail disposisiDetail;
     String sReadDate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +130,72 @@ public class CC_Activity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<Persuratan_Detail> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+
+        }
+
+
+    }
+
+    void FillGridDisposisi() {
+
+
+        /*for (int i = 0; i < 1; i++) {
+            listData = new ListData();
+            listData.setAtr1("Seksi Media dan Aplikasi " + i);
+            listData.setAtr2("Rizal Safani S.Kom");
+            listData.setAtr3("21 Sept 2016 17:36");
+            listData.setNama("24 Sept 2016 14:36");
+            AryListData.add(listData);
+
+        }
+
+        mAdapter = new AdapterCC(this,AryListData);
+        mRecyclerView.setAdapter(mAdapter);
+*/
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        try{
+            Disposisi_Detail param = new Disposisi_Detail(AppConstant.HASHID,
+                    AppConstant.USER,
+                    AppConstant.REQID,
+                    Integer.toString(AppConstant.EMAIL_ID));
+            Call<Disposisi_Detail> call = NetworkManager.getNetworkService(this).getDisposisiDetail(param);
+            call.enqueue(new Callback<Disposisi_Detail>() {
+                @Override
+                public void onResponse(Call<Disposisi_Detail> call, Response<Disposisi_Detail> response) {
+                    int code = response.code();
+                    if (code == 200){
+                        disposisiDetail = response.body();
+                        int iIndex = 0;
+                        AryListData = new ArrayList<>();
+                        for(Disposisi_Detail.Datum dat : disposisiDetail.data){
+                            /*for(Disposisi_Detail.ApprovalState dat1 : persuratanDetail.data.get(iIndex).approval_state){
+                                listData = new ListData();
+                                listData.setAtr1(dat.d);
+                                listData.setAtr2(dat1.user_name);
+                                listData.setAtr3(dat.mail_date);
+                                listData.setNama(sReadDate);
+                                AryListData.add(listData);
+                            }*/
+
+                            iIndex += 1;
+                        }
+                        mAdapter = new AdapterCC(getBaseContext(),AryListData);
+                        mRecyclerView.setAdapter(mAdapter);
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Disposisi_Detail> call, Throwable t) {
 
                 }
             });

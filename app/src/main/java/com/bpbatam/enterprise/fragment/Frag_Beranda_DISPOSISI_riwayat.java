@@ -16,6 +16,7 @@ import com.ayz4sci.androidfactory.DownloadProgressView;
 import com.bpbatam.AppConstant;
 import com.bpbatam.AppController;
 import com.bpbatam.enterprise.PDFViewActivity;
+import com.bpbatam.enterprise.PDFViewActivity_Distribusi;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.adapter.AdapterDisposisiRiwayat_Beranda;
 import com.bpbatam.enterprise.bbs.adapter.AdapterBBSDaftarPesanan;
@@ -130,18 +131,26 @@ public class Frag_Beranda_DISPOSISI_riwayat extends Fragment {
 
                 DownloadManager.Request request = new DownloadManager.Request(Uri.parse(sUrl));
                 AppConstant.PDF_FILENAME = AppController.getInstance().getFileName(sUrl);
-                request.setTitle(AppConstant.PDF_FILENAME);
+                AppConstant.PDF_FILENAME = AppConstant.PDF_FILENAME.replace("%20"," ");
 
-                request.setDescription("DESCRIPTION");
-                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                // request.setDestinationInExternalPublicDir(AppConstant.FOLDER_DOWNLOAD, "DOWNLOAD_FILE_NAME.pdf");
+                File file = new File(AppConstant.STORAGE_CARD + "/Download/" + AppConstant.PDF_FILENAME);
+                if (file.exists()) {
+                    Intent intent = new Intent(getActivity(), PDFViewActivity.class);
+                    getActivity().startActivity(intent);
+                }else{
+                    request.setTitle(AppConstant.PDF_FILENAME);
 
-                File root = new File(AppConstant.STORAGE_CARD + "/Download/");
-                Uri path = Uri.withAppendedPath(Uri.fromFile(root), AppConstant.PDF_FILENAME);
-                request.setDestinationUri(path);
+                    request.setDescription("DESCRIPTION");
+                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                    // request.setDestinationInExternalPublicDir(AppConstant.FOLDER_DOWNLOAD, "DOWNLOAD_FILE_NAME.pdf");
 
-                downloadID = downloadManager.enqueue(request);
+                    File root = new File(AppConstant.STORAGE_CARD + "/Download/");
+                    Uri path = Uri.withAppendedPath(Uri.fromFile(root), AppConstant.PDF_FILENAME);
+                    request.setDestinationUri(path);
 
+                    downloadID = downloadManager.enqueue(request);
+
+                }
                 downloadProgressView.show(downloadID, new DownloadProgressView.DownloadStatusListener() {
                     @Override
                     public void downloadFailed(int reason) {

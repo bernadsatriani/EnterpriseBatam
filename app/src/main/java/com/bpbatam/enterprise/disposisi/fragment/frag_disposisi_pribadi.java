@@ -152,6 +152,7 @@ public class frag_disposisi_pribadi extends Fragment implements SwipeRefreshLayo
             @Override
             public void onClick(View view) {
                 layout_button.setVisibility(View.GONE);
+                AppConstant.B_DISPOS = true;
                 Intent intent;
                 intent = new Intent(getActivity(), DistribusiActivity.class);
                 getActivity().startActivity(intent);
@@ -239,6 +240,8 @@ public class frag_disposisi_pribadi extends Fragment implements SwipeRefreshLayo
                 if (bStatus){
                     DownloadManager.Request request = new DownloadManager.Request(Uri.parse(sUrl));
                     AppConstant.PDF_FILENAME = AppController.getInstance().getFileName(sUrl);
+                    AppConstant.PDF_FILENAME = AppConstant.PDF_FILENAME.replace("%20"," ");
+
                     File file = new File(AppConstant.STORAGE_CARD + "/Download/" + AppConstant.PDF_FILENAME);
                     if (file.exists()){
                         Intent intent = new Intent(getActivity(), PDFViewActivity_Distribusi.class);
@@ -287,15 +290,18 @@ public class frag_disposisi_pribadi extends Fragment implements SwipeRefreshLayo
                     });
                 }else{
                     boolean bDone = false;
+                    AppConstant.DISPO_ID = "";
                     for (Diposisi_List_Folder.Datum dat : persuratanListFolder.data){
                         if (dat.flag.equals("2")){
                             bDone = true;
-                            break;
+                            AppConstant.DISPO_ID += dat.dispo_id + "||";
                         }
                     }
+
+
                     if (bDone){
-                        layout_button.setVisibility(View.VISIBLE);
-                    }else layout_button.setVisibility(View.GONE);
+                        btnDistribusi.setVisibility(View.VISIBLE);
+                    }else btnDistribusi.setVisibility(View.GONE);
                 }
 
             }

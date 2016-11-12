@@ -160,6 +160,7 @@ public class frag_persuratan_umum extends Fragment implements SwipeRefreshLayout
             @Override
             public void onClick(View view) {
                 layout_button.setVisibility(View.GONE);
+                AppConstant.B_DISPOS = false;
                 Intent intent = new Intent(getActivity(), DistribusiActivity.class);
                 getActivity().startActivity(intent);
             }
@@ -204,6 +205,7 @@ public class frag_persuratan_umum extends Fragment implements SwipeRefreshLayout
                             int iIndex = 0;
                             if (statusPesan.equals(AppConstant.PILIH_PESAN) || statusPesan.equals(AppConstant.SEMUA_PESAN)){
                                 for (Persuratan_List_Folder.Datum dat : persuratanListFolder.data){
+
                                     persuratanListFolder.data.get(iIndex).flag = statusPesan;
                                     iIndex += 1;
                                 }
@@ -225,25 +227,14 @@ public class frag_persuratan_umum extends Fragment implements SwipeRefreshLayout
 
     void FillAdapter(){
         AryListData = new ArrayList<>();
-
-/*
-        for(int i = 0; i < 10; i++){
-            listData = new ListData();
-            listData.setAtr1("Attachment " + i);
-            listData.setAtr2("(5,88 mb)");
-            listData.setAtr3("http://cottonsoft.co.nz/assets/img/our-company-history/history-2011-Paseo.jpg");
-            listData.setJekel(statusPesan);
-            AryListData.add(listData);
-
-        }
-*/
-
         mAdapter = new AdapterPersuratanUmum(getActivity(), persuratanListFolder, new AdapterPersuratanUmum.OnDownloadClicked() {
             @Override
             public void OnDownloadClicked(final String sUrl, boolean bStatus) {
                 if (bStatus){
                     DownloadManager.Request request = new DownloadManager.Request(Uri.parse(sUrl));
                     AppConstant.PDF_FILENAME = AppController.getInstance().getFileName(sUrl);
+                    AppConstant.PDF_FILENAME = AppConstant.PDF_FILENAME.replace("%20"," ");
+
                     File file = new File(AppConstant.STORAGE_CARD + "/Download/" + AppConstant.PDF_FILENAME);
                     if (file.exists()){
                         Intent intent = new Intent(getActivity(), PDFViewActivityDisposisiDistribusi.class);
@@ -294,10 +285,11 @@ public class frag_persuratan_umum extends Fragment implements SwipeRefreshLayout
                     });
                 }else{
                     boolean bDone = false;
+                    AppConstant.DISPO_ID = "";
                     for (Persuratan_List_Folder.Datum dat : persuratanListFolder.data){
                         if (dat.flag.equals("2")){
                             bDone = true;
-                            break;
+                            AppConstant.DISPO_ID += dat.mail_id + "||";
                         }
                     }
                     if (bDone){

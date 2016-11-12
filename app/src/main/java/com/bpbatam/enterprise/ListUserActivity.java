@@ -50,7 +50,7 @@ public class ListUserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_user);
 
         InitControl();
-
+        AppConstant.USER_DISTRI = "";
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         FillGrid("");
@@ -116,7 +116,7 @@ public class ListUserActivity extends AppCompatActivity {
             public void OnDownloadClicked(boolean bFromDistri, String UserId, String UserName) {
                 if (bFromDistri){
 //                    AppConstant.USER_DISTRI = UserId + "#" + UserName;
-                    AppConstant.USER_DISTRI = UserId;
+                    AppConstant.USER_DISTRI += UserId + "#";
                 }else{
                     AppConstant.USER_CC = UserId;
                 }

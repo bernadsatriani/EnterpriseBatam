@@ -154,6 +154,7 @@ public class frag_disposisi_umum extends Fragment implements SwipeRefreshLayout.
             @Override
             public void onClick(View view) {
                 btnDistribusi.setVisibility(View.GONE);
+                AppConstant.B_DISPOS = true;
                 Intent intent;
                 intent = new Intent(getActivity(), DistribusiActivity.class);
                 getActivity().startActivity(intent);
@@ -239,6 +240,8 @@ public class frag_disposisi_umum extends Fragment implements SwipeRefreshLayout.
                 if (bStatus){
                     DownloadManager.Request request = new DownloadManager.Request(Uri.parse(sUrl));
                     AppConstant.PDF_FILENAME = AppController.getInstance().getFileName(sUrl);
+                    AppConstant.PDF_FILENAME = AppConstant.PDF_FILENAME.replace("%20"," ");
+
                     File file = new File(AppConstant.STORAGE_CARD + "/Download/" + AppConstant.PDF_FILENAME);
                     if (file.exists()){
                         Intent intent = new Intent(getActivity(), PDFViewActivity_Distribusi.class);
@@ -288,10 +291,11 @@ public class frag_disposisi_umum extends Fragment implements SwipeRefreshLayout.
                     });
                 }else{
                     boolean bDone = false;
+                    AppConstant.DISPO_ID = "";
                     for (Diposisi_List_Folder.Datum dat : persuratanListFolder.data){
                         if (dat.flag.equals("2")){
                             bDone = true;
-                            break;
+                            AppConstant.DISPO_ID += dat.dispo_id + "||";
                         }
                     }
                     if (bDone){

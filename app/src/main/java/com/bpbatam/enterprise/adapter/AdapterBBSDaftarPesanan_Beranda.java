@@ -57,8 +57,8 @@ public class AdapterBBSDaftarPesanan_Beranda extends  RecyclerView.Adapter<Adapt
         //Set text
         holder.txtDate.setText(listData.bbs_date);
         holder.txtTime.setText(listData.bbs_time);
-        holder.lbl_Attach.setText(listData.title + " "+listData.content);
-        holder.lbl_Judul.setText(listData.title + " "+listData.content);
+        holder.lbl_Attach.setText((listData.title == null) ? "" : listData.title + " " + ((listData.content == null) ? "" : listData.content));
+        holder.lbl_Judul.setText((listData.title == null) ? "" : listData.title + " " + ((listData.content == null) ? "" : listData.content));
         //holder.lbl_Isi.setText(listData.content);
         holder.imgPDF.setVisibility(View.GONE);
         holder.lbl_Attach1.setVisibility(View.GONE);

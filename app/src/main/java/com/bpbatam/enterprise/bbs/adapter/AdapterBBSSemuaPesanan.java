@@ -57,8 +57,12 @@ public class AdapterBBSSemuaPesanan extends  RecyclerView.Adapter<AdapterBBSSemu
         //Set text
         holder.txtDate.setText(listData.bbs_date);
         holder.lbl_Attach.setText(listData.title);
-        holder.lbl_Judul.setText(listData.title);
+        holder.lbl_Attach.setText((listData.title == null) ? "" : listData.title + " " + ((listData.content == null) ? "" : listData.content));
+        holder.lbl_Judul.setText((listData.title == null) ? "" : listData.title + " " + ((listData.content == null) ? "" : listData.content));
         //holder.lbl_Isi.setText(listData.content);
+        holder.imgPDF.setVisibility(View.GONE);
+        holder.lbl_Attach1.setVisibility(View.GONE);
+        holder.lbl_Attach.setVisibility(View.GONE);
 
         holder.lbl_Size.setText("");
 
@@ -72,6 +76,10 @@ public class AdapterBBSSemuaPesanan extends  RecyclerView.Adapter<AdapterBBSSemu
                     holder.lbl_Attach.setText(fileName);
                     holder.lbl_Size.setText("(" + precision.format(dFileSize) + " kb)" );
                     holder.btnDokumen.setVisibility(View.VISIBLE);
+                    holder.imgPDF.setVisibility(View.VISIBLE);
+                    holder.imgPDF.setVisibility(View.VISIBLE);
+                    holder.lbl_Attach1.setVisibility(View.VISIBLE);
+                    holder.lbl_Attach.setVisibility(View.VISIBLE);
                 }
             }
         }catch (Exception e){
@@ -128,22 +136,28 @@ public class AdapterBBSSemuaPesanan extends  RecyclerView.Adapter<AdapterBBSSemu
             implements View.OnClickListener, View.OnLongClickListener {
 
         TextView txtDate,
+                txtTime,
                 txtStatus,
                 lbl_Attach,
+                lbl_Attach1,
                 lbl_Size,
                 lbl_Judul
+                        ;
         ;
-        ImageView imgStatus;
+        ImageView imgStatus, imgPDF;
         RelativeLayout btnDownload, btnDokumen;
         BBS_LIST.Datum listData;
         public ViewHolder(View itemView,
                           final Context context,
                           final AdapterBBSSemuaPesanan mCourseAdapter) {
             super(itemView);
+            imgPDF = (ImageView)itemView.findViewById(R.id.imageView6);
+            txtTime = (TextView)itemView.findViewById(R.id.text_time);
             imgStatus = (ImageView)itemView.findViewById(R.id.img_status);
             txtStatus = (TextView)itemView.findViewById(R.id.text_status);
             txtDate = (TextView)itemView.findViewById(R.id.text_Date);
             lbl_Attach = (TextView)itemView.findViewById(R.id.lbl_attach);
+            lbl_Attach1 = (TextView)itemView.findViewById(R.id.lbl_attach1);
             lbl_Size = (TextView)itemView.findViewById(R.id.lbl_size);
             lbl_Judul = (TextView)itemView.findViewById(R.id.lbl_Judul);
             //lbl_Isi = (TextView)itemView.findViewById(R.id.lbl_Isi);

@@ -1,15 +1,18 @@
 package com.bpbatam.enterprise;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bpbatam.AppConstant;
+import com.bpbatam.AppController;
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
 import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
@@ -26,13 +29,14 @@ public class PDFViewActivity_Edit extends AppCompatActivity implements OnPageCha
     Toolbar toolbar;
     String pdfFileName;
     PDFView pdfView;
+    ImageView imgView;
 
     RelativeLayout btnDistribusi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pdfview_edit);
-
+        imgView = (ImageView)findViewById(R.id.imgView);
         txtLabel = (TextView)findViewById(R.id.textLabel);
         pdfView = (PDFView)findViewById(R.id.pdfView);
         toolbar = (Toolbar)findViewById(R.id.tool_bar);
@@ -54,6 +58,15 @@ public class PDFViewActivity_Edit extends AppCompatActivity implements OnPageCha
                     .onLoad(this)
                     .scrollHandle(new DefaultScrollHandle(this))
                     .load();
+        }
+
+        String sFileExtension = AppController.getInstance().getFileExtension(AppConstant.PDF_FILENAME);
+        if (!sFileExtension.toUpperCase().equals("PDF") && !sFileExtension.toUpperCase().equals("TXT")){
+            pdfView.setVisibility(View.GONE);
+            imgView.setVisibility(View.VISIBLE);
+            Uri uri = Uri.fromFile(new File(AppConstant.STORAGE_CARD + "/Download/" + AppConstant.PDF_FILENAME));
+
+            AppController.getInstance().displayImageSDCard(getBaseContext(), uri, imgView);
         }
 
         btnDistribusi.setOnClickListener(new View.OnClickListener() {

@@ -35,6 +35,7 @@ public final class AppConstant {
 	public static String TIDAK_PESAN = "3" ;
 	public static String IMEI ;
 	public static int EMAIL_ID ;
+	public static String DISPO_ID ;
 	public static String POSITION_CHILD = "";
 	public static String BBS_LINK = "";
 	public static Diposisi_List_Folder diposisiListFolder;
@@ -62,6 +63,7 @@ public final class AppConstant {
 	public static String PDF_FILENAME;
 
 	public static boolean B_USER_DISITRI ;
+	public static boolean B_DISPOS ;
 	public static String USER_DISTRI = "";
 	public static String USER_CC = "";
 }

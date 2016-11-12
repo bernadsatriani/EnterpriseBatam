@@ -80,6 +80,17 @@ public class Diposisi_List_Folder {
         this.mail_id = mail_id;
     }
 
+    public String dispo_id;
+    public String distribution_to;
+    public Diposisi_List_Folder(String hashid, String userid, String reqid, String dispo_id,
+                                String distribution_to) {
+        this.hashid = hashid;
+        this.reqid = reqid;
+        this.userid = userid;
+        this.dispo_id = dispo_id;
+        this.distribution_to = distribution_to;
+    }
+
     public Diposisi_List_Folder(String hashid, String userid, String reqid, String folder_code,
                                 String min, String max) {
         this.hashid = hashid;
@@ -106,6 +117,10 @@ public class Diposisi_List_Folder {
         public String name ;
         public String category ;
         public String dispo_num ;
+
+        public String attach_link;
+        public String file_size;
+        public String file_type;
         public String flag;
     }
 
