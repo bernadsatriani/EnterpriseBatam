@@ -43,6 +43,8 @@ public class CC_Activity extends AppCompatActivity {
     Persuratan_Detail persuratanDetail;
     Disposisi_Detail disposisiDetail;
     String sReadDate;
+
+    String user_id = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +58,11 @@ public class CC_Activity extends AppCompatActivity {
             sReadDate = "";
         }
 
+        try{
+            user_id = getIntent().getExtras().getString("USER_ID");
+        }catch (Exception e){
+            user_id = "";
+        }
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
