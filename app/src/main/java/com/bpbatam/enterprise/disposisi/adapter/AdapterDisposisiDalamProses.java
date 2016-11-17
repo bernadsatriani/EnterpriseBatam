@@ -68,6 +68,9 @@ public class AdapterDisposisiDalamProses extends  RecyclerView.Adapter<AdapterDi
 
 
         holder.layoutAttc.setVisibility(View.GONE);
+        holder.imgRead.setVisibility(View.GONE);
+        if (listData.read_date != null && listData.read_date.equals("-")) holder.imgRead.setVisibility(View.VISIBLE);
+
         final DecimalFormat precision = new DecimalFormat("0.00");
         try{
             Disposisi_Attachment param = new Disposisi_Attachment(AppConstant.HASHID, AppConstant.USER,
@@ -149,7 +152,7 @@ public class AdapterDisposisiDalamProses extends  RecyclerView.Adapter<AdapterDi
         ;
 
         RelativeLayout btnDownload, layoutAttc;
-        ImageView imgStatus;
+        ImageView imgStatus, imgRead;
 
         Diposisi_List_Folder.Datum listData;
         public ViewHolder(View itemView,
@@ -166,7 +169,7 @@ public class AdapterDisposisiDalamProses extends  RecyclerView.Adapter<AdapterDi
             lbl_Size = (TextView)itemView.findViewById(R.id.lbl_size);
             imgStatus = (ImageView) itemView.findViewById(R.id.imageView5);
             btnDownload = (RelativeLayout) itemView.findViewById(R.id.btnDownload);
-
+            imgRead = (ImageView) itemView.findViewById(R.id.imgRead);
         }
 
         @Override

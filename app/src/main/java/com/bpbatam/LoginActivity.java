@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bpbatam.enterprise.MainActivity;
+import com.bpbatam.enterprise.MainMenuActivity;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.model.AuthUser;
 import com.bpbatam.enterprise.model.UpdateDeviceId;
@@ -123,20 +124,21 @@ public class LoginActivity extends AppCompatActivity {
                 public void onResponse(Call<AuthUser> call, Response<AuthUser> response) {
                     int code = response.code();
                     if (code == 200){
-                        progress.dismiss();
+
                         authUser = response.body();
                         AppController.getInstance().getSessionManager().setUserAccount(authUser);
 
                         if (authUser.code.equals("95")){
+                            progress.dismiss();
                             CustomeDialog();
                         }else{
                             fUpdateDeviceID();
-                            Intent intent = new Intent (LoginActivity.this, MainActivity.class);
+                            //Intent intent = new Intent (LoginActivity.this, MainActivity.class);
+                            Intent intent = new Intent (LoginActivity.this, MainMenuActivity.class);
                             startActivity(intent);
                             finish();
                         }
                     }else{
-                        progress.dismiss();
                     }
 
 
@@ -172,6 +174,7 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<UpdateDeviceId> call, Response<UpdateDeviceId> response) {
                     int code = response.code();
+                    progress.dismiss();
                     if (code == 200){
                         updateDeviceId = response.body();
                     }
@@ -179,11 +182,13 @@ public class LoginActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<UpdateDeviceId> call, Throwable t) {
+                    progress.dismiss();
                     String a = t.getMessage();
                     a = a;
                 }
             });
         }catch (Exception e){
+            progress.dismiss();
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }

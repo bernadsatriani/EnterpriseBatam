@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:font="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar" />
+
+    <RelativeLayout
+        android:background="@color/grey_s"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.5"></RelativeLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/space_14"
+            android:layout_marginTop="14dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:src="@drawable/bbs_icon_home_256"
+                android:id="@+id/menu_bbs"
+                android:layout_width="match_parent"
+                android:paddingRight="@dimen/space_7"
+                android:layout_height="120dp">
+
+            </ImageView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_marginTop="@dimen/space_14"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:layout_weight="1">
+
+            <ImageView
+                android:src="@drawable/persuratan_icon_home_256"
+                android:id="@+id/menu_persuratan"
+                android:layout_marginLeft="@dimen/space_10"
+                android:layout_marginRight="@dimen/space_10"
+                android:layout_width="match_parent"
+                android:layout_height="120dp">
+
+            </ImageView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/space_14"
+            android:layout_marginLeft="@dimen/space_7"
+            android:layout_marginTop="14dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:src="@drawable/disposisi_icon_home_256"
+                android:id="@+id/menu_disposisi"
+
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true">
+
+            </ImageView>
+        </RelativeLayout>
+
+    </LinearLayout>
+</LinearLayout>

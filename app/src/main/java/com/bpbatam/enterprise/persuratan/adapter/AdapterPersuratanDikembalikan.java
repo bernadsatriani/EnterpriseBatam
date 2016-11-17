@@ -70,6 +70,8 @@ public class AdapterPersuratanDikembalikan extends  RecyclerView.Adapter<Adapter
 
 
         holder.layoutAttc.setVisibility(View.GONE);
+        holder.imgRead.setVisibility(View.GONE);
+        if(listData.is_read.equals("N")) holder.imgRead.setVisibility(View.VISIBLE);
 
         if (listData.flag != null){
             if (listData.flag.equals(AppConstant.SEMUA_PESAN)){
@@ -209,7 +211,7 @@ public class AdapterPersuratanDikembalikan extends  RecyclerView.Adapter<Adapter
                 textInfo;
 
         RelativeLayout btnDownload, btnPrint, layoutAttc;
-        ImageView imgStatus, imgChecklist, imgInfo;
+        ImageView imgStatus, imgChecklist, imgInfo, imgRead;
 
         Persuratan_List_Folder.Datum listData;
 
@@ -236,7 +238,7 @@ public class AdapterPersuratanDikembalikan extends  RecyclerView.Adapter<Adapter
             imgStatus = (ImageView) itemView.findViewById(R.id.imageView5);
             btnDownload = (RelativeLayout) itemView.findViewById(R.id.btnDownload);
             imgChecklist = (ImageView)itemView.findViewById(R.id.imageView15);
-
+            imgRead = (ImageView)itemView.findViewById(R.id.imgRead);
         }
 
         @Override

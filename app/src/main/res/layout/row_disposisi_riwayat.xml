@@ -19,14 +19,32 @@
             android:layout_height="wrap_content"
             android:layout_weight="4">
 
-            <ui.CustomtextView
-                font:name = "GOTHAM_BOLD"
-                android:textSize="@dimen/space_12"
-                android:id="@+id/text_Date"
-                android:text="Senin,19 sept 2016"
+            <LinearLayout
+                android:id="@+id/layout_indicator"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_5" />
+                android:layout_marginLeft="@dimen/space_5"
+                android:gravity="fill_vertical"
+                android:layout_marginTop="@dimen/space_2">
+
+                <ImageView
+                    android:id="@+id/imgRead"
+                    android:layout_marginTop="-2dp"
+                    android:src="@drawable/greenball"
+                    android:tint="@color/colorSearch"
+                    android:layout_width="@dimen/space_12"
+                    android:layout_height="@dimen/space_12"
+                    android:layout_marginRight="@dimen/space_5"/>
+                <ui.CustomtextView
+                    font:name = "GOTHAM_BOLD"
+                    android:textSize="@dimen/space_12"
+                    android:id="@+id/text_Date"
+                    android:text="Senin,19 sept 2016"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+            </LinearLayout>
 
             <ui.CustomtextView
                 font:name = "GOTHAM_BOLD"
@@ -37,7 +55,6 @@
                 android:layout_height="wrap_content"
                 android:paddingRight="@dimen/space_5"
                 android:gravity="right"
-                android:layout_alignTop="@+id/text_judul_surat"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginRight="@dimen/space_5" />
@@ -48,7 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorListItem"
-                android:layout_below="@+id/text_Date"
+                android:layout_below="@+id/layout_indicator"
                 android:layout_alignRight="@+id/text_time"
                 android:layout_alignEnd="@+id/text_time"
                 android:layout_marginLeft="@dimen/space_5"

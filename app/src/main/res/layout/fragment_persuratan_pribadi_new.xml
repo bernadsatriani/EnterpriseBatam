@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe_refresh_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:font="http://schemas.android.com/apk/res-auto"    >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorSecondaryBackground">
+
+        <RelativeLayout
+            android:textColor="@color/white"
+            android:background="@drawable/btn_shape_all_blue_search"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_45"
+            android:layout_margin="@dimen/space_14">
+
+            <ui.CustomEditText
+                android:id="@+id/text_search"
+                android:textColor="@color/white"
+                android:background="@color/transparant_pure"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_45"
+                android:textColorHint="@color/white"
+                android:hint="search"
+                android:layout_marginRight="@dimen/space_35"
+                android:layout_marginLeft="@dimen/space_3" />
+
+            <ImageView
+                android:src="@drawable/ic_search_white_32"
+                android:layout_width="@dimen/space_25"
+                android:layout_height="@dimen/space_25"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="@dimen/space_5" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/space_14"
+                android:layout_marginRight="@dimen/space_14"
+                android:layout_above="@+id/layout_button"
+                android:layout_marginBottom="@dimen/space_14">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/btn_shape_white">
+                    <RelativeLayout
+                        android:id="@+id/contact_us_header_container"
+                        android:layout_width="fill_parent"
+                        android:layout_height="@dimen/space_40"
+                        android:minHeight="?attr/actionBarSize"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/btn_shape_white"
+                        android:orientation="horizontal">>
+                        <ui.CustomtextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="Permohonan"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/space_16"
+                            android:textStyle="bold"
+                            font:name="GOTHAM_BOLD"
+                            font:type = "bold"
+                            android:id="@+id/view2"
+                            android:layout_marginLeft="@dimen/space_10"
+                            android:layout_toEndOf="@+id/imageView14"
+                            android:layout_alignParentTop="true"
+                            android:layout_toRightOf="@+id/imageView14"
+                            android:layout_alignParentBottom="true"
+                            android:gravity="fill_vertical" />
+
+                        <ImageView
+                            android:layout_width="@dimen/space_20"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/imageView"
+                            android:src="@drawable/gns_menu"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentTop="true"
+                            android:tint="@color/black" />
+
+                        <ImageView
+                            android:layout_width="@dimen/space_20"
+                            android:layout_height="match_parent"
+                            android:id="@+id/imageView14"
+                            android:src="@drawable/ic_email_2"
+                            android:tint="@color/black"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentBottom="true" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_margin="@dimen/space_5"
+                        android:background="@color/black"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"/>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:visibility="visible"
+                        android:id="@+id/my_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+                    <RelativeLayout
+                        android:visibility="gone"
+                        android:id="@+id/layout_download"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/imageView9"
+                            android:src="@drawable/pdf"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true" />
+
+                        <com.ayz4sci.androidfactory.DownloadProgressView
+                            android:layout_below="@+id/imageView9"
+                            android:id="@+id/downloadProgressView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:visibility="visible"
+                android:orientation="vertical"
+                android:id="@+id/layout_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true">
+
+                <LinearLayout
+                    android:id="@+id/btnDistribusi"
+                    android:visibility="gone"
+                    android:orientation="horizontal"
+                    android:background="@color/colorAccept"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_40"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center">
+
+                    <ui.CustomtextView
+                        font:name = "GOTHAM_BOLD"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/space_14"
+                        android:text="DISTRIBUSIKAN"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="fill_vertical"
+
+                        android:paddingRight="@dimen/space_5"/>
+
+                    <ImageView
+                        android:src="@drawable/right"
+                        android:layout_marginLeft="@dimen/space_5"
+                        android:layout_gravity="fill_vertical"
+                        android:layout_width="@dimen/space_18"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:background="@color/colorSearch"
+                    android:visibility="gone"
+                    android:id="@+id/layout_button_kembali"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_above="@+id/layout_button">
+
+                    <ui.CustomtextView
+                        font:name = "GOTHAM_BOLD"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/space_14"
+                        android:text="KEMBALI"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+
+                        android:paddingRight="@dimen/space_5"
+                        android:layout_marginLeft="@dimen/space_10" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+
+    </LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

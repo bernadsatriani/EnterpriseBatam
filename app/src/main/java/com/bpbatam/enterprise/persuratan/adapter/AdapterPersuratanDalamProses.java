@@ -71,7 +71,8 @@ public class AdapterPersuratanDalamProses extends  RecyclerView.Adapter<AdapterP
 
 
         holder.layoutAttc.setVisibility(View.GONE);
-
+        holder.imgRead.setVisibility(View.GONE);
+        if(listData.is_read.equals("N")) holder.imgRead.setVisibility(View.VISIBLE);
         //holder.txtStatus.setText(listData.getAtr2());
 
         //AppController.getInstance().displayImage(context,listData.getAtr3(), holder.imgCover);
@@ -172,7 +173,7 @@ public class AdapterPersuratanDalamProses extends  RecyclerView.Adapter<AdapterP
 
         RelativeLayout btnDownload,
                 btnPrint, layoutAttc;
-        ImageView imgStatus,  imgChecklist;
+        ImageView imgStatus,  imgChecklist, imgRead;
 
         Persuratan_List_Folder.Datum listData;
         public ViewHolder(View itemView,
@@ -191,6 +192,7 @@ public class AdapterPersuratanDalamProses extends  RecyclerView.Adapter<AdapterP
             btnDownload = (RelativeLayout) itemView.findViewById(R.id.btnDownload);
             btnPrint = (RelativeLayout) itemView.findViewById(R.id.btnPrint);
             imgChecklist = (ImageView)itemView.findViewById(R.id.imageView15);
+            imgRead = (ImageView)itemView.findViewById(R.id.imgRead);
         }
 
         @Override

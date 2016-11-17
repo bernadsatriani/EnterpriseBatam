@@ -10,6 +10,9 @@
         android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="@dimen/space_14"
+            android:layout_marginLeft="@dimen/space_14"
+            android:layout_marginRight="@dimen/space_14"
             android:id="@+id/my_recycler_view"
             android:visibility="visible"
             android:layout_width="match_parent"

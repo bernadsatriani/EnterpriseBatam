@@ -71,7 +71,8 @@ public class AdapterPersuratanDisimpan extends  RecyclerView.Adapter<AdapterPers
 
 
         holder.layoutAttc.setVisibility(View.GONE);
-
+        holder.imgRead.setVisibility(View.GONE);
+        if(listData.is_read.equals("N")) holder.imgRead.setVisibility(View.VISIBLE);
 
         if (listData.flag != null){
             if (listData.flag.equals(AppConstant.SEMUA_PESAN)){
@@ -194,7 +195,7 @@ public class AdapterPersuratanDisimpan extends  RecyclerView.Adapter<AdapterPers
         ;
 
         RelativeLayout btnDownload, layoutAttc;
-        ImageView imgStatus, imgChecklist;
+        ImageView imgStatus, imgChecklist, imgRead;
 
         ImageView imgDownload;
         TextView  textDownload;
@@ -218,6 +219,7 @@ public class AdapterPersuratanDisimpan extends  RecyclerView.Adapter<AdapterPers
             imgStatus = (ImageView) itemView.findViewById(R.id.imageView5);
             btnDownload = (RelativeLayout) itemView.findViewById(R.id.btnDownload);
             imgChecklist = (ImageView)itemView.findViewById(R.id.imageView15);
+            imgRead = (ImageView)itemView.findViewById(R.id.imgRead);
 /*
             btnDownload.setOnClickListener(new View.OnClickListener() {
                 @Override

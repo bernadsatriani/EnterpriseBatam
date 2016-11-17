@@ -51,7 +51,7 @@ public class frag_disposisi_riwayat extends Fragment implements SwipeRefreshLayo
     private DownloadManager downloadManager;
 
     ImageView imgMenu;
-    TextView txtLabel;
+    TextView txtLabel, txtTitle;
     Diposisi_List_Folder persuratanListFolder;
     SwipeRefreshLayout swipeRefreshLayout;
     @Override
@@ -98,7 +98,7 @@ public class frag_disposisi_riwayat extends Fragment implements SwipeRefreshLayo
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-
+        txtLabel.setText("RIWAYAT (00/00)");
         Diposisi_List_Folder params = new Diposisi_List_Folder(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID, "DFPR","1","10");
         try{
             Call<Diposisi_List_Folder> call = NetworkManager.getNetworkService(getActivity()).getDisposisiFolder(params);
@@ -110,6 +110,19 @@ public class frag_disposisi_riwayat extends Fragment implements SwipeRefreshLayo
                     persuratanListFolder = response.body();
                     if (code == 200){
                         if (persuratanListFolder.code.equals("00")){
+                            int iUnread = 0;
+                            for (Diposisi_List_Folder.Datum dat : persuratanListFolder.data){
+                                if (dat.read_date !=null && dat.read_date.equals("-")){
+                                    iUnread += 1;
+                                }
+                            }
+
+                            String sUnread = String.valueOf(iUnread);
+                            if (sUnread.length() < 2) sUnread = "0" + sUnread;
+
+                            String sTotal = String.valueOf(persuratanListFolder.data.size());
+                            if (sTotal.length() < 2) sTotal = "0" + sTotal;
+                            txtLabel.setText("RIWAYAT (" + sUnread + "/" + sTotal + ")");
                             FillAdapter();
                         }
                     }

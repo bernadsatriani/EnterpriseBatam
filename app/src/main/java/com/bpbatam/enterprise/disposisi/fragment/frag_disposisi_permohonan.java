@@ -105,6 +105,7 @@ public class frag_disposisi_permohonan extends Fragment implements SwipeRefreshL
             e.printStackTrace();
         }
 
+        txtLabel.setText("PERMOHONAN (00/00)");
         Diposisi_List_Folder params = new Diposisi_List_Folder(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID, "DPRM","1","10");
         try{
             Call<Diposisi_List_Folder> call = NetworkManager.getNetworkService(getActivity()).getDisposisiFolder(params);
@@ -116,6 +117,19 @@ public class frag_disposisi_permohonan extends Fragment implements SwipeRefreshL
                     persuratanListFolder = response.body();
                     if (code == 200){
                         if (persuratanListFolder.code.equals("00")){
+                            int iUnread = 0;
+                            for (Diposisi_List_Folder.Datum dat : persuratanListFolder.data){
+                                if (dat.read_date !=null && dat.read_date.equals("-")){
+                                    iUnread += 1;
+                                }
+                            }
+
+                            String sUnread = String.valueOf(iUnread);
+                            if (sUnread.length() < 2) sUnread = "0" + sUnread;
+
+                            String sTotal = String.valueOf(persuratanListFolder.data.size());
+                            if (sTotal.length() < 2) sTotal = "0" + sTotal;
+                            txtLabel.setText("PERMOHONAN (" + sUnread + "/" + sTotal + ")");
                             FillAdapter();
                         }
                     }

@@ -107,7 +107,7 @@ public class frag_persuratan_dalam_proses extends Fragment implements SwipeRefre
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-
+        txtLabel.setText("DALAM PROSES (00/00)");
         Persuratan_List_Folder params = new Persuratan_List_Folder(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID, "DPR","1","10");
         try{
             Call<Persuratan_List_Folder> call = NetworkManager.getNetworkService(getActivity()).getMailFolder(params);
@@ -119,6 +119,19 @@ public class frag_persuratan_dalam_proses extends Fragment implements SwipeRefre
                     persuratanListFolder = response.body();
                     if (code == 200){
                         if (persuratanListFolder.code.equals("00")){
+                            int iUnread = 0;
+                            for (Persuratan_List_Folder.Datum dat : persuratanListFolder.data){
+                                if (dat.is_read !=null && dat.is_read.equals("N")){
+                                    iUnread += 1;
+                                }
+                            }
+
+                            String sUnread = String.valueOf(iUnread);
+                            if (sUnread.length() < 2) sUnread = "0" + sUnread;
+
+                            String sTotal = String.valueOf(persuratanListFolder.data.size());
+                            if (sTotal.length() < 2) sTotal = "0" + sTotal;
+                            txtLabel.setText("DALAM PROSES (" + sUnread + "/" + sTotal + ")");
                             FillAdapter();
                         }
                     }

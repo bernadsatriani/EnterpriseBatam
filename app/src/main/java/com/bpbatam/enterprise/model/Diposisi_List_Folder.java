@@ -106,14 +106,20 @@ public class Diposisi_List_Folder {
         public String dispo_loc ;
         public String title ;
         public String priority ;
+        public int dispo_origin ;
         public String read_date ;
         public String dispo_cc ;
+        public String mail_date ;
         public String dead_line ;
+        public String dispo_origin_name ;
+        //public List<object> distribusi_detail ;
         public String attc_exist ;
         public int dispo_id ;
         public String read_time ;
+        public List<CcDetail> cc_detail ;
         public String dispo_date ;
         public String dispo_by ;
+        public String receive_as ;
         public String name ;
         public String category ;
         public String dispo_num ;
@@ -124,5 +130,14 @@ public class Diposisi_List_Folder {
         public String flag;
     }
 
+    public class CcDetail
+    {
+        public String receive_date ;
+        public String user_id ;
+        public String user_name ;
+        public String deptartement ;
+        public String position ;
+        public String read_date ;
+    }
 
 }

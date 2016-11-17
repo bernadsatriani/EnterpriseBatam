@@ -87,14 +87,28 @@ public class Persuratan_List_Folder {
 
     public class Datum
     {
-        public int mail_id ;
-        public String title ;
-        public String folder_code ;
-        public String deadline ;
-        public String read_date ;
-        public String mail_date ;
-        public String mail_time ;
         public int approved_rule_id ;
+
+        public int mail_id;
+        public String user_name;
+        public String is_disposisi;
+        public String title;
+        public String folder_code;
+        public String priority;
+        public String read_date;
+        public String mail_date;
+        //public List<object> distribusi_detail;
+        public String is_read;
+        public String user_id;
+        public String mail_time;
+        //public List<object> cc_detail;
+        public String receive_as;
+        public String deadline;
+        //public List<object> approval_state;
+        public String mail_state;
+        public String confidential;
+        public String mail_cc;
+        
         public String flag;
         public String attach_link;
         public String file_type;

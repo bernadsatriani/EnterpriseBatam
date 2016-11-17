@@ -84,7 +84,7 @@ public class frag_persuratan_disimpan extends Fragment implements SwipeRefreshLa
         InitControl(view);
         FillGrid();
 
-        ActionItem pilihItem 	= new ActionItem(ID_PILIH_PESAN, "Pilih Pesan", null);
+        /*ActionItem pilihItem 	= new ActionItem(ID_PILIH_PESAN, "Pilih Pesan", null);
         ActionItem semuaItem 	= new ActionItem(ID_SEMUA_PESAN, "Semua Pesan", null);
 
         pilihItem.setSticky(true);
@@ -126,7 +126,7 @@ public class frag_persuratan_disimpan extends Fragment implements SwipeRefreshLa
             public void onClick(View v) {
                 quickAction.show(v);
             }
-        });
+        });*/
 
     }
 
@@ -136,7 +136,7 @@ public class frag_persuratan_disimpan extends Fragment implements SwipeRefreshLa
         btnDelete = (LinearLayout)v.findViewById(R.id.btnDelete);
         txtLabel = (TextView)v.findViewById(R.id.view2);
         if (AppConstant.ACTIVITY_FROM != null) txtLabel.setText(AppConstant.ACTIVITY_FROM);
-        imgMenu = (ImageView)v.findViewById(R.id.imageView);
+        //imgMenu = (ImageView)v.findViewById(R.id.imageView);
         mRecyclerView = (RecyclerView)v.findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(v.getContext());
@@ -179,6 +179,7 @@ public class frag_persuratan_disimpan extends Fragment implements SwipeRefreshLa
             e.printStackTrace();
         }
 
+        txtLabel.setText("SIMPAN (00/00)");
         Persuratan_List_Folder params = new Persuratan_List_Folder(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID, "SIM","1","10");
         try{
             Call<Persuratan_List_Folder> call = NetworkManager.getNetworkService(getActivity()).getMailFolder(params);
@@ -191,10 +192,35 @@ public class frag_persuratan_disimpan extends Fragment implements SwipeRefreshLa
                     if (code == 200){
                         if (persuratanListFolder.code.equals("00")){
                             int iIndex = 0;
+                            int iUnread = 0;
+                            for (Persuratan_List_Folder.Datum dat : persuratanListFolder.data){
+                                if (dat.is_read !=null && dat.is_read.equals("N")){
+                                    iUnread += 1;
+                                }
+                            }
+
+                            String sUnread = String.valueOf(iUnread);
+                            if (sUnread.length() < 2) sUnread = "0" + sUnread;
+
+                            String sTotal = String.valueOf(persuratanListFolder.data.size());
+                            if (sTotal.length() < 2) sTotal = "0" + sTotal;
+                            txtLabel.setText("SIMPAN (" + sUnread + "/" + sTotal + ")");
                             if (statusPesan.equals(AppConstant.PILIH_PESAN) || statusPesan.equals(AppConstant.SEMUA_PESAN)){
+                                iUnread = 0;
                                 for (Persuratan_List_Folder.Datum dat : persuratanListFolder.data){
                                     persuratanListFolder.data.get(iIndex).flag = statusPesan;
                                     iIndex += 1;
+
+                                    if (dat.is_read !=null && dat.is_read.equals("N")){
+                                        iUnread += 1;
+                                    }
+
+                                    sUnread = String.valueOf(iUnread);
+                                    if (sUnread.length() < 2) sUnread = "0" + sUnread;
+
+                                    sTotal = String.valueOf(persuratanListFolder.data.size());
+                                    if (sTotal.length() < 2) sTotal = "0" + sTotal;
+                                    txtLabel.setText("SIMPAN (" + sUnread + "/" + sTotal + ")");
                                 }
                             }
                             FillAdapter();

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:font="http://schemas.android.com/apk/res-auto">
+
+
+
+    <FrameLayout
+        android:id="@+id/frame_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/linearLayout3"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_45"
+        android:id="@+id/linearLayout3">
+
+        <View
+            android:background="@color/red"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_3"/>
+
+        <LinearLayout
+            android:background="@color/colorSelectButton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_5">
+
+            <View
+                android:id="@+id/view1"
+
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <View
+                android:id="@+id/view2"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <View
+                android:id="@+id/view3"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+        <LinearLayout
+
+            android:orientation="horizontal"
+            android:background="@color/colorSelectButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/layoutHome"
+                android:layout_marginTop="@dimen/space_5"
+                android:layout_marginBottom="@dimen/space_5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/imgHome"
+                    android:src="@drawable/home_icon"
+                    android:layout_width="@dimen/space_40"
+                    android:layout_height="match_parent" />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/layoutProfile"
+                android:layout_marginTop="@dimen/space_5"
+                android:layout_marginBottom="@dimen/space_5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/imgProfile"
+                    android:src="@drawable/my_profile_icon"
+                    android:layout_width="@dimen/space_40"
+                    android:layout_height="match_parent" />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/layoutNotif"
+                android:layout_marginTop="@dimen/space_5"
+                android:layout_marginBottom="@dimen/space_5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_weight="1">
+
+                <include
+                    android:id="@+id/btnNotif"
+                    layout="@layout/notification_update_new"/>
+
+            </RelativeLayout>
+        </LinearLayout>
+
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorSelectButton"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/white"
+            app:tabIndicatorHeight="5dp"
+            app:tabMode="fixed"
+            app:tabPaddingBottom="-1dp"
+            app:tabPaddingEnd="-1dp"
+            app:tabPaddingStart="-1dp"
+            app:tabPaddingTop="-1dp"
+            font:name="GOTHAM_BOLD"
+            font:tabTextColor="@color/white"
+            style="@style/MyTabLayoutTextAppearance"
+            android:elevation="2dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -174,7 +174,7 @@
 
             <ImageView
                 android:layout_width="@dimen/space_20"
-                android:layout_height="@dimen/space_20"
+                android:layout_height="@dimen/space_16"
                 android:id="@+id/imageView4"
                 android:src="@drawable/gns_clock"
                 android:layout_toStartOf="@+id/text_time"

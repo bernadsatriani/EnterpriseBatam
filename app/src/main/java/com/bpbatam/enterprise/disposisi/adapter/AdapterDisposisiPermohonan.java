@@ -71,6 +71,8 @@ public class AdapterDisposisiPermohonan extends  RecyclerView.Adapter<AdapterDis
 
 
         holder.layoutAttc.setVisibility(View.GONE);
+        holder.imgRead.setVisibility(View.GONE);
+        if (listData.read_date != null && listData.read_date.equals("-")) holder.imgRead.setVisibility(View.VISIBLE);
 
         final DecimalFormat precision = new DecimalFormat("0.00");
         try{
@@ -146,7 +148,7 @@ public class AdapterDisposisiPermohonan extends  RecyclerView.Adapter<AdapterDis
 
         RelativeLayout btnDownload,
                 btnPrint, layoutAttc;
-        ImageView imgStatus;
+        ImageView imgStatus, imgRead;
 
         Diposisi_List_Folder.Datum listData;
         public ViewHolder(View itemView,
@@ -164,6 +166,7 @@ public class AdapterDisposisiPermohonan extends  RecyclerView.Adapter<AdapterDis
             imgStatus = (ImageView) itemView.findViewById(R.id.imageView5);
             btnDownload = (RelativeLayout) itemView.findViewById(R.id.btnDownload);
             btnPrint = (RelativeLayout) itemView.findViewById(R.id.btnPrint);
+            imgRead = (ImageView) itemView.findViewById(R.id.imgRead);
         }
 
         @Override

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:font="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:theme="@style/ToolbarColoredBackArrow"
+    android:elevation="2dp"
+    tools:ignore="UnusedAttribute">
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout2"
+        android:layout_margin="@dimen/space_5"
+        android:layout_below="@+id/tool_bar">
+
+
+        <LinearLayout
+            android:gravity="center"
+            android:textSize="@dimen/space_18"
+            android:paddingRight="@dimen/space_14"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/img_back"
+            android:layout_toEndOf="@+id/img_back"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/layout_menu"
+                android:layout_weight="1.4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ui.CustomtextView
+                    font:name = "GOTHAM_MEDIUM"
+                    android:text="Menu"
+                    android:textColor="@color/colorSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="fill_vertical"
+                    android:textSize="@dimen/space_14"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1">
+
+                <ui.CustomtextView
+                    font:name = "GOTHAM_MEDIUM"
+                    android:id="@+id/textLabel"
+                    android:text="PERSURATAN"
+                    android:textColor="@color/colorSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="@dimen/space_16"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="right"
+                android:layout_weight="1.4">
+
+                <ImageView
+                    android:layout_marginRight="@dimen/space_3"
+                    android:id="@+id/imgPilih"
+                    android:src="@drawable/pilih_pesan_icon"
+                    android:layout_width="@dimen/space_25"
+                    android:layout_height="@dimen/space_30" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="@dimen/space_35"
+            android:layout_height="@dimen/space_35"
+            android:id="@+id/img_back"
+            android:src="@drawable/arrow_back_white"
+            android:tint="@color/colorSearch"/>
+
+    </RelativeLayout>
+
+
+</android.support.v7.widget.Toolbar>
+

@@ -1,5 +1,6 @@
 package com.bpbatam.enterprise.bbs.fragment;
 
+import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
@@ -45,11 +47,15 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -58,6 +64,7 @@ import retrofit2.Response;
  * Created by User on 9/22/2016.
  */
 public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+    int CODE_FILE = 45;
     RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private LinearLayoutManager mLayoutManager;
@@ -66,14 +73,15 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
     ListData listData;
 
     RelativeLayout rLayoutDownload;
+    RelativeLayout layoutBtnLampiran, layoutAttachment;
     DownloadProgressView downloadProgressView;
     private long downloadID;
     private DownloadManager downloadManager;
 
-    TextView txtTulisPesan;
+    TextView txtTulisPesan, text_publikasi, txtFileName, txtSize;
     RelativeLayout layoutHeader, layout_spinner_category;
 
-    ImageView imgCancel, imgSave;
+    ImageView imgCancel, imgSave, imgDelete;
 
     Spinner spnBuletin, spnStatus, spnCategory;
 
@@ -86,6 +94,9 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
     String sCategoryID = "";
 
     EditText txtJudul, txtIsi;
+    LinearLayout layout_button_kembali;
+    String sFile_Size, sFile_Type, sBBS_id, sFile_Path;
+    Uri uri;
     int iMin, iMax;
     SwipeRefreshLayout swipeRefreshLayout;
 
@@ -102,9 +113,10 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         InitControl(view);
+        layoutAttachment.setVisibility(View.GONE);
         iMin = 1;
         iMax = 10;
-//        FillSpinner();
+        FillSpinner();
         FillSpinnerCategory();
     }
 
@@ -117,48 +129,70 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
                 getActivity().getResources().getColor(R.color.Green),
                 getActivity().getResources().getColor(R.color.b7_orange),
                 getActivity().getResources().getColor(R.color.red));
-        /*
+
+        txtFileName = (TextView)v.findViewById(R.id.text_attachment);
+        txtSize = (TextView)v.findViewById(R.id.text_size);
+        imgDelete = (ImageView)v.findViewById(R.id.img_delete);
+        layoutAttachment = (RelativeLayout)v.findViewById(R.id.layout_attachment);
         txtJudul = (EditText)v.findViewById(R.id.text_judul);
         txtIsi = (EditText)v.findViewById(R.id.text_isi);
         spnBuletin = (Spinner)v.findViewById(R.id.spinner_buletinboard);
         spnStatus = (Spinner)v.findViewById(R.id.spinner_status);
-
-        imgCancel = (ImageView)v.findViewById(R.id.imageView12);
-        imgSave = (ImageView)v.findViewById(R.id.imageView11);
+        spnCategory = (Spinner)v.findViewById(R.id.spinner_caetogory);
+        layout_button_kembali = (LinearLayout) v.findViewById(R.id.layout_button_kembali);
+        layoutBtnLampiran = (RelativeLayout) v.findViewById(R.id.layout_btn_lampiran);
+        text_publikasi = (TextView) v.findViewById(R.id.text_publikasi);
         txtTulisPesan = (TextView)v.findViewById(R.id.text_tulis_pesan);
         layoutHeader = (RelativeLayout)v.findViewById(R.id.layout_header);
-        layout_spinner_category = (RelativeLayout)v.findViewById(R.id.layout_spinner_category);
         txtTulisPesan.setVisibility(View.VISIBLE);
         layoutHeader.setVisibility(View.GONE);
+
+        imgDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sFile_Path = "";
+                sFile_Size = "";
+                sFile_Type = "";
+                layoutAttachment.setVisibility(View.GONE);
+            }
+        });
 
         txtTulisPesan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 txtTulisPesan.setVisibility(View.GONE);
-                layout_spinner_category.setVisibility(View.GONE);
                 layoutHeader.setVisibility(View.VISIBLE);
             }
         });
 
-        imgCancel.setOnClickListener(new View.OnClickListener() {
+        layout_button_kembali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 txtTulisPesan.setVisibility(View.VISIBLE);
-                layout_spinner_category.setVisibility(View.VISIBLE);
                 layoutHeader.setVisibility(View.GONE);
             }
         });
 
-        imgSave.setOnClickListener(new View.OnClickListener() {
+        text_publikasi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ValidInputan();
                 txtTulisPesan.setVisibility(View.VISIBLE);
-                layout_spinner_category.setVisibility(View.VISIBLE);
                 layoutHeader.setVisibility(View.GONE);
             }
         });
-*/
+
+
+        layoutBtnLampiran.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sFile_Size = "";
+                sFile_Type = "";
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("file/*");
+                startActivityForResult(intent, CODE_FILE);
+            }
+        });
 
         mRecyclerView = (RecyclerView)v.findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -196,7 +230,7 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
             }
         });
     }
-    
+
     boolean ValidInputan(){
         boolean bDone = false;
 
@@ -298,6 +332,8 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
                     bbs_insert = response.body();
                     if (code == 200){
                         if (bbs_insert.code.equals("00")){
+                            sBBS_id = bbs_insert.bbs_id;
+                            sendBBSAttachment();
                             Toast.makeText(getActivity(),bbs_insert.data, Toast.LENGTH_LONG).show();
                             txtIsi.setText("");
                             txtJudul.setText("");
@@ -423,7 +459,7 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
                         adpGridView = new SimpleAdapter(getActivity(), lstGrid, R.layout.spinner_row_single,
                                 new String[] {"description"},
                                 new int[] {R.id.text_isi});
-                        //spnBuletin.setAdapter(adpGridView);
+                        spnBuletin.setAdapter(adpGridView);
                         spnCategory.setAdapter(adpGridView);
                         spnCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
@@ -670,6 +706,87 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
         });
         // set the adapter object to the Recyclerview
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    public synchronized void onActivityResult(final int requestCode, int resultCode, final Intent data) {
+        if (requestCode == CODE_FILE){
+            if (resultCode == Activity.RESULT_OK) {
+                uri = data.getData();
+                File f = new File(uri.getPath());
+                sFile_Path = f.getPath();
+                sFile_Size = Long.toString(f.length());
+                sFile_Type = f.getPath().substring(f.getPath().lastIndexOf(".") + 1); // Without dot jpg, png
+
+                DecimalFormat precision = new DecimalFormat("0.00");
+                double dFileSize = Double.parseDouble(sFile_Size) / 1024;
+
+                String sFileName = AppController.getInstance().getFileName(f.getPath());
+                layoutAttachment.setVisibility(View.VISIBLE);
+                txtFileName.setText(sFileName);
+                txtSize.setText("(" + precision.format(dFileSize) + " kb)");
+            }
+        }
+
+    }
+
+    void sendBBSAttachment(){
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        try{
+            BBS_Insert param = new BBS_Insert(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID,
+                    sBBS_id,
+                    sFile_Path,
+                    sFile_Type,
+                    sFile_Size
+            );
+
+            File file = new File(uri.getPath());
+            RequestBody requestFile =
+                    RequestBody.create(MediaType.parse("multipart/form-data"), file);
+
+            // MultipartBody.Part is used to send also the actual file name
+            MultipartBody.Part body =
+                    MultipartBody.Part.createFormData("files", file.getName(), requestFile);
+
+            RequestBody user_id =
+                    RequestBody.create(
+                            MediaType.parse("multipart/form-data"), AppConstant.USER);
+
+            RequestBody id =
+                    RequestBody.create(
+                            MediaType.parse("multipart/form-data"), "bbs");
+
+
+            RequestBody fileKey =
+                    RequestBody.create(
+                            MediaType.parse("multipart/form-data"), sBBS_id);
+
+            Call<BBS_Insert> call = NetworkManager.getNetworkServiceUpload(getActivity()).postBBSInsertAttachmentOnly(
+                    user_id,
+                    id,
+                    fileKey, body);
+            call.enqueue(new Callback<BBS_Insert>() {
+                @Override
+                public void onResponse(Call<BBS_Insert> call, Response<BBS_Insert> response) {
+                    int code = response.code();
+                    bbs_insert = null;
+                    if(code == 200){
+                        bbs_insert = response.body();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<BBS_Insert> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override

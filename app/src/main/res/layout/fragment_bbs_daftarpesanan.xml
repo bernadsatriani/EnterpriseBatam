@@ -11,20 +11,280 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <LinearLayout
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ui.CustomtextView
+                android:visibility="visible"
+                font:name= "GOTHAM_BLACK"
+                font:type= "bold"
+                android:id="@+id/text_tulis_pesan"
+                android:text="Tulis Pesan Disini"
+                android:background="@drawable/btn_shape_all_grey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_7"
+                android:layout_marginBottom="@dimen/space_7"
+                android:layout_marginRight="@dimen/space_7"
+                android:layout_marginLeft="@dimen/space_7"
+                android:gravity="center" />
+
+            <RelativeLayout
+                android:visibility="gone"
+                android:layout_marginLeft="@dimen/space_14"
+                android:layout_marginRight="@dimen/space_14"
+                android:id="@+id/layout_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:id="@+id/layout_text"
+                    android:background="@drawable/btn_shape_all_transparant_blue_bbs"
+                    android:layout_width="match_parent"
+                    android:layout_margin="@dimen/space_5"
+                    android:layout_height="220dp">
+
+                    <RelativeLayout
+                        android:id="@+id/layout_header2"
+                        android:background="@drawable/btn_shape_all_transparant_blue_bbs_header"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/space_40">
+
+                        <LinearLayout
+                            android:id="@+id/layout_button_kembali"
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:src="@drawable/close"
+                                android:layout_marginLeft="@dimen/space_14"
+                                android:layout_width="@dimen/space_14"
+                                android:layout_height="match_parent" />
+
+                            <ui.CustomtextView
+                                font:name = "GOTHAM_BLACK"
+                                android:textColor="@color/white"
+                                android:gravity="fill_vertical"
+                                android:layout_marginLeft="@dimen/space_10"
+                                android:text="Kembali"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent" />
+                        </LinearLayout>
+
+                        <ui.CustomtextView
+                            font:name = "GOTHAM_BLACK"
+                            android:id="@+id/text_publikasi"
+                            android:gravity="fill_vertical"
+                            android:layout_alignParentRight="true"
+                            android:text="Publikasikan"
+                            android:textColor="@color/white"
+                            android:layout_marginRight="@dimen/space_20"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent" />
+                    </RelativeLayout>
+
+                    <EditText
+                        android:textSize="@dimen/space_14"
+                        android:background="@drawable/edittext_mid"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/space_30"
+                        android:id="@+id/text_judul"
+                        android:hint="Judul"
+
+                        android:paddingLeft="@dimen/space_10"
+
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginRight="1dp"/>
+
+                    <EditText
+                        android:layout_marginTop="-1dp"
+                        android:textSize="@dimen/space_14"
+                        android:id="@+id/text_isi"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/edittext_mid"
+                        android:layout_height="@dimen/space_75"
+                        android:layout_weight="1"
+                        android:hint="Tulis Pesan"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginRight="1dp"
+                        android:gravity="top"
+                        android:paddingTop="3dp"
+                        android:paddingLeft="@dimen/space_10"
+                        android:layout_below="@+id/text_judul" />
+
+                    <RelativeLayout
+                        android:id="@+id/layout_attachment"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginRight="1dp"
+                        android:background="@color/colorSecondaryBackground"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/space_35">
+
+                        <ImageView
+                            android:id="@+id/img_attachemnt"
+                            android:layout_marginLeft="@dimen/space_14"
+                            android:src="@drawable/pdf"
+                            android:layout_width="@dimen/space_22"
+                            android:layout_height="match_parent" />
+
+                        <ImageView
+                            android:layout_alignParentRight="true"
+                            android:id="@+id/img_delete"
+                            android:layout_marginRight="@dimen/space_14"
+                            android:src="@drawable/close"
+                            android:tint="@color/colorSearch"
+                            android:layout_width="@dimen/space_18"
+                            android:layout_height="match_parent" />
+
+                        <ui.CustomtextView
+                            font:name = "GOTHAM_LIGHTITALIC"
+                            android:id="@+id/text_size"
+                            android:text="(53.5 kb)"
+                            android:textSize="@dimen/space_12"
+                            android:gravity="center"
+                            android:layout_marginRight="@dimen/space_14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_toLeftOf="@+id/img_delete"
+                            android:layout_toStartOf="@+id/img_delete" />
+
+                        <ui.CustomtextView
+                            font:name = "GOTHAM_LIGHTITALIC"
+                            android:id="@+id/text_attachment"
+                            android:text="sample_pdf.pdf asdas asdasd asdasdasd"
+                            android:gravity="fill_vertical"
+                            android:maxLines="1"
+                            android:textSize="@dimen/space_12"
+                            android:layout_marginLeft="@dimen/space_14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_toRightOf="@+id/img_attachemnt"
+                            android:layout_toEndOf="@+id/img_attachemnt"
+                            android:layout_toLeftOf="@+id/text_size"
+                            android:layout_toStartOf="@+id/text_size" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/layout_spinner"
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/btn_shape_all_transparant_blue_bbs_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/space_40"
+                        android:layout_below="@+id/text_isi">
+
+                        <Spinner
+                            android:id="@+id/spinner_buletinboard"
+                            android:layout_marginRight="@dimen/space_10"
+                            android:paddingTop="@dimen/space_5"
+                            android:paddingLeft="@dimen/space_14"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            />
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_below="@+id/layout_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/linearLayout2"
+                        android:layout_alignParentTop="true">
+
+                        <RelativeLayout
+                            android:textSize="@dimen/space_10"
+                            android:id="@+id/layout_btn_status"
+                            android:background="@drawable/btn_shape_all_transparant_blue_spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/space_35"
+                            android:layout_weight="2"
+                            android:layout_marginLeft="@dimen/space_5"
+                            android:text="Lampirkan File"
+                            android:layout_marginRight="@dimen/space_10"
+                            android:layout_marginTop="@dimen/space_5"
+                            android:layout_marginBottom="@dimen/space_5">
+
+                            <Spinner
+                                android:id="@+id/spinner_status"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"></Spinner>
+
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:textSize="@dimen/space_10"
+                            android:id="@+id/layout_btn_lampiran"
+                            android:background="@drawable/btn_shape_all_transparant_blue"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/space_35"
+                            android:layout_weight="1.5"
+                            android:layout_marginLeft="@dimen/space_5"
+                            android:text="Lampirkan File"
+                            android:layout_marginRight="@dimen/space_10"
+                            android:layout_marginTop="@dimen/space_5"
+                            android:layout_marginBottom="@dimen/space_5">
+
+                            <ui.CustomtextView
+                                font:name = "GOTHAM_BOLD"
+                                android:textSize="@dimen/space_12"
+                                android:textColor="@color/black"
+                                android:id="@+id/btn_lampiran"
+                                android:background="@color/transparant_pure"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/space_40"
+                                android:layout_weight="1"
+                                android:text="Lampirkan File"
+                                android:gravity="fill_vertical|center"
+                                android:layout_toLeftOf="@+id/imageView16"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true" />
+
+
+                            <ImageView
+                                android:src="@drawable/addfile"
+                                android:layout_width="@dimen/space_25"
+                                android:layout_height="@dimen/space_25"
+                                android:layout_marginRight="@dimen/space_10"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentEnd="true"
+                                android:id="@+id/imageView16" />
+
+                        </RelativeLayout>
+                    </LinearLayout>
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
         <RelativeLayout
             android:id="@+id/layout_spinner_category"
             android:background="@color/grey_ss"
             android:layout_width="match_parent"
-            android:layout_margin="@dimen/space_5"
-            android:layout_height="@dimen/space_40">
+            android:layout_height="@dimen/space_35">
 
             <RelativeLayout
 
                 android:background="@color/grey_ss"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_30"
-                android:layout_marginTop="@dimen/space_5"
-                android:layout_marginBottom="@dimen/space_5">
+                android:layout_marginTop="@dimen/space_4"
+                android:layout_marginBottom="@dimen/space_2">
 
                 <Spinner
                     android:id="@+id/spinner_caetogory"
@@ -39,6 +299,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/my_recycler_view"
             android:visibility="visible"
+            android:layout_marginTop="@dimen/space_14"
             android:layout_width="match_parent"
             android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
