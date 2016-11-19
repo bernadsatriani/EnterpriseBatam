@@ -63,6 +63,7 @@ public class frag_disposisi_pribadi_new extends Fragment implements SwipeRefresh
     String statusPesan;
     Diposisi_List_Folder persuratanListFolder;
 
+    String sFolder = "";
     SwipeRefreshLayout swipeRefreshLayout;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,6 +77,7 @@ public class frag_disposisi_pribadi_new extends Fragment implements SwipeRefresh
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         InitControl(view);
+        sFolder = "DFUM";
         FillGrid();
         statusPesan = AppConstant.TIDAK_PESAN;
 

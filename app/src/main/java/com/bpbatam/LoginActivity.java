@@ -132,6 +132,7 @@ public class LoginActivity extends AppCompatActivity {
                             progress.dismiss();
                             CustomeDialog();
                         }else{
+                            progress.dismiss();
                             fUpdateDeviceID();
                             //Intent intent = new Intent (LoginActivity.this, MainActivity.class);
                             Intent intent = new Intent (LoginActivity.this, MainMenuActivity.class);
@@ -174,7 +175,7 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<UpdateDeviceId> call, Response<UpdateDeviceId> response) {
                     int code = response.code();
-                    progress.dismiss();
+
                     if (code == 200){
                         updateDeviceId = response.body();
                     }
@@ -182,13 +183,13 @@ public class LoginActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<UpdateDeviceId> call, Throwable t) {
-                    progress.dismiss();
+
                     String a = t.getMessage();
                     a = a;
                 }
             });
         }catch (Exception e){
-            progress.dismiss();
+
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }

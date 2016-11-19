@@ -14,6 +14,7 @@
     card_view:cardUseCompatPadding="true" >
 
     <LinearLayout
+        android:layout_marginBottom="@dimen/space_10"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,235 +31,263 @@
                 android:textSize="@dimen/space_12"
                 android:id="@+id/text_Date"
 
+                android:gravity="right"
                 android:text="Senin,19 sept 2016"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/space_10"
                 android:layout_marginLeft="@dimen/space_5"
                 android:layout_marginTop="@dimen/space_2" />
 
-            <ui.CustomtextView
-                font:name = "GOTHAM_BOLD"
-                android:textSize="@dimen/space_12"
-                android:id="@+id/text_time"
-                android:text="10:46 AM"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:paddingRight="@dimen/space_5"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="@dimen/space_5"
-                android:layout_alignBottom="@+id/imageView4"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="@dimen/space_2" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:id="@+id/layout_attachment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorListItem"
-            android:layout_below="@+id/text_Date"
-            android:layout_alignRight="@+id/text_time"
-            android:layout_alignEnd="@+id/text_time"
-            android:layout_marginLeft="@dimen/space_5"
-            android:layout_marginRight="@dimen/space_5"
-            android:layout_marginTop="@dimen/space_5">
 
             <LinearLayout
-                android:orientation="vertical"
+                android:orientation="horizontal"
+                android:id="@+id/layout_attachment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
 
-                <ui.CustomtextView
-                    android:layout_marginTop="@dimen/space_10"
-                    android:layout_marginBottom="@dimen/space_10"
-                    font:name="GOTHAM_BOLD"
-                    android:id="@+id/lbl_Judul"
-                    android:text="Tutorial Backup Hapus Email"
+                android:layout_below="@+id/text_Date"
+                android:layout_alignRight="@+id/text_time"
+                android:layout_alignEnd="@+id/text_time"
+                android:layout_marginLeft="@dimen/space_5"
+                android:layout_marginRight="@dimen/space_5"
+                android:layout_marginTop="@dimen/space_5">
+
+                <LinearLayout
+                    android:background="@color/colorListItem"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:layout_marginLeft="@dimen/space_14"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
+                    android:layout_weight="1">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ui.CustomtextView
+                            android:layout_marginTop="@dimen/space_10"
+                            font:name="GOTHAM_BOLD"
+                            android:id="@+id/lbl_from"
+                            android:text="Vincent"
+                            android:textColor="@color/black_ep"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:layout_marginLeft="@dimen/space_14"
+                            android:layout_alignParentTop="true"
+                            android:layout_toLeftOf="@+id/lbl_nomor"
+                            android:layout_toStartOf="@+id/lbl_nomor" />
+
+                        <ui.CustomtextView
+                            android:layout_marginTop="@dimen/space_10"
+                            font:name="GOTHAM_LIGHT"
+                            android:id="@+id/lbl_nomor"
+                            android:text="123/123/123"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:gravity="right"
+                            android:layout_marginRight="@dimen/space_10"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/layout_attachment1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorListItem"
+                        android:layout_below="@+id/text_Date"
+                        android:layout_alignRight="@+id/text_time"
+                        android:layout_alignEnd="@+id/text_time"
+                        android:layout_marginLeft="@dimen/space_5"
+                        android:layout_marginRight="@dimen/space_5">
+
+                        <ui.CustomtextView
+                            android:layout_marginTop="@dimen/space_7"
+                            font:name = "GOTHAM_LIGHT"
+                            android:id="@+id/lbl_Judul"
+                            android:textColor="@color/black_ep"
+                            android:text="Judul "
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/space_12"
+                            android:maxLines="1"
+                            android:layout_marginRight="@dimen/space_45"
+                            android:layout_marginLeft="@dimen/space_7"/>
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_marginTop="@dimen/space_7"
+                        android:background="@color/grey"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"/>
+
+                    <ui.CustomtextView
+                        android:layout_marginTop="@dimen/space_7"
+                        android:layout_marginBottom="@dimen/space_7"
+                        font:name = "GOTHAM_LIGHT"
+                        android:id="@+id/lbl_pengirim"
+                        android:text="Pengirim Awal : - "
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/space_12"
+                        android:maxLines="1"
+                        android:layout_marginRight="@dimen/space_45"
+                        android:layout_marginLeft="@dimen/space_14"/>
+
+                </LinearLayout>
 
                 <RelativeLayout
-                    android:id="@+id/layout_attachment1"
+                    android:visibility="gone"
+                    android:id="@+id/layout_checklist"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorListItem"
-                    android:layout_below="@+id/text_Date"
-                    android:layout_alignRight="@+id/text_time"
-                    android:layout_alignEnd="@+id/text_time"
-                    android:layout_marginLeft="@dimen/space_5"
-                    android:layout_marginRight="@dimen/space_5">
-
-                    <ui.CustomtextView
-                        font:name = "GOTHAM_LIGHTITALIC"
-                        android:id="@+id/lbl_label"
-                        android:text="Attachemnts "
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/space_12"
-                        android:maxLines="1"
-                        android:textStyle="italic"
-                        android:layout_marginRight="@dimen/space_45"
-                        android:layout_marginLeft="@dimen/space_7"/>
-
-                    <ui.CustomtextView
-                        font:name = "GOTHAM_LIGHTITALIC"
-                        android:id="@+id/lbl_attach"
-                        android:text="Attachemnt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/space_12"
-                        android:maxLines="1"
-                        android:textStyle="italic"
-                        android:layout_alignTop="@+id/imageView6"
-                        android:layout_toRightOf="@+id/imageView6"
-                        android:layout_toEndOf="@+id/imageView6"
-                        android:layout_marginRight="@dimen/space_45"
-                        android:layout_marginLeft="@dimen/space_3"/>
-
-                    <ui.CustomtextView
-                        font:name = "GOTHAM_LIGHTITALIC"
-                        android:id="@+id/lbl_size"
-                        android:textSize="@dimen/space_12"
-                        android:text="Attachemnt asdas asdas"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/lbl_attach"
-                        android:maxLines="1"
-                        android:layout_alignBottom="@+id/imageView6"
-                        android:layout_toRightOf="@+id/imageView6"
-                        android:layout_toEndOf="@+id/imageView6"
-                        android:layout_marginRight="@dimen/space_45"
-                        android:layout_marginLeft="@dimen/space_3"
-                        android:textStyle="italic" />
-
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_weight="9">
                     <ImageView
-                        android:layout_width="@dimen/space_25"
+                        android:layout_width="@dimen/space_30"
                         android:layout_height="@dimen/space_30"
-                        android:id="@+id/imageView6"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:src="@drawable/pdf"
-                        android:layout_marginLeft="@dimen/space_7"
-                        android:layout_marginTop="@dimen/space_16"
-                        android:layout_marginBottom="@dimen/space_10" />
-
+                        android:id="@+id/imageView15"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:src="@drawable/circle_kosong"
+                        android:layout_marginTop="@dimen/space_3" />
                 </RelativeLayout>
             </LinearLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:layout_weight="9">
-                <ImageView
-                    android:visibility="gone"
-                    android:layout_width="@dimen/space_25"
-                    android:layout_height="@dimen/space_25"
-                    android:id="@+id/imageView15"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:src="@drawable/circle_kosong"
-                    android:layout_marginTop="@dimen/space_3"
-                    android:layout_marginRight="@dimen/space_10" />
-            </RelativeLayout>
-        </LinearLayout>
-
-
-            <ImageView
-                android:layout_width="@dimen/space_20"
-                android:layout_height="@dimen/space_16"
-                android:id="@+id/imageView4"
-                android:src="@drawable/gns_clock"
-                android:layout_toStartOf="@+id/text_time"
-                android:layout_alignParentTop="true"
-                android:layout_toLeftOf="@+id/text_time" />
-
-            <RelativeLayout
-                android:id="@+id/btnPrint"
-                android:layout_height="@dimen/space_30"
-                android:background="@drawable/btn_shape_all_transparant_blue"
-                android:text="lihat detail"
-                android:textColor="#ffffff"
-                android:textSize="@dimen/space_12"
-                android:layout_alignTop="@+id/btnDownload"
-                android:layout_toLeftOf="@+id/btnDownload"
-                android:layout_toStartOf="@+id/btnDownload"
-                android:layout_width="105dp"
+            <LinearLayout
+                android:id="@+id/layout_button"
+                android:layout_marginTop="@dimen/space_10"
                 android:layout_marginRight="@dimen/space_10"
-                android:layout_alignBottom="@+id/btnDownload">
-                <ImageView
-                    android:id="@+id/imgInfo"
-                    android:src="@drawable/info_32"
-                    android:tint="@color/grey"
-                    android:layout_width="@dimen/space_25"
-                    android:layout_height="@dimen/space_25" />
-
-                <ui.CustomtextView
-                    android:id="@+id/textInfo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="lihat detail"
-                    android:textColor="@color/grey"
-                    android:textSize="@dimen/space_10"
-                    font:name="GOTHAM_BLACK"
-
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:gravity="fill_vertical"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginLeft="@dimen/space_30" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:drawableLeft="@drawable/download24"
-                android:id="@+id/btnDownload"
-                android:background="@drawable/btn_shape_all_transparant_blue"
-                android:text="  lihat dokumen  "
-                android:textColor="#ffffff"
-                android:textSize="@dimen/space_12"
-                android:layout_height="@dimen/space_30"
+                android:gravity="right"
                 android:layout_below="@+id/layout_attachment"
-                android:layout_marginTop="@dimen/space_7"
-                android:layout_marginBottom="@dimen/space_10"
-                android:layout_alignRight="@+id/layout_attachment"
-                android:layout_alignEnd="@+id/layout_attachment"
-                android:layout_width="103dp">
-                <ImageView
-                    android:id="@+id/imgDownload"
-                    android:src="@drawable/downloadsave32"
-                    android:tint="@color/colorAccept"
-                    android:layout_width="@dimen/space_25"
-                    android:layout_height="@dimen/space_25"
-                    android:layout_marginRight="@dimen/space_3" />
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-                <ui.CustomtextView
-                    android:id="@+id/textDownload"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="lihat surat"
-                    android:textColor="@color/grey"
-                    android:textSize="@dimen/space_10"
-                    font:name="GOTHAM_BLACK"
+                <RelativeLayout
+                    android:id="@+id/btnPrint"
+                    android:layout_height="@dimen/space_30"
+                    android:background="@drawable/btn_shape_all_blue_selected"
+                    android:text="lihat detail"
+                    android:textColor="#ffffff"
+                    android:textSize="@dimen/space_12"
+                    android:layout_alignTop="@+id/btnDownload"
+                    android:layout_toLeftOf="@+id/btnDownload"
+                    android:layout_toStartOf="@+id/btnDownload"
+                    android:layout_width="90dp"
+                    android:layout_marginLeft="@dimen/space_5"
+                    android:layout_alignBottom="@+id/btnDownload">
+                    <ImageView
+                        android:id="@+id/imgInfo"
+                        android:src="@drawable/info_32"
+                        android:tint="@color/white"
+                        android:layout_width="@dimen/space_25"
+                        android:layout_height="@dimen/space_25" />
 
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginLeft="@dimen/space_20" />
-            </RelativeLayout>
+                    <ui.CustomtextView
+                        android:id="@+id/textInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="lihat detail"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/space_9"
+                        font:name="GOTHAM_BLACK"
+
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:gravity="fill_vertical"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginLeft="@dimen/space_30" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:drawableLeft="@drawable/download24"
+                    android:id="@+id/btnDownload"
+                    android:background="@drawable/btn_shape_all_blue"
+                    android:text="  lihat dokumen  "
+                    android:textColor="#ffffff"
+                    android:textSize="@dimen/space_12"
+                    android:layout_height="@dimen/space_30"
+                    android:layout_below="@+id/layout_attachment"
+                    android:layout_marginLeft="@dimen/space_5"
+                    android:layout_marginBottom="@dimen/space_10"
+                    android:layout_alignTop="@+id/btnDownload_lampiran"
+                    android:layout_toLeftOf="@+id/btnDownload_lampiran"
+
+                    android:layout_width="90dp">
+                    <ImageView
+                        android:id="@+id/imgDownload"
+                        android:src="@drawable/downloadsave32"
+                        android:tint="@color/white"
+                        android:layout_width="@dimen/space_20"
+                        android:layout_height="@dimen/space_20"
+                        android:layout_marginRight="@dimen/space_3" />
+
+                    <ui.CustomtextView
+                        android:id="@+id/textDownload"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="lihat surat"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/space_9"
+                        font:name="GOTHAM_BLACK"
+
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginLeft="@dimen/space_20" />
+                </RelativeLayout>
+
+                <RelativeLayout
+
+                    android:drawableLeft="@drawable/download24"
+                    android:id="@+id/btnDownload_lampiran"
+                    android:background="@drawable/btn_shape_all_green"
+                    android:text="  lihat dokumen  "
+                    android:textColor="#ffffff"
+                    android:textSize="@dimen/space_12"
+                    android:layout_height="@dimen/space_30"
+                    android:layout_marginLeft="@dimen/space_5"
+                    android:layout_below="@+id/layout_attachment"
+
+                    android:layout_alignRight="@+id/layout_attachment"
+                    android:layout_alignEnd="@+id/layout_attachment"
+                    android:layout_width="90dp">
+                    <ImageView
+                        android:id="@+id/imgDownload_pdf"
+                        android:src="@drawable/pdf"
+                        android:tint="@color/white"
+                        android:layout_width="@dimen/space_16"
+                        android:layout_height="@dimen/space_16" />
+
+                    <ui.CustomtextView
+                        android:id="@+id/textDownload_pdf"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="lihat lampiran"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/space_9"
+                        font:name="GOTHAM_BLACK"
+
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginLeft="@dimen/space_14" />
+                </RelativeLayout>
+
+            </LinearLayout>
 
         </RelativeLayout>
 

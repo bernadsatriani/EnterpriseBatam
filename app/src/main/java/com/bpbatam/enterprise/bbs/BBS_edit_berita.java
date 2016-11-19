@@ -45,13 +45,13 @@ import retrofit2.Response;
 
 public class BBS_edit_berita extends AppCompatActivity {
     int CODE_FILE = 225;
-    ImageView imgAvatar, imgDelete, imgBack;
-    TextView txtName, txtJudul, txtAttach, txtSize, txtPublikasi;
+    ImageView imgAvatar, imgDelete, imgBack, imgPrioriti;
+    TextView txtName, txtJudul, txtAttach, txtSize, txtPublikasi, txtKategori, txtPrioriti;
     EditText txtHeader;
 
     String sName, sJudul, sIsi, sSize,
             sFile_Path, sFile_Size, sFile_Type, sBbs_Date, sBbs_read;
-    Spinner spnStatus, spnBuletin;
+    //Spinner spnStatus;
     SimpleAdapter adpGridView;
 
     BBS_CATEGORY bbs_category;
@@ -60,18 +60,19 @@ public class BBS_edit_berita extends AppCompatActivity {
     String[] lstCategory;
 
     Uri uri;
-    String sCategory_Id;
-    RelativeLayout layoutLampiran, layoutAttachment;
+    String sCategory_Id, sPriority_id;
+    RelativeLayout layoutLampiran, layoutAttachment, layoutKategori, layout_btn_status;
     boolean bDelete, bUpload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_berita);
+        setContentView(R.layout.activity_add_berita);
 
         bDelete = false;
         bUpload = false;
         sCategory_Id = "";
+        sPriority_id = "";
         InitControl();
         try{
             sName = getIntent().getExtras().getString("BBS_NAME").trim();
@@ -117,11 +118,30 @@ public class BBS_edit_berita extends AppCompatActivity {
 
         if (sSize.equals("")) layoutAttachment.setVisibility(View.GONE);
 
-        FillSpinner();
-        FillSpinnerCategory();
+        //FillSpinner();
+        //FillSpinnerCategory();
     }
 
     void InitControl(){
+        imgPrioriti = (ImageView)findViewById(R.id.img_prioriti);
+        txtPrioriti = (TextView)findViewById(R.id.text_prioriti);
+        layout_btn_status = (RelativeLayout)findViewById(R.id.layout_btn_status);
+        layout_btn_status.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mIntent = new Intent(getBaseContext(), BBS_Prioritas.class);
+                startActivityForResult(mIntent, 20);
+            }
+        });
+        txtKategori = (TextView)findViewById(R.id.text_kategori);
+        layoutKategori = (RelativeLayout)findViewById(R.id.layout_kategori);
+        layoutKategori.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mIntent = new Intent(getBaseContext(), BBS_category_list.class);
+                startActivityForResult(mIntent, 10);
+            }
+        });
         txtPublikasi = (TextView)findViewById(R.id.textLabel2);
         imgBack = (ImageView)findViewById(R.id.img_back);
         imgAvatar = (ImageView)findViewById(R.id.img_avatar);
@@ -130,8 +150,7 @@ public class BBS_edit_berita extends AppCompatActivity {
         txtJudul = (TextView)findViewById(R.id.text_judul);
         txtAttach = (TextView)findViewById(R.id.lbl_attach);
         txtSize = (TextView)findViewById(R.id.lbl_size);
-        spnStatus = (Spinner)findViewById(R.id.spinner_status);
-        spnBuletin = (Spinner)findViewById(R.id.spinner_caetogory);
+        //spnStatus = (Spinner)findViewById(R.id.spinner_status);
         txtHeader = (EditText)findViewById(R.id.text_header);
         layoutLampiran = (RelativeLayout)findViewById(R.id.layout_lampiran);
         layoutAttachment = (RelativeLayout)findViewById(R.id.layout_attachment1);
@@ -202,7 +221,7 @@ public class BBS_edit_berita extends AppCompatActivity {
                 new String[] {"img","description"},
                 new int[] {R.id.img_status, R.id.text_isi});
 
-        spnStatus.setAdapter(adpGridView);
+        //spnStatus.setAdapter(adpGridView);
     }
 
     void FillSpinnerCategory(){
@@ -279,7 +298,7 @@ public class BBS_edit_berita extends AppCompatActivity {
                         adpGridView = new SimpleAdapter(getBaseContext(), lstGrid, R.layout.spinner_row_single,
                                 new String[] {"description"},
                                 new int[] {R.id.text_isi});
-                        spnBuletin.setAdapter(adpGridView);
+                        //spnBuletin.setAdapter(adpGridView);
                     }
                 }
 
@@ -310,6 +329,38 @@ public class BBS_edit_berita extends AppCompatActivity {
                 txtSize.setText("(" + precision.format(dFileSize) + " kb)" );
 
             }
+        }else if (requestCode == 10){
+            if (resultCode == Activity.RESULT_OK) {
+                sCategory_Id = "";
+                Bundle res = data.getExtras();
+                sCategory_Id = res.getString("KODE");
+                txtKategori.setText(res.getString("DES"));
+            }
+        }else if (requestCode == 20){
+            if (resultCode == Activity.RESULT_OK) {
+                sPriority_id= "0";
+                Bundle res = data.getExtras();
+                sPriority_id = res.getString("KODE");
+
+                FillPrioriti();
+            }
+        }
+    }
+
+    void FillPrioriti(){
+        switch (sPriority_id){
+            case "0":
+                imgPrioriti.setColorFilter(getResources().getColor(R.color.colorReject));
+                txtPrioriti.setText("Tinggi");
+                break;
+            case "1":
+                imgPrioriti.setColorFilter(getResources().getColor(R.color.yellow));
+                txtPrioriti.setText("Sedang");
+                break;
+            case "2":
+                imgPrioriti.setColorFilter(getResources().getColor(R.color.colorAccept));
+                txtPrioriti.setText("Rendah");
+                break;
         }
     }
 
@@ -379,7 +430,7 @@ public class BBS_edit_berita extends AppCompatActivity {
 
     void UpdateBSB(){
 
-        switch (spnBuletin.getSelectedItemPosition()){
+        /*switch (spnBuletin.getSelectedItemPosition()){
             case 0:
                 sCategory_Id = "QNQ";
                 break;
@@ -410,7 +461,7 @@ public class BBS_edit_berita extends AppCompatActivity {
             default:
                 sCategory_Id = "QNQ";
                 break;
-        }
+        }*/
 
         try {
             AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
@@ -418,7 +469,7 @@ public class BBS_edit_berita extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        String sPriority_id = Integer.toString(spnStatus.getSelectedItemPosition());
+        //String sPriority_id = Integer.toString(spnStatus.getSelectedItemPosition());
 
 
         try{

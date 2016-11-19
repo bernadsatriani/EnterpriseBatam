@@ -7,9 +7,13 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:layout_marginTop="@dimen/space_10"
+        android:layout_marginLeft="@dimen/space_10"
+        android:layout_marginRight="@dimen/space_10"
+        android:id="@+id/layout_content"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ui.CircleImageView
             android:id="@+id/imageView7"
@@ -28,10 +32,10 @@
             android:layout_height="wrap_content">
 
             <ui.CustomtextView
-                font:name="Avenir_Heavy"
+                font:name="GOTHAM_BOLD"
                 font:type ="bold"
                 android:id="@+id/text_Name"
-                android:textColor="@color/blu3"
+                android:textColor="@color/black"
                 android:text="Bpk Budi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -41,18 +45,14 @@
                 android:id="@+id/text_isi"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:background="@drawable/btn_shape_all"
                 android:gravity="center"
                 android:text="DOWNLOAD"
-                android:textColor="#ffffff"
                 android:textSize="@dimen/space_12"
-                font:name="Label"
+                font:name="GOTHAM_LIGHT"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
                 android:layout_marginBottom="@dimen/space_5"
                 android:layout_marginRight="@dimen/space_10"
-                android:padding="@dimen/space_10"
+
                 android:layout_marginTop="@dimen/space_5" />
 
             <ui.CustomtextView
@@ -61,14 +61,20 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="11:46 AM"
-                font:name="Label"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_gravity="right"
-                android:layout_marginRight="@dimen/space_10" />
+                font:name="GOTHAM_LIGHT"
+                android:layout_marginTop="@dimen/space_5"
+                android:layout_alignParentBottom="true" />
+
+
         </LinearLayout>
 
     </LinearLayout>
+
+    <View
+        android:layout_marginTop="@dimen/space_10"
+        android:layout_below="@+id/layout_content"
+        android:background="@color/grey"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
 
 </RelativeLayout>

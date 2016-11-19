@@ -69,6 +69,7 @@ public class AdapterBBSDaftarPesanan extends  RecyclerView.Adapter<AdapterBBSDaf
         //if (listData.read_sts.equals("N")){
             holder.txtName.setText(listData.name);
             holder.txtDate.setText(listData.bbs_date);
+            holder.txtFrom.setText(listData.bbs_by);
             holder.lbl_Attach.setText(listData.title);
             holder.lbl_Judul.setText(listData.title);
             holder.txtDivisi.setText(listData.bbs_by);
@@ -168,8 +169,19 @@ public class AdapterBBSDaftarPesanan extends  RecyclerView.Adapter<AdapterBBSDaf
                     mIntent.putExtra("BBS_READ", listData.read_sts);
                     AppConstant.EMAIL_ID = listData.bbs_id;
                     context.startActivity(mIntent);
+
                 }
             });
+
+
+        holder.btnOpini.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mIntent = new Intent(context, bbs_komentar_activity.class);
+                context.startActivity(mIntent);
+            }
+        });
+
             holder.listData = listData;
        // }
 
@@ -185,11 +197,13 @@ public class AdapterBBSDaftarPesanan extends  RecyclerView.Adapter<AdapterBBSDaf
 
         TextView txtDate,
                 txtName,
+                txtFrom,
                 txtDivisi,
                 txtStatus,
                 lbl_Attach,
                 lbl_Size,
-                lbl_Judul
+                lbl_Judul,
+                btnOpini
         ;
         RelativeLayout btnDownload, btnDokumen, layoutAttachMent;
         ImageView imgCover, imgStatus;
@@ -200,8 +214,10 @@ public class AdapterBBSDaftarPesanan extends  RecyclerView.Adapter<AdapterBBSDaf
             super(itemView);
             imgCover = (ImageView)itemView.findViewById(R.id.imageView7);
             imgStatus = (ImageView)itemView.findViewById(R.id.img_status);
+            btnOpini = (TextView)itemView.findViewById(R.id.btnOpini);
             txtDate = (TextView)itemView.findViewById(R.id.text_Date);
             txtName = (TextView)itemView.findViewById(R.id.text_Name);
+            txtFrom = (TextView)itemView.findViewById(R.id.text_from);
             txtDivisi = (TextView)itemView.findViewById(R.id.text_Division);
             txtStatus = (TextView)itemView.findViewById(R.id.text_status);
             lbl_Judul = (TextView)itemView.findViewById(R.id.lbl_Judul);

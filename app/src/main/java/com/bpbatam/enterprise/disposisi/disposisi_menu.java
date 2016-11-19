@@ -1,5 +1,7 @@
 package com.bpbatam.enterprise.disposisi;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -7,12 +9,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bpbatam.AppController;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.adapter.ViewPagerMenu;
 import com.bpbatam.enterprise.disposisi.adapter.ViewPagerDIsposisiMenu;
@@ -20,6 +24,9 @@ import com.bpbatam.enterprise.disposisi.fragment.frag_disposisi_menu;
 import com.bpbatam.enterprise.disposisi.fragment.frag_disposisi_permohonan;
 import com.bpbatam.enterprise.fragment.Frag_Beranda_BBS;
 import com.bpbatam.enterprise.persuratan.fragment.frag_persuratan_menu;
+
+import java.io.File;
+import java.text.DecimalFormat;
 
 /**
  * Created by setia.n on 11/14/2016.
@@ -40,6 +47,7 @@ public class disposisi_menu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_new);
         InitControl();
+
 
         fragment = null;
         fragment = new frag_disposisi_menu();
@@ -111,5 +119,6 @@ public class disposisi_menu extends AppCompatActivity {
             }
         });
     }
+
 
 }

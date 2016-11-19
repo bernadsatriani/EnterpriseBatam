@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
 
 import com.bpbatam.enterprise.model.Diposisi_List_Folder;
+import com.bpbatam.enterprise.model.Disposisi_Detail;
 import com.bpbatam.enterprise.model.Persuratan_List_Folder;
 
 import org.json.JSONArray;
@@ -40,6 +41,8 @@ public final class AppConstant {
 	public static String BBS_LINK = "";
 	public static Diposisi_List_Folder diposisiListFolder;
 	public static ArrayList<String> AryListMenuChek;
+	public static String sCategoryID = "";
+	public static String sCategoryName = "";
 
 
 	public static String ACTIVITY_FROM;
@@ -66,4 +69,5 @@ public final class AppConstant {
 	public static boolean B_DISPOS ;
 	public static String USER_DISTRI = "";
 	public static String USER_CC = "";
+	public static String FOLDER_DISPOS = "";
 }

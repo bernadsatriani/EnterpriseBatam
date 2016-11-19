@@ -11,49 +11,7 @@
         android:layout_height="match_parent"
         android:background="@color/colorSecondaryBackground">
 
-        <RelativeLayout
-            android:id="@+id/layout_search"
-            android:textColor="@color/white"
-            android:background="@color/grey_s"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/space_50">
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:background="@drawable/btn_shape_all_white_search"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="@dimen/space_7">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-
-                    android:layout_weight="1">
-                    <ImageView
-                        android:gravity="right"
-                        android:src="@drawable/ic_search_white"
-                        android:tint="@color/grey"
-                        android:layout_alignParentRight="true"
-                        android:layout_width="@dimen/space_30"
-                        android:layout_height="match_parent" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-
-                    <ui.CustomtextView
-                        android:text="Search"
-                        android:textColor="@color/grey"
-                        android:gravity="fill_vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </RelativeLayout>
-            </LinearLayout>
-
-        </RelativeLayout>
 
         <View
             android:background="@color/grey"
@@ -67,6 +25,7 @@
             android:background="@color/white"
             android:layout_height="match_parent">
             <RelativeLayout
+                android:visibility="gone"
                 android:id="@+id/contact_us_header_container"
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/space_30"
@@ -99,7 +58,9 @@
                 android:layout_height="1dp"/>
 
             <android.support.v7.widget.RecyclerView
-                android:layout_margin="@dimen/space_14"
+                android:layout_marginTop="@dimen/space_14"
+                android:layout_marginLeft="@dimen/space_10"
+                android:layout_marginRight="@dimen/space_10"
                 android:visibility="visible"
                 android:id="@+id/my_recycler_view"
                 android:layout_width="match_parent"

@@ -21,7 +21,6 @@
             font:name = "GOTHAM_MEDIUM"
             android:id="@+id/textLabel"
             android:text="Label"
-            android:textColor="@color/colorSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"

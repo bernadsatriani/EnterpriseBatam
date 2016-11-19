@@ -7,246 +7,306 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/space_10"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
-        <ui.CircleImageView
-            android:id="@+id/imageView7"
-            android:layout_width="55dp"
-            android:layout_height="45dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:src="@drawable/logo_bp_batam"
-            android:layout_margin="@dimen/space_5" />
-
-
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_8">
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
+            <ui.CircleImageView
+                android:id="@+id/imageView7"
+                android:layout_width="55dp"
+                android:layout_height="45dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:src="@drawable/logo_bp_batam"
+                android:layout_margin="@dimen/space_5" />
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_5">
+                android:layout_marginTop="@dimen/space_8">
 
-                <ui.CustomtextView
-                    font:name="GOTHAM_BLACK"
-                    android:id="@+id/text_Name"
-                    android:textColor="@color/blu3"
-                    android:text="Bpk Budi"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_5">
 
-            </RelativeLayout>
+                    <ui.CustomtextView
+                        font:name="GOTHAM_BLACK"
+                        android:id="@+id/text_Name"
+                        android:textColor="@color/blu3"
+                        android:text="Bpk Budi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                    <ui.CustomtextView
+                        font:name="GOTHAM_LIGHT"
+                        android:id="@+id/text_Date"
+                        android:text="Senin, 29 Agustus 2016, pukul 02:02"
+                        android:textSize="@dimen/space_12"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/text_Name"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/space_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/space_20">
+
+                        <ImageView
+                            android:id="@+id/img_status"
+                            android:src="@drawable/ball_red"
+                            android:tint="@color/colorReject"
+                            android:layout_width="@dimen/space_20"
+                            android:layout_height="@dimen/space_20" />
+
+                        <ui.CustomtextView
+                            android:gravity="fill_vertical"
+                            font:name = "GOTHAM_BOLD"
+                            android:id="@+id/text_status"
+                            android:textColor="@color/black"
+                            android:layout_marginTop="@dimen/space_2"
+                            android:text="Tinggi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </RelativeLayout>
+
 
                 <ui.CustomtextView
-                    font:name="GOTHAM_LIGHT"
-                    android:id="@+id/text_Date"
-                    android:text="Senin, 29 Agustus 2016, pukul 02:02"
-                    android:textSize="@dimen/space_12"
-                    android:layout_width="wrap_content"
+                    android:layout_marginTop="@dimen/space_10"
+                    font:name="GOTHAM_BOLD"
+                    android:textColor="@color/colorBar"
+                    android:id="@+id/text_from"
+                    android:text="Pesan dari keua"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
+                    />
+
+                <ui.CustomtextView
+                    android:layout_marginTop="@dimen/space_10"
+                    font:name="GOTHAM_BOLD"
+                    android:textColor="@color/black"
+                    android:id="@+id/text_Division"
+                    android:text="Division Staff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+
+                <ui.CustomtextView
+                    font:name="GOTHAM_BOOK"
+                    android:id="@+id/lbl_Judul"
+                    android:text="Tutorial Backup Hapus Email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
                     android:layout_alignParentLeft="true"
+                    android:layout_marginTop="@dimen/space_3"
                     android:layout_alignParentStart="true" />
 
-            </RelativeLayout>
-
-            <ui.CustomtextView
-                android:layout_marginTop="@dimen/space_10"
-                font:name="GOTHAM_BOLD"
-                android:textColor="@color/black"
-                android:id="@+id/text_Division"
-                android:text="Division Staff"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
-
-            <ui.CustomtextView
-                font:name="GOTHAM_BOOK"
-                android:id="@+id/lbl_Judul"
-                android:text="Tutorial Backup Hapus Email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:layout_alignParentLeft="true"
-                android:layout_marginTop="@dimen/space_3"
-                android:layout_alignParentStart="true" />
-
-            <RelativeLayout
-                android:id="@+id/layout_attachment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorListItem"
-                android:layout_below="@+id/text_Date"
-                android:layout_alignRight="@+id/text_time"
-                android:layout_alignEnd="@+id/text_time"
-                android:layout_marginRight="@dimen/space_10"
-                android:layout_marginTop="@dimen/space_5">
-
-
-
-                <ui.CustomtextView
-                    font:name="GOTHAM_LIGHTITALIC"
-                    android:id="@+id/lbl_attach"
-                    android:textSize="@dimen/space_12"
-                    android:text=""
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textStyle="italic"
-                    android:maxLines="1"
-                    android:layout_marginLeft="@dimen/space_5"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignTop="@+id/imageView6"
-                    android:layout_toRightOf="@+id/imageView6"
-                    android:layout_toEndOf="@+id/imageView6" />
-
-                <ui.CustomtextView
-                    font:name="GOTHAM_LIGHTITALIC"
-                    android:id="@+id/lbl_size"
-                    android:textSize="@dimen/space_12"
-                    android:layout_marginLeft="@dimen/space_5"
-                    android:text=""
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textStyle="italic"
-                    android:maxLines="1"
-                    android:layout_below="@+id/lbl_attach"
-                    android:layout_toRightOf="@+id/imageView6"
-                    android:layout_toEndOf="@+id/imageView6"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginBottom="@dimen/space_3"/>
-
-                <ImageView
-                    android:layout_width="@dimen/space_25"
-                    android:layout_height="@dimen/space_30"
-                    android:id="@+id/imageView6"
-                    android:layout_below="@+id/lbl_attach1"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginTop="@dimen/space_7"
-                    android:layout_marginLeft="@dimen/space_7"
-                    android:layout_marginBottom="@dimen/space_7"
-                    android:src="@drawable/pdf" />
-
                 <RelativeLayout
-                    android:id="@+id/layout_dokumen"
-                    android:background="@drawable/btn_shape_all_white"
-                    android:layout_width="40dp"
-                    android:layout_marginBottom="@dimen/space_10"
-                    android:layout_marginLeft="@dimen/space_14"
-                    android:layout_marginRight="@dimen/space_14"
-                    android:layout_height="@dimen/space_30"
-                    android:layout_marginTop="@dimen/space_10"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_toRightOf="@+id/lbl_attach1"
-                    android:layout_toEndOf="@+id/lbl_attach1">
+                    android:id="@+id/layout_attachment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorListItem"
+                    android:layout_below="@+id/text_Date"
+                    android:layout_alignRight="@+id/text_time"
+                    android:layout_alignEnd="@+id/text_time"
+                    android:layout_marginRight="@dimen/space_10"
+                    android:layout_marginTop="@dimen/space_5">
+
+
 
                     <ui.CustomtextView
-                        android:layout_marginLeft="@dimen/space_10"
+                        font:name="GOTHAM_LIGHTITALIC"
+                        android:id="@+id/lbl_attach"
+                        android:textSize="@dimen/space_12"
+                        android:text=""
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="Lihat Dokumen"
-                        android:textColor="@color/colorSearch"
-                        android:textSize="@dimen/space_14"
-                        font:name="GOTHAM_BLACK" />
-                </RelativeLayout>
+                        android:layout_height="wrap_content"
+                        android:textStyle="italic"
+                        android:maxLines="1"
+                        android:layout_marginLeft="@dimen/space_5"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignTop="@+id/imageView6"
+                        android:layout_toRightOf="@+id/imageView6"
+                        android:layout_toEndOf="@+id/imageView6" />
 
-                <ui.CustomtextView
-                    font:name="GOTHAM_LIGHTITALIC"
-                    android:id="@+id/lbl_attach1"
-                    android:textSize="@dimen/space_12"
-                    android:text="Attachments :  "
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="fill_vertical"
-                    android:maxLines="1"
-                    android:textStyle="italic"
-                    android:layout_marginLeft="@dimen/space_14"
-                    android:layout_alignBottom="@+id/layout_dokumen"
-                    android:layout_alignTop="@+id/layout_dokumen" />
-
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_35"
-                android:layout_marginTop="@dimen/space_5">
-
-                <RelativeLayout
-                    android:drawableLeft="@drawable/download24"
-                    android:id="@+id/btnDownload"
-                    android:layout_width="120dp"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/btn_shape_all_blue"
-
-                    android:gravity="center"
-                    android:text="  lihat dokumen  "
-                    android:textColor="#ffffff"
-                    android:textSize="@dimen/space_12"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginBottom="@dimen/space_5"
-                    android:layout_marginRight="@dimen/space_10" >
                     <ui.CustomtextView
-                        android:layout_marginLeft="@dimen/space_10"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="EDIT BERITA"
-                        android:textColor="#ffffff"
-                        android:textSize="@dimen/space_10"
-                        font:name="GOTHAM_BLACK" />
+                        font:name="GOTHAM_LIGHTITALIC"
+                        android:id="@+id/lbl_size"
+                        android:textSize="@dimen/space_12"
+                        android:layout_marginLeft="@dimen/space_5"
+                        android:text=""
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="italic"
+                        android:maxLines="1"
+                        android:layout_below="@+id/lbl_attach"
+                        android:layout_toRightOf="@+id/imageView6"
+                        android:layout_toEndOf="@+id/imageView6"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginBottom="@dimen/space_3"/>
 
                     <ImageView
-                        android:layout_alignParentRight="true"
-                        android:src="@drawable/edit"
                         android:layout_width="@dimen/space_25"
-                        android:layout_height="@dimen/space_25"/>
+                        android:layout_height="@dimen/space_30"
+                        android:id="@+id/imageView6"
+                        android:layout_below="@+id/lbl_attach1"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="@dimen/space_7"
+                        android:layout_marginLeft="@dimen/space_10"
+                        android:layout_marginBottom="@dimen/space_7"
+                        android:src="@drawable/pdf" />
+
+                    <RelativeLayout
+                        android:id="@+id/layout_dokumen"
+                        android:background="@drawable/btn_shape_all_white"
+                        android:layout_width="40dp"
+                        android:layout_marginBottom="@dimen/space_10"
+                        android:layout_marginLeft="@dimen/space_14"
+                        android:layout_marginRight="@dimen/space_14"
+                        android:layout_height="@dimen/space_30"
+                        android:layout_marginTop="@dimen/space_10"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toRightOf="@+id/lbl_attach1"
+                        android:layout_toEndOf="@+id/lbl_attach1">
+
+                        <ui.CustomtextView
+                            android:layout_marginLeft="@dimen/space_10"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="Lihat Dokumen"
+                            android:textColor="@color/colorSearch"
+                            android:textSize="@dimen/space_11"
+                            font:name="GOTHAM_BLACK" />
+                    </RelativeLayout>
+
+                    <ui.CustomtextView
+                        font:name="GOTHAM_BOLD"
+                        android:id="@+id/lbl_attach1"
+                        android:textSize="@dimen/space_12"
+                        android:text="Attachments :  "
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="fill_vertical"
+                        android:maxLines="1"
+                        android:layout_marginLeft="@dimen/space_14"
+                        android:layout_alignBottom="@+id/layout_dokumen"
+                        android:layout_alignTop="@+id/layout_dokumen" />
+
+
                 </RelativeLayout>
 
-                <ImageView
-                    android:layout_width="@dimen/space_18"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ball_red"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginBottom="@dimen/space_10"
-                    android:id="@+id/img_status" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_35"
+                    android:layout_marginTop="@dimen/space_5">
 
-                <ui.CustomtextView
-                    font:name = "GOTHAM_BOLD"
-                    android:text="tinggi"
-                    android:id="@+id/text_status"
-                    android:layout_marginBottom="@dimen/space_10"
-                    android:gravity="fill_vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_toRightOf="@+id/img_status"
-                    android:layout_toEndOf="@+id/img_status" />
+                    <RelativeLayout
+                        android:drawableLeft="@drawable/download24"
+                        android:id="@+id/btnDownload"
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/btn_shape_all_blue"
+
+                        android:gravity="center"
+                        android:text="  lihat dokumen  "
+                        android:textColor="#ffffff"
+                        android:textSize="@dimen/space_12"
+                        android:layout_alignParentBottom="true"
+
+                        android:layout_marginBottom="@dimen/space_5"
+                        android:layout_marginRight="@dimen/space_10" >
+                        <ui.CustomtextView
+                            android:layout_marginLeft="@dimen/space_10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="EDIT BERITA"
+                            android:textColor="#ffffff"
+                            android:textSize="@dimen/space_10"
+                            font:name="GOTHAM_BLACK" />
+
+                        <ImageView
+                            android:layout_alignParentRight="true"
+                            android:src="@drawable/edit"
+                            android:layout_width="@dimen/space_25"
+                            android:layout_height="@dimen/space_25"/>
+                    </RelativeLayout>
+
+                    <ui.CustomtextView
+                        font:name = "GOTHAM_BOLD"
+                        android:text="5 Opini"
+                        android:id="@+id/text_opini"
+                        android:textColor="@color/grey_x"
+                        android:layout_marginRight="@dimen/space_14"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginBottom="@dimen/space_10"
+                        android:gravity="fill_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
 
 
-            </RelativeLayout>
+                </RelativeLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 
+        <View
+            android:background="@color/grey"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"/>
+        <LinearLayout
+            android:layout_marginLeft="@dimen/space_25"
+            android:layout_marginTop="@dimen/space_10"
+            android:layout_marginBottom="@dimen/space_10"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_20">
+
+            <ImageView
+                android:src="@drawable/opin"
+                android:layout_width="@dimen/space_20"
+                android:layout_height="match_parent" />
+
+            <ui.CustomtextView
+                android:id="@+id/btnOpini"
+                android:layout_marginLeft="@dimen/space_10"
+                font:name = "GOTHAM_BOLD"
+                android:text="Opini       "
+                android:gravity="fill_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <View
+            android:background="@color/colorSecondaryBackground"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_10"/>
     </LinearLayout>
 
 </RelativeLayout>

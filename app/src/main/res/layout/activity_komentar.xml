@@ -7,247 +7,26 @@
     android:background="@color/colorSecondaryBackground">
 
     <include
-        layout="@layout/tool_bar_back"
+        layout="@layout/tool_bar_back_opini"
         android:id="@+id/tool_bar"/>
 
-    <LinearLayout
-        android:id="@+id/layout_header"
-        android:background="@drawable/btn_shape_header"
-        android:orientation="vertical"
+    <View
+        android:background="@color/grey"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/space_10">
-
-        <RelativeLayout
-            android:background="@drawable/btn_shape_header"
-            android:layout_width="365dp"
-            android:layout_height="@dimen/space_30">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView2"
-                android:src="@drawable/flag_white"
-                android:layout_margin="@dimen/space_5" />
-
-            <ui.CustomtextView
-                font:name = "Label"
-                font:type = "bold"
-                android:id="@+id/textHeader"
-                android:text="Judul Post"
-                android:textSize="@dimen/space_12"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textColor="@color/white"
-                android:gravity="fill_vertical"
-                android:layout_toLeftOf="@+id/imageView2"
-                android:layout_toRightOf="@+id/imageView2"
-                android:layout_toEndOf="@+id/imageView2"
-                android:layout_marginRight="@dimen/space_5"
-                android:layout_marginTop="@dimen/space_4" />
-
-            <ui.CustomtextView
-                font:name = "Label"
-                font:type = "bold"
-                android:id="@+id/textView"
-                android:text="202"
-                android:layout_width="@dimen/space_50"
-                android:layout_height="match_parent"
-                android:textColor="@color/white"
-                android:gravity="fill_vertical"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="@dimen/space_5"
-                android:layout_marginTop="@dimen/space_4" />
-
-            <ImageView
-                android:layout_width="@dimen/space_25"
-                android:layout_height="@dimen/space_25"
-                android:id="@+id/imageView3"
-                android:src="@drawable/eye_white"
-                android:layout_alignTop="@+id/imageView2"
-                android:layout_toLeftOf="@+id/textView"
-                android:layout_toStartOf="@+id/textView"
-                android:layout_marginRight="@dimen/space_5" />
-        </RelativeLayout>
-
-        <LinearLayout
-            android:background="@color/white"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_5">
-
-            <ui.CircleImageView
-                android:id="@+id/imageView7"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:src="@drawable/logo_bp_batam"
-                android:layout_margin="@dimen/space_5" />
-
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_5">
-
-                    <ui.CustomtextView
-                        font:name="Avenir_Heavy"
-                        font:type ="bold"
-                        android:id="@+id/text_Name"
-                        android:textColor="@color/blu3"
-                        android:text="Bpk Budi"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
-                    <ImageView
-                        android:layout_width="@dimen/space_20"
-                        android:layout_height="@dimen/space_20"
-                        android:id="@+id/imageView13"
-                        android:src="@drawable/gns_clock"
-                        android:layout_alignBottom="@+id/text_Name" />
-
-                </RelativeLayout>
-
-                <ui.CustomtextView
-                    font:name="Label"
-                    android:textColor="@color/black"
-                    android:id="@+id/text_Description"
-                    android:text="Surat persuratan permohonan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
-
-                <RelativeLayout
-                    android:id="@+id/layout_attachment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorListItem"
-                    android:layout_below="@+id/text_Date"
-                    android:layout_alignRight="@+id/text_time"
-                    android:layout_alignEnd="@+id/text_time"
-                    android:layout_marginRight="@dimen/space_10"
-                    android:layout_marginTop="@dimen/space_5">
-
-                    <ui.CustomtextView
-                        font:name="Label"
-                        android:id="@+id/lbl_attach"
-                        android:text="Attachemnt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLines="1"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginTop="@dimen/space_2"
-                        android:layout_marginLeft="@dimen/space_2" />
-
-                    <ui.CustomtextView
-                        font:name="Avenir_LightOblique"
-                        android:id="@+id/lbl_size"
-                        android:text="Attachemnt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/lbl_attach"
-                        android:textStyle="italic"
-                        android:maxLines="1"
-                        android:layout_alignBottom="@+id/imageView6"
-                        android:layout_toRightOf="@+id/imageView6"
-                        android:layout_toEndOf="@+id/imageView6"
-                        android:layout_marginTop="@dimen/space_5" />
-
-                    <ImageView
-                        android:layout_width="@dimen/space_30"
-                        android:layout_height="@dimen/space_30"
-                        android:id="@+id/imageView6"
-                        android:src="@drawable/document_black"
-                        android:layout_below="@+id/lbl_attach"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginBottom="@dimen/space_2" />
-
-
-                </RelativeLayout>
-
-                <ui.CustomtextView
-                    android:id="@+id/btnDownload"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/space_25"
-                    android:background="@drawable/btn_shape"
-                    android:gravity="center"
-                    android:onClick="onClick"
-                    android:text="DOWNLOAD"
-                    android:textColor="#ffffff"
-                    android:textSize="@dimen/space_12"
-                    font:name="Label"
-                    android:layout_weight="1"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginBottom="@dimen/space_5"
-                    android:layout_marginRight="@dimen/space_10" />
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
+        android:layout_height="1dp"/>
 
     <RelativeLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/space_10"
-        android:layout_marginRight="@dimen/space_10"
-        android:layout_marginLeft="@dimen/space_10"
         android:background="@color/white">
 
-
-        <EditText
-            android:background="@drawable/edittext_mid"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/space_90"
-            android:backgroundTint="@color/colorSecondaryBackground"
-            android:layout_above="@+id/btnPost"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="@dimen/space_5"
-            android:layout_marginRight="@dimen/space_5"
-            android:id="@+id/editText"
-            android:gravity="top"
-            android:padding="@dimen/space_5"
-            android:hint="tulis pesan........" />
-
-        <ui.CustomtextView
-            android:id="@+id/btnPost"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/space_25"
-            android:background="@drawable/btn_shape"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:text="POST"
-            android:textColor="#ffffff"
-            android:textSize="@dimen/space_12"
-            font:name="Label"
-            android:layout_weight="1"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/space_5"
-            android:layout_alignRight="@+id/editText"
-            android:layout_alignEnd="@+id/editText" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/my_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/editText"
-            android:layout_margin="@dimen/space_5"></android.support.v7.widget.RecyclerView>
+            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
     </RelativeLayout>
-
 
 
 </LinearLayout>

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -67,13 +68,14 @@ public class AdapterDisposisiPribadi extends  RecyclerView.Adapter<AdapterDispos
         final Diposisi_List_Folder.Datum listData = persuratanListFolder.data.get(position);
         //Set text
         holder.txtDate.setText(listData.dispo_date);
-        holder.txtTime.setText(listData.read_date);
+        holder.txtFrom.setText(listData.name);
         holder.txtJudul.setText(listData.title);
-        holder.lbl_Attach.setText(listData.title);
-        holder.lbl_Size.setText("");
+        holder.txtNomor.setText(listData.dispo_num);
+        holder.txtPengirim.setText("Pengirim Awal : " + listData.dispo_by);
 
-
-        holder.layoutAttc.setVisibility(View.GONE);
+        holder.layoutButton.setVisibility(View.VISIBLE);
+        holder.btnDownload_lampiran.setVisibility(View.GONE);
+        //holder.layoutAttc.setVisibility(View.GONE);
         final DecimalFormat precision = new DecimalFormat("0.00");
         try{
             Disposisi_Attachment param = new Disposisi_Attachment(AppConstant.HASHID, AppConstant.USER,
@@ -96,11 +98,13 @@ public class AdapterDisposisiPribadi extends  RecyclerView.Adapter<AdapterDispos
                             if (listData.file_size != null ){
                                 String fileName = listData.attach_link.substring(listData.attach_link.lastIndexOf('/') + 1);
                                 double dFileSize = Double.parseDouble(listData.file_size) / 1024;
-                                holder.lbl_Attach.setText(fileName);
+                                /*holder.lbl_Attach.setText(fileName);
                                 holder.lbl_Size.setText("(" + precision.format(dFileSize) + " kb)" );
 
-                                holder.layoutAttc.setVisibility(View.VISIBLE);
+                                holder.layoutAttc.setVisibility(View.VISIBLE);*/
+                                holder.btnDownload_lampiran.setVisibility(View.VISIBLE);
                             }
+
                         }
 
                     }
@@ -115,16 +119,21 @@ public class AdapterDisposisiPribadi extends  RecyclerView.Adapter<AdapterDispos
 
         }
 
+
         if (listData.flag != null){
             if (listData.flag.equals(AppConstant.SEMUA_PESAN)){
-                holder.imgChecklist.setVisibility(View.VISIBLE);
+        //        holder.imgChecklist.setVisibility(View.VISIBLE);
+                holder.layoutButton.setVisibility(View.GONE);
+                holder.layoutCheckList.setVisibility(View.VISIBLE);
                 holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.check32));
-                ButtonSelected(holder);
+                //ButtonSelected(holder);
             }else if (listData.flag.equals(AppConstant.PILIH_PESAN)){
-                holder.imgChecklist.setVisibility(View.VISIBLE);
-                ButtonNotSelected(holder);
+                holder.layoutButton.setVisibility(View.GONE);
+                holder.layoutCheckList.setVisibility(View.VISIBLE);
+                //ButtonNotSelected(holder);
                 holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.circle));
             }else{
+                holder.layoutButton.setVisibility(View.VISIBLE);
                 holder.imgChecklist.setVisibility(View.GONE);
             }
         }
@@ -134,12 +143,14 @@ public class AdapterDisposisiPribadi extends  RecyclerView.Adapter<AdapterDispos
             public void onClick(View view) {
                 if (listData.flag.equals("1")){
                     listData.flag = "2";
-                    ButtonSelected(holder);
+                    holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.check32));
+                    //ButtonSelected(holder);
                     listener.OnDownloadClicked("", false);
                 }else{
 
                     listData.flag = "1";
-                    ButtonNotSelected(holder);
+                    holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.circle));
+                    //ButtonNotSelected(holder);
                     listener.OnDownloadClicked("", false);
                 }
             }
@@ -165,23 +176,23 @@ public class AdapterDisposisiPribadi extends  RecyclerView.Adapter<AdapterDispos
             }
         });
 
-        holder.btnDownload.setOnClickListener(new View.OnClickListener() {
+        holder.btnDownload_lampiran.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AppConstant.EMAIL_ID = listData.dispo_id;
                 AppConstant.DISPO_ID = Integer.toString(listData.dispo_id);
                 //https://www.dropbox.com/s/jadu92w71vnku3o/Wireframe.pdf?dl=0
-                /*if (listData.file_size != null && !listData.file_size.equals("")){
+                if (listData.file_size != null && !listData.file_size.equals("")){
                     listener.OnDownloadClicked(listData.attach_link, true);
-                }*/
-                listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
+                }
+                //listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
             }
         });
 
         holder.listData = listData;
     }
 
-    void ButtonSelected(AdapterDisposisiPribadi.ViewHolder holder){
+    /*void ButtonSelected(AdapterDisposisiPribadi.ViewHolder holder){
         holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.check32));
         holder.imgInfo.setColorFilter(context.getResources().getColor(R.color.white));
         holder.imgDownload.setColorFilter(context.getResources().getColor(R.color.white));
@@ -191,9 +202,9 @@ public class AdapterDisposisiPribadi extends  RecyclerView.Adapter<AdapterDispos
             holder.btnDownload.setBackground(context.getResources().getDrawable(R.drawable.btn_shape_all_blue));
             holder.btnPrint.setBackground(context.getResources().getDrawable(R.drawable.btn_shape_facebook));
         }
-    }
+    }*/
 
-    void ButtonNotSelected(AdapterDisposisiPribadi.ViewHolder holder){
+    /*void ButtonNotSelected(AdapterDisposisiPribadi.ViewHolder holder){
         holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.circle));
         holder.imgInfo.setColorFilter(context.getResources().getColor(R.color.grey));
         holder.imgDownload.setColorFilter(context.getResources().getColor(R.color.colorAccept));
@@ -203,7 +214,7 @@ public class AdapterDisposisiPribadi extends  RecyclerView.Adapter<AdapterDispos
             holder.btnDownload.setBackground(context.getResources().getDrawable(R.drawable.btn_shape_all_transparant_blue));
             holder.btnPrint.setBackground(context.getResources().getDrawable(R.drawable.btn_shape_all_transparant_blue));
         }
-    }
+    }*/
 
     @Override
     public int getItemCount() {
@@ -214,45 +225,46 @@ public class AdapterDisposisiPribadi extends  RecyclerView.Adapter<AdapterDispos
             implements View.OnClickListener, View.OnLongClickListener {
 
         TextView txtDate,
-                txtTime,
-                lbl_Attach,
-                lbl_Size,
+                //txtTime,
+                txtFrom,
                 txtJudul,
-                txtStatus
+                txtNomor,
+                txtPengirim
         ;
 
-        RelativeLayout btnDownload, layoutAttc,
-                btnPrint;
+        RelativeLayout btnLihatSurat, layoutCheckList,
+                btnPrint, btnDownload_lampiran;
         ImageView imgStatus, imgCC, imgChecklist;
 
         ImageView imgInfo,imgDownload;
         TextView textInfo, textDownload;
-
+        LinearLayout layoutButton;
         Diposisi_List_Folder.Datum listData;
         public ViewHolder(View itemView,
                           Context context,
                           final AdapterDisposisiPribadi mCourseAdapter) {
             super(itemView);
+            txtNomor = (TextView)itemView.findViewById(R.id.lbl_nomor);
             txtJudul = (TextView)itemView.findViewById(R.id.lbl_Judul);
-            layoutAttc = (RelativeLayout) itemView.findViewById(R.id.layout_attachment1);
-
+            txtFrom = (TextView)itemView.findViewById(R.id.lbl_from);
             imgInfo = (ImageView) itemView.findViewById(R.id.imgInfo);
             imgDownload = (ImageView) itemView.findViewById(R.id.imgDownload);
             textInfo = (TextView)itemView.findViewById(R.id.textInfo);
             textDownload = (TextView)itemView.findViewById(R.id.textDownload);
 
             txtDate = (TextView)itemView.findViewById(R.id.text_Date);
-            txtStatus = (TextView)itemView.findViewById(R.id.text_status);
-            txtTime = (TextView)itemView.findViewById(R.id.text_time);
-            lbl_Attach = (TextView)itemView.findViewById(R.id.lbl_attach);
-            lbl_Size = (TextView)itemView.findViewById(R.id.lbl_size);
+            txtPengirim = (TextView)itemView.findViewById(R.id.lbl_pengirim);
+            //txtTime = (TextView)itemView.findViewById(R.id.text_time);
             imgStatus = (ImageView) itemView.findViewById(R.id.imageView5);
-            btnDownload = (RelativeLayout) itemView.findViewById(R.id.btnDownload);
+            btnLihatSurat = (RelativeLayout) itemView.findViewById(R.id.btnDownload);
             btnPrint = (RelativeLayout) itemView.findViewById(R.id.btnPrint);
             imgCC = (ImageView)itemView.findViewById(R.id.imageView5);
             imgChecklist = (ImageView)itemView.findViewById(R.id.imageView15);
+            layoutCheckList = (RelativeLayout) itemView.findViewById(R.id.layout_checklist);
 
-
+            btnDownload_lampiran = (RelativeLayout) itemView.findViewById(R.id.btnDownload_lampiran);
+            layoutButton = (LinearLayout)itemView.findViewById(R.id.layout_button);
+            btnLihatSurat = (RelativeLayout) itemView.findViewById(R.id.btnDownload);
         }
 
         @Override

@@ -12,7 +12,7 @@
     <RelativeLayout
         android:id="@+id/badge_layout1"
         android:layout_width="wrap_content"
-        android:layout_height="30dp">
+        android:layout_height="25dp">
 
         <RelativeLayout
             android:id="@+id/relative_layout_item_count"
@@ -35,7 +35,7 @@
             android:background="@android:drawable/ic_notification_overlay"
             android:text="27"
             android:textColor="#FFF"
-            android:textSize="8sp"
+            android:textSize="7sp"
             android:textStyle="bold" />
     </RelativeLayout>
 

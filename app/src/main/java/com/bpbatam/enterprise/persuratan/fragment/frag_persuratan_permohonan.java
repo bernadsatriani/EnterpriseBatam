@@ -54,7 +54,7 @@ public class frag_persuratan_permohonan extends Fragment implements SwipeRefresh
     private long downloadID;
     private DownloadManager downloadManager;
 
-    ImageView imgMenu;
+    //ImageView imgMenu;
     TextView txtLabel;
 
     Persuratan_List_Folder persuratanListFolder;
@@ -75,9 +75,9 @@ public class frag_persuratan_permohonan extends Fragment implements SwipeRefresh
     }
 
     void InitControl(View v){
-        txtLabel = (TextView)v.findViewById(R.id.view2);
+        txtLabel = (TextView)v.findViewById(R.id.text_folder);
         if (AppConstant.ACTIVITY_FROM != null) txtLabel.setText(AppConstant.ACTIVITY_FROM);
-        imgMenu = (ImageView)v.findViewById(R.id.imageView);
+        //imgMenu = (ImageView)v.findViewById(R.id.imageView);
         mRecyclerView = (RecyclerView)v.findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(v.getContext());

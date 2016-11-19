@@ -61,14 +61,16 @@ public class DistribusiActivity extends AppCompatActivity {
         InitControl();
 
         setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.arrow_back_white);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationIcon(R.drawable.back_24);
+
     }
 
     void InitControl(){
         imgDistri = (ImageView)findViewById(R.id.imgDistribusi);
         txtLabel = (TextView)findViewById(R.id.textLabel);
-        txtLabel.setText(AppConstant.PDF_FILENAME);
+        txtLabel.setText("Pilih Surat           ");
+        txtLabel.setText("DISTRIBUSI            ");
 
         toolbar = (Toolbar)findViewById(R.id.tool_bar);
         txtDistribusi = (EditText)findViewById(R.id.text_distribusi);

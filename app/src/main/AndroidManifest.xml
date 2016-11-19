@@ -150,6 +150,30 @@
 
         <activity android:name=".bbs.bbs_menu"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+
+        <activity android:name=".bbs.BBS_add_berita"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+
+        <activity android:name=".bbs.BBS_category_list"
+            android:theme="@style/Theme.MyDialog"></activity>
+
+        <activity android:name=".bbs.BBS_Prioritas"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+
+        <activity android:name=".disposisi.disposisi_category_activity"
+            android:theme="@style/Theme.MyDialog"></activity>
+
+        <activity android:name=".disposisi.disposisi_folder_pribadi_umum"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+
+        <activity android:name=".persuratan.persuratan_folder_pribadi_umum"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+
+        <activity android:name=".persuratan.persuratan_dialog_status_surat_activity"
+            android:theme="@style/Theme.MyDialog"></activity>
+
+        <activity android:name=".persuratan.persuratan_status_surat"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>

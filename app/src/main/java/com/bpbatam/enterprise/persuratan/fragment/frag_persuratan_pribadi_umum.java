@@ -1,30 +1,69 @@
 package com.bpbatam.enterprise.persuratan.fragment;
 
+import android.app.Activity;
+import android.app.DownloadManager;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.ayz4sci.androidfactory.DownloadProgressView;
+import com.bpbatam.AppConstant;
+import com.bpbatam.AppController;
+import com.bpbatam.enterprise.PDFViewActivity_Distribusi;
 import com.bpbatam.enterprise.R;
+import com.bpbatam.enterprise.disposisi.disposisi_category_activity;
 import com.bpbatam.enterprise.disposisi.fragment.frag_disposisi_pribadi_new;
 import com.bpbatam.enterprise.disposisi.fragment.frag_disposisi_umum_new;
+import com.bpbatam.enterprise.model.Diposisi_List_Folder;
+import com.bpbatam.enterprise.model.ListData;
+import com.bpbatam.enterprise.model.Persuratan_List_Folder;
+import com.bpbatam.enterprise.model.net.NetworkManager;
+import com.bpbatam.enterprise.persuratan.adapter.AdapterPersuratanPribadi;
+
+import java.io.File;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by User on 9/19/2016.
  */
-public class frag_persuratan_pribadi_umum extends Fragment{
-    ImageView imgPribadi, imgUmum;
-    boolean stsPribadi, stsUmum;
-    FrameLayout framePribadi, frameUmum;
-    Fragment fragment;
+public class frag_persuratan_pribadi_umum extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+    RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private LinearLayoutManager mLayoutManager;
 
-    LinearLayout layoutPribadi, layoutUmum;
+    ArrayList<ListData> AryListData;
+    ListData listData;
+
+    RelativeLayout rLayoutDownload, layoutFolder;
+    DownloadProgressView downloadProgressView;
+    private long downloadID;
+    private DownloadManager downloadManager;
+
+    ImageView imgMenu;
+    TextView txtLabel, txtFolder;
+    Persuratan_List_Folder persuratanListFolder;
+    SwipeRefreshLayout swipeRefreshLayout;
+    String statusPesan = "";
+    String sFolder = "";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -37,85 +76,217 @@ public class frag_persuratan_pribadi_umum extends Fragment{
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         InitControl(view);
-        stsPribadi = true;
-        stsUmum = false;
-        FillFormPribadi();
-        FillFormUmum();
+        sFolder = "FPR";
+        AppConstant.FOLDER_DISPOS = sFolder;
+        FillGrid();
     }
 
     void InitControl(View v){
-        imgPribadi = (ImageView)v.findViewById(R.id.imgplus_pribadi);
-        imgUmum = (ImageView)v.findViewById(R.id.imgplus_umum);
-        layoutPribadi = (LinearLayout)v.findViewById(R.id.layout_pribadi);
-        layoutUmum = (LinearLayout)v.findViewById(R.id.layout_umum);
-        framePribadi = (FrameLayout)v.findViewById(R.id.frame_pribadi);
-        frameUmum = (FrameLayout)v.findViewById(R.id.frame_umum);
-        layoutPribadi.setOnClickListener(new View.OnClickListener() {
+        txtFolder = (TextView) v.findViewById(R.id.text_folder);
+        layoutFolder = (RelativeLayout)v.findViewById(R.id.contact_us_header_container);
+        layoutFolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (stsPribadi){
-                    stsPribadi = false;
-                }else{
-                    stsPribadi = true;
-                }
-
-                FillFormPribadi();
+                Intent intent = new Intent(getActivity(), disposisi_category_activity.class);
+                startActivityForResult(intent, 10);
             }
         });
 
-        layoutUmum.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(stsUmum){
-                    stsUmum = false;
-                }else{
-                    stsUmum = true;
+
+        //txtLabel = (TextView)v.findViewById(R.id.view2);
+        //if (AppConstant.ACTIVITY_FROM != null) txtLabel.setText(AppConstant.ACTIVITY_FROM);
+        imgMenu = (ImageView)v.findViewById(R.id.imageView);
+        mRecyclerView = (RecyclerView)v.findViewById(R.id.my_recycler_view);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(v.getContext());
+        rLayoutDownload = (RelativeLayout)v.findViewById(R.id.layout_download);
+        // use a linear layout manager
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        downloadProgressView = (DownloadProgressView) v.findViewById(R.id.downloadProgressView);
+        downloadManager = (DownloadManager) v.getContext().getSystemService(v.getContext().DOWNLOAD_SERVICE);
+
+        swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setColorSchemeColors(getActivity().getResources().getColor(R.color.colorSearch),
+                getActivity().getResources().getColor(R.color.Green),
+                getActivity().getResources().getColor(R.color.b7_orange),
+                getActivity().getResources().getColor(R.color.red));
+
+    }
+
+    void FillGrid(){
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        if (sFolder.equals("FUM")){
+            txtFolder.setText("Folder Umum (00/00)");
+        }else{
+            txtFolder.setText("Folder Pribadi (00/00)");
+        }
+
+        Persuratan_List_Folder params = new Persuratan_List_Folder(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID, sFolder,"1","10");
+        try{
+            Call<Persuratan_List_Folder> call = NetworkManager.getNetworkService(getActivity()).getMailFolder(params);
+            call.enqueue(new Callback<Persuratan_List_Folder>() {
+                @Override
+                public void onResponse(Call<Persuratan_List_Folder> call, Response<Persuratan_List_Folder> response) {
+                    int code = response.code();
+                    swipeRefreshLayout.setRefreshing(false);
+                    persuratanListFolder = response.body();
+                    if (code == 200){
+                        if (persuratanListFolder.code.equals("00")){
+                            int iIndex = 0;
+                            int iUnread = 0;
+
+                            for (Persuratan_List_Folder.Datum dat : persuratanListFolder.data){
+                                if (dat.read_date !=null && dat.read_date.equals("-")){
+                                    iUnread += 1;
+                                }
+                            }
+                            if (statusPesan.equals(AppConstant.PILIH_PESAN) || statusPesan.equals(AppConstant.SEMUA_PESAN)){
+                                for (Persuratan_List_Folder.Datum dat : persuratanListFolder.data){
+                                    persuratanListFolder.data.get(iIndex).flag = statusPesan;
+                                    iIndex += 1;
+                                }
+                            }
+
+                            String sUnread = String.valueOf(iUnread);
+                            if (sUnread.length() < 2) sUnread = "0" + sUnread;
+
+                            String sTotal = String.valueOf(persuratanListFolder.data.size());
+                            if (sTotal.length() < 2) sTotal = "0" + sTotal;
+                            if (sFolder.equals("FUM")){
+                                txtFolder.setText("Folder Umum (" + sUnread + "/" + sTotal + ")");
+                            }else{
+                                txtFolder.setText("Folder Pribadi (" + sUnread + "/" + sTotal + ")");
+                            }
+                            FillAdapter();
+                        }
+                    }
                 }
 
-                FillFormUmum();
+                @Override
+                public void onFailure(Call<Persuratan_List_Folder> call, Throwable t) {
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+            });
+        }catch (Exception e){
+            swipeRefreshLayout.setRefreshing(false);
+        }
+
+    }
+
+    void FillAdapter(){
+        /*AryListData = new ArrayList<>();
+
+        for(int i = 0; i < 10; i++){
+            listData = new ListData();
+            listData.setAtr1("Attachment " + i);
+            listData.setAtr2("(5,88 mb)");
+            listData.setAtr3("http://cottonsoft.co.nz/assets/img/our-company-history/history-2011-Paseo.jpg");
+            listData.setNama(statusPesan);
+//            if (statusPesan.equals(AppConstant.PILIH_PESAN)) listData.setJekel("1");
+            listData.setJekel(statusPesan);
+            AryListData.add(listData);
+
+        }*/
+
+        mAdapter = new AdapterPersuratanPribadi(getActivity(), persuratanListFolder, new AdapterPersuratanPribadi.OnDownloadClicked() {
+            @Override
+            public void OnDownloadClicked(final String sUrl, boolean bStatus) {
+                if (bStatus){
+                    DownloadManager.Request request = new DownloadManager.Request(Uri.parse(sUrl));
+                    AppConstant.PDF_FILENAME = AppController.getInstance().getFileName(sUrl);
+                    AppConstant.PDF_FILENAME = AppConstant.PDF_FILENAME.replace("%20"," ");
+
+                    File file = new File(AppConstant.STORAGE_CARD + "/Download/" + AppConstant.PDF_FILENAME);
+                    if (file.exists()){
+                        Intent intent = new Intent(getActivity(), PDFViewActivity_Distribusi.class);
+                        getActivity().startActivity(intent);
+                    }else{
+                        mRecyclerView.setVisibility(View.GONE);
+                        rLayoutDownload.setVisibility(View.VISIBLE);
+
+                        request.setTitle(AppConstant.PDF_FILENAME);
+
+                        request.setDescription("DESCRIPTION");
+                        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                        // request.setDestinationInExternalPublicDir(AppConstant.FOLDER_DOWNLOAD, "DOWNLOAD_FILE_NAME.pdf");
+
+                        File root = new File(AppConstant.STORAGE_CARD + "/Download/");
+                        Uri path = Uri.withAppendedPath(Uri.fromFile(root), AppConstant.PDF_FILENAME);
+                        request.setDestinationUri(path);
+
+                        downloadID = downloadManager.enqueue(request);
+                    }
+
+                    downloadProgressView.show(downloadID, new DownloadProgressView.DownloadStatusListener() {
+                        @Override
+                        public void downloadFailed(int reason) {
+                            //Action to perform when download fails, reason as returned by DownloadManager.COLUMN_REASON
+                            mRecyclerView.setVisibility(View.VISIBLE);
+                            rLayoutDownload.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void downloadSuccessful() {
+                            //Action to perform on success
+                            mRecyclerView.setVisibility(View.VISIBLE);
+                            rLayoutDownload.setVisibility(View.GONE);
+                            //layout_button.setVisibility(View.GONE);
+                            Intent intent;
+                            intent = new Intent(getActivity(), PDFViewActivity_Distribusi.class);
+                            getActivity().startActivity(intent);
+
+
+                        }
+
+                        @Override
+                        public void downloadCancelled() {
+                            //Action to perform when user press the cancel button
+                            mRecyclerView.setVisibility(View.VISIBLE);
+                            rLayoutDownload.setVisibility(View.GONE);
+                        }
+                    });
+                }else{
+                    boolean bDone = false;
+                    AppConstant.DISPO_ID = "";
+                    for (Persuratan_List_Folder.Datum dat : persuratanListFolder.data){
+                        if (dat.flag.equals("2")){
+                            bDone = true;
+                            AppConstant.DISPO_ID += dat.mail_id + "||";
+                        }
+                    }
+                   /* if (bDone){
+                        btnDistribusi.setVisibility(View.VISIBLE);
+                    }else btnDistribusi.setVisibility(View.GONE);
+*/
+
+                }
 
             }
         });
+        // set the adapter object to the Recyclerview
+        mRecyclerView.setAdapter(mAdapter);
     }
 
-    void FillFormPribadi(){
-        if (stsPribadi){
-            imgPribadi.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.expand_arrow));
-            framePribadi.setVisibility(View.VISIBLE);
-        }else{
-            imgPribadi.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.collapse_arrow));
-            framePribadi.setVisibility(View.GONE);
-        }
-
-        fragment = null;
-        fragment = new frag_disposisi_pribadi_new();
-
-        if (fragment != null) {
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.frame_pribadi, fragment);
-            fragmentTransaction.commit();
-        }
+    @Override
+    public void onRefresh() {
+        FillGrid();
     }
 
-    void FillFormUmum(){
-        if (stsUmum){
-            imgUmum.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.expand_arrow));
-            frameUmum.setVisibility(View.VISIBLE);
-        }else{
-            imgUmum.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.collapse_arrow));
-            frameUmum.setVisibility(View.GONE);
-        }
-
-        fragment = null;
-        fragment = new frag_disposisi_umum_new();
-
-        if (fragment != null) {
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.frame_umum, fragment);
-            fragmentTransaction.commit();
+    public synchronized void onActivityResult(final int requestCode, int resultCode, final Intent data) {
+        if (requestCode == 10){
+            if (resultCode == Activity.RESULT_OK) {
+                Bundle res = data.getExtras();
+                sFolder = res.getString("KODE_PERSURATAN");
+                AppConstant.FOLDER_DISPOS = sFolder;
+                FillGrid();
+            }
         }
     }
-
 }

@@ -1,171 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:font="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe_refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorSecondaryBackground">
+    xmlns:font="http://schemas.android.com/apk/res-auto"    >
 
-    <RelativeLayout
-        android:id="@+id/layout_search"
-        android:textColor="@color/white"
-        android:background="@color/grey_s"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/space_50">
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:background="@drawable/btn_shape_all_white_search"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/space_7">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-
-                android:layout_weight="1">
-                <ImageView
-                    android:gravity="right"
-                    android:src="@drawable/ic_search_white"
-                    android:tint="@color/grey"
-                    android:layout_alignParentRight="true"
-                    android:layout_width="@dimen/space_30"
-                    android:layout_height="match_parent" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <ui.CustomtextView
-                    android:text="Search"
-                    android:textColor="@color/grey"
-                    android:gravity="fill_vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </RelativeLayout>
-        </LinearLayout>
-
-    </RelativeLayout>
-
-    <View
-        android:background="@color/grey"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"/>
-    <android.support.v4.widget.NestedScrollView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/tools"
         android:background="@color/colorSecondaryBackground">
 
-        <LinearLayout
+
+
+        <View
+            android:background="@color/grey"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:font="http://schemas.android.com/apk/res-auto"
+            xmlns:app="http://schemas.android.com/tools"
             android:orientation="vertical"
             android:layout_width="match_parent"
+            android:background="@color/white"
             android:layout_height="match_parent">
-
-            <LinearLayout
-                android:id="@+id/layout_pribadi"
-                android:orientation="vertical"
+            <RelativeLayout
+                android:id="@+id/contact_us_header_container"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/space_40"
+                android:layout_alignParentTop="true"
                 android:background="@color/white"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:orientation="horizontal">
+                <ui.CustomtextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="PERMOHONAN (01/08)"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/space_12"
+                    android:textStyle="bold"
+                    font:name="GOTHAM_BOLD"
+                    font:type = "bold"
+                    android:id="@+id/text_folder"
+                    android:layout_marginLeft="@dimen/space_10"
+                    android:layout_toEndOf="@+id/imageView14"
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@+id/imageView14"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="fill_vertical" />
 
-                <RelativeLayout
-                    android:background="@color/grey_s"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/space_30">
+                <ImageView
+                    android:layout_marginRight="@dimen/space_14"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/arrow_down"
+                    android:layout_width="@dimen/space_20"
+                    android:layout_height="match_parent" />
+            </RelativeLayout>
 
-                    <ImageView
-                        android:id="@+id/imgplus_pribadi"
-                        android:src="@drawable/collapse_arrow"
-                        android:layout_width="@dimen/space_20"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginRight="@dimen/space_10" />
-                    <ui.CustomtextView
-                        android:textSize="@dimen/space_12"
-                        android:textStyle="bold"
-                        font:name="GOTHAM_BOLD"
-                        android:textColor="@color/black"
-                        android:text="FOLDER PRIBADI"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_toLeftOf="@+id/imgplus_bbs"
-                        android:layout_toRightOf="@+id/imageView8"
-                        android:layout_toEndOf="@+id/imageView8"
-                        android:layout_marginLeft="@dimen/space_10"
-                        android:gravity="fill_vertical" />
-                </RelativeLayout>
-
-                <FrameLayout
-                    android:visibility="gone"
-                    android:id="@+id/frame_pribadi"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/space_240"
-                    android:background="@color/white"></FrameLayout>
-            </LinearLayout>
             <View
                 android:background="@color/grey"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"/>
 
-            <LinearLayout
-                android:id="@+id/layout_umum"
-                android:orientation="vertical"
-                android:background="@color/white"
+            <android.support.v7.widget.RecyclerView
+                android:layout_marginTop="@dimen/space_14"
+                android:layout_marginLeft="@dimen/space_10"
+                android:layout_marginRight="@dimen/space_10"
+                android:visibility="visible"
+                android:id="@+id/my_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
-                <RelativeLayout
-                    android:background="@color/grey_s"
+            <RelativeLayout
+                android:visibility="visible"
+                android:id="@+id/layout_download"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView9"
+                    android:src="@drawable/pdf"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true" />
+
+                <com.ayz4sci.androidfactory.DownloadProgressView
+                    android:layout_below="@+id/imageView9"
+                    android:id="@+id/downloadProgressView"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/space_30">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal" />
+            </RelativeLayout>
 
-                    <ImageView
-                        android:id="@+id/imgplus_umum"
-                        android:src="@drawable/collapse_arrow"
-                        android:layout_width="@dimen/space_20"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginRight="@dimen/space_10" />
 
-                    <ui.CustomtextView
-                        android:textSize="@dimen/space_12"
-                        android:textStyle="bold"
-                        font:name="GOTHAM_BOLD"
-                        android:textColor="@color/black"
-                        android:text="FOLDER UMUM"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_toLeftOf="@+id/imgplus_persuratan"
-                        android:layout_toRightOf="@+id/imageView9"
-                        android:layout_toEndOf="@+id/imageView9"
-                        android:layout_marginRight="@dimen/space_40"
-                        android:layout_marginLeft="@dimen/space_10"
-                        android:gravity="fill_vertical" />
-                </RelativeLayout>
-
-                <FrameLayout
-                    android:visibility="gone"
-                    android:id="@+id/frame_umum"
-                    android:layout_width="match_parent"
-                    android:layout_height="400dp"
-                    android:background="@color/white"></FrameLayout>
-            </LinearLayout>
 
         </LinearLayout>
 
-    </android.support.v4.widget.NestedScrollView>
-
-</LinearLayout>
 
 
+    </LinearLayout>
+
+</android.support.v4.widget.SwipeRefreshLayout>

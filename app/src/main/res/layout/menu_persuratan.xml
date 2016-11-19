@@ -8,7 +8,7 @@
 
     <include
         android:id="@+id/tool_bar"
-        layout="@layout/tool_bar_back_new"
+        layout="@layout/tool_bar"
         />
 
     <LinearLayout
@@ -17,6 +17,75 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_55">
 
+        <RelativeLayout
+            android:id="@+id/layout_folder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_marginTop="@dimen/space_7"
+                android:layout_marginBottom="@dimen/space_5"
+                android:src="@drawable/folder_icon"
+                android:layout_width="@dimen/space_10"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_above="@+id/text_folder" />
+            <ui.CustomtextView
+                font:name = "GOTHAM_BOLD"
+                android:id="@+id/text_folder"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/space_5"
+                android:textSize="@dimen/space_10"
+                android:text="My Folder"
+                android:gravity="center"
+                android:textColor="@color/grey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+
+        <View
+            android:background="@color/grey"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"/>
+
+        <RelativeLayout
+            android:id="@+id/layout_dikembalikan"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_marginTop="@dimen/space_7"
+                android:layout_marginBottom="@dimen/space_5"
+                android:src="@drawable/dikembalikan_icon"
+                android:layout_width="@dimen/space_10"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_above="@+id/text_dikembalikan" />
+            <ui.CustomtextView
+                font:name = "GOTHAM_BOLD"
+                android:id="@+id/text_dikembalikan"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/space_5"
+                android:textSize="@dimen/space_10"
+                android:text="Draft"
+                android:gravity="center"
+                android:textColor="@color/grey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+
+        <View
+            android:background="@color/grey"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"/>
         <RelativeLayout
             android:id="@+id/layout_permohonan"
             android:layout_width="match_parent"
@@ -48,65 +117,10 @@
                 android:layout_height="wrap_content" />
         </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/layout_dalamsurat"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <ImageView
-                android:layout_marginTop="@dimen/space_7"
-                android:layout_marginBottom="@dimen/space_5"
-                android:src="@drawable/dalam_proses"
-                android:layout_width="@dimen/space_10"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_above="@+id/text_dalamsurat" />
-            <ui.CustomtextView
-                font:name = "GOTHAM_BOLD"
-                android:id="@+id/text_dalamsurat"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="@dimen/space_5"
-                android:textSize="@dimen/space_10"
-                android:text="Dalam Proses"
-                android:textColor="@color/grey"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/layout_dikembalikan"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <ImageView
-                android:layout_marginTop="@dimen/space_7"
-                android:layout_marginBottom="@dimen/space_5"
-                android:src="@drawable/dikembalikan_icon"
-                android:layout_width="@dimen/space_10"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_above="@+id/text_dikembalikan" />
-            <ui.CustomtextView
-                font:name = "GOTHAM_BOLD"
-                android:id="@+id/text_dikembalikan"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="@dimen/space_5"
-                android:textSize="@dimen/space_10"
-                android:text="Dikembalikan"
-                android:gravity="center"
-                android:textColor="@color/grey"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </RelativeLayout>
+        <View
+            android:background="@color/grey"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"/>
 
         <RelativeLayout
             android:id="@+id/layout_simpan"
@@ -131,41 +145,65 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="@dimen/space_5"
                 android:textSize="@dimen/space_10"
-                android:text="Simpan"
+                android:text="Status Surat"
                 android:gravity="center"
                 android:textColor="@color/grey"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </RelativeLayout>
 
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/space_3">
+
         <RelativeLayout
-            android:id="@+id/layout_folder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1">
-
-            <ImageView
-                android:layout_marginTop="@dimen/space_7"
-                android:layout_marginBottom="@dimen/space_5"
-                android:src="@drawable/folder_icon"
-                android:layout_width="@dimen/space_10"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_above="@+id/text_folder" />
-            <ui.CustomtextView
-                font:name = "GOTHAM_BOLD"
-                android:id="@+id/text_folder"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="@dimen/space_5"
-                android:textSize="@dimen/space_10"
-                android:text="Folder"
-                android:gravity="center"
-                android:textColor="@color/grey"
+            <View
+                android:id="@+id/line4"
+                android:background="@color/colorBar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="3dp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <View
+                android:visibility="visible"
+                android:id="@+id/line5"
+                android:background="@color/colorBar"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <View
+                android:visibility="visible"
+                android:id="@+id/line6"
+                android:background="@color/colorBar"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <View
+                android:visibility="visible"
+                android:id="@+id/line7"
+                android:background="@color/colorBar"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"/>
         </RelativeLayout>
     </LinearLayout>
 

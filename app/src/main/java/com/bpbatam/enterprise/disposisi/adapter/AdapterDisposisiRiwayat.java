@@ -61,14 +61,16 @@ public class AdapterDisposisiRiwayat extends  RecyclerView.Adapter<AdapterDispos
         final Diposisi_List_Folder.Datum listData = persuratanListFolder.data.get(position);
         //Set text
         holder.txtDate.setText(listData.dispo_date);
-        holder.txtTime.setText(listData.read_date);
+        holder.txtFrom.setText(listData.name);
         holder.txtJudul.setText(listData.title);
-        holder.lbl_Attach.setText(listData.title);
-        holder.lbl_Size.setText("");
+        holder.txtNomor.setText(listData.dispo_num);
+        holder.txtPengirim.setText("Pengirim Awal : " + listData.dispo_by);
+        holder.txtStatus.setText("Status : " + listData.read_date);
 
+        holder.btnDownload.setVisibility(View.GONE);
 
-        holder.layoutAttc.setVisibility(View.GONE);
-        holder.imgRead.setVisibility(View.GONE);
+        /*holder.layoutAttc.setVisibility(View.GONE);
+        holder.imgRead.setVisibility(View.GONE);*/
         if (listData.read_date != null && listData.read_date.equals("-")) holder.imgRead.setVisibility(View.VISIBLE);
 
         final DecimalFormat precision = new DecimalFormat("0.00");
@@ -93,10 +95,11 @@ public class AdapterDisposisiRiwayat extends  RecyclerView.Adapter<AdapterDispos
                             if (listData.file_size != null ){
                                 String fileName = listData.attach_link.substring(listData.attach_link.lastIndexOf('/') + 1);
                                 double dFileSize = Double.parseDouble(listData.file_size) / 1024;
-                                holder.lbl_Attach.setText(fileName);
+                                /*holder.lbl_Attach.setText(fileName);
                                 holder.lbl_Size.setText("(" + precision.format(dFileSize) + " kb)" );
 
-                                holder.layoutAttc.setVisibility(View.VISIBLE);
+                                holder.layoutAttc.setVisibility(View.VISIBLE);*/
+                                holder.btnDownload.setVisibility(View.VISIBLE);
                             }
                         }
 
@@ -111,6 +114,13 @@ public class AdapterDisposisiRiwayat extends  RecyclerView.Adapter<AdapterDispos
         }catch (Exception e){
 
         }
+
+        holder.btnDownload_lihat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         holder.btnDownload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,32 +146,38 @@ public class AdapterDisposisiRiwayat extends  RecyclerView.Adapter<AdapterDispos
             implements View.OnClickListener, View.OnLongClickListener {
 
         TextView txtDate,
-                txtTime,
+        //txtTime,
+                txtFrom,
                 txtJudul,
-                lbl_Attach,
-                lbl_Size,
+                txtNomor,
+                txtPengirim,
                 txtStatus
-        ;
 
-        RelativeLayout btnDownload, layoutAttc;
-        ImageView imgStatus, imgRead;
+                        ;
+
+        RelativeLayout btnDownload, btnDownload_lihat;
+        ImageView imgStatus, imgRead, imgChecklist;
 
         Diposisi_List_Folder.Datum listData;
         public ViewHolder(View itemView,
                           Context context,
                           final AdapterDisposisiRiwayat mCourseAdapter) {
             super(itemView);
+            txtNomor = (TextView)itemView.findViewById(R.id.lbl_nomor);
             txtJudul = (TextView)itemView.findViewById(R.id.lbl_Judul);
-            layoutAttc = (RelativeLayout) itemView.findViewById(R.id.layout_attachment1);
-
-            txtDate = (TextView)itemView.findViewById(R.id.text_Date);
-            txtStatus = (TextView)itemView.findViewById(R.id.text_status);
-            txtTime = (TextView)itemView.findViewById(R.id.text_time);
-            lbl_Attach = (TextView)itemView.findViewById(R.id.lbl_attach);
-            lbl_Size = (TextView)itemView.findViewById(R.id.lbl_size);
+            txtFrom = (TextView)itemView.findViewById(R.id.lbl_from);
+            txtPengirim = (TextView)itemView.findViewById(R.id.lbl_pengirim);
+            txtJudul = (TextView)itemView.findViewById(R.id.lbl_Judul);
+                        txtDate = (TextView)itemView.findViewById(R.id.text_Date);
+            txtStatus = (TextView)itemView.findViewById(R.id.lbl_status);
+            //lbl_Attach = (TextView)itemView.findViewById(R.id.lbl_attach);
+            //lbl_Size = (TextView)itemView.findViewById(R.id.lbl_size);
             imgStatus = (ImageView) itemView.findViewById(R.id.imageView5);
             btnDownload = (RelativeLayout) itemView.findViewById(R.id.btnDownload);
             imgRead = (ImageView) itemView.findViewById(R.id.imgRead);
+            imgChecklist = (ImageView)itemView.findViewById(R.id.imageView15);
+
+            btnDownload_lihat = (RelativeLayout) itemView.findViewById(R.id.btnDownload_lihat);
         }
 
         @Override

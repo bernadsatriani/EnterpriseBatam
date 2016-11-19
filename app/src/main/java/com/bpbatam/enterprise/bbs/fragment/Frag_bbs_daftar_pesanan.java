@@ -34,6 +34,7 @@ import com.bpbatam.AppController;
 import com.bpbatam.enterprise.PDFViewActivity;
 import com.bpbatam.enterprise.PDFViewActivity_Edit;
 import com.bpbatam.enterprise.R;
+import com.bpbatam.enterprise.bbs.BBS_category_list;
 import com.bpbatam.enterprise.bbs.adapter.AdapterBBSDaftarPesanan;
 import com.bpbatam.enterprise.model.BBS_CATEGORY;
 import com.bpbatam.enterprise.model.BBS_Insert;
@@ -73,17 +74,17 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
     ListData listData;
 
     RelativeLayout rLayoutDownload;
-    RelativeLayout layoutBtnLampiran, layoutAttachment;
+    //RelativeLayout layoutBtnLampiran, layoutAttachment;
     DownloadProgressView downloadProgressView;
     private long downloadID;
     private DownloadManager downloadManager;
 
-    TextView txtTulisPesan, text_publikasi, txtFileName, txtSize;
-    RelativeLayout layoutHeader, layout_spinner_category;
+    //TextView txtTulisPesan, text_publikasi, txtFileName, txtSize;
+    //RelativeLayout layoutHeader, layout_spinner_category;
 
     ImageView imgCancel, imgSave, imgDelete;
 
-    Spinner spnBuletin, spnStatus, spnCategory;
+    Spinner spnStatus;
 
     SimpleAdapter adpGridView;
 
@@ -91,15 +92,15 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
     BBS_List_ByCategory bbs_list_byCategory, bbs_list_byCategoryFull;
     BBS_Insert bbs_insert;
     String[] lstCategory;
-    String sCategoryID = "";
 
     EditText txtJudul, txtIsi;
-    LinearLayout layout_button_kembali;
+    //LinearLayout layout_button_kembali;
     String sFile_Size, sFile_Type, sBBS_id, sFile_Path;
     Uri uri;
     int iMin, iMax;
     SwipeRefreshLayout swipeRefreshLayout;
-
+    TextView textKategori;
+    RelativeLayout layout_kategori;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -113,16 +114,27 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         InitControl(view);
-        layoutAttachment.setVisibility(View.GONE);
+        //layoutAttachment.setVisibility(View.GONE);
         iMin = 1;
         iMax = 10;
-        FillSpinner();
-        FillSpinnerCategory();
+        AppConstant.sCategoryID = "QNQ";
+        AppConstant.sCategoryName = "";
+        FillGrid("QNQ");
+        /*FillSpinner();
+        FillSpinnerCategory();*/
     }
 
     void InitControl(View v){
+        textKategori = (TextView)v.findViewById(R.id.text_kategori);
+        layout_kategori = (RelativeLayout)v.findViewById(R.id.layout_kategori);
+        layout_kategori.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mIntent = new Intent(getActivity(), BBS_category_list.class);
+                startActivity(mIntent);
+            }
+        });
 
-        spnCategory = (Spinner)v.findViewById(R.id.spinner_caetogory);
         swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setColorSchemeColors(getActivity().getResources().getColor(R.color.colorSearch),
@@ -130,24 +142,24 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
                 getActivity().getResources().getColor(R.color.b7_orange),
                 getActivity().getResources().getColor(R.color.red));
 
-        txtFileName = (TextView)v.findViewById(R.id.text_attachment);
-        txtSize = (TextView)v.findViewById(R.id.text_size);
+        /*txtFileName = (TextView)v.findViewById(R.id.text_attachment);
+        txtSize = (TextView)v.findViewById(R.id.text_size);*/
         imgDelete = (ImageView)v.findViewById(R.id.img_delete);
-        layoutAttachment = (RelativeLayout)v.findViewById(R.id.layout_attachment);
+        //layoutAttachment = (RelativeLayout)v.findViewById(R.id.layout_attachment);
         txtJudul = (EditText)v.findViewById(R.id.text_judul);
         txtIsi = (EditText)v.findViewById(R.id.text_isi);
-        spnBuletin = (Spinner)v.findViewById(R.id.spinner_buletinboard);
+        //spnBuletin = (Spinner)v.findViewById(R.id.spinner_buletinboard);
         spnStatus = (Spinner)v.findViewById(R.id.spinner_status);
-        spnCategory = (Spinner)v.findViewById(R.id.spinner_caetogory);
-        layout_button_kembali = (LinearLayout) v.findViewById(R.id.layout_button_kembali);
-        layoutBtnLampiran = (RelativeLayout) v.findViewById(R.id.layout_btn_lampiran);
-        text_publikasi = (TextView) v.findViewById(R.id.text_publikasi);
-        txtTulisPesan = (TextView)v.findViewById(R.id.text_tulis_pesan);
-        layoutHeader = (RelativeLayout)v.findViewById(R.id.layout_header);
+        //spnCategory = (Spinner)v.findViewById(R.id.spinner_caetogory);
+        //layout_button_kembali = (LinearLayout) v.findViewById(R.id.layout_button_kembali);
+        //layoutBtnLampiran = (RelativeLayout) v.findViewById(R.id.layout_btn_lampiran);
+        //text_publikasi = (TextView) v.findViewById(R.id.text_publikasi);
+        //txtTulisPesan = (TextView)v.findViewById(R.id.text_tulis_pesan);
+       /* layoutHeader = (RelativeLayout)v.findViewById(R.id.layout_header);
         txtTulisPesan.setVisibility(View.VISIBLE);
-        layoutHeader.setVisibility(View.GONE);
+        layoutHeader.setVisibility(View.GONE);*/
 
-        imgDelete.setOnClickListener(new View.OnClickListener() {
+        /*imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sFile_Path = "";
@@ -155,28 +167,28 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
                 sFile_Type = "";
                 layoutAttachment.setVisibility(View.GONE);
             }
-        });
+        });*/
 
-        txtTulisPesan.setOnClickListener(new View.OnClickListener() {
+     /*   txtTulisPesan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 txtTulisPesan.setVisibility(View.GONE);
                 layoutHeader.setVisibility(View.VISIBLE);
             }
-        });
+        });*/
 
-        layout_button_kembali.setOnClickListener(new View.OnClickListener() {
+        /*layout_button_kembali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 txtTulisPesan.setVisibility(View.VISIBLE);
                 layoutHeader.setVisibility(View.GONE);
             }
-        });
+        });*/
 
-        text_publikasi.setOnClickListener(new View.OnClickListener() {
+        /*text_publikasi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ValidInputan();
+                //ValidInputan();
                 txtTulisPesan.setVisibility(View.VISIBLE);
                 layoutHeader.setVisibility(View.GONE);
             }
@@ -189,10 +201,10 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
                 sFile_Size = "";
                 sFile_Type = "";
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("file/*");
+                intent.setType("file*//*");
                 startActivityForResult(intent, CODE_FILE);
             }
-        });
+        });*/
 
         mRecyclerView = (RecyclerView)v.findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -220,7 +232,7 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
                         if (iMax <= totalItemCount){
                             iMin = iMax;
                             iMax += 10;
-                            FillGridMore(sCategoryID);
+                            FillGridMore(AppConstant.sCategoryID);
                         }
                         //loading = false;
                         Log.v("...", "Last Item Wow !");
@@ -231,6 +243,7 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
         });
     }
 
+/*
     boolean ValidInputan(){
         boolean bDone = false;
 
@@ -354,7 +367,9 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
 
         return bDone;
     }
+*/
 
+/*
     void FillSpinner(){
 
         String[] stsStatus = {"tinggi", "sedang", "rendah"};
@@ -442,6 +457,7 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
                         mapGrid = new HashMap<String, Object>();
                         mapGrid.put("description", bbs_category.data.PDB);
                         lstGrid.add(mapGrid);
+*/
 /*
                         lstCategory[0] = bbs_category.data.QNQ;
                         lstCategory[1] = bbs_category.data.PDK;
@@ -454,7 +470,8 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
                         lstCategory[8] = bbs_category.data.PDB;
                         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                                 android.R.layout.simple_spinner_item, lstCategory);
-*/
+*//*
+
 
                         adpGridView = new SimpleAdapter(getActivity(), lstGrid, R.layout.spinner_row_single,
                                 new String[] {"description"},
@@ -522,6 +539,7 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
             Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
+*/
 
     void FillGridMore(String sCategory_id){
 /*        AryListData = new ArrayList<>();
@@ -721,9 +739,9 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
                 double dFileSize = Double.parseDouble(sFile_Size) / 1024;
 
                 String sFileName = AppController.getInstance().getFileName(f.getPath());
-                layoutAttachment.setVisibility(View.VISIBLE);
+                /*layoutAttachment.setVisibility(View.VISIBLE);
                 txtFileName.setText(sFileName);
-                txtSize.setText("(" + precision.format(dFileSize) + " kb)");
+                txtSize.setText("(" + precision.format(dFileSize) + " kb)");*/
             }
         }
 
@@ -791,6 +809,16 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
 
     @Override
     public void onRefresh() {
-        FillGrid(sCategoryID);
+        FillGrid(AppConstant.sCategoryID);
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        // put your code here...
+        textKategori.setText("Kategori Berita");
+        if (AppConstant.sCategoryName != null && !AppConstant.sCategoryName.equals("")) textKategori.setText(AppConstant.sCategoryName);
+        FillGrid(AppConstant.sCategoryID);
+
     }
 }

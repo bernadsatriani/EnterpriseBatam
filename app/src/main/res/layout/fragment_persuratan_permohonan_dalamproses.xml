@@ -11,69 +11,27 @@
         android:layout_height="match_parent"
         android:background="@color/colorSecondaryBackground">
 
-        <RelativeLayout
-            android:id="@+id/layout_search"
-            android:textColor="@color/white"
-            android:background="@color/grey_s"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/space_50">
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:background="@drawable/btn_shape_all_white_search"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="@dimen/space_7">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-
-                    android:layout_weight="1">
-                    <ImageView
-                        android:gravity="right"
-                        android:src="@drawable/ic_search_white"
-                        android:tint="@color/grey"
-                        android:layout_alignParentRight="true"
-                        android:layout_width="@dimen/space_30"
-                        android:layout_height="match_parent" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-
-                    <ui.CustomtextView
-                        android:text="Search"
-                        android:textColor="@color/grey"
-                        android:gravity="fill_vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </RelativeLayout>
-            </LinearLayout>
-
-        </RelativeLayout>
 
         <View
             android:background="@color/grey"
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
-
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:font="http://schemas.android.com/apk/res-auto"
             xmlns:app="http://schemas.android.com/tools"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white">
+            android:background="@color/white"
+            android:layout_height="match_parent">
             <RelativeLayout
+                android:visibility="gone"
                 android:id="@+id/contact_us_header_container"
                 android:layout_width="fill_parent"
-                android:layout_height="@dimen/space_30"
+                android:layout_height="@dimen/space_40"
                 android:layout_alignParentTop="true"
-                android:background="@color/grey_s"
-                android:orientation="horizontal">>
+                android:background="@color/white"
+                android:orientation="horizontal">
                 <ui.CustomtextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -84,7 +42,7 @@
                     android:textStyle="bold"
                     font:name="GOTHAM_BOLD"
                     font:type = "bold"
-                    android:id="@+id/view2"
+                    android:id="@+id/text_folder"
                     android:layout_marginLeft="@dimen/space_10"
                     android:layout_toEndOf="@+id/imageView14"
                     android:layout_alignParentTop="true"
@@ -92,6 +50,12 @@
                     android:layout_alignParentBottom="true"
                     android:gravity="fill_vertical" />
 
+                <ImageView
+                    android:layout_marginRight="@dimen/space_14"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/arrow_down"
+                    android:layout_width="@dimen/space_20"
+                    android:layout_height="match_parent" />
             </RelativeLayout>
 
             <View
@@ -100,14 +64,16 @@
                 android:layout_height="1dp"/>
 
             <android.support.v7.widget.RecyclerView
-                android:layout_margin="@dimen/space_14"
+                android:layout_marginTop="@dimen/space_14"
+                android:layout_marginLeft="@dimen/space_10"
+                android:layout_marginRight="@dimen/space_10"
                 android:visibility="visible"
                 android:id="@+id/my_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
             <RelativeLayout
-                android:visibility="gone"
+                android:visibility="visible"
                 android:id="@+id/layout_download"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -129,6 +95,8 @@
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal" />
             </RelativeLayout>
+
+
 
         </LinearLayout>
 

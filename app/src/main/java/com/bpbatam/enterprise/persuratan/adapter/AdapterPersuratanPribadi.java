@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -16,7 +17,9 @@ import com.bpbatam.AppConstant;
 import com.bpbatam.AppController;
 import com.bpbatam.enterprise.CC_Activity;
 import com.bpbatam.enterprise.R;
+import com.bpbatam.enterprise.disposisi.adapter.AdapterDisposisiPribadi;
 import com.bpbatam.enterprise.disposisi.disposisi_detail;
+import com.bpbatam.enterprise.model.Diposisi_List_Folder;
 import com.bpbatam.enterprise.model.ListData;
 import com.bpbatam.enterprise.model.Persuratan_Attachment;
 import com.bpbatam.enterprise.model.Persuratan_Detail;
@@ -72,14 +75,22 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final Persuratan_List_Folder.Datum listData = persuratanListFolder.data.get(position);
         //Set text
+
         holder.txtDate.setText(listData.mail_date);
+        holder.txtFrom.setText(listData.user_name);
+        holder.txtJudul.setText(listData.title);
+        holder.txtNomor.setText(String.valueOf(listData.mail_id));
+        holder.txtPengirim.setText("Pengirim Awal : " + listData.user_name);
+
+        holder.layoutButton.setVisibility(View.VISIBLE);
+        holder.btnDownload_lampiran.setVisibility(View.GONE);
+        /*holder.txtDate.setText(listData.mail_date);
         holder.txtTime.setText(listData.mail_time);
         holder.txtJudul.setText(listData.title);
         holder.lbl_Attach.setText(listData.title);
         holder.lbl_Size.setText("");
+*/
 
-
-        holder.layoutAttc.setVisibility(View.GONE);
 
         try {
             AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
@@ -109,10 +120,11 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
                             if (listData.file_size != null ){
                                 String fileName = listData.attach_link.substring(listData.attach_link.lastIndexOf('/') + 1);
                                 double dFileSize = Double.parseDouble(listData.file_size) / 1024;
-                                holder.lbl_Attach.setText(fileName);
+                                /*holder.lbl_Attach.setText(fileName);
                                 holder.lbl_Size.setText("(" + precision.format(dFileSize) + " kb)" );
 
-                                holder.layoutAttc.setVisibility(View.VISIBLE);
+                                holder.btn.setVisibility(View.VISIBLE);*/
+                                holder.btnDownload_lampiran.setVisibility(View.VISIBLE);
                             }
 
                         }
@@ -129,18 +141,18 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
 
         }
 
-        holder.btnDownload.setOnClickListener(new View.OnClickListener() {
+        holder.btnDownload_lampiran.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AppConstant.DISPO_ID = Integer.toString(listData.mail_id);
                 AppConstant.EMAIL_ID = listData.mail_id;
                 //https://www.dropbox.com/s/jadu92w71vnku3o/Wireframe.pdf?dl=0
 
-                /*if (listData.file_size != null && !listData.file_size.equals("")){
+                if (listData.file_size != null && !listData.file_size.equals("")){
                     listener.OnDownloadClicked(listData.attach_link, true);
-                }*/
+                }
 
-                listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
+                //listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
             }
         });
 
@@ -150,14 +162,18 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
 
         if (listData.flag != null){
             if (listData.flag.equals(AppConstant.SEMUA_PESAN)){
-                holder.imgChecklist.setVisibility(View.VISIBLE);
+                //        holder.imgChecklist.setVisibility(View.VISIBLE);
+                holder.layoutButton.setVisibility(View.GONE);
+                holder.layoutCheckList.setVisibility(View.VISIBLE);
                 holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.check32));
-                ButtonSelected(holder);
+                //ButtonSelected(holder);
             }else if (listData.flag.equals(AppConstant.PILIH_PESAN)){
-                holder.imgChecklist.setVisibility(View.VISIBLE);
-                ButtonNotSelected(holder);
+                holder.layoutButton.setVisibility(View.GONE);
+                holder.layoutCheckList.setVisibility(View.VISIBLE);
+                //ButtonNotSelected(holder);
                 holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.circle));
             }else{
+                holder.layoutButton.setVisibility(View.VISIBLE);
                 holder.imgChecklist.setVisibility(View.GONE);
             }
         }
@@ -167,11 +183,13 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
             public void onClick(View view) {
                 if (listData.flag.equals("1")){
                     listData.flag = "2";
-                    ButtonSelected(holder);
+                    holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.check32));
+                    //ButtonSelected(holder);
                     listener.OnDownloadClicked("", false);
                 }else{
                     listData.flag = "1";
-                    ButtonNotSelected(holder);
+                    holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.circle));
+                    //ButtonNotSelected(holder);
                     listener.OnDownloadClicked("", false);
                 }
             }
@@ -192,7 +210,7 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
         holder.listData = listData;
     }
 
-    void ButtonSelected(ViewHolder holder){
+    /*void ButtonSelected(ViewHolder holder){
         holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.check32));
         holder.imgInfo.setColorFilter(context.getResources().getColor(R.color.white));
         holder.imgDownload.setColorFilter(context.getResources().getColor(R.color.white));
@@ -214,7 +232,7 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
             holder.btnDownload.setBackground(context.getResources().getDrawable(R.drawable.btn_shape_all_transparant_blue));
             holder.btnPrint.setBackground(context.getResources().getDrawable(R.drawable.btn_shape_all_transparant_blue));
         }
-    }
+    }*/
 
     @Override
     public int getItemCount() {
@@ -225,6 +243,49 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
             implements View.OnClickListener, View.OnLongClickListener {
 
         TextView txtDate,
+        //txtTime,
+        txtFrom,
+                txtJudul,
+                txtNomor,
+                txtPengirim
+                        ;
+
+        RelativeLayout btnLihatSurat, layoutCheckList,
+                btnPrint, btnDownload_lampiran;
+        ImageView imgStatus, imgCC, imgChecklist;
+
+        ImageView imgInfo,imgDownload;
+        TextView textInfo, textDownload;
+        LinearLayout layoutButton;
+        Persuratan_List_Folder.Datum listData;
+        public ViewHolder(View itemView,
+                          Context context,
+                          final AdapterPersuratanPribadi mCourseAdapter) {
+            super(itemView);
+            txtNomor = (TextView)itemView.findViewById(R.id.lbl_nomor);
+            txtJudul = (TextView)itemView.findViewById(R.id.lbl_Judul);
+            txtFrom = (TextView)itemView.findViewById(R.id.lbl_from);
+            imgInfo = (ImageView) itemView.findViewById(R.id.imgInfo);
+            imgDownload = (ImageView) itemView.findViewById(R.id.imgDownload);
+            textInfo = (TextView)itemView.findViewById(R.id.textInfo);
+            textDownload = (TextView)itemView.findViewById(R.id.textDownload);
+
+            txtDate = (TextView)itemView.findViewById(R.id.text_Date);
+            txtPengirim = (TextView)itemView.findViewById(R.id.lbl_pengirim);
+            //txtTime = (TextView)itemView.findViewById(R.id.text_time);
+            imgStatus = (ImageView) itemView.findViewById(R.id.imageView5);
+            btnLihatSurat = (RelativeLayout) itemView.findViewById(R.id.btnDownload);
+            btnPrint = (RelativeLayout) itemView.findViewById(R.id.btnPrint);
+            imgCC = (ImageView)itemView.findViewById(R.id.imageView5);
+            imgChecklist = (ImageView)itemView.findViewById(R.id.imageView15);
+            layoutCheckList = (RelativeLayout) itemView.findViewById(R.id.layout_checklist);
+
+            btnDownload_lampiran = (RelativeLayout) itemView.findViewById(R.id.btnDownload_lampiran);
+            layoutButton = (LinearLayout)itemView.findViewById(R.id.layout_button);
+            btnLihatSurat = (RelativeLayout) itemView.findViewById(R.id.btnDownload);
+        }
+
+        /*TextView txtDate,
                 txtTime,
                 txtJudul,
                 lbl_Attach,
@@ -272,7 +333,7 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
             });
 
 
-        }
+        }*/
 
         @Override
         public void onClick(View v) {

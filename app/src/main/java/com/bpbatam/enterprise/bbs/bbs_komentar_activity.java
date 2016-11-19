@@ -39,7 +39,7 @@ public class bbs_komentar_activity extends AppCompatActivity {
 
     void InitControl(){
         txtLabel = (TextView)findViewById(R.id.textLabel);
-        txtLabel.setText("BBS");
+
 
         imgBack = (ImageView)findViewById(R.id.img_back);
         imgBack.setOnClickListener(new View.OnClickListener() {

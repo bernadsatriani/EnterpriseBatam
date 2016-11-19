@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.bpbatam.enterprise.adapter.ViewPagerMenu;
 import com.bpbatam.enterprise.disposisi.fragment.frag_disposisi_pribadi_umum;
 import com.bpbatam.enterprise.fragment.frag_menu;
+import com.bpbatam.enterprise.fragment.fragment_menu;
 
 /**
  * Created by setia.n on 11/13/2016.
@@ -37,7 +38,7 @@ public class MainMenuActivity extends AppCompatActivity{
 
         InitControl();
         fragment = null;
-        fragment = new frag_menu();
+        fragment = new fragment_menu();
 
         if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -68,7 +69,7 @@ public class MainMenuActivity extends AppCompatActivity{
                 view3.setBackgroundResource( R.color.colorSelectButton );
 
                 fragment = null;
-                fragment = new frag_menu();
+                fragment = new fragment_menu();
 
                 if (fragment != null) {
                     FragmentManager fragmentManager = getSupportFragmentManager();
