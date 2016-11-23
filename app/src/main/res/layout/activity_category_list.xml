@@ -1,32 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:font="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:background="@color/white"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_margin="@dimen/space_14"
+    <ui.CustomtextView
+        android:layout_marginTop="@dimen/space_14"
+        android:layout_marginLeft="@dimen/space_14"
+        font:name = "GOTHAM_BOLD"
+        android:textSize="@dimen/space_20"
+        android:text="Kategori Berita"
+        android:textColor="@color/black"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/layout_ok">
+        android:layout_height="wrap_content" />
 
-        <ui.CustomtextView
-
-            font:name = "GOTHAM_BOLD"
-            android:textSize="@dimen/space_20"
-            android:text="Kategori Berita"
-            android:textColor="@color/black"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/my_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
-    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="-14dp"
+        android:layout_marginLeft="@dimen/space_14"
+        android:layout_marginRight="@dimen/space_14"
+        android:layout_marginBottom="@dimen/space_14"
+        android:id="@+id/my_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
     <RelativeLayout
         android:id="@+id/layout_ok"
@@ -45,5 +42,6 @@
             android:layout_height="match_parent" />
     </RelativeLayout>
 
+</LinearLayout>
 
-</RelativeLayout>
+

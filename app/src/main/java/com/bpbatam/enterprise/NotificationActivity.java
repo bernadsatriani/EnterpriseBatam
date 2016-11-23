@@ -1,25 +1,35 @@
 package com.bpbatam.enterprise;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
+import com.bpbatam.AppConstant;
 import com.bpbatam.enterprise.adapter.AdapterNotification;
 import com.bpbatam.enterprise.model.ListData;
+import com.bpbatam.enterprise.persuratan.persuratan_folder_pribadi_umum;
+import com.bpbatam.enterprise.persuratan.persuratan_status_surat;
 
 import java.util.ArrayList;
 
 /**
  * Created by User on 9/26/2016.
  */
-public class NotificationActivity extends AppCompatActivity {
+public class NotificationActivity extends Fragment {
 
     RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -31,36 +41,34 @@ public class NotificationActivity extends AppCompatActivity {
     TextView txtLabel;
     private Toolbar mToolbar;
     ImageView imgBack;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notification);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-        InitControl();
+        View view = inflater.inflate(R.layout.activity_notification, container, false);
 
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        InitControl(view);
         FillGrid();
     }
 
-    void InitControl() {
-        mToolbar = (Toolbar) findViewById(R.id.tool_bar);
-        txtLabel= (TextView)findViewById(R.id.textLabel);
-        imgBack = (ImageView)findViewById(R.id.img_back);
+
+    void InitControl(View v) {
+        mToolbar = (Toolbar) v.findViewById(R.id.tool_bar);
+        txtLabel= (TextView)v.findViewById(R.id.textLabel);
+        imgBack = (ImageView)v.findViewById(R.id.img_back);
         txtLabel.setText("NOTIFIKASI");
-        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        mRecyclerView = (RecyclerView) v.findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager = new LinearLayoutManager(getActivity());
         // use a linear layout manager
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-
-        imgBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
     }
 
     void FillGrid(){
@@ -68,21 +76,43 @@ public class NotificationActivity extends AppCompatActivity {
 
         for(int i = 0; i < 10; i++){
             listData = new ListData();
-            listData.setAtr1("Attachment " + i);
-            listData.setAtr2("(5,88 mb)");
-            listData.setAtr3("");
+            listData.setAtr1("Vincent" );
+            listData.setAtr2("Contoh judul pesan");
+            listData.setAtr3("Anda telah mendapatkan tembusan (CC)");
             AryListData.add(listData);
         }
 
-        mAdapter = new AdapterNotification(this, AryListData);
+        mAdapter = new AdapterNotification(getActivity(), AryListData);
         mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+    public void onCreateOptionsMenu (Menu menu, MenuInflater inflater){
         menu.clear();
-        return true;
+        inflater.inflate(R.menu.menu_search2, menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        SearchView sv =(SearchView) menu.findItem(R.id.action_search).getActionView();
+        MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
+        MenuItemCompat.setActionView(item, sv);
+        sv.setQueryHint("Search Surat...");
+        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                System.out.println(query);
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                System.out.println("tap");
+                //FillGrid(newText);
+                return false;
+            }
+        });
+
+
+
     }
 
     @Override
@@ -93,7 +123,7 @@ public class NotificationActivity extends AppCompatActivity {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
                 //NavUtils.navigateUpFromSameTask(this);
-                finish();
+                getActivity().finish();
                 return true;
         }
 

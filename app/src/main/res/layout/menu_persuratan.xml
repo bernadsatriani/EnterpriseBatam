@@ -13,7 +13,7 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:background="@color/grey_s"
+        android:background="@color/colorTabBar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_55">
 
@@ -22,8 +22,23 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1">
+            <ui.CustomtextView
+                android:visibility="gone"
+                android:id="@+id/notif1"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/space_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@android:drawable/ic_notification_overlay"
+                android:layout_marginRight="@dimen/space_30"
+                android:text="27"
+                android:textColor="#FFF"
+                android:textSize="8sp"
+                android:textStyle="bold" />
 
             <ImageView
+                android:id="@+id/img_folder"
                 android:layout_marginTop="@dimen/space_7"
                 android:layout_marginBottom="@dimen/space_5"
                 android:src="@drawable/folder_icon"
@@ -48,7 +63,7 @@
         </RelativeLayout>
 
         <View
-            android:background="@color/grey"
+            android:background="@color/colorLineBar"
             android:layout_width="1dp"
             android:layout_height="match_parent"/>
 
@@ -59,9 +74,10 @@
             android:layout_weight="1">
 
             <ImageView
+                android:id="@+id/img_draft"
                 android:layout_marginTop="@dimen/space_7"
                 android:layout_marginBottom="@dimen/space_5"
-                android:src="@drawable/dikembalikan_icon"
+                android:src="@drawable/draft"
                 android:layout_width="@dimen/space_10"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
@@ -83,7 +99,7 @@
         </RelativeLayout>
 
         <View
-            android:background="@color/grey"
+            android:background="@color/colorLineBar"
             android:layout_width="1dp"
             android:layout_height="match_parent"/>
         <RelativeLayout
@@ -93,7 +109,24 @@
             android:gravity="center"
             android:layout_weight="1">
 
+            <ui.CustomtextView
+                android:visibility="gone"
+                android:id="@+id/notif3"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/space_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@android:drawable/ic_notification_overlay"
+                android:layout_marginRight="@dimen/space_30"
+                android:text="27"
+                android:textColor="#FFF"
+                android:textSize="8sp"
+                android:textStyle="bold" />
+
+
             <ImageView
+                android:id="@+id/img_permohonan"
                 android:layout_marginTop="@dimen/space_7"
                 android:layout_marginBottom="@dimen/space_5"
                 android:src="@drawable/permohonan_icon"
@@ -118,7 +151,7 @@
         </RelativeLayout>
 
         <View
-            android:background="@color/grey"
+            android:background="@color/colorLineBar"
             android:layout_width="1dp"
             android:layout_height="match_parent"/>
 
@@ -128,10 +161,26 @@
             android:layout_height="match_parent"
             android:layout_weight="1">
 
+            <ui.CustomtextView
+                android:visibility="gone"
+                android:id="@+id/notif4"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/space_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@android:drawable/ic_notification_overlay"
+                android:layout_marginRight="@dimen/space_30"
+                android:text="27"
+                android:textColor="#FFF"
+                android:textSize="8sp"
+                android:textStyle="bold" />
+
             <ImageView
+                android:id="@+id/img_surat"
                 android:layout_marginTop="@dimen/space_7"
                 android:layout_marginBottom="@dimen/space_5"
-                android:src="@drawable/simpan_icon"
+                android:src="@drawable/status_surat"
                 android:layout_width="@dimen/space_10"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"

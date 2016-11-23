@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -35,6 +36,7 @@ import com.bpbatam.AppController;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.bbs.BBS_add_berita;
 import com.bpbatam.enterprise.bbs.adapter.ViewPagerAdapterBBS;
+import com.bpbatam.enterprise.bbs.fragment.Frag_bbs_daftar_pesanan;
 import com.bpbatam.enterprise.model.BBS_CATEGORY;
 import com.bpbatam.enterprise.model.BBS_Insert;
 import com.bpbatam.enterprise.model.BBS_List_ByCategory;
@@ -114,7 +116,7 @@ public class frag_bbs extends Fragment {
     @Override
     public void onCreateOptionsMenu (Menu menu, MenuInflater inflater){
         menu.clear();
-        inflater.inflate(R.menu.menu_search, menu);
+        /*inflater.inflate(R.menu.menu_search, menu);
         MenuItem item = menu.findItem(R.id.action_search);
         SearchView sv =(SearchView) menu.findItem(R.id.action_search).getActionView();
         MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
@@ -131,11 +133,12 @@ public class frag_bbs extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
                 System.out.println("tap");
+
                 //FillGrid(newText);
                 return false;
             }
         });
-
+*/
     }
 
     @Override

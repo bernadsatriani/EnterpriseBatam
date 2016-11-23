@@ -26,14 +26,13 @@ import java.io.File;
  * Created by User on 9/24/2016.
  */
 public class PDFViewActivity_Distribusi extends AppCompatActivity implements OnPageChangeListener, OnLoadCompleteListener {
-    TextView txtLabel;
+    TextView txtLabel,btnDistribusi;
     Integer pageNumber = 0;
     Toolbar toolbar;
     String pdfFileName;
     PDFView pdfView;
     ImageView imgView;
 
-    RelativeLayout btnDistribusi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,13 +41,14 @@ public class PDFViewActivity_Distribusi extends AppCompatActivity implements OnP
         txtLabel = (TextView)findViewById(R.id.textLabel);
         pdfView = (PDFView)findViewById(R.id.pdfView);
         toolbar = (Toolbar)findViewById(R.id.tool_bar);
-        btnDistribusi = (RelativeLayout)findViewById(R.id.btnDistribusi);
+        btnDistribusi = (TextView)findViewById(R.id.textLabel2);
 
         txtLabel.setText(AppConstant.PDF_FILENAME);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationIcon(R.drawable.back_24);
+        toolbar.setNavigationIcon(R.drawable.arrow_back_white);
+
         if (AppConstant.PDFVIEW_FROM != null) txtLabel.setText(AppConstant.PDFVIEW_FROM);
 
         File file = new File(AppConstant.STORAGE_CARD + "/Download/" + AppConstant.PDF_FILENAME);

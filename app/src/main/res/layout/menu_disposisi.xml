@@ -14,7 +14,7 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:background="@color/grey_s"
+        android:background="@color/colorTabBar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_55">
 
@@ -24,7 +24,44 @@
             android:layout_height="match_parent"
             android:layout_weight="1">
 
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                    <ui.CustomtextView
+                        android:visibility="gone"
+                        android:id="@+id/notif1"
+                        android:gravity="center"
+                        android:layout_marginTop="@dimen/space_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:drawable/ic_notification_overlay"
+                        android:text="27"
+                        android:textColor="#FFF"
+                        android:textSize="8sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
             <ImageView
+                android:id="@+id/img_folder"
                 android:layout_marginTop="@dimen/space_7"
                 android:layout_marginBottom="@dimen/space_5"
                 android:src="@drawable/folder_icon"
@@ -49,7 +86,7 @@
         </RelativeLayout>
 
         <View
-            android:background="@color/grey"
+            android:background="@color/colorLineBar"
             android:layout_width="1dp"
             android:layout_height="match_parent"/>
         <RelativeLayout
@@ -59,6 +96,7 @@
             android:layout_weight="1">
 
             <ImageView
+                android:id="@+id/img_riwayat"
                 android:layout_marginTop="@dimen/space_7"
                 android:layout_marginBottom="@dimen/space_5"
                 android:src="@drawable/riwayat_icon"

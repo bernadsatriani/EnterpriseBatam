@@ -18,6 +18,7 @@ import com.bpbatam.enterprise.bbs.bbs_komentar_activity;
 import com.bpbatam.enterprise.model.BBS_Attachment;
 import com.bpbatam.enterprise.model.BBS_LIST;
 import com.bpbatam.enterprise.model.BBS_List_ByCategory;
+import com.bpbatam.enterprise.model.BBS_Opini;
 import com.bpbatam.enterprise.model.ListData;
 import com.bpbatam.enterprise.model.net.NetworkManager;
 
@@ -25,6 +26,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,6 +37,8 @@ import retrofit2.Response;
  */
 public class AdapterBBSDaftarPesanan extends  RecyclerView.Adapter<AdapterBBSDaftarPesanan.ViewHolder>{
     private BBS_List_ByCategory bbs_list;
+
+    BBS_Opini bbsOpini;
     private Context context;
     BBS_Attachment bbsAttachment;
 
@@ -74,7 +78,22 @@ public class AdapterBBSDaftarPesanan extends  RecyclerView.Adapter<AdapterBBSDaf
             holder.lbl_Judul.setText(listData.title);
             holder.txtDivisi.setText(listData.bbs_by);
             holder.lbl_Size.setText("");
+            holder.txtOpini.setText("");
 
+            switch (listData.priority_id){
+                case 0:
+                    holder.imgStatus.setColorFilter(context.getResources().getColor(R.color.colorRedCircle));
+                    holder.txtStatus.setText("Tinggi");
+                    break;
+                case 1:
+                    holder.imgStatus.setColorFilter(context.getResources().getColor(R.color.colorGreen));
+                    holder.txtStatus.setText("Sedang");
+                    break;
+                case 2:
+                    holder.imgStatus.setColorFilter(context.getResources().getColor(R.color.colorRendah));
+                    holder.txtStatus.setText("Rendah");
+                    break;
+            }
 
             final DecimalFormat precision = new DecimalFormat("0.00");
             holder.btnDokumen.setVisibility(View.GONE);
@@ -130,6 +149,39 @@ public class AdapterBBSDaftarPesanan extends  RecyclerView.Adapter<AdapterBBSDaf
         }
 
 
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        try{
+            BBS_Opini param = new BBS_Opini(AppConstant.HASHID,
+                    AppConstant.USER,
+                    AppConstant.REQID,
+                    String.valueOf(listData.bbs_id));
+
+            Call<BBS_Opini> call = NetworkManager.getNetworkService(context).getBBS_Opini(param);
+            call.enqueue(new Callback<BBS_Opini>() {
+                @Override
+                public void onResponse(Call<BBS_Opini> call, Response<BBS_Opini> response) {
+                    int code = response.code();
+                    if (code == 200){
+                        bbsOpini = response.body();
+                        if (bbsOpini.code.equals("00")){
+                            holder.txtOpini.setText(bbsOpini.data.size() + " Opini");
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<BBS_Opini> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+
+        }
             //holder.txtStatus.setText(listData.getAtr2());
 
             //AppController.getInstance().displayImage(context,listData.getAtr3(), holder.imgCover);
@@ -177,6 +229,7 @@ public class AdapterBBSDaftarPesanan extends  RecyclerView.Adapter<AdapterBBSDaf
         holder.btnOpini.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AppConstant.EMAIL_ID = listData.bbs_id;
                 Intent mIntent = new Intent(context, bbs_komentar_activity.class);
                 context.startActivity(mIntent);
             }
@@ -185,6 +238,27 @@ public class AdapterBBSDaftarPesanan extends  RecyclerView.Adapter<AdapterBBSDaf
             holder.listData = listData;
        // }
 
+    }
+
+    public void filter(String charText) {
+        charText = charText.toLowerCase(Locale.getDefault());
+        BBS_List_ByCategory Lisdata = null;
+
+        Lisdata.data.clear();
+        if (charText.length() == 0) {
+            bbs_list.data.addAll(Lisdata.data);
+        }
+        else
+        {
+            for (BBS_List_ByCategory.Datum wp : Lisdata.data)
+            {
+                if (wp.title.toLowerCase(Locale.getDefault()).contains(charText))
+                {
+                    bbs_list.data.add(wp);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 
     @Override
@@ -203,7 +277,8 @@ public class AdapterBBSDaftarPesanan extends  RecyclerView.Adapter<AdapterBBSDaf
                 lbl_Attach,
                 lbl_Size,
                 lbl_Judul,
-                btnOpini
+                btnOpini,
+                txtOpini
         ;
         RelativeLayout btnDownload, btnDokumen, layoutAttachMent;
         ImageView imgCover, imgStatus;
@@ -215,6 +290,7 @@ public class AdapterBBSDaftarPesanan extends  RecyclerView.Adapter<AdapterBBSDaf
             imgCover = (ImageView)itemView.findViewById(R.id.imageView7);
             imgStatus = (ImageView)itemView.findViewById(R.id.img_status);
             btnOpini = (TextView)itemView.findViewById(R.id.btnOpini);
+            txtOpini = (TextView)itemView.findViewById(R.id.text_opini);
             txtDate = (TextView)itemView.findViewById(R.id.text_Date);
             txtName = (TextView)itemView.findViewById(R.id.text_Name);
             txtFrom = (TextView)itemView.findViewById(R.id.text_from);

@@ -6,112 +6,198 @@
     xmlns:font="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    card_view:cardCornerRadius="5dp"
-    style="@style/MyCardViewStyle"
-    card_view:cardUseCompatPadding="true" >
+    android:orientation="horizontal" >
 
     <LinearLayout
-        android:background="@color/white"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/space_5">
 
-
         <RelativeLayout
+            android:layout_marginTop="@dimen/space_10"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="4">
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="5dp"
-                android:background="@color/grey_dark"
-                android:id="@+id/view3" />
-
-            <ui.CustomtextView
-                font:name = "GOTHAM_BOLD"
-                android:textSize="@dimen/space_12"
-                android:id="@+id/text_Date"
-                android:text="Senin,19 sept 2016"
+            <LinearLayout
+                android:id="@+id/layout_indicator"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_5"
-                android:layout_below="@+id/view3"
-                android:layout_marginTop="@dimen/space_5" />
+                android:gravity="fill_vertical"
+                android:layout_marginTop="@dimen/space_2">
 
-            <ui.CustomtextView
-                font:name = "GOTHAM_BOLD"
-                android:textSize="@dimen/space_12"
-                android:id="@+id/text_time"
-                android:text="10:46 AM"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:layout_below="@+id/view3"
-                android:layout_toRightOf="@+id/layout_attachment"
-                android:layout_marginTop="@dimen/space_5"
-                android:layout_alignRight="@+id/btn_pay"
-                android:layout_alignEnd="@+id/btn_pay" />
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/imgRead"
+                    android:layout_marginTop="-2dp"
+                    android:src="@drawable/greenball"
+                    android:tint="@color/colorSearch"
+                    android:layout_width="@dimen/space_12"
+                    android:layout_height="@dimen/space_12"
+                    android:layout_marginRight="@dimen/space_5"/>
+                <ui.CustomtextView
+                    android:gravity="right"
+                    android:layout_marginRight="@dimen/space_14"
+                    font:name = "GOTHAM_BOLD"
+                    android:textSize="@dimen/space_12"
+                    android:id="@+id/text_Date"
+                    android:text="Senin,19 sept 2016"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+            </LinearLayout>
 
-            <RelativeLayout
+            <LinearLayout
+                android:orientation="horizontal"
                 android:id="@+id/layout_attachment"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/space_40"
-                android:background="@color/colorListItem"
-                android:layout_below="@+id/text_Date"
-                android:layout_marginLeft="@dimen/space_5"
-                android:layout_marginTop="@dimen/space_5"
-                android:layout_marginBottom="@dimen/space_20"
-                android:layout_toLeftOf="@+id/btn_pay"
-                android:layout_toStartOf="@+id/btn_pay"
-                android:layout_marginRight="@dimen/space_5">
-
-                <ui.CustomtextView
-                    font:name="GOTHAM_LIGHTITALIC"
-                    android:textSize="@dimen/space_12"
-                    android:id="@+id/lbl_attach"
-                    android:text="Attachemnt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_8"
-                    android:layout_marginLeft="@dimen/space_5"
-                    android:maxLines="1" />
-
-                <ui.CustomtextView
-                    font:name="GOTHAM_LIGHTITALIC"
-                    android:textSize="@dimen/space_12"
-                    android:id="@+id/lbl_size"
-                    android:text="Attachemnt asdas asdas"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/lbl_attach"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:textStyle="italic"
-                    android:maxLines="1"
-                    android:layout_marginLeft="@dimen/space_5"/>
-
-
-            </RelativeLayout>
-
-            <ui.CustomtextView
-                android:id="@+id/btn_pay"
-                android:layout_width="@dimen/space_80"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btn_shape_all"
-                android:gravity="center"
-                android:text="Ditolak"
-                android:textColor="#ffffff"
-
-                font:name="GOTHAM_BOLD"
-                android:layout_gravity="right"
-                android:layout_centerVertical="true"
-                android:layout_alignRight="@+id/text_Date"
-                android:layout_alignEnd="@+id/text_Date"
+                android:background="@color/colorListItem"
+                android:layout_below="@+id/layout_indicator"
+                android:layout_alignRight="@+id/text_time"
+                android:layout_alignEnd="@+id/text_time"
+                android:layout_marginLeft="@dimen/space_5"
                 android:layout_marginRight="@dimen/space_5"
-                android:backgroundTint="@color/colorReject" />
+                android:layout_marginTop="@dimen/space_5">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_below="@+id/text_Date"
+                    android:layout_alignRight="@+id/text_time"
+                    android:layout_alignEnd="@+id/text_time"
+                    android:layout_marginLeft="@dimen/space_5"
+                    android:layout_marginRight="@dimen/space_5"
+                    android:layout_marginTop="@dimen/space_5">
+
+                    <LinearLayout
+                        android:background="@color/colorListItem"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:weightSum="1">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <ui.CustomtextView
+                                android:layout_marginTop="@dimen/space_10"
+                                font:name="GOTHAM_BOLD"
+                                android:id="@+id/lbl_from"
+                                android:text="Vincent"
+                                android:textColor="@color/black_ep"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:maxLines="1"
+                                android:layout_marginLeft="@dimen/space_14"
+                                android:layout_alignParentTop="true"
+                                android:layout_toLeftOf="@+id/lbl_nomor"
+                                android:layout_toStartOf="@+id/lbl_nomor" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/layout_attachment1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorListItem"
+                            android:layout_below="@+id/text_Date"
+                            android:layout_alignRight="@+id/text_time"
+                            android:layout_alignEnd="@+id/text_time"
+                            android:layout_marginLeft="@dimen/space_5"
+                            android:layout_marginRight="@dimen/space_5">
+
+                            <ui.CustomtextView
+                                android:layout_marginTop="@dimen/space_7"
+                                font:name = "GOTHAM_LIGHT"
+                                android:id="@+id/lbl_Judul"
+                                android:textColor="@color/black_ep"
+                                android:text="Judul "
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/space_12"
+                                android:maxLines="1"
+                                android:layout_marginRight="@dimen/space_45"
+                                android:layout_marginLeft="@dimen/space_7"/>
+
+
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_marginTop="@dimen/space_7"
+                            android:background="@color/grey_s"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"/>
+
+                        <ui.CustomtextView
+                            android:layout_marginTop="@dimen/space_7"
+                            android:layout_marginBottom="@dimen/space_7"
+                            font:name = "GOTHAM_LIGHT"
+                            android:id="@+id/lbl_status"
+                            android:textColor="@color/black_ep"
+                            android:text="Status : lihat "
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/space_12"
+                            android:maxLines="1"
+                            android:layout_marginLeft="@dimen/space_14"
+                            android:layout_weight="0.29" />
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:visibility="gone"
+                        android:id="@+id/layout_checklist"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_weight="9">
+                        <ImageView
+                            android:layout_width="@dimen/space_25"
+                            android:layout_height="@dimen/space_25"
+                            android:id="@+id/imageView15"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
+                            android:src="@drawable/circle_kosong"
+                            android:layout_marginTop="@dimen/space_3"
+                            android:layout_marginRight="@dimen/space_10" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_weight="9">
+                    <ImageView
+                        android:layout_width="@dimen/space_25"
+                        android:layout_height="@dimen/space_25"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:src="@drawable/circle_kosong"
+                        android:layout_marginTop="@dimen/space_3"
+                        android:layout_marginRight="@dimen/space_10" />
+                </RelativeLayout>
+            </LinearLayout>
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/layout_attachment"
+                android:layout_alignStart="@+id/layout_attachment">
+
+            </LinearLayout>
+
         </RelativeLayout>
 
     </LinearLayout>

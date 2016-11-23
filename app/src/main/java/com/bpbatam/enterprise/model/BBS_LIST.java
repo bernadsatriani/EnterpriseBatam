@@ -13,6 +13,8 @@ public class BBS_LIST {
     public String min;
     public String max;
 
+    public BBS_LIST(){}
+
     public BBS_LIST(String hashid, String userid, String reqid, String min, String max) {
         this.hashid = hashid;
         this.userid = userid;

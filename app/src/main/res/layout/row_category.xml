@@ -5,8 +5,8 @@
     xmlns:font="http://schemas.android.com/apk/res-auto">
     <ui.CustomtextView
         android:id="@+id/text_isi"
-        android:layout_marginTop="@dimen/space_5"
-        android:layout_marginBottom="@dimen/space_5"
+
+        android:layout_marginBottom="@dimen/space_14"
         android:text="Test test"
         android:textSize="@dimen/space_14"
         android:textColor="@color/black"

@@ -102,6 +102,7 @@
             android:textColor="@color/black"
             android:text="Judul Text"
             android:hint="Judul Text"
+            android:textColorHint="@color/grey_xl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/img_avatar"
@@ -188,7 +189,7 @@
             font:name = "GOTHAM_BOOK"
             android:textSize="@dimen/space_14"
             android:layout_below="@+id/line1"
-            android:text="Halo, boleh dilihat file berikut"
+            android:hint="Tulis berita"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

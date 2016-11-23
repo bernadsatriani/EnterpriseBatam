@@ -69,24 +69,35 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="@dimen/space_14"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/space_20">
+                        android:layout_height="@dimen/space_25">
 
-                        <ImageView
-                            android:id="@+id/img_status"
-                            android:src="@drawable/ball_red"
-                            android:tint="@color/colorReject"
+                        <RelativeLayout
+                            android:gravity="center"
                             android:layout_width="@dimen/space_20"
-                            android:layout_height="@dimen/space_20" />
+                            android:layout_height="@dimen/space_20">
+                            <ImageView
+                                android:id="@+id/img_status"
+                                android:src="@drawable/ball_red"
+                                android:tint="@color/colorReject"
+                                android:layout_width="@dimen/space_20"
+                                android:layout_height="@dimen/space_20" />
+                        </RelativeLayout>
 
-                        <ui.CustomtextView
-                            android:gravity="fill_vertical"
-                            font:name = "GOTHAM_BOLD"
-                            android:id="@+id/text_status"
-                            android:textColor="@color/black"
-                            android:layout_marginTop="@dimen/space_2"
-                            android:text="Tinggi"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                        <RelativeLayout
+                            android:gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/space_20">
+
+                            <ui.CustomtextView
+                                android:gravity="fill_vertical"
+                                font:name = "GOTHAM_BOLD"
+                                android:id="@+id/text_status"
+                                android:textColor="@color/black"
+                                android:text="Tinggi"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </RelativeLayout>
+
                     </LinearLayout>
                 </RelativeLayout>
 
@@ -258,10 +269,11 @@
                     </RelativeLayout>
 
                     <ui.CustomtextView
-                        font:name = "GOTHAM_BOLD"
+                        font:name = "GOTHAM_MEDIUM"
                         android:text="5 Opini"
                         android:id="@+id/text_opini"
-                        android:textColor="@color/grey_x"
+                        android:textSize="@dimen/space_12"
+                        android:textColor="@color/grey"
                         android:layout_marginRight="@dimen/space_14"
                         android:layout_alignParentRight="true"
                         android:layout_marginBottom="@dimen/space_10"
@@ -277,7 +289,7 @@
         </LinearLayout>
 
         <View
-            android:background="@color/grey"
+            android:background="@color/colorLineBar"
             android:layout_width="wrap_content"
             android:layout_height="1dp"/>
         <LinearLayout

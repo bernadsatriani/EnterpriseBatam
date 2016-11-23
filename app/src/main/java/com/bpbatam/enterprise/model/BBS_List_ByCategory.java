@@ -24,6 +24,7 @@ public class BBS_List_ByCategory {
     }
 
     public String type;
+    public BBS_List_ByCategory(){ }
     public BBS_List_ByCategory(String type){
         this.type = type;
     }
@@ -33,6 +34,7 @@ public class BBS_List_ByCategory {
         public String attc_exist ;
         public String attc_link ;
         public int bbs_id ;
+        public int priority_id ;
         public String category_id ;
         public String bbs_date ;
         public String create_time ;

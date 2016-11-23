@@ -66,14 +66,15 @@ public class CC_Activity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        toolbar.setNavigationIcon(R.drawable.back_24);
+        toolbar.setNavigationIcon(R.drawable.arrow_back_white);
         FillGrid();
     }
 
     void InitContol(){
         toolbar = (Toolbar)findViewById(R.id.tool_bar);
         txtLabel = (TextView)findViewById(R.id.textLabel);
-        if (AppConstant.ACTIVITY_FROM != null) txtLabel.setText(AppConstant.ACTIVITY_FROM);
+        txtLabel.setText("");
+        if (AppConstant.ACTIVITY_FROM != null) txtLabel.setText(AppConstant.ACTIVITY_FROM + "       ");
         mRecyclerView = (RecyclerView)findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);

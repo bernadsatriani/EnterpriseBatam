@@ -27,11 +27,11 @@
             android:orientation="horizontal"
             android:background="@color/colorBar"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/space_40">
+            android:layout_height="@dimen/space_50">
 
             <RelativeLayout
                 android:id="@+id/layoutHome"
-                android:layout_marginTop="@dimen/space_5"
+                android:layout_marginTop="@dimen/space_7"
                 android:layout_marginBottom="@dimen/space_5"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -47,7 +47,7 @@
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/layoutProfile"
-                android:layout_marginTop="@dimen/space_5"
+                android:layout_marginTop="@dimen/space_7"
                 android:layout_marginBottom="@dimen/space_5"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -63,7 +63,7 @@
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/layoutNotif"
-                android:layout_marginTop="@dimen/space_5"
+                android:layout_marginTop="@dimen/space_7"
                 android:layout_marginBottom="@dimen/space_5"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -77,9 +77,9 @@
             </RelativeLayout>
         </LinearLayout>
         <LinearLayout
-            android:background="@color/colorSelectButton"
+            android:background="@color/colorBar"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/space_2">
+            android:layout_height="@dimen/space_5">
 
             <View
                 android:id="@+id/view1"

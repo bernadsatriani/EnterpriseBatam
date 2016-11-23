@@ -36,6 +36,8 @@ public class Persuratan_List_Folder {
     public String dispo_origin;
     public String content;
 
+    public Persuratan_List_Folder(){}
+
     public Persuratan_List_Folder(String hashid, String userid, String reqid, String password,
                                   String dead_line, String dispo_num, String priority,
                                   String retensi, String related_mail, String related_dispo,

@@ -30,7 +30,7 @@
                     android:textColor="@color/colorBar"
                     android:paddingLeft="@dimen/space_14"
                     android:gravity="fill_vertical"
-                    android:text="Kategori Berita"
+                    android:text="PESAN DARI KETUA"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 

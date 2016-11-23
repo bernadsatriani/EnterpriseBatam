@@ -7,6 +7,7 @@ import com.bpbatam.enterprise.model.BBS_CATEGORY;
 import com.bpbatam.enterprise.model.BBS_Insert;
 import com.bpbatam.enterprise.model.BBS_LIST;
 import com.bpbatam.enterprise.model.BBS_List_ByCategory;
+import com.bpbatam.enterprise.model.BBS_Opini;
 import com.bpbatam.enterprise.model.DISPOSISI_Category;
 import com.bpbatam.enterprise.model.DataAdmin;
 import com.bpbatam.enterprise.model.Diposisi_List_Folder;
@@ -24,6 +25,7 @@ import com.bpbatam.enterprise.model.Persuratan_Distribusi;
 import com.bpbatam.enterprise.model.Persuratan_Folder;
 import com.bpbatam.enterprise.model.Persuratan_List_Folder;
 import com.bpbatam.enterprise.model.Persuratan_proses;
+import com.bpbatam.enterprise.model.USER_Info;
 import com.bpbatam.enterprise.model.UpdateDeviceId;
 
 import java.util.List;
@@ -75,6 +77,12 @@ public interface NetworkService {
 
     @POST("ep_api_services/ep_bbs/update_bbs")
     Call<BBS_Insert> postBBSUpdate(@Body BBS_Insert params);
+
+    @POST("ep_api_services/ep_bbs/get_bbs_opini")
+    Call<BBS_Opini> getBBS_Opini(@Body BBS_Opini params);
+
+    @POST("ep_api_services/ep_bbs/insert_bbs_opini")
+    Call<BBS_Opini> postBBS_Opini(@Body BBS_Opini params);
 
     @Multipart
     @POST("portal/upload.php")
@@ -156,5 +164,9 @@ public interface NetworkService {
 
     @POST("ep_api_services/ep_dispo/get_dispo_origin")
     Call<Disposisi_Riwayat> getDisposisiRiwayat(@Body Disposisi_Riwayat params);
+
+
+    @POST("ep_api_services/ep_user/get_user_info")
+    Call<USER_Info> getUserInfo(@Body USER_Info params);
 
 }

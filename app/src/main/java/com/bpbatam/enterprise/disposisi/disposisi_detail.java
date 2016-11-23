@@ -48,7 +48,7 @@ public class disposisi_detail extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationIcon(R.drawable.back_24);
+        toolbar.setNavigationIcon(R.drawable.arrow_back_white);
     }
 
     void InitControl(){
@@ -71,7 +71,7 @@ public class disposisi_detail extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         menu.clear();
-        getMenuInflater().inflate(R.menu.menu_notification_blue, menu);
+        /*getMenuInflater().inflate(R.menu.menu_notification_blue, menu);
         MenuItem item1 = menu.findItem(R.id.action_notification);
         MenuItemCompat.setActionView(item1, R.layout.notification_update);
 
@@ -86,7 +86,7 @@ public class disposisi_detail extends AppCompatActivity {
                 Intent intent = new Intent(getBaseContext(),NotificationActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
         return true;
     }

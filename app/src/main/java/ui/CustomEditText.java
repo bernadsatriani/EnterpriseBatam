@@ -85,7 +85,7 @@ public class CustomEditText extends EditText {
         }else if (fontName == GOTHAM_LIGHT) {
             setFontType(Typeface.createFromAsset(getContext().getAssets(), "GOTHAM-LIGHT.TTF"));
         }else if (fontName == GOTHAM_LIGHTITALIC) {
-            setFontType(Typeface.createFromAsset(getContext().getAssets(), "Gotham-LightItalic.otf"));
+            setFontType(Typeface.createFromAsset(getContext().getAssets(), "Gotham-LightItalic.ttf"));
         }else if (fontName == GOTHAM_MEDIUM) {
             setFontType(Typeface.createFromAsset(getContext().getAssets(), "GOTHAM-MEDIUM.TTF"));
         }

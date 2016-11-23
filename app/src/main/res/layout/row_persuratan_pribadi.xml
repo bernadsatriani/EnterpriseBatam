@@ -121,7 +121,7 @@
 
                     <View
                         android:layout_marginTop="@dimen/space_7"
-                        android:background="@color/grey"
+                        android:background="@color/grey_s"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"/>
 
@@ -148,8 +148,8 @@
                     android:gravity="center"
                     android:layout_weight="9">
                     <ImageView
-                        android:layout_width="@dimen/space_30"
-                        android:layout_height="@dimen/space_30"
+                        android:layout_width="@dimen/space_25"
+                        android:layout_height="@dimen/space_25"
                         android:id="@+id/imageView15"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentEnd="true"

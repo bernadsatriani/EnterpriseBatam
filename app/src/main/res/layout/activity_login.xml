@@ -29,6 +29,7 @@
             android:src="@drawable/logo_bp_batam" />
 
         <ui.CustomtextView
+            android:visibility="gone"
             font:name="GOTHAM_BOOK"
             android:id="@+id/textView1"
             android:layout_width="wrap_content"

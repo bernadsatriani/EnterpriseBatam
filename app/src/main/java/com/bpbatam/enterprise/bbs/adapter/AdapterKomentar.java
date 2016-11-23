@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.bbs.bbs_komentar_activity;
+import com.bpbatam.enterprise.model.BBS_Opini;
 import com.bpbatam.enterprise.model.ListData;
 
 import java.util.ArrayList;
@@ -21,13 +22,13 @@ import java.util.ArrayList;
  */
 public class AdapterKomentar extends  RecyclerView.Adapter<AdapterKomentar.ViewHolder>{
 
-    private ArrayList<ListData> mCourseArrayList;
+    BBS_Opini bbsOpini;
     private Context context;
 
-    public AdapterKomentar(Context context, ArrayList<ListData> mCourseArrayList) {
+    public AdapterKomentar(Context context, BBS_Opini bbsOpini) {
         this.context = context;
-        this.mCourseArrayList = mCourseArrayList;
-        if (mCourseArrayList == null) {
+        this.bbsOpini = bbsOpini;
+        if (bbsOpini == null) {
             throw new IllegalArgumentException("courses ArrayList must not be null");
         }
     }
@@ -44,11 +45,11 @@ public class AdapterKomentar extends  RecyclerView.Adapter<AdapterKomentar.ViewH
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        ListData listData = mCourseArrayList.get(position);
+        BBS_Opini.Datum listData = bbsOpini.data.get(position);
         //Set text
-        holder.txtName.setText(listData.getAtr1());
-        holder.txtIsi.setText(listData.getAtr2());
-        holder.txtTime.setText(listData.getAtr3());
+        holder.txtName.setText(listData.user_name);
+        holder.txtIsi.setText(listData.content);
+        holder.txtTime.setText(listData.create_date + ", " + listData.create_time);
 
         //holder.txtStatus.setText(listData.getAtr2());
 
@@ -59,7 +60,7 @@ public class AdapterKomentar extends  RecyclerView.Adapter<AdapterKomentar.ViewH
 
     @Override
     public int getItemCount() {
-        return mCourseArrayList.size();
+        return bbsOpini.data.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder
@@ -71,7 +72,7 @@ public class AdapterKomentar extends  RecyclerView.Adapter<AdapterKomentar.ViewH
         ;
 
         ImageView imgCover;
-        ListData listData;
+        BBS_Opini.Datum listData;
         public ViewHolder(View itemView,
                           final Context context,
                           final AdapterKomentar mCourseAdapter) {

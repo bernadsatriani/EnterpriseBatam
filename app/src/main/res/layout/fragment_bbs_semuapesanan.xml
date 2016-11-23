@@ -6,10 +6,16 @@
     xmlns:font="http://schemas.android.com/apk/res-auto"    >
 
     <LinearLayout
+        android:background="@color/colorSecondaryBackground"
         android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <View
+            android:background="@color/grey_s"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
 
         <android.support.v7.widget.RecyclerView
+            android:background="@color/white"
             android:layout_marginTop="@dimen/space_14"
             android:layout_marginLeft="@dimen/space_14"
             android:layout_marginRight="@dimen/space_14"

@@ -38,6 +38,8 @@ public class Diposisi_List_Folder {
     public String dispo_cc;
     public String content;
 
+    public Diposisi_List_Folder(){}
+
     public Diposisi_List_Folder(String hashid, String userid, String reqid, String password,
                                 String dead_line, String dispo_num, String priority,
                                 String retensi, String related_mail, String related_dispo,

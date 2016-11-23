@@ -11,7 +11,12 @@
 
     <color name="colorSecondaryBackground">#F1F6FA</color>
     <color name="colorSearch">#5E91F9</color>
+    <color name="colorTabBar">#efeff4</color>
+    <color name="colorLineBar">#c8c7cc</color>
     <color name="colorListItem">#EEF5FF</color>
+    <color name="colorGreen">#009245</color>
+    <color name="colorRedCircle">#EE3633</color>
+    <color name="colorRendah">#00ffff</color>
     <color name="colorReject">#FD1630</color>
     <color name="colorAccept">#00FC6B</color>
     <color name="colorSelectButton">#0E3671</color>

@@ -73,7 +73,7 @@ public class persuratan_status_surat extends AppCompatActivity implements SwipeR
         sFolder = AppConstant.FOLDER_DISPOS;
 
         statusPesan = getIntent().getExtras().getString("ID");
-
+        if (statusPesan.equals(AppConstant.SEMUA_PESAN)) btnDistribusi.setVisibility(View.VISIBLE);
         FillGrid();
     }
 
@@ -91,7 +91,7 @@ public class persuratan_status_surat extends AppCompatActivity implements SwipeR
         layoutFolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), disposisi_category_activity.class);
+                Intent intent = new Intent(getBaseContext(), persuratan_dialog_status_surat_activity.class);
                 startActivityForResult(intent, 10);
             }
         });
@@ -100,10 +100,11 @@ public class persuratan_status_surat extends AppCompatActivity implements SwipeR
             @Override
             public void onClick(View view) {
                 btnDistribusi.setVisibility(View.GONE);
-                AppConstant.B_DISPOS = true;
+                vDelete(AppConstant.DISPO_ID);
+                /*AppConstant.B_DISPOS = true;
                 Intent intent;
                 intent = new Intent(getBaseContext(), DistribusiActivity.class);
-                startActivity(intent);
+                startActivity(intent);*/
             }
         });
 
@@ -275,10 +276,9 @@ public class persuratan_status_surat extends AppCompatActivity implements SwipeR
                             AppConstant.DISPO_ID += dat.mail_id + "||";
                         }
                     }
-                   /* if (bDone){
+                    if (bDone){
                         btnDistribusi.setVisibility(View.VISIBLE);
                     }else btnDistribusi.setVisibility(View.GONE);
-*/
 
                 }
 
@@ -297,7 +297,7 @@ public class persuratan_status_surat extends AppCompatActivity implements SwipeR
         if (requestCode == 10){
             if (resultCode == Activity.RESULT_OK) {
                 Bundle res = data.getExtras();
-                sFolder = res.getString("KODE_PERSURATAN");
+                sFolder = res.getString("KODE");
                 FillGrid();
             }
         }
@@ -332,4 +332,33 @@ public class persuratan_status_surat extends AppCompatActivity implements SwipeR
         return super.onOptionsItemSelected(item);
     }
 
+    void vDelete(String sMail_id){
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        Persuratan_List_Folder params = new Persuratan_List_Folder(AppConstant.HASHID, AppConstant.USER,
+                AppConstant.REQID, sMail_id);
+        try{
+            Call<Persuratan_List_Folder> call = NetworkManager.getNetworkService(this).postDelete(params);
+            call.enqueue(new Callback<Persuratan_List_Folder>() {
+                @Override
+                public void onResponse(Call<Persuratan_List_Folder> call, Response<Persuratan_List_Folder> response) {
+                    int code = response.code();
+                    if (code == 200){
+                        FillGrid();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Persuratan_List_Folder> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+
+        }
+    }
 }

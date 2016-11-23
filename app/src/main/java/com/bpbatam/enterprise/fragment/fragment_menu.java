@@ -83,6 +83,29 @@ public class fragment_menu extends Fragment {
         img1.setColorFilter(getActivity().getResources().getColor(R.color.white));
         img2.setColorFilter(getActivity().getResources().getColor(R.color.grey));
         img3.setColorFilter(getActivity().getResources().getColor(R.color.grey));
+
+        img1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pager.setCurrentItem(0);
+            }
+        });
+
+        img2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pager.setCurrentItem(1);
+            }
+        });
+
+        img3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pager.setCurrentItem(2);
+            }
+        });
+
+
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {  }

@@ -27,8 +27,15 @@ import com.bpbatam.enterprise.disposisi.fragment.frag_disposisi_dalamproses;
 import com.bpbatam.enterprise.disposisi.fragment.frag_disposisi_permohonan;
 import com.bpbatam.enterprise.disposisi.fragment.frag_disposisi_pribadi_umum;
 import com.bpbatam.enterprise.disposisi.fragment.frag_disposisi_riwayat;
+import com.bpbatam.enterprise.model.Persuratan_Folder;
+import com.bpbatam.enterprise.model.net.NetworkManager;
+import com.bpbatam.enterprise.persuratan.persuratan_folder_draft;
 import com.bpbatam.enterprise.persuratan.persuratan_folder_pribadi_umum;
 import com.bpbatam.enterprise.persuratan.persuratan_status_surat;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by setia.n on 11/14/2016.
@@ -45,6 +52,11 @@ public class frag_persuratan_menu extends Fragment {
     Toolbar toolbar;
     View line1, line2, line3, line4;
     int iPosition;
+
+    TextView notif1, notif3, notif4;
+    Persuratan_Folder persuratanFolder;
+
+    ImageView imgFolder, imgDraft, imgPermohonan, imgSurat;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -57,9 +69,15 @@ public class frag_persuratan_menu extends Fragment {
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         InitControl(view);
+        FillNotif();
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.arrow_back_white);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        imgFolder.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.folder_icon));
+        imgDraft.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.draft_inactive));
+        imgPermohonan.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.permohonan_icon_inactive));
+        imgSurat.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.status_surat_inactive));
 
         line1.setBackgroundResource( R.color.colorBar );
         line2.setBackgroundResource( R.color.grey_s );
@@ -80,7 +98,19 @@ public class frag_persuratan_menu extends Fragment {
     }
 
     void InitControl(View v){
+        imgFolder = (ImageView)v.findViewById(R.id.img_folder);
+        imgDraft = (ImageView)v.findViewById(R.id.img_draft);
+        imgPermohonan = (ImageView)v.findViewById(R.id.img_permohonan);
+        imgSurat = (ImageView)v.findViewById(R.id.img_surat);
+
         toolbar = (Toolbar)v.findViewById(R.id.tool_bar);
+        notif1 = (TextView)v.findViewById(R.id.notif1);
+        notif3 = (TextView)v.findViewById(R.id.notif3);
+        notif4 = (TextView)v.findViewById(R.id.notif4);
+        notif1.bringToFront();
+        notif3.bringToFront();
+        notif4.bringToFront();
+
         line1 = (View)v.findViewById(R.id.line4);
         line2 = (View)v.findViewById(R.id.line5);
         line3 = (View)v.findViewById(R.id.line6);
@@ -130,10 +160,17 @@ public class frag_persuratan_menu extends Fragment {
                 txtDraft.setTextColor(getActivity().getResources().getColor(R.color.grey));
                 txtStatusSurat.setTextColor(getActivity().getResources().getColor(R.color.grey));
                 txtFolder.setTextColor(getActivity().getResources().getColor(R.color.grey));
+
                 line1.setBackgroundResource( R.color.grey_s );
                 line2.setBackgroundResource( R.color.grey_s );
                 line3.setBackgroundResource( R.color.colorBar );
                 line4.setBackgroundResource( R.color.grey_s );
+
+                imgFolder.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.folder_icon_inactive));
+                imgDraft.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.draft_inactive));
+                imgPermohonan.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.permohonan_icon));
+                imgSurat.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.status_surat_inactive));
+
                 iPosition = 3;
                 AppConstant.ACTIVITY_FROM = "PERMOHONAN (01/08)";
                 fragment = null;
@@ -183,7 +220,12 @@ public class frag_persuratan_menu extends Fragment {
                 line2.setBackgroundResource( R.color.colorBar );
                 line3.setBackgroundResource( R.color.grey_s );
                 line4.setBackgroundResource( R.color.grey_s );
+                imgFolder.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.folder_icon_inactive));
+                imgDraft.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.draft));
+                imgPermohonan.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.permohonan_icon_inactive));
+                imgSurat.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.status_surat_inactive));
                 iPosition = 2;
+                notif3.setVisibility(View.GONE);
                 AppConstant.ACTIVITY_FROM = "DRAFT (01/08)";
                 fragment = null;
                 fragment = new frag_persuratan_draft();
@@ -204,7 +246,13 @@ public class frag_persuratan_menu extends Fragment {
                 txtDraft.setTextColor(getActivity().getResources().getColor(R.color.grey));
                 txtStatusSurat.setTextColor(getActivity().getResources().getColor(R.color.black));
                 txtFolder.setTextColor(getActivity().getResources().getColor(R.color.grey));
+
+                imgFolder.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.folder_icon_inactive));
+                imgDraft.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.draft_inactive));
+                imgPermohonan.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.permohonan_icon_inactive));
+                imgSurat.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.status_surat));
                 iPosition = 4;
+                notif4.setVisibility(View.GONE);
                 AppConstant.ACTIVITY_FROM = "Simpan (01/08)";
                 line1.setBackgroundResource( R.color.grey_s );
                 line2.setBackgroundResource( R.color.grey_s );
@@ -233,7 +281,12 @@ public class frag_persuratan_menu extends Fragment {
                 txtDraft.setTextColor(getActivity().getResources().getColor(R.color.grey));
                 txtStatusSurat.setTextColor(getActivity().getResources().getColor(R.color.grey));
                 txtFolder.setTextColor(getActivity().getResources().getColor(R.color.black));
+                imgFolder.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.folder_icon));
+                imgDraft.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.draft_inactive));
+                imgPermohonan.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.permohonan_icon_inactive));
+                imgSurat.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.status_surat_inactive));
                 iPosition = 1;
+                notif1.setVisibility(View.GONE);
                 line1.setBackgroundResource( R.color.colorBar );
                 line2.setBackgroundResource( R.color.grey_s );
                 line3.setBackgroundResource( R.color.grey_s );
@@ -261,8 +314,8 @@ public class frag_persuratan_menu extends Fragment {
         inflater.inflate(R.menu.menu_search2, menu);
         MenuItem item = menu.findItem(R.id.action_search);
         SearchView sv =(SearchView) menu.findItem(R.id.action_search).getActionView();
-        MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
-        MenuItemCompat.setActionView(item, sv);
+/*        MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
+        MenuItemCompat.setActionView(item, sv);*/
         sv.setQueryHint("Search Surat...");
         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -306,6 +359,7 @@ public class frag_persuratan_menu extends Fragment {
                     mIntent= new Intent(getActivity(), persuratan_folder_pribadi_umum.class);
                     break;
                 case 2:
+                    mIntent= new Intent(getActivity(), persuratan_folder_draft.class);
                     break;
                 case 3:
                     break;
@@ -325,6 +379,7 @@ public class frag_persuratan_menu extends Fragment {
                     mIntent= new Intent(getActivity(), persuratan_folder_pribadi_umum.class);
                     break;
                 case 2:
+                    mIntent= new Intent(getActivity(), persuratan_folder_draft.class);
                     break;
                 case 3:
                     break;
@@ -343,4 +398,71 @@ public class frag_persuratan_menu extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    void FillNotif(){
+        try{
+            Persuratan_Folder params = new Persuratan_Folder(AppConstant.HASHID , AppConstant.USER, AppConstant.REQID);
+            Call<Persuratan_Folder> call = NetworkManager.getNetworkService(getActivity()).getMailFolder(params);
+            call.enqueue(new Callback<Persuratan_Folder>() {
+                @Override
+                public void onResponse(Call<Persuratan_Folder> call, Response<Persuratan_Folder> response) {
+                    int code = response.code();
+                    persuratanFolder = response.body();
+                    if (persuratanFolder.code.equals("00")){
+                        int iPRM  = 0, iFUM = 0;
+                        int iDPR  = 0, iDKM = 0;
+                        for (Persuratan_Folder.Datum dat : persuratanFolder.data) {
+                            if (dat.folder_code.equals("FPR")) {
+                                iPRM = dat.unread_count;
+
+                            }
+
+                            if (dat.folder_code.equals("FUM")) {
+                                iFUM = dat.unread_count;
+                            }
+
+                            if (dat.folder_code.equals("DPR")) {
+                                iDPR = dat.unread_count;
+                            }
+
+                            if (dat.folder_code.equals("DKM")) {
+                                iDKM = dat.unread_count;
+                            }
+
+                            if (dat.folder_code.equals("PRM")) {
+                                if (dat.unread_count > 0){
+                                    notif3.setVisibility(View.VISIBLE);
+                                    notif3.setText(String.valueOf(dat.unread_count));
+                                }else{
+                                    notif3.setVisibility(View.GONE);
+                                }
+                            }
+                        }
+
+                        if ((iPRM+iFUM) > 0){
+                            notif1.setVisibility(View.VISIBLE);
+                            notif1.setText(String.valueOf(iPRM+iFUM));
+                        }else{
+                            notif1.setVisibility(View.GONE);
+                        }
+
+                        if ((iDPR+iDKM) > 0){
+                            notif4.setVisibility(View.VISIBLE);
+                            notif4.setText(String.valueOf(iDPR+iDKM));
+                        }else{
+                            notif4.setVisibility(View.GONE);
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Persuratan_Folder> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+
+        }
+
+    }
 }

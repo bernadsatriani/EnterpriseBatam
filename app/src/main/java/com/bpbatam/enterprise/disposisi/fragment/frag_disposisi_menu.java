@@ -24,11 +24,21 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.bpbatam.AppConstant;
+import com.bpbatam.AppController;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.adapter.ViewPagerMenu;
 import com.bpbatam.enterprise.disposisi.adapter.ViewPagerDIsposisiMenu;
 import com.bpbatam.enterprise.disposisi.disposisi_folder_pribadi_umum;
+import com.bpbatam.enterprise.model.Disposisi_Folder;
+import com.bpbatam.enterprise.model.net.NetworkManager;
 
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import ui.QuickAction.ActionItem;
 import ui.QuickAction.QuickAction;
 
@@ -46,7 +56,10 @@ public class frag_disposisi_menu extends Fragment {
     Toolbar toolbar;
     String statusPesan;
 
-    ImageView imgMenu;
+    ImageView imgMenu, imgFolder, imgRiwayat;
+    TextView notif1;
+
+    Disposisi_Folder disposisiFolder;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -59,10 +72,13 @@ public class frag_disposisi_menu extends Fragment {
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         InitControl(view);
+        FillNotif();
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.arrow_back_white);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        imgFolder.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.folder_icon));
+        imgRiwayat.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.riwayat_icon_inactive));
         fragment = null;
         fragment = new frag_disposisi_pribadi_umum();
 
@@ -80,9 +96,13 @@ public class frag_disposisi_menu extends Fragment {
 
 
     void InitControl(View v){
+        imgFolder = (ImageView)v.findViewById(R.id.img_folder);
+        imgRiwayat = (ImageView)v.findViewById(R.id.img_riwayat);
         toolbar = (Toolbar)v.findViewById(R.id.tool_bar);
         line1 = (View)v.findViewById(R.id.line4);
         line2 = (View)v.findViewById(R.id.line5);
+        notif1 = (TextView)v.findViewById(R.id.notif1);
+        notif1.bringToFront();
         /*imgMenu = (ImageView)v.findViewById(R.id.img_menu);
         imgMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,6 +179,8 @@ public class frag_disposisi_menu extends Fragment {
                 //txtDalamSurat.setTextColor(getActivity().getResources().getColor(R.color.grey));
                 txtRiwayat.setTextColor(getActivity().getResources().getColor(R.color.black));
                 txtFolder.setTextColor(getActivity().getResources().getColor(R.color.grey));
+                imgFolder.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.folder_icon_inactive));
+                imgRiwayat.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.riwayat_icon));
                 AppConstant.ACTIVITY_FROM = "RIWAYAT (01/08)";
                 fragment = null;
                 fragment = new frag_disposisi_riwayat();
@@ -181,7 +203,10 @@ public class frag_disposisi_menu extends Fragment {
                 //txtDalamSurat.setTextColor(getActivity().getResources().getColor(R.color.grey));
                 txtRiwayat.setTextColor(getActivity().getResources().getColor(R.color.grey));
                 txtFolder.setTextColor(getActivity().getResources().getColor(R.color.black));
+                imgFolder.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.folder_icon));
+                imgRiwayat.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.riwayat_icon_inactive));
                 AppConstant.ACTIVITY_FROM = "FOLDER (01/08)";
+                notif1.setVisibility(View.GONE);
                 fragment = null;
                 fragment = new frag_disposisi_pribadi_umum();
                 line1.setBackgroundResource( R.color.colorBar );
@@ -254,6 +279,54 @@ public class frag_disposisi_menu extends Fragment {
 
 
         return super.onOptionsItemSelected(item);
+    }
+
+    void FillNotif(){
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        try{
+            Disposisi_Folder params = new Disposisi_Folder(AppConstant.HASHID , AppConstant.USER, AppConstant.REQID);
+            Call<Disposisi_Folder> call = NetworkManager.getNetworkService(getActivity()).getDisposisiFolder(params);
+            call.enqueue(new Callback<Disposisi_Folder>() {
+                @Override
+                public void onResponse(Call<Disposisi_Folder> call, Response<Disposisi_Folder> response) {
+                    int code = response.code();
+                    disposisiFolder = response.body();
+                    if (disposisiFolder.code.equals("00")){
+                        int iDFPR = 0, iDFUM = 0;
+                        for (Disposisi_Folder.Datum dat : disposisiFolder.data) {
+                            if (dat.folder_code.equals("DFPR")) {
+                                iDFPR =  dat.unread_count;
+                            }
+
+                            if (dat.folder_code.equals("DFUM")) {
+                                iDFUM =  dat.unread_count;
+                            }
+
+                        }
+
+                        if ((iDFPR+iDFUM) > 0){
+                            notif1.setVisibility(View.VISIBLE);
+                            notif1.setText(String.valueOf(iDFPR+iDFUM));
+                        }else{
+                            notif1.setVisibility(View.GONE);
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Disposisi_Folder> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+
+        }
     }
 
 }

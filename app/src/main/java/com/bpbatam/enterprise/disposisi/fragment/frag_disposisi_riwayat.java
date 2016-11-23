@@ -9,10 +9,14 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.ayz4sci.androidfactory.DownloadProgressView;
@@ -21,6 +25,7 @@ import com.bpbatam.AppController;
 import com.bpbatam.enterprise.PDFViewActivity;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.disposisi.adapter.AdapterDisposisiRiwayat;
+import com.bpbatam.enterprise.model.BBS_List_ByCategory;
 import com.bpbatam.enterprise.model.Diposisi_List_Folder;
 import com.bpbatam.enterprise.model.ListData;
 import com.bpbatam.enterprise.model.Persuratan_List_Folder;
@@ -29,6 +34,7 @@ import com.bpbatam.enterprise.model.net.NetworkManager;
 import java.io.File;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,14 +58,14 @@ public class frag_disposisi_riwayat extends Fragment implements SwipeRefreshLayo
 
     ImageView imgMenu;
     TextView txtLabel, txtTitle;
-    Diposisi_List_Folder persuratanListFolder;
+    Diposisi_List_Folder persuratanListFolder, persuratanListFolderSearch;
     SwipeRefreshLayout swipeRefreshLayout;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_disposisi_riwayat_dalamproses, container, false);
-
+        setHasOptionsMenu(true);
         return view;
     }
 
@@ -209,8 +215,104 @@ public class frag_disposisi_riwayat extends Fragment implements SwipeRefreshLayo
         mRecyclerView.setAdapter(mAdapter);
     }
 
+    public  void InitRecycle(String sKeyword){
+        sKeyword = sKeyword.toLowerCase(Locale.getDefault());
+        persuratanListFolderSearch = new Diposisi_List_Folder();
+        persuratanListFolderSearch.data = new ArrayList<>();
+        for (Diposisi_List_Folder.Datum dat : persuratanListFolder.data){
+
+            if ( dat.title != null){
+                if (dat.title.toLowerCase(Locale.getDefault()).contains(sKeyword))
+                    persuratanListFolderSearch.data.add(dat);
+            }
+
+        }
+
+        mAdapter = new AdapterDisposisiRiwayat(getActivity(), persuratanListFolderSearch, new AdapterDisposisiRiwayat.OnDownloadClicked() {
+            @Override
+            public void OnDownloadClicked(final String sUrl, boolean bStatus) {
+                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(sUrl));
+                AppConstant.PDF_FILENAME = AppController.getInstance().getFileName(sUrl);
+                AppConstant.PDF_FILENAME = AppConstant.PDF_FILENAME.replace("%20"," ");
+
+                File file = new File(AppConstant.STORAGE_CARD + "/Download/" + AppConstant.PDF_FILENAME);
+                if (file.exists()){
+                    Intent intent = new Intent(getActivity(), PDFViewActivity.class);
+                    getActivity().startActivity(intent);
+                }else{
+                    mRecyclerView.setVisibility(View.GONE);
+                    rLayoutDownload.setVisibility(View.VISIBLE);
+
+                    request.setTitle(AppConstant.PDF_FILENAME);
+
+                    request.setDescription("DESCRIPTION");
+                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                    // request.setDestinationInExternalPublicDir(AppConstant.FOLDER_DOWNLOAD, "DOWNLOAD_FILE_NAME.pdf");
+
+                    File root = new File(AppConstant.STORAGE_CARD + "/Download/");
+                    Uri path = Uri.withAppendedPath(Uri.fromFile(root), AppConstant.PDF_FILENAME);
+                    request.setDestinationUri(path);
+
+                    downloadID = downloadManager.enqueue(request);
+                }
+
+                downloadProgressView.show(downloadID, new DownloadProgressView.DownloadStatusListener() {
+                    @Override
+                    public void downloadFailed(int reason) {
+                        //Action to perform when download fails, reason as returned by DownloadManager.COLUMN_REASON
+                        mRecyclerView.setVisibility(View.VISIBLE);
+                        rLayoutDownload.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void downloadSuccessful() {
+                        //Action to perform on success
+                        mRecyclerView.setVisibility(View.VISIBLE);
+                        rLayoutDownload.setVisibility(View.GONE);
+                        Intent intent = new Intent(getActivity(), PDFViewActivity.class);
+                        getActivity().startActivity(intent);
+                    }
+
+                    @Override
+                    public void downloadCancelled() {
+                        //Action to perform when user press the cancel button
+                        mRecyclerView.setVisibility(View.VISIBLE);
+                        rLayoutDownload.setVisibility(View.GONE);
+                    }
+                });
+            }
+        });
+        // set the adapter object to the Recyclerview
+        mRecyclerView.setAdapter(mAdapter);
+    }
     @Override
     public void onRefresh() {
         FillGrid();
+    }
+
+    @Override
+    public void onCreateOptionsMenu (Menu menu, MenuInflater inflater){
+        menu.clear();
+        inflater.inflate(R.menu.menu_search2, menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        SearchView sv =(SearchView) menu.findItem(R.id.action_search).getActionView();
+        sv.setQueryHint("Search Surat...");
+        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                System.out.println(query);
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                System.out.println("tap");
+                InitRecycle(newText);
+                //FillGrid(newText);
+                return false;
+            }
+        });
+
     }
 }

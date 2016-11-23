@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:font="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_marginTop="@dimen/space_10"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_150">
+
+            <ui.CircleImageView
+
+                android:src="@color/colorSelectButton"
+                android:layout_width="140dp"
+                android:layout_height="120dp" />
+        </RelativeLayout>
+
+        <ui.CustomtextView
+            font:name = "GOTHAM_MEDIUM"
+            android:textSize="@dimen/space_16"
+            android:textColor="@color/colorSearch"
+            android:text="Nama"
+            android:layout_marginLeft="@dimen/space_20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ui.CustomtextView
+            font:name = "GOTHAM_MEDIUM"
+            android:id="@+id/text_Name"
+            android:textSize="@dimen/space_16"
+            android:text="adminitrator"
+            android:layout_marginLeft="@dimen/space_20"
+            android:layout_marginBottom="@dimen/space_14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:background="@color/grey"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"/>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/space_14"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ui.CustomtextView
+                font:name = "GOTHAM_MEDIUM"
+
+                android:textSize="@dimen/space_16"
+                android:textColor="@color/colorSearch"
+                android:text="Perusahaan"
+                android:layout_marginLeft="@dimen/space_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <ui.CustomtextView
+                font:name = "GOTHAM_MEDIUM"
+                android:id="@+id/text_perusahaan"
+                android:textSize="@dimen/space_16"
+                android:text="BP Batam"
+                android:layout_marginLeft="@dimen/space_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/space_14"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ui.CustomtextView
+                font:name = "GOTHAM_MEDIUM"
+
+                android:textSize="@dimen/space_16"
+                android:textColor="@color/colorSearch"
+                android:text="Posisi"
+                android:layout_marginLeft="@dimen/space_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <ui.CustomtextView
+                android:id="@+id/text_golongan"
+                font:name = "GOTHAM_MEDIUM"
+                android:textSize="@dimen/space_16"
+                android:text="BP Batam"
+                android:layout_marginLeft="@dimen/space_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/space_14"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ui.CustomtextView
+                font:name = "GOTHAM_MEDIUM"
+
+                android:textSize="@dimen/space_16"
+                android:textColor="@color/colorSearch"
+                android:text="Departemen"
+                android:layout_marginLeft="@dimen/space_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <ui.CustomtextView
+                font:name = "GOTHAM_MEDIUM"
+                android:id="@+id/text_departemen"
+                android:textSize="@dimen/space_16"
+                android:text="BP Batam"
+                android:layout_marginLeft="@dimen/space_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/space_14"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ui.CustomtextView
+                font:name = "GOTHAM_MEDIUM"
+
+                android:textSize="@dimen/space_16"
+                android:textColor="@color/colorSearch"
+                android:text="Posisi"
+                android:layout_marginLeft="@dimen/space_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <ui.CustomtextView
+                font:name = "GOTHAM_MEDIUM"
+                android:id="@+id/text_posisi"
+                android:textSize="@dimen/space_16"
+                android:text="BP Batam"
+                android:layout_marginLeft="@dimen/space_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <View
+            android:layout_marginTop="@dimen/space_14"
+            android:background="@color/grey"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"/>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/space_14"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ui.CustomtextView
+                font:name = "GOTHAM_MEDIUM"
+
+                android:textSize="@dimen/space_16"
+                android:textColor="@color/colorSearch"
+                android:text="Telfon internal"
+                android:layout_marginLeft="@dimen/space_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <ui.CustomtextView
+                font:name = "GOTHAM_MEDIUM"
+                android:id="@+id/text_telf_internal"
+                android:textSize="@dimen/space_16"
+                android:text="BP Batam"
+                android:layout_marginLeft="@dimen/space_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/space_14"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ui.CustomtextView
+                font:name = "GOTHAM_MEDIUM"
+
+                android:textSize="@dimen/space_16"
+                android:textColor="@color/colorSearch"
+                android:text="Telfon genggam"
+                android:layout_marginLeft="@dimen/space_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <ui.CustomtextView
+                font:name = "GOTHAM_MEDIUM"
+                android:id="@+id/text_telf_genggam"
+                android:textSize="@dimen/space_16"
+                android:text="BP Batam"
+                android:layout_marginLeft="@dimen/space_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <View
+            android:layout_marginTop="@dimen/space_14"
+            android:background="@color/grey"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"/>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/space_14"
+            android:layout_marginBottom="@dimen/space_14"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ui.CustomtextView
+                font:name = "GOTHAM_MEDIUM"
+
+                android:textSize="@dimen/space_16"
+                android:textColor="@color/colorSearch"
+                android:text="Mail"
+                android:layout_marginLeft="@dimen/space_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <ui.CustomtextView
+                font:name = "GOTHAM_MEDIUM"
+                android:id="@+id/text_mail"
+                android:textSize="@dimen/space_16"
+                android:text="BP Batam"
+                android:layout_marginLeft="@dimen/space_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</ScrollView>

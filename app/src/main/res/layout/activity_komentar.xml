@@ -7,11 +7,11 @@
     android:background="@color/colorSecondaryBackground">
 
     <include
-        layout="@layout/tool_bar_back_opini"
+        layout="@layout/tool_bar_back_left"
         android:id="@+id/tool_bar"/>
 
     <View
-        android:background="@color/grey"
+        android:background="@color/grey_s"
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
 
@@ -25,7 +25,47 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/my_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+            android:layout_height="match_parent"
+            android:layout_above="@+id/layoutOpini"></android.support.v7.widget.RecyclerView>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/layoutOpini"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_50">
+            <View
+                android:background="@color/grey_s"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/img_send"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/gns_sent"
+                    android:tint="@color/grey"
+                    android:layout_marginRight="@dimen/space_14"
+                    android:layout_width="@dimen/space_35"
+                    android:layout_height="@dimen/space_50" />
+                <ui.CustomEditText
+                    font:name = "GOTHAM_LIGHT"
+                    android:id="@+id/text_opini"
+                    android:layout_marginLeft="@dimen/space_14"
+                    android:maxLines="1"
+                    android:background="@color/transparant_pure"
+                    android:hint="Tulis Opinimu..."
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toLeftOf="@+id/img_send"
+                    android:layout_toStartOf="@+id/img_send" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
     </RelativeLayout>
 
 

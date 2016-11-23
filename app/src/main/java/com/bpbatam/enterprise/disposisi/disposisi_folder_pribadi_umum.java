@@ -78,7 +78,7 @@ public class disposisi_folder_pribadi_umum extends AppCompatActivity implements 
         sFolder = AppConstant.FOLDER_DISPOS;
 
         statusPesan = getIntent().getExtras().getString("ID");
-
+        if (statusPesan.equals(AppConstant.SEMUA_PESAN)) btnDistribusi.setVisibility(View.VISIBLE);
         FillGrid();
     }
 

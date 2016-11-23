@@ -8,11 +8,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -22,6 +26,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.SearchView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
@@ -36,11 +41,13 @@ import com.bpbatam.enterprise.PDFViewActivity_Edit;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.bbs.BBS_category_list;
 import com.bpbatam.enterprise.bbs.adapter.AdapterBBSDaftarPesanan;
+import com.bpbatam.enterprise.fragment.frag_bbs;
 import com.bpbatam.enterprise.model.BBS_CATEGORY;
 import com.bpbatam.enterprise.model.BBS_Insert;
 import com.bpbatam.enterprise.model.BBS_LIST;
 import com.bpbatam.enterprise.model.BBS_List_ByCategory;
 import com.bpbatam.enterprise.model.ListData;
+import com.bpbatam.enterprise.model.Persuratan_List_Folder;
 import com.bpbatam.enterprise.model.net.NetworkManager;
 
 import org.json.JSONObject;
@@ -52,6 +59,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -89,7 +97,7 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
     SimpleAdapter adpGridView;
 
     BBS_CATEGORY bbs_category;
-    BBS_List_ByCategory bbs_list_byCategory, bbs_list_byCategoryFull;
+    BBS_List_ByCategory bbs_list_byCategory, bbs_list_byCategoryFull, bbsListSearch;
     BBS_Insert bbs_insert;
     String[] lstCategory;
 
@@ -119,6 +127,7 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
         iMax = 10;
         AppConstant.sCategoryID = "QNQ";
         AppConstant.sCategoryName = "";
+        bbs_list_byCategoryFull = new BBS_List_ByCategory();
         FillGrid("QNQ");
         /*FillSpinner();
         FillSpinnerCategory();*/
@@ -646,6 +655,17 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
                             if (bbs_list_byCategory.code.equals("00")){
                                 bbs_list_byCategoryFull = bbs_list_byCategory;
                                 FillAdapter();
+                                bbsListSearch = new BBS_List_ByCategory();
+                                bbsListSearch.data = new ArrayList<BBS_List_ByCategory.Datum>();
+                                for (BBS_List_ByCategory.Datum dat : bbs_list_byCategory.data){
+                                    if ( dat.title != null){
+                                        if ( dat.title.equals("Halo smua"))
+                                            bbsListSearch.data.add(dat);
+                                    }
+
+                                }
+
+                                //if(bbsListSearch != null) InitRecycle();
                             }
                         }
                     }
@@ -723,6 +743,7 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
             }
         });
         // set the adapter object to the Recyclerview
+
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -816,9 +837,106 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
     public void onResume(){
         super.onResume();
         // put your code here...
-        textKategori.setText("Kategori Berita");
+        textKategori.setText("PESAN DARI KETUA");
         if (AppConstant.sCategoryName != null && !AppConstant.sCategoryName.equals("")) textKategori.setText(AppConstant.sCategoryName);
         FillGrid(AppConstant.sCategoryID);
+
+    }
+
+    public  void InitRecycle(String sKeyword){
+        sKeyword = sKeyword.toLowerCase(Locale.getDefault());
+        bbsListSearch = new BBS_List_ByCategory();
+        bbsListSearch.data = new ArrayList<BBS_List_ByCategory.Datum>();
+        for (BBS_List_ByCategory.Datum dat : bbs_list_byCategoryFull.data){
+            if ( dat.title != null){
+                if ( dat.title.toLowerCase(Locale.getDefault()).contains(sKeyword))
+                    bbsListSearch.data.add(dat);
+            }
+
+        }
+
+        mAdapter = new AdapterBBSDaftarPesanan(getActivity(), bbsListSearch, new AdapterBBSDaftarPesanan.OnDownloadClicked() {
+            @Override
+            public void OnDownloadClicked(final String sUrl, boolean bStatus) {
+                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(sUrl));
+                AppConstant.PDF_FILENAME = AppController.getInstance().getFileName(sUrl);
+                AppConstant.PDF_FILENAME = AppConstant.PDF_FILENAME.replace("%20"," ");
+
+                File file = new File(AppConstant.STORAGE_CARD + "/Download/" + AppConstant.PDF_FILENAME);
+                if (file.exists()){
+                    Intent intent = new Intent(getActivity(), PDFViewActivity.class);
+                    getActivity().startActivity(intent);
+                }else{
+                    mRecyclerView.setVisibility(View.GONE);
+                    rLayoutDownload.setVisibility(View.VISIBLE);
+
+                    request.setTitle(AppConstant.PDF_FILENAME);
+
+                    request.setDescription("DESCRIPTION");
+                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                    // request.setDestinationInExternalPublicDir(AppConstant.FOLDER_DOWNLOAD, "DOWNLOAD_FILE_NAME.pdf");
+
+                    File root = new File(AppConstant.STORAGE_CARD + "/Download/");
+                    Uri path = Uri.withAppendedPath(Uri.fromFile(root), AppConstant.PDF_FILENAME);
+                    request.setDestinationUri(path);
+
+                    downloadID = downloadManager.enqueue(request);
+                }
+
+                downloadProgressView.show(downloadID, new DownloadProgressView.DownloadStatusListener() {
+                    @Override
+                    public void downloadFailed(int reason) {
+                        //Action to perform when download fails, reason as returned by DownloadManager.COLUMN_REASON
+                        mRecyclerView.setVisibility(View.VISIBLE);
+                        rLayoutDownload.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void downloadSuccessful() {
+                        //Action to perform on success
+                        mRecyclerView.setVisibility(View.VISIBLE);
+                        rLayoutDownload.setVisibility(View.GONE);
+                        Intent intent = new Intent(getActivity(), PDFViewActivity.class);
+                        getActivity().startActivity(intent);
+                    }
+
+                    @Override
+                    public void downloadCancelled() {
+                        //Action to perform when user press the cancel button
+                        mRecyclerView.setVisibility(View.VISIBLE);
+                        rLayoutDownload.setVisibility(View.GONE);
+                    }
+                });
+            }
+        });
+        // set the adapter object to the Recyclerview
+
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void onCreateOptionsMenu (Menu menu, MenuInflater inflater){
+        menu.clear();
+        inflater.inflate(R.menu.menu_search, menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        SearchView sv =(SearchView) menu.findItem(R.id.action_search).getActionView();
+        sv.setQueryHint("Search Berita...");
+        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                System.out.println(query);
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                System.out.println("tap");
+                InitRecycle(newText);
+                //FillGrid(newText);
+                return false;
+            }
+        });
 
     }
 }

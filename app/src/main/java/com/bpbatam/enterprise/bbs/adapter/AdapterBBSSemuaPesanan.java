@@ -13,18 +13,27 @@ import android.widget.TextView;
 import com.bpbatam.AppConstant;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.bbs.BBS_edit_berita;
+import com.bpbatam.enterprise.bbs.bbs_komentar_activity;
 import com.bpbatam.enterprise.model.BBS_LIST;
+import com.bpbatam.enterprise.model.BBS_List_ByCategory;
+import com.bpbatam.enterprise.model.BBS_Opini;
 import com.bpbatam.enterprise.model.ListData;
+import com.bpbatam.enterprise.model.net.NetworkManager;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by User on 9/19/2016.
  */
 public class AdapterBBSSemuaPesanan extends  RecyclerView.Adapter<AdapterBBSSemuaPesanan.ViewHolder>{
     private BBS_LIST bbs_list;
+    BBS_Opini bbsOpini;
     private Context context;
 
     public AdapterBBSSemuaPesanan(Context context, BBS_LIST bbs_list, OnDownloadClicked listener) {
@@ -55,16 +64,17 @@ public class AdapterBBSSemuaPesanan extends  RecyclerView.Adapter<AdapterBBSSemu
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final BBS_LIST.Datum listData = bbs_list.data.get(position);
         //Set text
+        holder.txtName.setText(listData.name);
         holder.txtDate.setText(listData.bbs_date);
+        holder.txtFrom.setText(listData.bbs_by);
         holder.lbl_Attach.setText(listData.title);
         holder.lbl_Attach.setText((listData.title == null) ? "" : listData.title + " " + ((listData.content == null) ? "" : listData.content));
         holder.lbl_Judul.setText((listData.title == null) ? "" : listData.title + " " + ((listData.content == null) ? "" : listData.content));
         //holder.lbl_Isi.setText(listData.content);
-        holder.imgPDF.setVisibility(View.GONE);
-        holder.lbl_Attach1.setVisibility(View.GONE);
-        holder.lbl_Attach.setVisibility(View.GONE);
 
+        holder.txtDivisi.setText(listData.bbs_by);
         holder.lbl_Size.setText("");
+        holder.txtOpini.setText("");
 
         DecimalFormat precision = new DecimalFormat("0.00");
         holder.btnDokumen.setVisibility(View.GONE);
@@ -76,16 +86,42 @@ public class AdapterBBSSemuaPesanan extends  RecyclerView.Adapter<AdapterBBSSemu
                     holder.lbl_Attach.setText(fileName);
                     holder.lbl_Size.setText("(" + precision.format(dFileSize) + " kb)" );
                     holder.btnDokumen.setVisibility(View.VISIBLE);
-                    holder.imgPDF.setVisibility(View.VISIBLE);
-                    holder.imgPDF.setVisibility(View.VISIBLE);
-                    holder.lbl_Attach1.setVisibility(View.VISIBLE);
-                    holder.lbl_Attach.setVisibility(View.VISIBLE);
+                    holder.layoutAttachMent.setVisibility(View.VISIBLE);
                 }
+            }else{
+                holder.layoutAttachMent.setVisibility(View.GONE);
             }
+        }catch (Exception e){
+            holder.layoutAttachMent.setVisibility(View.GONE);
+        }
+
+        try{
+            BBS_Opini param = new BBS_Opini(AppConstant.HASHID,
+                    AppConstant.USER,
+                    AppConstant.REQID,
+                    String.valueOf(listData.bbs_id));
+
+            Call<BBS_Opini> call = NetworkManager.getNetworkService(context).getBBS_Opini(param);
+            call.enqueue(new Callback<BBS_Opini>() {
+                @Override
+                public void onResponse(Call<BBS_Opini> call, Response<BBS_Opini> response) {
+                    int code = response.code();
+                    if (code == 200){
+                        bbsOpini = response.body();
+                        if (bbsOpini.code.equals("00")){
+                            holder.txtOpini.setText(bbsOpini.data.size() + " Opini");
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<BBS_Opini> call, Throwable t) {
+
+                }
+            });
         }catch (Exception e){
 
         }
-
         //holder.txtStatus.setText(listData.getAtr2());
 
         //AppController.getInstance().displayImage(context,listData.getAtr3(), holder.imgCover);
@@ -124,6 +160,15 @@ public class AdapterBBSSemuaPesanan extends  RecyclerView.Adapter<AdapterBBSSemu
                 context.startActivity(mIntent);
             }
         });
+
+        holder.btnOpini.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppConstant.EMAIL_ID = listData.bbs_id;
+                Intent mIntent = new Intent(context, bbs_komentar_activity.class);
+                context.startActivity(mIntent);
+            }
+        });
         holder.listData = listData;
     }
 
@@ -136,34 +181,38 @@ public class AdapterBBSSemuaPesanan extends  RecyclerView.Adapter<AdapterBBSSemu
             implements View.OnClickListener, View.OnLongClickListener {
 
         TextView txtDate,
-                txtTime,
+                txtName,
+                txtFrom,
+                txtDivisi,
                 txtStatus,
                 lbl_Attach,
-                lbl_Attach1,
                 lbl_Size,
-                lbl_Judul
+                lbl_Judul,
+                btnOpini,
+                txtOpini
                         ;
-        ;
-        ImageView imgStatus, imgPDF;
-        RelativeLayout btnDownload, btnDokumen;
+        RelativeLayout btnDownload, btnDokumen, layoutAttachMent;
+        ImageView imgCover, imgStatus;
         BBS_LIST.Datum listData;
         public ViewHolder(View itemView,
                           final Context context,
                           final AdapterBBSSemuaPesanan mCourseAdapter) {
             super(itemView);
-            imgPDF = (ImageView)itemView.findViewById(R.id.imageView6);
-            txtTime = (TextView)itemView.findViewById(R.id.text_time);
+            imgCover = (ImageView)itemView.findViewById(R.id.imageView7);
             imgStatus = (ImageView)itemView.findViewById(R.id.img_status);
-            txtStatus = (TextView)itemView.findViewById(R.id.text_status);
+            btnOpini = (TextView)itemView.findViewById(R.id.btnOpini);
+            txtOpini = (TextView)itemView.findViewById(R.id.text_opini);
             txtDate = (TextView)itemView.findViewById(R.id.text_Date);
-            lbl_Attach = (TextView)itemView.findViewById(R.id.lbl_attach);
-            lbl_Attach1 = (TextView)itemView.findViewById(R.id.lbl_attach1);
-            lbl_Size = (TextView)itemView.findViewById(R.id.lbl_size);
+            txtName = (TextView)itemView.findViewById(R.id.text_Name);
+            txtFrom = (TextView)itemView.findViewById(R.id.text_from);
+            txtDivisi = (TextView)itemView.findViewById(R.id.text_Division);
+            txtStatus = (TextView)itemView.findViewById(R.id.text_status);
             lbl_Judul = (TextView)itemView.findViewById(R.id.lbl_Judul);
-            //lbl_Isi = (TextView)itemView.findViewById(R.id.lbl_Isi);
+            lbl_Attach = (TextView)itemView.findViewById(R.id.lbl_attach);
+            lbl_Size = (TextView)itemView.findViewById(R.id.lbl_size);
             btnDownload = (RelativeLayout) itemView.findViewById(R.id.btnDownload);
             btnDokumen = (RelativeLayout) itemView.findViewById(R.id.layout_dokumen);
-
+            layoutAttachMent = (RelativeLayout)itemView.findViewById(R.id.layout_attachment);
             /*btnDownload.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -174,7 +223,6 @@ public class AdapterBBSSemuaPesanan extends  RecyclerView.Adapter<AdapterBBSSemu
 
 
         }
-
         @Override
         public void onClick(View v) {
 

@@ -14,7 +14,7 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:background="@color/grey_s"
+        android:background="@color/colorTabBar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_55">
 
@@ -77,7 +77,7 @@
 
 
                 <View
-                    android:background="@color/grey"
+                    android:background="@color/colorLineBar"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"/>
                 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -165,22 +165,25 @@
 
 
             </LinearLayout>
+
             <RelativeLayout
                 android:layout_alignParentBottom="true"
                 android:id="@+id/layout_btnDistribusi"
                 android:background="@color/colorBar"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/space_50">
+                android:layout_height="@dimen/space_50"
+                android:layout_weight="1">
 
                 <ui.CustomtextView
                     font:name = "GOTHAM_BOLD"
                     android:textSize="@dimen/space_16"
                     android:gravity="center"
                     android:textColor="@color/white"
-                    android:text="DISTRIBUSIKAN"
+                    android:text="Distribusikan"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </RelativeLayout>
+
 
         </RelativeLayout>
 

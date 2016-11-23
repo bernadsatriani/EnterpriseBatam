@@ -43,21 +43,10 @@ public class AdapterNotification extends  RecyclerView.Adapter<AdapterNotificati
     public void onBindViewHolder(ViewHolder holder, int position) {
         ListData listData = mCourseArrayList.get(position);
         //Set text
-        holder.txtTime.setText("12:37 PM");
-        holder.lbl_Attach.setText(listData.getAtr1());
-        holder.lbl_Size.setText(listData.getAtr2());
-
-        holder.txtStatus.setBackgroundResource(R.drawable.btn_shape_all_red);
-        if ((position%2)==0){
-            holder.txtStatus.setText("Diterima");
-            holder.txtStatus.setBackgroundResource(R.drawable.btn_shape_all_green);
-            holder.viewLine.setBackgroundColor(context.getResources().getColor(R.color.colorAccept));
-        }else if ((position%3)==0) {
-            holder.viewLine.setBackgroundColor(context.getResources().getColor(R.color.colorReject));
-        }else{
-            holder.viewLine.setBackgroundColor(context.getResources().getColor(R.color.colorSearch));
-        }
-
+        holder.txtDate.setText("Senin, 29 sept 2016");
+        holder.txtFrom.setText(listData.getAtr1());
+        holder.txtJudul.setText(listData.getAtr2());
+        holder.txtStatus.setText(listData.getAtr3());
 
         holder.listData = listData;
     }
@@ -70,12 +59,12 @@ public class AdapterNotification extends  RecyclerView.Adapter<AdapterNotificati
     public class ViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener, View.OnLongClickListener {
 
-        TextView txtTime,
-                lbl_Attach,
-                lbl_Size,
+        TextView txtFrom,
+                txtJudul,
                 txtStatus,
-                txtDate,
-                viewLine
+                txtDate
+
+
         ;
 
         ListData listData;
@@ -83,14 +72,10 @@ public class AdapterNotification extends  RecyclerView.Adapter<AdapterNotificati
                           Context context,
                           final AdapterNotification mCourseAdapter) {
             super(itemView);
-
-            txtStatus = (TextView)itemView.findViewById(R.id.btn_pay);
-            txtTime = (TextView)itemView.findViewById(R.id.text_time);
             txtDate = (TextView)itemView.findViewById(R.id.text_Date);
-            lbl_Attach = (TextView)itemView.findViewById(R.id.lbl_attach);
-            lbl_Size = (TextView)itemView.findViewById(R.id.lbl_size);
-            viewLine = (TextView)itemView.findViewById(R.id.view3);
-
+            txtStatus = (TextView)itemView.findViewById(R.id.lbl_status);
+            txtFrom = (TextView)itemView.findViewById(R.id.lbl_from);
+            txtJudul = (TextView)itemView.findViewById(R.id.lbl_Judul);
         }
 
         @Override

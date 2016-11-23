@@ -8,7 +8,8 @@
     android:layout_height="match_parent">
 
     <include
-        layout="@layout/tool_bar_back_prioritas"/>
+        layout="@layout/tool_bar_back_left"
+        android:id="@+id/tool_bar"/>
 
     <View
         android:background="@color/grey"
@@ -23,101 +24,170 @@
 
         <LinearLayout
             android:id="@+id/layout_tinggi"
+            android:layout_marginTop="@dimen/space_5"
+            android:layout_marginBottom="@dimen/space_5"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <cn.refactor.library.SmoothCheckBox
-                android:id="@+id/scb"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:paddingTop="10dp"
-                app:color_checked="@color/colorBar"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="@dimen/space_10" />
+            <RelativeLayout
+                android:gravity="center"
+                android:layout_width="@dimen/space_30"
+                android:layout_height="@dimen/space_30">
 
-            <FrameLayout
-                android:background="@drawable/btn_shape_all_red"
+                <cn.refactor.library.SmoothCheckBox
+                    android:id="@+id/scb"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:paddingTop="10dp"
+                    app:color_checked="@color/colorBar"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="@dimen/space_10" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:gravity="center"
                 android:layout_width="@dimen/space_20"
-                android:layout_height="@dimen/space_20"></FrameLayout>
+                android:layout_height="@dimen/space_30">
 
-            <ui.CustomtextView
-                font:name = "GOTHAM_BOLD"
-                android:layout_marginLeft="@dimen/space_10"
+                <FrameLayout
+                    android:background="@drawable/btn_shape_all_kotak_red"
+                    android:layout_width="@dimen/space_18"
+                    android:layout_height="@dimen/space_20"></FrameLayout>
+            </RelativeLayout>
 
-                android:textSize="@dimen/space_16"
-                android:textColor="@color/black"
-                android:text="Tinggi"
+
+            <RelativeLayout
+                android:gravity="center"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="@dimen/space_30">
+
+                <ui.CustomtextView
+                    font:name = "GOTHAM_BOLD"
+                    android:layout_marginLeft="@dimen/space_10"
+                    android:gravity="fill_vertical"
+                    android:textSize="@dimen/space_16"
+                    android:textColor="@color/black"
+                    android:text="Tinggi"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </RelativeLayout>
+
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="@dimen/space_10"
+            android:layout_marginTop="@dimen/space_5"
+            android:layout_marginBottom="@dimen/space_5"
             android:id="@+id/layout_sedang"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <cn.refactor.library.SmoothCheckBox
-                android:id="@+id/scb1"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:paddingTop="10dp"
-                app:color_checked="@color/colorBar"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="@dimen/space_10" />
+            <RelativeLayout
+                android:gravity="center"
+                android:layout_width="@dimen/space_30"
+                android:layout_height="@dimen/space_30">
 
-            <FrameLayout
-                android:background="@drawable/btn_shape_all_yellow"
+                <cn.refactor.library.SmoothCheckBox
+                    android:id="@+id/scb1"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:paddingTop="10dp"
+                    app:color_checked="@color/colorBar"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="@dimen/space_10" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:gravity="center"
                 android:layout_width="@dimen/space_20"
-                android:layout_height="@dimen/space_20"></FrameLayout>
+                android:layout_height="@dimen/space_30">
 
-            <ui.CustomtextView
-                font:name = "GOTHAM_BOLD"
-                android:layout_marginLeft="@dimen/space_10"
-                android:textSize="@dimen/space_16"
-                android:textColor="@color/black"
-                android:text="Sedang"
+                <FrameLayout
+                    android:background="@drawable/btn_shape_all_kotak_yellow"
+                    android:layout_width="@dimen/space_18"
+                    android:layout_height="@dimen/space_20"></FrameLayout>
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:gravity="center"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="@dimen/space_30">
+
+                <ui.CustomtextView
+                    font:name = "GOTHAM_BOLD"
+                    android:layout_marginLeft="@dimen/space_10"
+                    android:textSize="@dimen/space_16"
+                    android:textColor="@color/black"
+                    android:text="Sedang"
+                    android:gravity="fill_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </RelativeLayout>
+
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="@dimen/space_10"
+            android:gravity="fill_vertical"
+            android:layout_marginTop="@dimen/space_5"
+            android:layout_marginBottom="@dimen/space_5"
             android:id="@+id/layout_rendah"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="@dimen/space_25">
 
-            <cn.refactor.library.SmoothCheckBox
-                android:id="@+id/scb2"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:paddingTop="10dp"
-                app:color_checked="@color/colorBar"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="@dimen/space_10" />
+            <RelativeLayout
+                android:gravity="center"
+                android:layout_width="@dimen/space_30"
+                android:layout_height="@dimen/space_30">
 
-            <FrameLayout
-                android:background="@drawable/btn_shape_all_green"
+                <cn.refactor.library.SmoothCheckBox
+                    android:id="@+id/scb2"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:paddingTop="10dp"
+                    app:color_checked="@color/colorBar"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="@dimen/space_10" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:gravity="center"
                 android:layout_width="@dimen/space_20"
-                android:layout_height="@dimen/space_20"></FrameLayout>
+                android:layout_height="@dimen/space_30">
 
-            <ui.CustomtextView
-                font:name = "GOTHAM_BOLD"
-                android:layout_marginLeft="@dimen/space_10"
-                android:textSize="@dimen/space_16"
-                android:textColor="@color/black"
-                android:text="Rendah"
+                <FrameLayout
+                    android:background="@drawable/btn_shape_all_kotak_green"
+                    android:layout_width="@dimen/space_18"
+                    android:layout_height="@dimen/space_20"></FrameLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:gravity="center"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="@dimen/space_30">
+
+                <ui.CustomtextView
+                    font:name = "GOTHAM_BOLD"
+                    android:gravity="fill_vertical"
+                    android:layout_marginLeft="@dimen/space_10"
+                    android:textSize="@dimen/space_16"
+                    android:textColor="@color/black"
+                    android:text="Rendah"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </RelativeLayout>
+
+
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

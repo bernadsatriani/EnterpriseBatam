@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.bpbatam.enterprise.adapter.ViewPagerMenu;
 import com.bpbatam.enterprise.disposisi.fragment.frag_disposisi_pribadi_umum;
 import com.bpbatam.enterprise.fragment.frag_menu;
+import com.bpbatam.enterprise.fragment.frag_profile;
 import com.bpbatam.enterprise.fragment.fragment_menu;
 
 /**
@@ -58,15 +59,15 @@ public class MainMenuActivity extends AppCompatActivity{
         view3 = (View)findViewById(R.id.view3);
 
         view1.setBackgroundResource( R.color.white );
-        view2.setBackgroundResource( R.color.colorSelectButton );
-        view3.setBackgroundResource( R.color.colorSelectButton );
+        view2.setBackgroundResource( R.color.colorBar );
+        view3.setBackgroundResource( R.color.colorBar );
 
         lyHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 view1.setBackgroundResource( R.color.white );
-                view2.setBackgroundResource( R.color.colorSelectButton );
-                view3.setBackgroundResource( R.color.colorSelectButton );
+                view2.setBackgroundResource( R.color.colorBar );
+                view3.setBackgroundResource( R.color.colorBar );
 
                 fragment = null;
                 fragment = new fragment_menu();
@@ -83,17 +84,26 @@ public class MainMenuActivity extends AppCompatActivity{
         lyProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                view1.setBackgroundResource( R.color.colorSelectButton );
+                view1.setBackgroundResource( R.color.colorBar );
                 view2.setBackgroundResource( R.color.white );
-                view3.setBackgroundResource( R.color.colorSelectButton );
+                view3.setBackgroundResource( R.color.colorBar );
+                fragment = null;
+                fragment = new frag_profile();
+
+                if (fragment != null) {
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.frame_content, fragment);
+                    fragmentTransaction.commit();
+                }
             }
         });
 
         lyNotif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                view1.setBackgroundResource( R.color.colorSelectButton );
-                view2.setBackgroundResource( R.color.colorSelectButton );
+                view1.setBackgroundResource( R.color.colorBar );
+                view2.setBackgroundResource( R.color.colorBar );
                 view3.setBackgroundResource( R.color.white );
             }
         });
@@ -101,9 +111,19 @@ public class MainMenuActivity extends AppCompatActivity{
         btnNotif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                view1.setBackgroundResource( R.color.colorSelectButton );
-                view2.setBackgroundResource( R.color.colorSelectButton );
+                view1.setBackgroundResource( R.color.colorBar );
+                view2.setBackgroundResource( R.color.colorBar );
                 view3.setBackgroundResource( R.color.white );
+
+                fragment = null;
+                fragment = new NotificationActivity();
+
+                if (fragment != null) {
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.frame_content, fragment);
+                    fragmentTransaction.commit();
+                }
             }
         });
     }

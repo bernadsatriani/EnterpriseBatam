@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -51,7 +52,8 @@ public class persuratan_folder_pribadi_umum extends AppCompatActivity implements
     ArrayList<ListData> AryListData;
     ListData listData;
 
-    RelativeLayout rLayoutDownload, layoutFolder, btnDistribusi;
+    RelativeLayout rLayoutDownload, layoutFolder, btnDistribusi, btnDispo;
+    LinearLayout layoutButton;
     DownloadProgressView downloadProgressView;
     private long downloadID;
     private DownloadManager downloadManager;
@@ -65,7 +67,7 @@ public class persuratan_folder_pribadi_umum extends AppCompatActivity implements
     Toolbar toolbar;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.menu_disposisi_pilih_surat);
+        setContentView(R.layout.menu_persuratan_pilih_surat);
         InitControl();
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.arrow_back_white);
@@ -76,14 +78,18 @@ public class persuratan_folder_pribadi_umum extends AppCompatActivity implements
 
         statusPesan = getIntent().getExtras().getString("ID");
 
+        if (statusPesan.equals(AppConstant.SEMUA_PESAN)) layoutButton.setVisibility(View.VISIBLE);
         FillGrid();
     }
 
 
 
     void InitControl(){
+        layoutButton = (LinearLayout)findViewById(R.id.layout_button);
+        layoutButton.setVisibility(View.GONE);
         btnDistribusi = (RelativeLayout)findViewById(R.id.layout_btnDistribusi);
-        btnDistribusi.setVisibility(View.GONE);
+        btnDispo = (RelativeLayout)findViewById(R.id.layout_btnDisPo);
+
         txtLabel = (TextView)findViewById(R.id.textLabel);
         txtLabel.setText("Pilih Surat           ");
 
@@ -101,11 +107,19 @@ public class persuratan_folder_pribadi_umum extends AppCompatActivity implements
         btnDistribusi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btnDistribusi.setVisibility(View.GONE);
+                layoutButton.setVisibility(View.GONE);
                 AppConstant.B_DISPOS = true;
                 Intent intent;
                 intent = new Intent(getBaseContext(), DistribusiActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        btnDispo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                layoutButton.setVisibility(View.GONE);
+                finish();
             }
         });
 
@@ -277,10 +291,10 @@ public class persuratan_folder_pribadi_umum extends AppCompatActivity implements
                             AppConstant.DISPO_ID += dat.mail_id + "||";
                         }
                     }
-                   /* if (bDone){
-                        btnDistribusi.setVisibility(View.VISIBLE);
-                    }else btnDistribusi.setVisibility(View.GONE);
-*/
+                   if (bDone){
+                        layoutButton.setVisibility(View.VISIBLE);
+                    }else layoutButton.setVisibility(View.GONE);
+
 
                 }
 

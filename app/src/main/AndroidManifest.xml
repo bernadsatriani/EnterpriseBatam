@@ -92,8 +92,7 @@
         <activity android:name="com.bpbatam.HomeActivity"/>
 
         <activity android:name=".persuratan.PermohonanPersuratanActivity"></activity>
-        <activity android:name=".NotificationActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+
         <activity android:name=".PDFViewActivity_Distribusi"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
 
@@ -173,6 +172,9 @@
             android:theme="@style/Theme.MyDialog"></activity>
 
         <activity android:name=".persuratan.persuratan_status_surat"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+
+        <activity android:name=".persuratan.persuratan_folder_draft"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
