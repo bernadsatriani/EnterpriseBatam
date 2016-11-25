@@ -17,6 +17,7 @@ import com.bpbatam.enterprise.model.Persuratan_Attachment;
 import com.bpbatam.enterprise.model.Persuratan_List_Folder;
 import com.bpbatam.enterprise.model.net.NetworkManager;
 import com.bpbatam.enterprise.persuratan.persuratan_detail;
+import com.bpbatam.enterprise.persuratan.persuratan_lihat_surat;
 
 import java.text.DecimalFormat;
 
@@ -157,6 +158,16 @@ public class AdapterPersuratanDraft extends  RecyclerView.Adapter<AdapterPersura
                 }
 
                 //listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
+            }
+        });
+
+        holder.btnLihatSurat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppConstant.DISPO_ID = Integer.toString(listData.mail_id);
+                AppConstant.EMAIL_ID = listData.mail_id;
+                Intent intent = new Intent(context, persuratan_lihat_surat.class);
+                v.getContext().startActivity(intent);
             }
         });
         holder.listData = listData;

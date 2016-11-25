@@ -85,7 +85,7 @@ public class frag_persuratan_detail_dokumen extends Fragment {
                             for(Persuratan_Detail.Datum dat : persuratanDetail.data){
                                 listData = new ListData();
                                 listData.setAtr1("Ketagori");
-                                listData.setAtr2(dat.category);
+                                listData.setAtr2(dat.category_name);
                                 AryListData.add(listData);
 
                                 listData = new ListData();
@@ -95,7 +95,7 @@ public class frag_persuratan_detail_dokumen extends Fragment {
 
                                 listData = new ListData();
                                 listData.setAtr1("Penulis");
-                                listData.setAtr2(dat.create_by);
+                                listData.setAtr2(dat.user_name);
                                 AryListData.add(listData);
 
                                 listData = new ListData();
@@ -105,7 +105,7 @@ public class frag_persuratan_detail_dokumen extends Fragment {
 
                                 listData = new ListData();
                                 listData.setAtr1("Retensi");
-                                listData.setAtr2(dat.retency);
+                                listData.setAtr2(dat.retency_name);
                                 AryListData.add(listData);
                             }
 

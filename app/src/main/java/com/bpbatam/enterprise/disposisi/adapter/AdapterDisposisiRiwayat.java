@@ -1,6 +1,7 @@
 package com.bpbatam.enterprise.disposisi.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.bpbatam.AppConstant;
 import com.bpbatam.enterprise.R;
+import com.bpbatam.enterprise.disposisi.disposisi_lihat_surat;
 import com.bpbatam.enterprise.model.Diposisi_List_Folder;
 import com.bpbatam.enterprise.model.Disposisi_Attachment;
 import com.bpbatam.enterprise.model.ListData;
@@ -117,8 +119,11 @@ public class AdapterDisposisiRiwayat extends  RecyclerView.Adapter<AdapterDispos
 
         holder.btnDownload_lihat.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
+            public void onClick(View v) {
+                AppConstant.EMAIL_ID = listData.dispo_id;
+                AppConstant.DISPO_ID = Integer.toString(listData.dispo_id);
+                Intent intent = new Intent(context, disposisi_lihat_surat.class);
+                v.getContext().startActivity(intent);
             }
         });
 

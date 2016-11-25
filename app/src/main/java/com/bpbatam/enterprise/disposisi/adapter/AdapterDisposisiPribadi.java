@@ -17,6 +17,7 @@ import com.bpbatam.enterprise.CC_Activity;
 import com.bpbatam.enterprise.DistribusiActivity;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.disposisi.disposisi_detail;
+import com.bpbatam.enterprise.disposisi.disposisi_lihat_surat;
 import com.bpbatam.enterprise.model.Diposisi_List_Folder;
 import com.bpbatam.enterprise.model.Disposisi_Attachment;
 import com.bpbatam.enterprise.model.ListData;
@@ -186,6 +187,16 @@ public class AdapterDisposisiPribadi extends  RecyclerView.Adapter<AdapterDispos
                     listener.OnDownloadClicked(listData.attach_link, true);
                 }
                 //listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
+            }
+        });
+
+        holder.btnLihatSurat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppConstant.EMAIL_ID = listData.dispo_id;
+                AppConstant.DISPO_ID = Integer.toString(listData.dispo_id);
+                Intent intent = new Intent(context, disposisi_lihat_surat.class);
+                v.getContext().startActivity(intent);
             }
         });
 

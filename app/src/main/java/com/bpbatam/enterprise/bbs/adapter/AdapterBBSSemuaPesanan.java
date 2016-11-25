@@ -76,6 +76,12 @@ public class AdapterBBSSemuaPesanan extends  RecyclerView.Adapter<AdapterBBSSemu
         holder.lbl_Size.setText("");
         holder.txtOpini.setText("");
 
+        holder.btnDownload.setVisibility(View.GONE);
+        if (listData.bbs_by != null){
+            if (AppConstant.USER_NAME.equals(listData.bbs_by)){
+                holder.btnDownload.setVisibility(View.VISIBLE);
+            }
+        }
         DecimalFormat precision = new DecimalFormat("0.00");
         holder.btnDokumen.setVisibility(View.GONE);
         try{

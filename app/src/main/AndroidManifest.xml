@@ -176,6 +176,12 @@
 
         <activity android:name=".persuratan.persuratan_folder_draft"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+
+        <activity android:name=".persuratan.persuratan_lihat_surat"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+
+        <activity android:name=".disposisi.disposisi_lihat_surat"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>

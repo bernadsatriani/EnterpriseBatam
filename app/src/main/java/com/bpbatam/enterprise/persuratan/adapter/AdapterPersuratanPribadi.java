@@ -26,6 +26,7 @@ import com.bpbatam.enterprise.model.Persuratan_Detail;
 import com.bpbatam.enterprise.model.Persuratan_List_Folder;
 import com.bpbatam.enterprise.model.net.NetworkManager;
 import com.bpbatam.enterprise.persuratan.persuratan_detail;
+import com.bpbatam.enterprise.persuratan.persuratan_lihat_surat;
 
 import org.json.JSONObject;
 
@@ -80,7 +81,7 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
         holder.txtFrom.setText(listData.user_name);
         holder.txtJudul.setText(listData.title);
         holder.txtNomor.setText(String.valueOf(listData.mail_id));
-        holder.txtPengirim.setText("Pengirim Awal : " + listData.user_name);
+        holder.txtPengirim.setText("Disposisi : " + listData.user_name);
 
         holder.layoutButton.setVisibility(View.VISIBLE);
         holder.btnDownload_lampiran.setVisibility(View.GONE);
@@ -206,6 +207,14 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
             }
         });
 
+        holder.btnLihatSurat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppConstant.EMAIL_ID = listData.mail_id;
+                Intent intent = new Intent(context, persuratan_lihat_surat.class);
+                v.getContext().startActivity(intent);
+            }
+        });
 
         holder.listData = listData;
     }

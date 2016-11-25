@@ -125,10 +125,10 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
         //layoutAttachment.setVisibility(View.GONE);
         iMin = 1;
         iMax = 10;
-        AppConstant.sCategoryID = "QNQ";
+        AppConstant.sCategoryID = "PDK";
         AppConstant.sCategoryName = "";
         bbs_list_byCategoryFull = new BBS_List_ByCategory();
-        FillGrid("QNQ");
+        FillGrid("PDK");
         /*FillSpinner();
         FillSpinnerCategory();*/
     }

@@ -88,7 +88,7 @@ public class frag_persuratan_pribadi_umum extends Fragment implements SwipeRefre
         InitControl(view);
         iMin = 1;
         iMax = 10;
-        sFolder = "FPR";
+        sFolder = "FUM";
         AppConstant.FOLDER_DISPOS = sFolder;
         FillGrid();
     }

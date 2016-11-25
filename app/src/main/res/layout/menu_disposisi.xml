@@ -30,14 +30,17 @@
                 android:layout_height="wrap_content">
 
                 <RelativeLayout
+                    android:id="@+id/lay1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"/>
                 <RelativeLayout
+                    android:id="@+id/lay2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"/>
                 <RelativeLayout
+                    android:id="@+id/layoutNotif1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
@@ -55,6 +58,7 @@
                         android:textStyle="bold" />
                 </RelativeLayout>
                 <RelativeLayout
+                    android:id="@+id/lay3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"/>

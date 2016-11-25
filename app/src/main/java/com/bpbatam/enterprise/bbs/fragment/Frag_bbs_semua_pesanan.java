@@ -154,10 +154,13 @@ public class Frag_bbs_semua_pesanan extends Fragment implements SwipeRefreshLayo
                         bbs_list = response.body();
 
                         if (bbs_list !=null){
-                            if (bbs_list.data.size() > 0){
-                                bbs_listFull = bbs_list;
-                                FillAdapter();
+                            if (bbs_list.code.equals("00")){
+                                if (bbs_list.data.size() > 0){
+                                    bbs_listFull = bbs_list;
+                                    FillAdapter();
+                                }
                             }
+
                         }
                     }
                 }

@@ -50,7 +50,7 @@ public class frag_disposisi_menu extends Fragment {
     TextView txtLabel,  txtRiwayat, txtFolder;
 
     FrameLayout frameLayout;
-    RelativeLayout lyRiwayat, lyFolder;
+    RelativeLayout lyRiwayat, lyFolder, lyNotif1, ly1, ly2, ly3;
     Fragment fragment;
     View line1, line2;
     Toolbar toolbar;
@@ -96,6 +96,10 @@ public class frag_disposisi_menu extends Fragment {
 
 
     void InitControl(View v){
+        lyNotif1 = (RelativeLayout)v.findViewById(R.id.layoutNotif1);
+        ly1 = (RelativeLayout)v.findViewById(R.id.lay1);
+        ly2 = (RelativeLayout)v.findViewById(R.id.lay2);
+        ly3 = (RelativeLayout)v.findViewById(R.id.lay3);
         imgFolder = (ImageView)v.findViewById(R.id.img_folder);
         imgRiwayat = (ImageView)v.findViewById(R.id.img_riwayat);
         toolbar = (Toolbar)v.findViewById(R.id.tool_bar);
@@ -103,6 +107,10 @@ public class frag_disposisi_menu extends Fragment {
         line2 = (View)v.findViewById(R.id.line5);
         notif1 = (TextView)v.findViewById(R.id.notif1);
         notif1.bringToFront();
+        lyNotif1.bringToFront();
+        //ly1.bringToFront();
+        //ly2.bringToFront();
+        ly3.bringToFront();
         /*imgMenu = (ImageView)v.findViewById(R.id.img_menu);
         imgMenu.setOnClickListener(new View.OnClickListener() {
             @Override

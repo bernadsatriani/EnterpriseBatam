@@ -90,8 +90,15 @@ public class BBS_category_list extends AppCompatActivity {
 
                         ArrayList<ListData> lisData = new ArrayList<ListData>();
                         ListData data = new ListData();
-                        data.setAtr1("QNQ");
-                        data.setAtr2(bbs_category.data.QNQ);
+
+                        for(BBS_CATEGORY.Datum dat : bbs_category.data){
+                            data = new ListData();
+                            data.setAtr1(dat.code);
+                            data.setAtr2(dat.description);
+                            lisData.add(data);
+                        }
+                        /*data.setAtr1("QNA");
+                        data.setAtr2(bbs_category.data.QNA);
                         lisData.add(data);
 
                         data = new ListData();
@@ -100,8 +107,8 @@ public class BBS_category_list extends AppCompatActivity {
                         lisData.add(data);
 
                         data = new ListData();
-                        data.setAtr1("FRU");
-                        data.setAtr2(bbs_category.data.FRU);
+                        data.setAtr1("DPU");
+                        data.setAtr2(bbs_category.data.DPU);
                         lisData.add(data);
 
                         data = new ListData();
@@ -133,7 +140,7 @@ public class BBS_category_list extends AppCompatActivity {
                         data.setAtr1("PDB");
                         data.setAtr2(bbs_category.data.PDB);
                         lisData.add(data);
-
+*/
                         FillAdapter(lisData);
 
                     }

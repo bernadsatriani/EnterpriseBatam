@@ -17,7 +17,7 @@
         android:layout_height="wrap_content" />
 
     <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="-14dp"
+        android:layout_marginTop="14dp"
         android:layout_marginLeft="@dimen/space_14"
         android:layout_marginRight="@dimen/space_14"
         android:layout_marginBottom="@dimen/space_14"

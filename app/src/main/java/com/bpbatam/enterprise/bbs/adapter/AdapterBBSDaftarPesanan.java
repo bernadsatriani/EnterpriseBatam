@@ -80,6 +80,13 @@ public class AdapterBBSDaftarPesanan extends  RecyclerView.Adapter<AdapterBBSDaf
             holder.lbl_Size.setText("");
             holder.txtOpini.setText("");
 
+            holder.btnDownload.setVisibility(View.GONE);
+            if (listData.bbs_by != null){
+                if (AppConstant.USER_NAME.equals(listData.bbs_by)){
+                    holder.btnDownload.setVisibility(View.VISIBLE);
+                }
+            }
+
             switch (listData.priority_id){
                 case 0:
                     holder.imgStatus.setColorFilter(context.getResources().getColor(R.color.colorRedCircle));

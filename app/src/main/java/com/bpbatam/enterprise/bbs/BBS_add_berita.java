@@ -179,6 +179,8 @@ public class BBS_add_berita extends AppCompatActivity {
             }
         });
 
+        layoutLampiran.setVisibility(View.VISIBLE);
+
         imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -217,6 +219,7 @@ public class BBS_add_berita extends AppCompatActivity {
         //spnStatus.setAdapter(adpGridView);
     }
 
+/*
     void FillSpinnerCategory(){
         try {
             AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
@@ -240,7 +243,7 @@ public class BBS_add_berita extends AppCompatActivity {
 
                         lstGrid = new ArrayList<HashMap<String,Object>>();
                         mapGrid = new HashMap<String, Object>();
-                        mapGrid.put("description", bbs_category.data.QNQ);
+                        mapGrid.put("description", bbs_category.data.QNA);
                         lstGrid.add(mapGrid);
 
                         mapGrid = new HashMap<String, Object>();
@@ -248,7 +251,7 @@ public class BBS_add_berita extends AppCompatActivity {
                         lstGrid.add(mapGrid);
 
                         mapGrid = new HashMap<String, Object>();
-                        mapGrid.put("description", bbs_category.data.FRU);
+                        mapGrid.put("description", bbs_category.data.DPU);
                         lstGrid.add(mapGrid);
 
                         mapGrid = new HashMap<String, Object>();
@@ -274,6 +277,7 @@ public class BBS_add_berita extends AppCompatActivity {
                         mapGrid = new HashMap<String, Object>();
                         mapGrid.put("description", bbs_category.data.PDB);
                         lstGrid.add(mapGrid);
+*/
 /*
                         lstCategory[0] = bbs_category.data.QNQ;
                         lstCategory[1] = bbs_category.data.PDK;
@@ -286,7 +290,8 @@ public class BBS_add_berita extends AppCompatActivity {
                         lstCategory[8] = bbs_category.data.PDB;
                         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                                 android.R.layout.simple_spinner_item, lstCategory);
-*/
+*//*
+
 
                         adpGridView = new SimpleAdapter(getBaseContext(), lstGrid, R.layout.spinner_row_single,
                                 new String[] {"description"},
@@ -304,6 +309,7 @@ public class BBS_add_berita extends AppCompatActivity {
             Toast.makeText(getBaseContext(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
+*/
 
     public synchronized void onActivityResult(final int requestCode, int resultCode, final Intent data) {
         if (requestCode == CODE_FILE){

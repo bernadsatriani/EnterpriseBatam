@@ -28,6 +28,7 @@ public class Disposisi_Detail {
         public String related_dispo ;
         public int dispo_origin ;
         public String mail_no ;
+        public String content;
         public String mail_date ;
         public String dead_line ;
         public String receive_date ;
