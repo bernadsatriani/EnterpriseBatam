@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -60,6 +61,7 @@ public class frag_disposisi_menu extends Fragment {
     TextView notif1;
 
     Disposisi_Folder disposisiFolder;
+    LinearLayout layout_notif;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -96,6 +98,7 @@ public class frag_disposisi_menu extends Fragment {
 
 
     void InitControl(View v){
+        layout_notif = (LinearLayout)v.findViewById(R.id.layout_notif);
         lyNotif1 = (RelativeLayout)v.findViewById(R.id.layoutNotif1);
         ly1 = (RelativeLayout)v.findViewById(R.id.lay1);
         ly2 = (RelativeLayout)v.findViewById(R.id.lay2);
@@ -106,6 +109,7 @@ public class frag_disposisi_menu extends Fragment {
         line1 = (View)v.findViewById(R.id.line4);
         line2 = (View)v.findViewById(R.id.line5);
         notif1 = (TextView)v.findViewById(R.id.notif1);
+        layout_notif.bringToFront();
         notif1.bringToFront();
         lyNotif1.bringToFront();
         //ly1.bringToFront();

@@ -71,6 +71,16 @@ public class LoginActivity extends AppCompatActivity {
 //        InitFolder();accessgallery();
         //accessPhoneState();
         accessgallery();
+        AuthUser authUser = AppController.getInstance().getSessionManager().getUserProfile();
+
+        if (authUser.data.size() > 0){
+            for (AuthUser.Datum dat : authUser.data){
+                AppConstant.USER = dat.user_id;
+            }
+            Intent intent = new Intent (LoginActivity.this, MainMenuActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     void InitControl(){
@@ -126,8 +136,9 @@ public class LoginActivity extends AppCompatActivity {
                     if (code == 200){
 
                         authUser = response.body();
+                        AppController.getInstance().getSessionManager().setUserAccount(null);
                         AppController.getInstance().getSessionManager().setUserAccount(authUser);
-
+                        AppController.getInstance().getSessionManager().getUserProfile();
                         if (authUser.code.equals("95")){
                             progress.dismiss();
                             CustomeDialog();

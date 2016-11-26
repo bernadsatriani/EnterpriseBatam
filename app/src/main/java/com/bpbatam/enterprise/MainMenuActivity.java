@@ -11,11 +11,22 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bpbatam.AppConstant;
+import com.bpbatam.AppController;
+import com.bpbatam.enterprise.adapter.AdapterNotification;
 import com.bpbatam.enterprise.adapter.ViewPagerMenu;
 import com.bpbatam.enterprise.disposisi.fragment.frag_disposisi_pribadi_umum;
 import com.bpbatam.enterprise.fragment.frag_menu;
 import com.bpbatam.enterprise.fragment.frag_profile;
 import com.bpbatam.enterprise.fragment.fragment_menu;
+import com.bpbatam.enterprise.model.Disposisi_Notifikasi;
+import com.bpbatam.enterprise.model.net.NetworkManager;
+
+import java.security.NoSuchAlgorithmException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by setia.n on 11/13/2016.
@@ -32,12 +43,17 @@ public class MainMenuActivity extends AppCompatActivity{
 
     RelativeLayout lyHome, lyProfile, lyNotif, btnNotif;
     View view1,view2,view3;
+    Disposisi_Notifikasi disposisiNotifikasi;
+    TextView badge_notification_1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_new);
 
         InitControl();
+        getNotofikasi();
+
         fragment = null;
         fragment = new fragment_menu();
 
@@ -50,6 +66,7 @@ public class MainMenuActivity extends AppCompatActivity{
     }
 
     void InitControl(){
+        badge_notification_1 = (TextView)findViewById(R.id.badge_notification_1);
         lyHome = (RelativeLayout)findViewById(R.id.layoutHome);
         lyProfile = (RelativeLayout)findViewById(R.id.layoutProfile);
         lyNotif = (RelativeLayout)findViewById(R.id.layoutNotif);
@@ -114,7 +131,7 @@ public class MainMenuActivity extends AppCompatActivity{
                 view1.setBackgroundResource( R.color.colorBar );
                 view2.setBackgroundResource( R.color.colorBar );
                 view3.setBackgroundResource( R.color.white );
-
+                badge_notification_1.setVisibility(View.GONE);
                 fragment = null;
                 fragment = new NotificationActivity();
 
@@ -126,5 +143,52 @@ public class MainMenuActivity extends AppCompatActivity{
                 }
             }
         });
+    }
+
+    void getNotofikasi(){
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        try{
+            Disposisi_Notifikasi param = new Disposisi_Notifikasi(AppConstant.HASHID,
+                    AppConstant.USER,
+                    AppConstant.REQID);
+
+            Call<Disposisi_Notifikasi> call = NetworkManager.getNetworkService(this).getNotifikasi(param);
+            call.enqueue(new Callback<Disposisi_Notifikasi>() {
+                @Override
+                public void onResponse(Call<Disposisi_Notifikasi> call, Response<Disposisi_Notifikasi> response) {
+                    int code = response.code();
+                    if (code == 200){
+                        disposisiNotifikasi = response.body();
+                        if (disposisiNotifikasi.code.equals("00")){
+                            if (disposisiNotifikasi.data.size() > 0){
+                                badge_notification_1.setVisibility(View.VISIBLE);
+                                badge_notification_1.setText(String.valueOf(disposisiNotifikasi.data.size()));
+                            }else{
+                                badge_notification_1.setText("0");
+                                badge_notification_1.setVisibility(View.GONE);
+                            }
+
+                        }else{
+                            badge_notification_1.setText("0");
+                            badge_notification_1.setVisibility(View.GONE);
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Disposisi_Notifikasi> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+
+        }
+
+
     }
 }

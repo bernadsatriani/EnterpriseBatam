@@ -83,7 +83,7 @@ public class frag_disposisi_pribadi_umum extends Fragment implements SwipeRefres
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         InitControl(view);
-        sFolder = "DFPR";
+        sFolder = "DFUM";
         AppConstant.FOLDER_DISPOS = sFolder;
         FillGrid();
     }

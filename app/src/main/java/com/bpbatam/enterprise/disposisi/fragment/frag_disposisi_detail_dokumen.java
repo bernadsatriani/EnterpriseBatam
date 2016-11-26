@@ -85,28 +85,28 @@ public class frag_disposisi_detail_dokumen extends Fragment {
                         if (persuratanDetail.code.equals("00")){
                             for(Disposisi_Detail.Datum dat : persuratanDetail.data){
                                 listData = new ListData();
+                                listData.setAtr1("Ketagori");
+                                listData.setAtr2(dat.dispo_category);
+                                AryListData.add(listData);
+
+                                listData = new ListData();
                                 listData.setAtr1("Judul");
-                                //listData.setAtr2(dat.title);
+                                listData.setAtr2(dat.dispositior);
                                 AryListData.add(listData);
 
                                 listData = new ListData();
-                                listData.setAtr1("Kode Klarifikasi");
-                                //listData.setAtr2(dat.category);
+                                listData.setAtr1("Penulis");
+                                listData.setAtr2(dat.create_by);
                                 AryListData.add(listData);
 
                                 listData = new ListData();
-                                listData.setAtr1("No Dokumen");
-                                listData.setAtr2(dat.mail_no);
+                                listData.setAtr1("Tanggal");
+                                listData.setAtr2(dat.mail_date);
                                 AryListData.add(listData);
 
                                 listData = new ListData();
-                                listData.setAtr1("Pembuatan Draft");
-                                listData.setAtr2("External");
-                                AryListData.add(listData);
-
-                                listData = new ListData();
-                                listData.setAtr1("Distributor");
-                                listData.setAtr2("Unit IP");
+                                listData.setAtr1("Retensi");
+                                listData.setAtr2(dat.retensi);
                                 AryListData.add(listData);
                             }
 

@@ -22,25 +22,30 @@ public class Disposisi_Detail {
     public class Datum
     {
         public int dispo_parent ;
-        public String receiver ;
+        //public List<object> attc_data ;
         public String about ;
-        public int priority ;
-        public String related_dispo ;
+        public String pdf_link ;
+        public String dispo_category ;
         public int dispo_origin ;
         public String mail_no ;
-        public String content;
-        public String mail_date ;
-        public String dead_line ;
-        public String receive_date ;
+        public String content ;
         public String create_by ;
-        public int dispo_id ;
         public String retensi ;
-        public String sender ;
         public String dispo_date ;
+        //public List<object> opini_data ;
+        public String receiver ;
+        public String create_time ;
+        public String create_dept ;
+        public int priority ;
+        public String related_dispo ;
+        public String mail_date ;
+        public String receive_date ;
+        public int dispo_id ;
+        public String sender ;
         public String related_mail ;
-        public String create_date ;
         public String dispositior ;
         public String dispo_num ;
+        public String create_name ;
 
     }
 

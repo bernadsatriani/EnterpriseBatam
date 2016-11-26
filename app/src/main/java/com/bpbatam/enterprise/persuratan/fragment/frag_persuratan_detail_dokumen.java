@@ -89,7 +89,7 @@ public class frag_persuratan_detail_dokumen extends Fragment {
                                 AryListData.add(listData);
 
                                 listData = new ListData();
-                                listData.setAtr1("Jenis");
+                                listData.setAtr1("Judul");
                                 listData.setAtr2(dat.title);
                                 AryListData.add(listData);
 

@@ -6,6 +6,9 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.webkit.WebBackForwardList;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.bpbatam.AppConstant;
@@ -30,6 +33,7 @@ public class disposisi_lihat_surat extends AppCompatActivity {
     TextView txtLabel, txtIsi;
     Disposisi_Detail persuratanDetail;
     String sIsi;
+    WebView myWeb1;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.persuratan_pilih_surat);
@@ -40,7 +44,7 @@ public class disposisi_lihat_surat extends AppCompatActivity {
 
         toolbar.setNavigationIcon(R.drawable.arrow_back_white);
 
-        FillGrid();
+        //FillGrid();
         /*
         try{
             sIsi = getIntent().getExtras().getString("ISI");
@@ -57,6 +61,17 @@ public class disposisi_lihat_surat extends AppCompatActivity {
         txtLabel = (TextView)findViewById(R.id.textLabel);
         txtIsi = (TextView)findViewById(R.id.text_isi);
         txtLabel.setText("");
+        myWeb1 = (WebView) findViewById(R.id.webview);
+
+        myWeb1.getSettings().setLoadsImagesAutomatically(true);
+        myWeb1.getSettings().setJavaScriptEnabled(true);
+        myWeb1.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+        myWeb1.getSettings().setLoadWithOverviewMode(true);
+        myWeb1.getSettings().setUseWideViewPort(true);
+        myWeb1.getSettings().setBuiltInZoomControls(true);
+        myWeb1.getSettings().setDisplayZoomControls(false);
+        String sUrl = "http://demo.ipnetsoft.com/portal/pdf/preview_dispo.php?user="+AppConstant.USER+"&id=" + AppConstant.EMAIL_ID;
+        myWeb1.loadUrl(sUrl);
     }
 
     void FillGrid() {

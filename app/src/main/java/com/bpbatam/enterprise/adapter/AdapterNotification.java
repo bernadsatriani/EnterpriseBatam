@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bpbatam.enterprise.R;
+import com.bpbatam.enterprise.model.Disposisi_Notifikasi;
 import com.bpbatam.enterprise.model.ListData;
 
 import java.util.ArrayList;
@@ -17,14 +18,13 @@ import java.util.ArrayList;
  * Created by User on 9/19/2016.
  */
 public class AdapterNotification extends  RecyclerView.Adapter<AdapterNotification.ViewHolder>{
-
-    private ArrayList<ListData> mCourseArrayList;
+    Disposisi_Notifikasi disposisiNotifikasi;
     private Context context;
 
-    public AdapterNotification(Context context, ArrayList<ListData> mCourseArrayList) {
+    public AdapterNotification(Context context, Disposisi_Notifikasi disposisiNotifikasi) {
         this.context = context;
-        this.mCourseArrayList = mCourseArrayList;
-        if (mCourseArrayList == null) {
+        this.disposisiNotifikasi = disposisiNotifikasi;
+        if (disposisiNotifikasi == null) {
             throw new IllegalArgumentException("courses ArrayList must not be null");
         }
     }
@@ -41,19 +41,18 @@ public class AdapterNotification extends  RecyclerView.Adapter<AdapterNotificati
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        ListData listData = mCourseArrayList.get(position);
+        Disposisi_Notifikasi.Datum listData = disposisiNotifikasi.data.get(position);
         //Set text
-        holder.txtDate.setText("Senin, 29 sept 2016");
-        holder.txtFrom.setText(listData.getAtr1());
-        holder.txtJudul.setText(listData.getAtr2());
-        holder.txtStatus.setText(listData.getAtr3());
+        holder.txtDate.setText(listData.receive_date);
+        holder.txtFrom.setText(listData.sender_name);
+        holder.txtJudul.setText(listData.title);
+        holder.txtStatus.setText(listData.location);
 
-        holder.listData = listData;
     }
 
     @Override
     public int getItemCount() {
-        return mCourseArrayList.size();
+        return disposisiNotifikasi.data.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder
@@ -67,7 +66,6 @@ public class AdapterNotification extends  RecyclerView.Adapter<AdapterNotificati
 
         ;
 
-        ListData listData;
         public ViewHolder(View itemView,
                           Context context,
                           final AdapterNotification mCourseAdapter) {

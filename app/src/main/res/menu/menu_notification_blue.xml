@@ -8,8 +8,5 @@
         android:title="Notifikasi"
         app:showAsAction="ifRoom"></item>
 
-    
-    
-    
 
 </menu>

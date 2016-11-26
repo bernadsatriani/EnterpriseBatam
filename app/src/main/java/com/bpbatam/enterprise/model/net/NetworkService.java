@@ -15,6 +15,7 @@ import com.bpbatam.enterprise.model.Disposisi_Attachment;
 import com.bpbatam.enterprise.model.Disposisi_Detail;
 import com.bpbatam.enterprise.model.Disposisi_Distribusi;
 import com.bpbatam.enterprise.model.Disposisi_Folder;
+import com.bpbatam.enterprise.model.Disposisi_Notifikasi;
 import com.bpbatam.enterprise.model.Disposisi_Riwayat;
 import com.bpbatam.enterprise.model.GitHubUser;
 import com.bpbatam.enterprise.model.ListUser;
@@ -165,6 +166,9 @@ public interface NetworkService {
     @POST("ep_api_services/ep_dispo/get_dispo_origin")
     Call<Disposisi_Riwayat> getDisposisiRiwayat(@Body Disposisi_Riwayat params);
 
+
+    @POST("ep_api_services/ep_dispo/get_side_notif")
+    Call<Disposisi_Notifikasi> getNotifikasi(@Body Disposisi_Notifikasi params);
 
     @POST("ep_api_services/ep_user/get_user_info")
     Call<USER_Info> getUserInfo(@Body USER_Info params);
