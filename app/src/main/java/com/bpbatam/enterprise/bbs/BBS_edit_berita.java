@@ -72,7 +72,7 @@ public class BBS_edit_berita extends AppCompatActivity {
         bDelete = false;
         bUpload = false;
         sCategory_Id = "";
-        sPriority_id = "";
+        sPriority_id = "0";
         InitControl();
         try{
             sName = getIntent().getExtras().getString("BBS_NAME").trim();
@@ -356,15 +356,15 @@ public class BBS_edit_berita extends AppCompatActivity {
     void FillPrioriti(){
         switch (sPriority_id){
             case "0":
-                imgPrioriti.setColorFilter(getResources().getColor(R.color.colorReject));
+                imgPrioriti.setColorFilter(getResources().getColor(R.color.colorRedCircle));
                 txtPrioriti.setText("Tinggi");
                 break;
             case "1":
-                imgPrioriti.setColorFilter(getResources().getColor(R.color.yellow));
+                imgPrioriti.setColorFilter(getResources().getColor(R.color.colorGreen));
                 txtPrioriti.setText("Sedang");
                 break;
             case "2":
-                imgPrioriti.setColorFilter(getResources().getColor(R.color.colorAccept));
+                imgPrioriti.setColorFilter(getResources().getColor(R.color.colorRendah));
                 txtPrioriti.setText("Rendah");
                 break;
         }
@@ -476,7 +476,6 @@ public class BBS_edit_berita extends AppCompatActivity {
         }
 
         //String sPriority_id = Integer.toString(spnStatus.getSelectedItemPosition());
-
 
         try{
             BBS_Insert updateParam = new BBS_Insert(

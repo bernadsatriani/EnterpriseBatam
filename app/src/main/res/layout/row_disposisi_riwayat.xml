@@ -242,7 +242,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="lihat surat      "
+                        android:text="lihat disposisi    "
                         android:textColor="@color/white"
                         android:textSize="@dimen/space_10"
                         font:name="GOTHAM_BLACK"

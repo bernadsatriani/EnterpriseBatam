@@ -10,6 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <include
+            android:id="@+id/tool_bar"
+            layout="@layout/tool_bar_logout"/>
+        <View
+            android:background="@color/colorLineBar"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
         <RelativeLayout
             android:layout_marginTop="@dimen/space_10"
             android:gravity="center"
@@ -18,8 +25,8 @@
 
             <ui.CircleImageView
 
-                android:src="@color/colorSelectButton"
-                android:layout_width="140dp"
+                android:src="@drawable/avatar"
+                android:layout_width="150dp"
                 android:layout_height="120dp" />
         </RelativeLayout>
 

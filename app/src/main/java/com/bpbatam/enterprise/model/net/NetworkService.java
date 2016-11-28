@@ -86,7 +86,7 @@ public interface NetworkService {
     Call<BBS_Opini> postBBS_Opini(@Body BBS_Opini params);
 
     @Multipart
-    @POST("portal/upload.php")
+    @POST("upload.php")
     Call<BBS_Insert> postBBSInsertAttachmentOnly(@Part("user_id") RequestBody user_id,
                                                  @Part("id") RequestBody id,
                                                  @Part("fileKey") RequestBody file_key,

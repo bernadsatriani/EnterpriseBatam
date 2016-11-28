@@ -189,6 +189,14 @@ public class disposisi_folder_pribadi_umum extends AppCompatActivity implements 
                                 txtFolder.setText("Folder Pribadi (" + sUnread + "/" + sTotal + ")");
                             }
                             FillAdapter();
+                        }else{
+                            if (sFolder.equals("DFUM")){
+                                txtFolder.setText("Folder Umum (00/00)");
+                            }else{
+                                txtFolder.setText("Folder Pribadi (00/00)");
+                            }
+
+                            mRecyclerView.setAdapter(null);
                         }
                     }
                 }

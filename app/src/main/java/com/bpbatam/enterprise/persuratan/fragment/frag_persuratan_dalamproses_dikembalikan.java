@@ -199,6 +199,14 @@ public class frag_persuratan_dalamproses_dikembalikan extends Fragment implement
                                 txtFolder.setText("Dalam Proses (" + sUnread + "/" + sTotal + ")");
                             }
                             FillAdapter();
+                        }else{
+                            if (sFolder.equals("DKM")){
+                                txtFolder.setText("Dikembalikan (00/00)");
+                            }else{
+                                txtFolder.setText("Dalam Proses (00/00)");
+                            }
+
+                            mRecyclerView.setAdapter(null);
                         }
                     }
                 }

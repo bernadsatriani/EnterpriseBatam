@@ -66,20 +66,22 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_login);
-
+        AppConstant.EXIT = false;
         InitControl();
 //        InitFolder();accessgallery();
         //accessPhoneState();
         accessgallery();
         AuthUser authUser = AppController.getInstance().getSessionManager().getUserProfile();
 
-        if (authUser.data.size() > 0){
-            for (AuthUser.Datum dat : authUser.data){
-                AppConstant.USER = dat.user_id;
+        if (authUser != null){
+            if (authUser.data.size() > 0){
+                for (AuthUser.Datum dat : authUser.data){
+                    AppConstant.USER = dat.user_id;
+                }
+                Intent intent = new Intent (LoginActivity.this, MainMenuActivity.class);
+                startActivity(intent);
+                finish();
             }
-            Intent intent = new Intent (LoginActivity.this, MainMenuActivity.class);
-            startActivity(intent);
-            finish();
         }
     }
 

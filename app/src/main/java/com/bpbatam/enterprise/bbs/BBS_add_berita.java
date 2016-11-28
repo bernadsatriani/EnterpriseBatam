@@ -59,7 +59,7 @@ public class BBS_add_berita extends AppCompatActivity {
     String sCategory_Id,  sPriority_id;
     RelativeLayout layoutLampiran, layoutAttachment, layoutKategori, layout_btn_status;
     boolean bDelete, bUpload;
-
+    String sBBsId = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +68,7 @@ public class BBS_add_berita extends AppCompatActivity {
         bDelete = false;
         bUpload = false;
         sCategory_Id = "";
-        sPriority_id = "";
+        sPriority_id = "0";
         InitControl();
         sName = AppConstant.USER_NAME;
 
@@ -96,6 +96,7 @@ public class BBS_add_berita extends AppCompatActivity {
             sBbs_Date = "";
         }
 
+        sBbs_Date = AppController.getInstance().getDate();
         try{
             sBbs_read = getIntent().getExtras().getString("BBS_READ").trim();
         }catch (Exception e){
@@ -349,15 +350,15 @@ public class BBS_add_berita extends AppCompatActivity {
     void FillPrioriti(){
         switch (sPriority_id){
             case "0":
-                imgPrioriti.setColorFilter(getResources().getColor(R.color.colorReject));
+                imgPrioriti.setColorFilter(getResources().getColor(R.color.colorRedCircle));
                 txtPrioriti.setText("Tinggi");
                 break;
             case "1":
-                imgPrioriti.setColorFilter(getResources().getColor(R.color.yellow));
+                imgPrioriti.setColorFilter(getResources().getColor(R.color.colorGreen));
                 txtPrioriti.setText("Sedang");
                 break;
             case "2":
-                imgPrioriti.setColorFilter(getResources().getColor(R.color.colorAccept));
+                imgPrioriti.setColorFilter(getResources().getColor(R.color.colorRendah));
                 txtPrioriti.setText("Rendah");
                 break;
         }
@@ -475,8 +476,7 @@ public class BBS_add_berita extends AppCompatActivity {
                     AppConstant.HASHID,
                     AppConstant.USER,
                     AppConstant.REQID,
-                    Integer.toString(AppConstant.EMAIL_ID),
-                    sJudul,
+                    txtJudul.getText().toString().trim(),
                     AppConstant.USER_NAME,
                     sBbs_Date,
                     sBbs_Date,
@@ -486,9 +486,10 @@ public class BBS_add_berita extends AppCompatActivity {
                     "0",
                     sCategory_Id,
                     AppConstant.USER,
-                    Integer.toString(AppConstant.EMAIL_ID)
+                    "0"
             );
 
+            sJudul = txtJudul.getText().toString().trim();
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("hashid", AppConstant.HASHID);
             jsonObject.put("reqid", AppConstant.REQID);
@@ -500,19 +501,21 @@ public class BBS_add_berita extends AppCompatActivity {
             jsonObject.put("content", txtHeader.getText().toString().trim());
             jsonObject.put("bbs_date", sBbs_Date);
             jsonObject.put("priority_id", sPriority_id);
-            jsonObject.put("read", 0);
+            jsonObject.put("read", "0");
             jsonObject.put("category_id", sCategory_Id);
             jsonObject.put("create_by", AppConstant.USER);
             jsonObject.put("reply_id", "0");
 
-            Call<BBS_Insert> call = NetworkManager.getNetworkService(this).postBBSUpdate(updateParam);
+            Call<BBS_Insert> call = NetworkManager.getNetworkService(this).postBBSInsert(updateParam);
             call.enqueue(new Callback<BBS_Insert>() {
                 @Override
                 public void onResponse(Call<BBS_Insert> call, Response<BBS_Insert> response) {
                     int code = response.code();
                     if (code == 200){
+                        sBBsId = "";
                         bbsInsert = response.body();
                         if (bbsInsert.code.equals("00")){
+                            sBBsId = bbsInsert.bbs_id;
                             sendBBSAttachment();
                         }
 
@@ -558,7 +561,7 @@ public class BBS_add_berita extends AppCompatActivity {
 
             RequestBody fileKey =
                     RequestBody.create(
-                            MediaType.parse("multipart/form-data"), Integer.toString(AppConstant.EMAIL_ID));
+                            MediaType.parse("multipart/form-data"), sBBsId);
 
             Call<BBS_Insert> call = NetworkManager.getNetworkServiceUpload(this).postBBSInsertAttachmentOnly(
                     user_id,

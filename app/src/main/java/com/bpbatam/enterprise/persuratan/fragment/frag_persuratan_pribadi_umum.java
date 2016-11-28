@@ -202,6 +202,13 @@ public class frag_persuratan_pribadi_umum extends Fragment implements SwipeRefre
                                 txtFolder.setText("Folder Pribadi (" + sUnread + "/" + sTotal + ")");
                             }
                             FillAdapter();
+                        }else{
+                            if (sFolder.equals("FUM")){
+                                txtFolder.setText("Folder Umum (00/00)");
+                            }else{
+                                txtFolder.setText("Folder Pribadi (00/00)");
+                            }
+                            mRecyclerView.setAdapter(null);
                         }
                     }
                 }

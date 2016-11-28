@@ -191,4 +191,10 @@ public class MainMenuActivity extends AppCompatActivity{
 
 
     }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        if (AppConstant.EXIT) finish();
+    }
 }

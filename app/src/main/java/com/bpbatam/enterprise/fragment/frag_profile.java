@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bpbatam.AppConstant;
@@ -35,6 +36,7 @@ public class frag_profile extends Fragment {
     txtMail;
 
     USER_Info userInfo;
+    RelativeLayout layout_logout;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -52,6 +54,7 @@ public class frag_profile extends Fragment {
     }
 
     void InitControl(View v){
+        layout_logout = (RelativeLayout)v.findViewById(R.id.layout_logout);
         txtName = (TextView)v.findViewById(R.id.text_Name);
         txtPerusahaan = (TextView)v.findViewById(R.id.text_perusahaan);
         txtDepartemen = (TextView)v.findViewById(R.id.text_departemen);
@@ -67,6 +70,15 @@ public class frag_profile extends Fragment {
         txtTelfInternal.setText("-");
         txtTelfGenggam.setText("-");
         txtMail.setText("-");
+
+        layout_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppController.getInstance().getSessionManager().setUserAccount(null);
+                AppConstant.EXIT = true;
+                getActivity().finish();
+            }
+        });
     }
 
     void GetDataUser(){

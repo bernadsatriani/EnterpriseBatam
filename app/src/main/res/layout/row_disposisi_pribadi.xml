@@ -229,7 +229,7 @@
                     android:layout_alignTop="@+id/btnDownload_lampiran"
                     android:layout_toLeftOf="@+id/btnDownload_lampiran"
 
-                    android:layout_width="90dp">
+                    android:layout_width="100dp">
                     <ImageView
                         android:id="@+id/imgDownload"
                         android:src="@drawable/downloadsave32"
@@ -243,7 +243,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="lihat surat"
+                        android:text="lihat disposisi"
                         android:textColor="@color/white"
                         android:textSize="@dimen/space_9"
                         font:name="GOTHAM_BLACK"

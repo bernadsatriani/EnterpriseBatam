@@ -43,13 +43,15 @@ public final class AppConstant {
 	public static ArrayList<String> AryListMenuChek;
 	public static String sCategoryID = "";
 	public static String sCategoryName = "";
-
+	public static boolean EXIT;
 
 	public static String ACTIVITY_FROM;
 
 
-	public static final String DOMAIN_URL = "http://182.253.221.109:44311";
-	public static final String DOMAIN_URL_UPLOAD = "http://demo.ipnetsoft.com";
+	//public static final String DOMAIN_URL = "http://182.253.221.109:44311";
+	public static final String DOMAIN_URL = "http://118.97.149.129:7001";
+	//public static final String DOMAIN_URL_UPLOAD = "http://demo.ipnetsoft.com";
+	public static final String DOMAIN_URL_UPLOAD = "http://epdev.bpbatam.go.id";
 	public final static String API_VERSION = "/";
 
 	public static JSONArray gPostJson;

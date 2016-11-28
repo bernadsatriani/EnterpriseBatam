@@ -82,7 +82,7 @@ public class AdapterBBSDaftarPesanan extends  RecyclerView.Adapter<AdapterBBSDaf
 
             holder.btnDownload.setVisibility(View.GONE);
             if (listData.bbs_by != null){
-                if (AppConstant.USER_NAME.equals(listData.bbs_by)){
+                if (AppConstant.USER.equals(listData.bbs_by)){
                     holder.btnDownload.setVisibility(View.VISIBLE);
                 }
             }
