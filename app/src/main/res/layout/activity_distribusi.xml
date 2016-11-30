@@ -74,13 +74,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="357dp">
 
-                <EditText
+                <ui.CustomEditText
+                    font:name = "GOTHAM_LIGHT"
                     android:id="@+id/text_pesan"
                     android:background="@drawable/btn_shape_kotak_blue"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="insert text here..."
-
+                    android:padding="@dimen/space_10"
                     android:gravity="top"
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="@dimen/space_10"

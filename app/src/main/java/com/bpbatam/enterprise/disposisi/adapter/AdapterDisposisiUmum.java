@@ -87,9 +87,9 @@ public class AdapterDisposisiUmum extends  RecyclerView.Adapter<AdapterDisposisi
                         disposisiAttachment = response.body();
                         if (disposisiAttachment.code.equals("00")){
                             for(Disposisi_Attachment.Datum dat : disposisiAttachment.data){
-                                listData.attach_link = dat.attcLink;
-                                listData.file_size = dat.fileSize;
-                                listData.file_type = dat.fileType;
+                                listData.attach_link = dat.attc_link;
+                                listData.file_size = dat.file_size;
+                                listData.file_type = dat.file_type;
                             }
 
                             if (listData.file_size != null ){

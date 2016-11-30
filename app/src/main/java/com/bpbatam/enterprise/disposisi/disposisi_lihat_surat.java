@@ -1,5 +1,6 @@
 package com.bpbatam.enterprise.disposisi;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -9,10 +10,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebBackForwardList;
 import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bpbatam.AppConstant;
 import com.bpbatam.AppController;
+import com.bpbatam.enterprise.DistribusiActivity;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.model.Disposisi_Detail;
 import com.bpbatam.enterprise.model.Persuratan_Detail;
@@ -30,8 +33,9 @@ import retrofit2.Response;
 
 public class disposisi_lihat_surat extends AppCompatActivity {
     Toolbar toolbar;
-    TextView txtLabel, txtIsi;
+    TextView txtLabel, txtIsi, txtDistribusi;
     Disposisi_Detail persuratanDetail;
+    ImageView img_back;
     String sIsi;
     WebView myWeb1;
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +43,6 @@ public class disposisi_lihat_surat extends AppCompatActivity {
         setContentView(R.layout.persuratan_pilih_surat);
 
         InitControl();
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        toolbar.setNavigationIcon(R.drawable.arrow_back_white);
 
         //FillGrid();
         /*
@@ -57,6 +57,8 @@ public class disposisi_lihat_surat extends AppCompatActivity {
     }
 
     void InitControl(){
+        img_back = (ImageView)findViewById(R.id.img_back);
+        txtDistribusi = (TextView)findViewById(R.id.textLabel2);
         toolbar = (Toolbar)findViewById(R.id.tool_bar);
         txtLabel = (TextView)findViewById(R.id.textLabel);
         txtIsi = (TextView)findViewById(R.id.text_isi);
@@ -70,8 +72,26 @@ public class disposisi_lihat_surat extends AppCompatActivity {
         myWeb1.getSettings().setUseWideViewPort(true);
         myWeb1.getSettings().setBuiltInZoomControls(true);
         myWeb1.getSettings().setDisplayZoomControls(false);
-        String sUrl = "http://demo.ipnetsoft.com/portal/pdf/preview_dispo.php?user="+AppConstant.USER+"&id=" + AppConstant.EMAIL_ID;
+        String sUrl = "http://epdev.bpbatam.go.id/pdf/preview_dispo.php?user="+AppConstant.USER+"&id=" + AppConstant.EMAIL_ID;
         myWeb1.loadUrl(sUrl);
+
+        txtDistribusi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppConstant.USER_DISTRI = "";
+                AppConstant.USER_CC = "";
+                AppConstant.DISPO_ID = Integer.toString(AppConstant.EMAIL_ID);
+                Intent intent = new Intent(getBaseContext(), DistribusiActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        img_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     void FillGrid() {
@@ -118,24 +138,4 @@ public class disposisi_lihat_surat extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_main, menu);
-        menu.clear();
-        return true;
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
-            case android.R.id.home:
-                //NavUtils.navigateUpFromSameTask(this);
-                finish();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-}
+  }

@@ -25,8 +25,8 @@ import org.w3c.dom.Text;
  */
 public class disposisi_detail extends AppCompatActivity {
 
-    CharSequence Titles[]={"Dokumen","Tertanda", "Distribusi"};
-    int Numboftabs =3;
+    CharSequence Titles[]={"Dokumen", "Distribusi"};
+    int Numboftabs =2;
 
     ViewPager pager;
     ViewPagerAdapterDisposisiDetail adapter;
@@ -54,7 +54,7 @@ public class disposisi_detail extends AppCompatActivity {
     void InitControl(){
         toolbar = (Toolbar)findViewById(R.id.tool_bar);
         txtLabel = (TextView)findViewById(R.id.textLabel);
-        txtLabel.setText("DISPOSISI");
+        txtLabel.setText("DISPOSISI     ");
         pager = (ViewPager)findViewById(R.id.pager);
         tabs = (TabLayout)findViewById(R.id.tabs);
         tabs.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorSelectButton));

@@ -1,9 +1,12 @@
 package com.bpbatam.enterprise.model;
 
+import java.util.List;
+
 /**
  * Created by Setia Nugraha on 9/16/2016.
  */
 public class ListData {
+    public String sid;
     private String nama="";
     private String alamat="";
     private String jekel="";
@@ -11,6 +14,7 @@ public class ListData {
     private String Atr2="";
     private String Atr3="";
     private int  Img;
+    public List<BBS_CATEGORY.Datum> data ;
 
     public String getAtr3() {
         return(Atr3);
@@ -66,6 +70,13 @@ public class ListData {
 
     public int getImg() {
         return(Img);
+    }
+
+    public class Datum
+    {
+        public String Atr1;
+        public String Atr2;
+        public String Atr3;
     }
 
 }

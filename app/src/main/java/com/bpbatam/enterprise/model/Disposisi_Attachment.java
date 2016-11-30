@@ -22,14 +22,11 @@ public class Disposisi_Attachment {
 
     public class Datum
     {
-        public int attcId ;
-        public int mail_id ;
-        public String attcCategory ;
-        public String attcLink ;
-        public String fileType ;
-        public String fileSize ;
-        public String createTime ;
-        public String createBy ;
+        public String attc_link ;
+        public int dispo_id ;
+        public String file_type ;
+        public String file_size ;
+
     }
 
 

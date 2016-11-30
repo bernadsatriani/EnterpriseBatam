@@ -1,4 +1,4 @@
-package com.bpbatam.enterprise.disposisi.adapter;
+package com.bpbatam.enterprise.persuratan.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bpbatam.enterprise.R;
@@ -16,7 +18,7 @@ import java.util.ArrayList;
 /**
  * Created by User on 9/19/2016.
  */
-public class AdapterDisposisiTertanda extends  RecyclerView.Adapter<AdapterDisposisiTertanda.ViewHolder>{
+public class AdapterPersuratanTertanda extends  RecyclerView.Adapter<AdapterPersuratanTertanda.ViewHolder>{
 
     private ArrayList<ListData> mCourseArrayList;
     private Context context;
@@ -24,7 +26,7 @@ public class AdapterDisposisiTertanda extends  RecyclerView.Adapter<AdapterDispo
     private RecyclerView.Adapter mAdapter;
     private LinearLayoutManager mLayoutManager;
 
-    public AdapterDisposisiTertanda(Context context, ArrayList<ListData> mCourseArrayList) {
+    public AdapterPersuratanTertanda(Context context, ArrayList<ListData> mCourseArrayList) {
         this.context = context;
         this.mCourseArrayList = mCourseArrayList;
         if (mCourseArrayList == null) {
@@ -37,7 +39,7 @@ public class AdapterDisposisiTertanda extends  RecyclerView.Adapter<AdapterDispo
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //Inflate layout
         View itemView = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.row_disposisi_detail_tertanda, null);
+                R.layout.row_disposisi_tertanda, null);
 
         return new ViewHolder(itemView, context, this);
     }
@@ -45,12 +47,17 @@ public class AdapterDisposisiTertanda extends  RecyclerView.Adapter<AdapterDispo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         ListData listData = mCourseArrayList.get(position);
-        holder.txtID.setText(Integer.toString(position + 1));
-        holder.txt1.setText(listData.getNama());
-        holder.txt2.setText(listData.getAlamat());
-        holder.txt3.setText(listData.getAtr1());
-        holder.txt4.setText(listData.getAtr2());
-        holder.txt5.setText(listData.getAtr3());
+        //Set text
+        holder.txt1.setText(listData.getAtr1());
+        holder.txt2.setText(listData.getAtr2());
+
+        //holder.txtStatus.setText(listData.getAtr2());
+
+        //AppController.getInstance().displayImage(context,listData.getAtr3(), holder.imgCover);
+
+        if ((position%2) == 0) {
+            holder.layoutRow.setBackgroundColor(context.getResources().getColor(R.color.colorListItem));
+        }
         holder.listData = listData;
     }
 
@@ -62,25 +69,25 @@ public class AdapterDisposisiTertanda extends  RecyclerView.Adapter<AdapterDispo
     public class ViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener, View.OnLongClickListener {
 
-        TextView txtID,
-        txt1,
-        txt2,
-        txt3,
-        txt4,
-        txt5
+        TextView txt1,
+                txt2
         ;
 
+        ImageView imgStatus;
+        LinearLayout layoutRow;
         ListData listData;
         public ViewHolder(View itemView,
                           Context context,
-                          final AdapterDisposisiTertanda mCourseAdapter) {
+                          final AdapterPersuratanTertanda mCourseAdapter) {
             super(itemView);
-            txtID = (TextView)itemView.findViewById(R.id.text_index);
+
             txt1 = (TextView)itemView.findViewById(R.id.text_1);
             txt2 = (TextView)itemView.findViewById(R.id.text_2);
-            txt3 = (TextView)itemView.findViewById(R.id.text_3);
-            txt4 = (TextView)itemView.findViewById(R.id.text_4);
-            txt5 = (TextView)itemView.findViewById(R.id.text_5);
+            layoutRow = (LinearLayout)itemView.findViewById(R.id.layout_row);
+            mRecyclerView = (RecyclerView) itemView.findViewById(R.id.my_recycler_view);
+            mRecyclerView.setHasFixedSize(true);
+            mLayoutManager = new LinearLayoutManager(context);
+            mRecyclerView.setLayoutManager(mLayoutManager);
         }
 
         @Override

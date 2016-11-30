@@ -34,11 +34,6 @@ public class ViewPagerAdapterDisposisiDetail extends FragmentStatePagerAdapter {
         {
             frag_disposisi_detail_dokumen tab1 = new frag_disposisi_detail_dokumen();
             return tab1;
-        }
-        else if(position == 1)            // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
-        {
-            frag_disposisi_detail_tertanda tab2 = new frag_disposisi_detail_tertanda();
-            return tab2;
         }else{
             frag_disposisi_detail_distribusi tab3 = new frag_disposisi_detail_distribusi();
             return tab3;

@@ -8,12 +8,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bpbatam.AppConstant;
+import com.bpbatam.AppController;
 import com.bpbatam.enterprise.R;
+import com.bpbatam.enterprise.adapter.AdapterCC;
 import com.bpbatam.enterprise.disposisi.adapter.AdapterDisposisiDistribusi;
 import com.bpbatam.enterprise.disposisi.adapter.AdapterDisposisiTertanda;
+import com.bpbatam.enterprise.model.Disposisi_Detail;
 import com.bpbatam.enterprise.model.ListData;
+import com.bpbatam.enterprise.model.net.NetworkManager;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by User on 10/1/2016.
@@ -26,7 +36,7 @@ public class frag_disposisi_detail_tertanda extends Fragment {
     ArrayList<ListData> AryListData;
     ListData listData;
 
-
+    Disposisi_Detail disposisiDetail;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -39,7 +49,8 @@ public class frag_disposisi_detail_tertanda extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         InitControl(view);
-        FillGrid(view);
+        //FillGrid(view);
+        FillGridDisposisi();
     }
 
     void InitControl(View v) {
@@ -48,6 +59,57 @@ public class frag_disposisi_detail_tertanda extends Fragment {
         mLayoutManager = new LinearLayoutManager(v.getContext());
         // use a linear layout manager
         mRecyclerView.setLayoutManager(mLayoutManager);
+
+    }
+
+    void FillGridDisposisi() {
+
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        try{
+            Disposisi_Detail param = new Disposisi_Detail(AppConstant.HASHID,
+                    AppConstant.USER,
+                    AppConstant.REQID,
+                    Integer.toString(AppConstant.EMAIL_ID));
+            Call<Disposisi_Detail> call = NetworkManager.getNetworkService(getActivity()).getDisposisiDetail(param);
+            call.enqueue(new Callback<Disposisi_Detail>() {
+                @Override
+                public void onResponse(Call<Disposisi_Detail> call, Response<Disposisi_Detail> response) {
+                    int code = response.code();
+                    if (code == 200){
+                        disposisiDetail = response.body();
+                        int iIndex = 0;
+                        AryListData = new ArrayList<>();
+                        for(Disposisi_Detail.Datum dat : disposisiDetail.data){
+                            listData = new ListData();
+                            listData.setNama("");
+                            listData.setJekel("");
+                            listData.setAtr1("");
+                            listData.setAtr2("");
+                            listData.setAtr3("");
+                            AryListData.add(listData);
+
+                            iIndex += 1;
+                        }
+                        mAdapter = new AdapterDisposisiTertanda(getActivity(),AryListData);
+                        mRecyclerView.setAdapter(mAdapter);
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Disposisi_Detail> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+
+        }
+
 
     }
 

@@ -86,6 +86,13 @@ public class frag_persuratan_detail_tertanda extends Fragment {
                             for(Persuratan_Detail.Datum datum : persuratanDetail.data){
                                 for (Persuratan_Detail.ApprovalState dat: datum.approval_state ){
                                     listData = new ListData();
+                                    listData.setNama(dat.deptartement);
+                                    listData.setAlamat(dat.user_name);
+                                    listData.setAtr1("Persetujuan");
+                                    listData.setAtr2("Disetujui");
+                                    listData.setAtr3(dat.approve_date);
+                                    AryListData.add(listData);
+                                    /* listData = new ListData();
                                     listData.setAtr1("Departemen");
                                     listData.setAtr2(dat.deptartement);
                                     listData.setAtr3("External");
@@ -113,12 +120,12 @@ public class frag_persuratan_detail_tertanda extends Fragment {
                                     listData.setAtr1("Tanggal Persetujuan");
                                     listData.setAtr2(dat.approve_date);
                                     listData.setAtr3(dat.approve_date);
-                                    AryListData.add(listData);
+                                    AryListData.add(listData);*/
                                 }
 
                             }
 
-                            mAdapter = new AdapterDisposisiDistribusi(getContext(), AryListData);
+                            mAdapter = new AdapterDisposisiTertanda(getContext(), AryListData);
                             mRecyclerView.setAdapter(mAdapter);
 
                         }
