@@ -43,8 +43,11 @@
             android:layout_height="@dimen/space_5"/>
 
         <android.support.v7.widget.RecyclerView
-            android:background="@color/white"
-            android:layout_margin="@dimen/space_14"
+            android:background="@color/colorSecondaryBackground"
+            android:layout_marginTop="@dimen/space_5"
+            android:layout_marginBottom="@dimen/space_14"
+            android:layout_marginRight="@dimen/space_14"
+            android:layout_marginLeft="@dimen/space_14"
             android:id="@+id/my_recycler_view"
             android:visibility="visible"
             android:layout_width="match_parent"

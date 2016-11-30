@@ -3,6 +3,7 @@ package com.bpbatam.enterprise.bbs.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,15 +12,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bpbatam.AppConstant;
+import com.bpbatam.AppController;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.bbs.BBS_edit_berita;
 import com.bpbatam.enterprise.bbs.bbs_komentar_activity;
+import com.bpbatam.enterprise.model.BBS_Detail;
 import com.bpbatam.enterprise.model.BBS_LIST;
 import com.bpbatam.enterprise.model.BBS_List_ByCategory;
 import com.bpbatam.enterprise.model.BBS_Opini;
 import com.bpbatam.enterprise.model.ListData;
 import com.bpbatam.enterprise.model.net.NetworkManager;
 
+import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +39,7 @@ public class AdapterBBSSemuaPesanan extends  RecyclerView.Adapter<AdapterBBSSemu
     private BBS_LIST bbs_list;
     BBS_Opini bbsOpini;
     private Context context;
+    BBS_Detail bbsDetail;
 
     public AdapterBBSSemuaPesanan(Context context, BBS_LIST bbs_list, OnDownloadClicked listener) {
         this.context = context;
@@ -66,13 +71,15 @@ public class AdapterBBSSemuaPesanan extends  RecyclerView.Adapter<AdapterBBSSemu
         //Set text
         holder.txtName.setText(listData.name);
         holder.txtDate.setText(listData.bbs_date);
-        holder.txtFrom.setText(listData.bbs_by);
-        holder.lbl_Attach.setText(listData.title);
         holder.lbl_Attach.setText((listData.title == null) ? "" : listData.title + " " + ((listData.content == null) ? "" : listData.content));
         holder.lbl_Judul.setText((listData.title == null) ? "" : listData.title + " " + ((listData.content == null) ? "" : listData.content));
         //holder.lbl_Isi.setText(listData.content);
 
-        holder.txtDivisi.setText(listData.bbs_by);
+        holder.txtFrom.setText(listData.category_id);
+        holder.lbl_Attach.setText(listData.title);
+        holder.lbl_Judul.setText(listData.title);
+        holder.txtDivisi.setText(listData.title);
+
         holder.lbl_Size.setText("");
         holder.txtOpini.setText("");
 
@@ -99,6 +106,50 @@ public class AdapterBBSSemuaPesanan extends  RecyclerView.Adapter<AdapterBBSSemu
             }
         }catch (Exception e){
             holder.layoutAttachMent.setVisibility(View.GONE);
+        }
+
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        try{
+            BBS_Detail param = new BBS_Detail( AppConstant.HASHID,
+                    AppConstant.USER,
+                    AppConstant.REQID,
+                    Integer.toString(listData.bbs_id));
+
+            Call<BBS_Detail>call = NetworkManager.getNetworkService(context).getBBS_Detail(param);
+            call.enqueue(new Callback<BBS_Detail>() {
+                @Override
+                public void onResponse(Call<BBS_Detail> call, Response<BBS_Detail> response) {
+                    int code = response.code();
+                    if (code == 200){
+                        bbsDetail = response.body();
+                        if (bbsDetail.code.equals("00")){
+                            for(BBS_Detail.Datum dat : bbsDetail.data){
+                                holder.lbl_Judul.setText(Html.fromHtml(dat.content));
+                                holder.txtFrom.setText(dat.category_name);
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<BBS_Detail> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+
         }
 
         try{

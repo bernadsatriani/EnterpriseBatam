@@ -3,6 +3,7 @@ package com.bpbatam.enterprise.bbs.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.bbs.BBS_edit_berita;
 import com.bpbatam.enterprise.bbs.bbs_komentar_activity;
 import com.bpbatam.enterprise.model.BBS_Attachment;
+import com.bpbatam.enterprise.model.BBS_Detail;
 import com.bpbatam.enterprise.model.BBS_LIST;
 import com.bpbatam.enterprise.model.BBS_List_ByCategory;
 import com.bpbatam.enterprise.model.BBS_Opini;
@@ -41,6 +43,7 @@ public class AdapterBBSDaftarPesanan extends  RecyclerView.Adapter<AdapterBBSDaf
     BBS_Opini bbsOpini;
     private Context context;
     BBS_Attachment bbsAttachment;
+    BBS_Detail bbsDetail;
 
     public AdapterBBSDaftarPesanan(Context context, BBS_List_ByCategory bbs_list, OnDownloadClicked listener) {
         this.context = context;
@@ -73,10 +76,10 @@ public class AdapterBBSDaftarPesanan extends  RecyclerView.Adapter<AdapterBBSDaf
         //if (listData.read_sts.equals("N")){
             holder.txtName.setText(listData.name);
             holder.txtDate.setText(listData.bbs_date);
-            holder.txtFrom.setText(listData.bbs_by);
+            holder.txtFrom.setText(listData.category_id);
             holder.lbl_Attach.setText(listData.title);
             holder.lbl_Judul.setText(listData.title);
-            holder.txtDivisi.setText(listData.bbs_by);
+            holder.txtDivisi.setText(listData.title);
             holder.lbl_Size.setText("");
             holder.txtOpini.setText("");
 
@@ -111,6 +114,43 @@ public class AdapterBBSDaftarPesanan extends  RecyclerView.Adapter<AdapterBBSDaf
             e.printStackTrace();
         }
 
+
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        try{
+            BBS_Detail param = new BBS_Detail( AppConstant.HASHID,
+                    AppConstant.USER,
+                    AppConstant.REQID,
+                    Integer.toString(listData.bbs_id));
+
+            Call<BBS_Detail>call = NetworkManager.getNetworkService(context).getBBS_Detail(param);
+            call.enqueue(new Callback<BBS_Detail>() {
+                @Override
+                public void onResponse(Call<BBS_Detail> call, Response<BBS_Detail> response) {
+                    int code = response.code();
+                    if (code == 200){
+                        bbsDetail = response.body();
+                        if (bbsDetail.code.equals("00")){
+                            for(BBS_Detail.Datum dat : bbsDetail.data){
+                                holder.lbl_Judul.setText(Html.fromHtml(dat.content));
+                                holder.txtFrom.setText(dat.category_name);
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<BBS_Detail> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+
+        }
         try{
             BBS_Attachment param = new BBS_Attachment( AppConstant.HASHID,
                     AppConstant.USER,

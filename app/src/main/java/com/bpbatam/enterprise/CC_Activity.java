@@ -118,21 +118,22 @@ public class CC_Activity extends AppCompatActivity {
                         persuratanDetail = response.body();
                         int iIndex = 0;
                         AryListData = new ArrayList<>();
-                        for(Persuratan_Detail.Datum dat : persuratanDetail.data){
-                            for(Persuratan_Detail.ApprovalState dat1 : persuratanDetail.data.get(iIndex).approval_state){
-                                listData = new ListData();
-                                listData.setAtr1(dat1.deptartement);
-                                listData.setAtr2(dat1.user_name);
-                                listData.setAtr3(dat.mail_date);
-                                listData.setNama(sReadDate);
-                                AryListData.add(listData);
+                        if (persuratanDetail.code.equals("00")){
+                            for(Persuratan_Detail.Datum dat : persuratanDetail.data){
+                                for(Persuratan_Detail.ApprovalState dat1 : persuratanDetail.data.get(iIndex).approval_state){
+                                    listData = new ListData();
+                                    listData.setAtr1(dat1.deptartement);
+                                    listData.setAtr2(dat1.user_name);
+                                    listData.setAtr3(dat.mail_date);
+                                    listData.setNama(sReadDate);
+                                    AryListData.add(listData);
+                                }
+
+                                iIndex += 1;
                             }
-
-                            iIndex += 1;
+                            mAdapter = new AdapterCC(getBaseContext(),AryListData);
+                            mRecyclerView.setAdapter(mAdapter);
                         }
-                        mAdapter = new AdapterCC(getBaseContext(),AryListData);
-                        mRecyclerView.setAdapter(mAdapter);
-
                     }
                 }
 

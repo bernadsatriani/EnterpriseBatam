@@ -34,6 +34,7 @@
             android:layout_alignRight="@id/relative_layout_item_count"
             android:background="@android:drawable/ic_notification_overlay"
             android:text="27"
+            android:gravity="center"
             android:textColor="#FFF"
             android:textSize="7sp"
             android:textStyle="bold" />
