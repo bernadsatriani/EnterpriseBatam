@@ -31,6 +31,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import ui.ResizableCustomView;
 
 /**
  * Created by User on 9/19/2016.
@@ -137,7 +138,20 @@ public class AdapterBBSSemuaPesanan extends  RecyclerView.Adapter<AdapterBBSSemu
                         if (bbsDetail.code.equals("00")){
                             for(BBS_Detail.Datum dat : bbsDetail.data){
                                 holder.lbl_Judul.setText(Html.fromHtml(dat.content));
+
+                                if (holder.lbl_Judul.getLineCount() > 3){
+                                    ResizableCustomView.doResizeTextView(holder.lbl_Judul, 3, "View More", true);
+                                }
+
+                              /* String text = holder.lbl_Judul.getText().toString();
+                                if (holder.lbl_Judul.length()>20) {
+                                    text=text.substring(0,20)+"...";
+                                    holder.lbl_Judul.setText(Html.fromHtml(text+"<font color='red'> <u>View More</u></font>"));
+
+                                }*/
                                 holder.txtFrom.setText(dat.category_name);
+
+
                             }
                         }
                     }

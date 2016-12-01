@@ -33,6 +33,7 @@ import java.util.Locale;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import ui.ResizableCustomView;
 
 /**
  * Created by User on 9/19/2016.
@@ -137,6 +138,9 @@ public class AdapterBBSDaftarPesanan extends  RecyclerView.Adapter<AdapterBBSDaf
                         if (bbsDetail.code.equals("00")){
                             for(BBS_Detail.Datum dat : bbsDetail.data){
                                 holder.lbl_Judul.setText(Html.fromHtml(dat.content));
+                                if (holder.lbl_Judul.getLineCount() > 3){
+                                    ResizableCustomView.doResizeTextView(holder.lbl_Judul, 3, "View More", true);
+                                }
                                 holder.txtFrom.setText(dat.category_name);
                             }
                         }
