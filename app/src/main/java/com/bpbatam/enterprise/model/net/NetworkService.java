@@ -24,6 +24,7 @@ import com.bpbatam.enterprise.model.LocationList;
 import com.bpbatam.enterprise.model.Persuratan_Attachment;
 import com.bpbatam.enterprise.model.Persuratan_Detail;
 import com.bpbatam.enterprise.model.Persuratan_Distribusi;
+import com.bpbatam.enterprise.model.Persuratan_Distribusi_Detail;
 import com.bpbatam.enterprise.model.Persuratan_Folder;
 import com.bpbatam.enterprise.model.Persuratan_List_Folder;
 import com.bpbatam.enterprise.model.Persuratan_proses;
@@ -144,6 +145,9 @@ public interface NetworkService {
 
     @POST("ep_api_services/ep_mail/distribution_mail")
     Call<Persuratan_Distribusi> postSendDistribusiPersuratan(@Body Persuratan_Distribusi params);
+
+    @POST("ep_api_services/ep_mail/get_distribution_detail")
+    Call<Persuratan_Distribusi_Detail> getDistribusiDetail(@Body Persuratan_Distribusi_Detail params);
 
     //DISPOSISI-------------------------------------------------------------------------
     @POST("ep_api_services/ep_dispo/get_category")
