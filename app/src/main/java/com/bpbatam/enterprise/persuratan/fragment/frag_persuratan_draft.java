@@ -189,7 +189,7 @@ public class frag_persuratan_draft extends Fragment implements SwipeRefreshLayou
             e.printStackTrace();
         }
 
-        txtLabel.setText("DRAFT (00/00)");
+        //txtLabel.setText("DRAFT (00/00)");
         Persuratan_List_Folder params = new Persuratan_List_Folder(AppConstant.HASHID, AppConstant.USER,
                 AppConstant.REQID, sFolder,String.valueOf(iMin),String.valueOf(iMax));
         try{
@@ -253,55 +253,58 @@ public class frag_persuratan_draft extends Fragment implements SwipeRefreshLayou
         mAdapter = new AdapterPersuratanDraft(getActivity(), persuratanListFolder, new AdapterPersuratanDraft.OnDownloadClicked() {
             @Override
             public void OnDownloadClicked(final String sUrl, boolean bStatus) {
-                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(sUrl));
-                AppConstant.PDF_FILENAME = AppController.getInstance().getFileName(sUrl);
-                AppConstant.PDF_FILENAME = AppConstant.PDF_FILENAME.replace("%20"," ");
-
-                File file = new File(AppConstant.STORAGE_CARD + "/Download/" + AppConstant.PDF_FILENAME);
-                if (file.exists()){
-                    Intent intent = new Intent(getActivity(), PDFViewActivityDitolakDisetujui.class);
-                    getActivity().startActivity(intent);
-                }else{
-                    mRecyclerView.setVisibility(View.GONE);
-                    rLayoutDownload.setVisibility(View.VISIBLE);
-
-                    request.setTitle(AppConstant.PDF_FILENAME);
-
-                    request.setDescription("DESCRIPTION");
-                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                    // request.setDestinationInExternalPublicDir(AppConstant.FOLDER_DOWNLOAD, "DOWNLOAD_FILE_NAME.pdf");
-
-                    File root = new File(AppConstant.STORAGE_CARD + "/Download/");
-                    Uri path = Uri.withAppendedPath(Uri.fromFile(root), AppConstant.PDF_FILENAME);
-                    request.setDestinationUri(path);
-
-                    downloadID = downloadManager.enqueue(request);
-                }
-
-                downloadProgressView.show(downloadID, new DownloadProgressView.DownloadStatusListener() {
-                    @Override
-                    public void downloadFailed(int reason) {
-                        //Action to perform when download fails, reason as returned by DownloadManager.COLUMN_REASON
-                        mRecyclerView.setVisibility(View.VISIBLE);
-                        rLayoutDownload.setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void downloadSuccessful() {
-                        //Action to perform on success
-                        mRecyclerView.setVisibility(View.VISIBLE);
-                        rLayoutDownload.setVisibility(View.GONE);
+                if (bStatus){
+                    DownloadManager.Request request = new DownloadManager.Request(Uri.parse(sUrl));
+                    AppConstant.PDF_FILENAME = AppController.getInstance().getFileName(sUrl);
+                    AppConstant.PDF_FILENAME = AppConstant.PDF_FILENAME.replace("%20"," ");
+                    frag_persuratan_menu.FillNotif();
+                    File file = new File(AppConstant.STORAGE_CARD + "/Download/" + AppConstant.PDF_FILENAME);
+                    if (file.exists()){
                         Intent intent = new Intent(getActivity(), PDFViewActivityDitolakDisetujui.class);
                         getActivity().startActivity(intent);
+                    }else{
+                        mRecyclerView.setVisibility(View.GONE);
+                        rLayoutDownload.setVisibility(View.VISIBLE);
+
+                        request.setTitle(AppConstant.PDF_FILENAME);
+
+                        request.setDescription("DESCRIPTION");
+                        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                        // request.setDestinationInExternalPublicDir(AppConstant.FOLDER_DOWNLOAD, "DOWNLOAD_FILE_NAME.pdf");
+
+                        File root = new File(AppConstant.STORAGE_CARD + "/Download/");
+                        Uri path = Uri.withAppendedPath(Uri.fromFile(root), AppConstant.PDF_FILENAME);
+                        request.setDestinationUri(path);
+
+                        downloadID = downloadManager.enqueue(request);
                     }
 
-                    @Override
-                    public void downloadCancelled() {
-                        //Action to perform when user press the cancel button
-                        mRecyclerView.setVisibility(View.VISIBLE);
-                        rLayoutDownload.setVisibility(View.GONE);
-                    }
-                });
+                    downloadProgressView.show(downloadID, new DownloadProgressView.DownloadStatusListener() {
+                        @Override
+                        public void downloadFailed(int reason) {
+                            //Action to perform when download fails, reason as returned by DownloadManager.COLUMN_REASON
+                            mRecyclerView.setVisibility(View.VISIBLE);
+                            rLayoutDownload.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void downloadSuccessful() {
+                            //Action to perform on success
+                            mRecyclerView.setVisibility(View.VISIBLE);
+                            rLayoutDownload.setVisibility(View.GONE);
+                            Intent intent = new Intent(getActivity(), PDFViewActivityDitolakDisetujui.class);
+                            getActivity().startActivity(intent);
+                        }
+
+                        @Override
+                        public void downloadCancelled() {
+                            //Action to perform when user press the cancel button
+                            mRecyclerView.setVisibility(View.VISIBLE);
+                            rLayoutDownload.setVisibility(View.GONE);
+                        }
+                    });
+                }
+
             }
         });
         // set the adapter object to the Recyclerview
@@ -379,10 +382,11 @@ public class frag_persuratan_draft extends Fragment implements SwipeRefreshLayou
                         }
                     });
                 }else{
+                    frag_persuratan_menu.FillNotif();
                     boolean bDone = false;
                     AppConstant.DISPO_ID = "";
                     for (Persuratan_List_Folder.Datum dat : persuratanListFolder.data){
-                        if (dat.flag.equals("2")){
+                        if (dat.flag!= null && dat.flag.equals("2")){
                             bDone = true;
                             AppConstant.DISPO_ID += dat.mail_id + "||";
                         }

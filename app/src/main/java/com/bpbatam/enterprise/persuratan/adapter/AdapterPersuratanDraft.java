@@ -12,13 +12,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bpbatam.AppConstant;
+import com.bpbatam.AppController;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.model.Persuratan_Attachment;
+import com.bpbatam.enterprise.model.Persuratan_Detail;
 import com.bpbatam.enterprise.model.Persuratan_List_Folder;
 import com.bpbatam.enterprise.model.net.NetworkManager;
 import com.bpbatam.enterprise.persuratan.persuratan_detail;
 import com.bpbatam.enterprise.persuratan.persuratan_lihat_surat;
 
+import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
 
 import retrofit2.Call;
@@ -33,6 +36,7 @@ public class AdapterPersuratanDraft extends  RecyclerView.Adapter<AdapterPersura
     Persuratan_Attachment persuratanAttachment;
     private Context context;
 
+    Persuratan_Detail persuratanDetail;
     public AdapterPersuratanDraft(Context context, Persuratan_List_Folder persuratanListFolder, OnDownloadClicked listener) {
         this.context = context;
         this.persuratanListFolder = persuratanListFolder;
@@ -70,6 +74,11 @@ public class AdapterPersuratanDraft extends  RecyclerView.Adapter<AdapterPersura
         holder.layoutButton.setVisibility(View.VISIBLE);
         holder.btnDownload_lampiran.setVisibility(View.GONE);
 
+        if (listData.is_read !=null && listData.is_read.equals("N")){
+            holder.img_unread.setVisibility(View.VISIBLE);
+        }else{
+            holder.img_unread.setVisibility(View.GONE);
+        }
         /*holder.txtDate.setText(listData.mail_date);
         holder.txtTime.setText(listData.read_date);
         holder.txtJudul.setText(listData.title);
@@ -103,6 +112,7 @@ public class AdapterPersuratanDraft extends  RecyclerView.Adapter<AdapterPersura
                 AppConstant.EMAIL_ID = listData.mail_id;
                 Intent intent = new Intent(context, persuratan_detail.class);
                 v.getContext().startActivity(intent);
+                UpdateDetail();
             }
         });
 
@@ -156,7 +166,7 @@ public class AdapterPersuratanDraft extends  RecyclerView.Adapter<AdapterPersura
                 if (listData.file_size != null && !listData.file_size.equals("")){
                     listener.OnDownloadClicked(listData.attach_link, true);
                 }
-
+                UpdateDetail();
                 //listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
             }
         });
@@ -168,9 +178,35 @@ public class AdapterPersuratanDraft extends  RecyclerView.Adapter<AdapterPersura
                 AppConstant.EMAIL_ID = listData.mail_id;
                 Intent intent = new Intent(context, persuratan_lihat_surat.class);
                 v.getContext().startActivity(intent);
+                UpdateDetail();
             }
         });
         holder.listData = listData;
+    }
+
+    void UpdateDetail(){
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        Persuratan_Detail params = new Persuratan_Detail(AppConstant.HASHID,
+                AppConstant.USER,
+                AppConstant.REQID,
+                Integer.toString(AppConstant.EMAIL_ID));
+        Call<Persuratan_Detail> call = NetworkManager.getNetworkService().getMailDetail(params);
+        call.enqueue(new Callback<Persuratan_Detail>() {
+            @Override
+            public void onResponse(Call<Persuratan_Detail> call, Response<Persuratan_Detail> response) {
+                listener.OnDownloadClicked("", false);
+            }
+
+            @Override
+            public void onFailure(Call<Persuratan_Detail> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override
@@ -191,7 +227,7 @@ public class AdapterPersuratanDraft extends  RecyclerView.Adapter<AdapterPersura
 
         RelativeLayout btnLihatSurat, layoutCheckList,
                 btnPrint, btnDownload_lampiran;
-        ImageView imgStatus, imgCC, imgChecklist;
+        ImageView imgStatus, imgCC, imgChecklist, img_unread;
 
         ImageView imgInfo,imgDownload;
         TextView textInfo, textDownload;
@@ -201,6 +237,7 @@ public class AdapterPersuratanDraft extends  RecyclerView.Adapter<AdapterPersura
                           Context context,
                           final AdapterPersuratanDraft mCourseAdapter) {
             super(itemView);
+            img_unread = (ImageView) itemView.findViewById(R.id.img_unread);
             txtDeadline = (TextView)itemView.findViewById(R.id.lbl_deadline);
             txtJudul = (TextView)itemView.findViewById(R.id.lbl_Judul);
             txtFrom = (TextView)itemView.findViewById(R.id.lbl_from);

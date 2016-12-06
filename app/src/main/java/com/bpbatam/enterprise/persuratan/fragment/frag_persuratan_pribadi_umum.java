@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -231,12 +232,6 @@ public class frag_persuratan_pribadi_umum extends Fragment implements SwipeRefre
             e.printStackTrace();
         }
 
-        if (sFolder.equals("FUM")){
-            txtFolder.setText("Folder Umum (00/00)");
-        }else{
-            txtFolder.setText("Folder Pribadi (00/00)");
-        }
-
         Persuratan_List_Folder params = new Persuratan_List_Folder(AppConstant.HASHID, AppConstant.USER,
                 AppConstant.REQID, sFolder,String.valueOf(iMin),String.valueOf(iMax));
         try{
@@ -249,37 +244,39 @@ public class frag_persuratan_pribadi_umum extends Fragment implements SwipeRefre
                     persuratanListFolder = response.body();
                     if (code == 200){
                         if (persuratanListFolder.code.equals("00")){
-                            for(Persuratan_List_Folder.Datum dat : persuratanListFolder.data){
-                                persuratanListFolderFull.data.add(dat);
-                            }
-
-
-                            int iIndex = 0;
-                            int iUnread = 0;
-
-                            for (Persuratan_List_Folder.Datum dat : persuratanListFolderFull.data){
-                                if (dat.read_date !=null && dat.read_date.equals("-")){
-                                    iUnread += 1;
+                            if (persuratanListFolder.data.size()>0){
+                                for(Persuratan_List_Folder.Datum dat : persuratanListFolder.data){
+                                    persuratanListFolderFull.data.add(dat);
                                 }
-                            }
-                            if (statusPesan.equals(AppConstant.PILIH_PESAN) || statusPesan.equals(AppConstant.SEMUA_PESAN)){
+
+
+                                int iIndex = 0;
+                                int iUnread = 0;
+
                                 for (Persuratan_List_Folder.Datum dat : persuratanListFolderFull.data){
-                                    persuratanListFolderFull.data.get(iIndex).flag = statusPesan;
-                                    iIndex += 1;
+                                    if (dat.read_date !=null && dat.read_date.equals("-")){
+                                        iUnread += 1;
+                                    }
                                 }
-                            }
+                                if (statusPesan.equals(AppConstant.PILIH_PESAN) || statusPesan.equals(AppConstant.SEMUA_PESAN)){
+                                    for (Persuratan_List_Folder.Datum dat : persuratanListFolderFull.data){
+                                        persuratanListFolderFull.data.get(iIndex).flag = statusPesan;
+                                        iIndex += 1;
+                                    }
+                                }
 
-                            String sUnread = String.valueOf(iUnread);
-                            if (sUnread.length() < 2) sUnread = "0" + sUnread;
+                                String sUnread = String.valueOf(iUnread);
+                                if (sUnread.length() < 2) sUnread = "0" + sUnread;
 
-                            String sTotal = String.valueOf(persuratanListFolderFull.data.size());
-                            if (sTotal.length() < 2) sTotal = "0" + sTotal;
-                            if (sFolder.equals("FUM")){
-                                txtFolder.setText("Folder Umum (" + sUnread + "/" + sTotal + ")");
-                            }else{
-                                txtFolder.setText("Folder Pribadi (" + sUnread + "/" + sTotal + ")");
+                                String sTotal = String.valueOf(persuratanListFolderFull.data.size());
+                                if (sTotal.length() < 2) sTotal = "0" + sTotal;
+                                if (sFolder.equals("FUM")){
+                                    txtFolder.setText("Folder Umum (" + sUnread + "/" + sTotal + ")");
+                                }else{
+                                    txtFolder.setText("Folder Pribadi (" + sUnread + "/" + sTotal + ")");
+                                }
+                                mAdapter.notifyDataSetChanged();
                             }
-                            mAdapter.notifyDataSetChanged();
                         }
                     }
                 }
@@ -368,10 +365,11 @@ public class frag_persuratan_pribadi_umum extends Fragment implements SwipeRefre
                         }
                     });
                 }else{
+                    frag_persuratan_menu.FillNotif();
                     boolean bDone = false;
                     AppConstant.DISPO_ID = "";
                     for (Persuratan_List_Folder.Datum dat : persuratanListFolder.data){
-                        if (dat.flag.equals("2")){
+                        if (dat.flag !=null && dat.flag.equals("2")){
                             bDone = true;
                             AppConstant.DISPO_ID += dat.mail_id + "||";
                         }
@@ -400,6 +398,8 @@ public class frag_persuratan_pribadi_umum extends Fragment implements SwipeRefre
             if (resultCode == Activity.RESULT_OK) {
                 Bundle res = data.getExtras();
                 sFolder = res.getString("KODE_PERSURATAN");
+                iMin = 0;
+                iMax = 10;
                 AppConstant.FOLDER_DISPOS = sFolder;
                 FillGrid();
             }
@@ -477,10 +477,11 @@ public class frag_persuratan_pribadi_umum extends Fragment implements SwipeRefre
                         }
                     });
                 }else{
+                    frag_persuratan_menu.FillNotif();
                     boolean bDone = false;
                     AppConstant.DISPO_ID = "";
                     for (Persuratan_List_Folder.Datum dat : persuratanListFolder.data){
-                        if (dat.flag.equals("2")){
+                        if (dat.flag != null && dat.flag.equals("2")){
                             bDone = true;
                             AppConstant.DISPO_ID += dat.mail_id + "||";
                         }

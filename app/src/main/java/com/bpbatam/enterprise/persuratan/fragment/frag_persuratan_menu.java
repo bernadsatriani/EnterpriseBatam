@@ -53,8 +53,10 @@ public class frag_persuratan_menu extends Fragment {
     View line1, line2, line3, line4;
     int iPosition;
 
-    TextView notif1, notif3, notif4;
-    Persuratan_Folder persuratanFolder;
+    static TextView notif1;
+    static TextView notif3;
+    static TextView notif4;
+    static Persuratan_Folder persuratanFolder;
 
     ImageView imgFolder, imgDraft, imgPermohonan, imgSurat;
     @Override
@@ -85,6 +87,7 @@ public class frag_persuratan_menu extends Fragment {
         line4.setBackgroundResource( R.color.grey_s );
 
         iPosition = 1;
+        notif1.setVisibility(View.GONE);
         //imgPilih.setVisibility(View.GONE);
         fragment = null;
         fragment = new frag_persuratan_pribadi_umum();
@@ -186,28 +189,6 @@ public class frag_persuratan_menu extends Fragment {
             }
         });
 
-        /*lyDalamSurat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                txtPermohonan.setTextColor(getActivity().getResources().getColor(R.color.grey));
-                txtDalamSurat.setTextColor(getActivity().getResources().getColor(R.color.black));
-                txtDraft.setTextColor(getActivity().getResources().getColor(R.color.grey));
-                //txtSimpan.setTextColor(getActivity().getResources().getColor(R.color.grey));
-                txtFolder.setTextColor(getActivity().getResources().getColor(R.color.grey));
-                AppConstant.ACTIVITY_FROM = "DALAM PROSES (01/08)";
-                //imgPilih.setVisibility(View.GONE);
-                fragment = null;
-                fragment = new frag_persuratan_dalam_proses();
-
-                if (fragment != null) {
-                    FragmentManager fragmentManager = getFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.frame_content1, fragment);
-                    fragmentTransaction.commit();
-                }
-            }
-        });*/
-
         lyDikembalikan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -225,7 +206,7 @@ public class frag_persuratan_menu extends Fragment {
                 imgPermohonan.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.permohonan_icon_inactive));
                 imgSurat.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.status_surat_inactive));
                 iPosition = 2;
-                notif3.setVisibility(View.GONE);
+                //notif3.setVisibility(View.GONE);
                 AppConstant.ACTIVITY_FROM = "DRAFT (01/08)";
                 fragment = null;
                 fragment = new frag_persuratan_draft();
@@ -252,7 +233,7 @@ public class frag_persuratan_menu extends Fragment {
                 imgPermohonan.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.permohonan_icon_inactive));
                 imgSurat.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.status_surat));
                 iPosition = 4;
-                notif4.setVisibility(View.GONE);
+                //notif4.setVisibility(View.GONE);
                 AppConstant.ACTIVITY_FROM = "Simpan (01/08)";
                 line1.setBackgroundResource( R.color.grey_s );
                 line2.setBackgroundResource( R.color.grey_s );
@@ -286,7 +267,7 @@ public class frag_persuratan_menu extends Fragment {
                 imgPermohonan.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.permohonan_icon_inactive));
                 imgSurat.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.status_surat_inactive));
                 iPosition = 1;
-                notif1.setVisibility(View.GONE);
+                //notif1.setVisibility(View.GONE);
                 line1.setBackgroundResource( R.color.colorBar );
                 line2.setBackgroundResource( R.color.grey_s );
                 line3.setBackgroundResource( R.color.grey_s );
@@ -398,10 +379,10 @@ public class frag_persuratan_menu extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    void FillNotif(){
+    public static void FillNotif(){
         try{
             Persuratan_Folder params = new Persuratan_Folder(AppConstant.HASHID , AppConstant.USER, AppConstant.REQID);
-            Call<Persuratan_Folder> call = NetworkManager.getNetworkService(getActivity()).getMailFolder(params);
+            Call<Persuratan_Folder> call = NetworkManager.getNetworkService().getMailFolder(params);
             call.enqueue(new Callback<Persuratan_Folder>() {
                 @Override
                 public void onResponse(Call<Persuratan_Folder> call, Response<Persuratan_Folder> response) {

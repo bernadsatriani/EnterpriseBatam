@@ -40,6 +40,7 @@ public class AdapterPersuratanPermohonan extends  RecyclerView.Adapter<AdapterPe
     Persuratan_Attachment persuratanAttachment;
     private Context context;
 
+    Persuratan_Detail persuratanDetail;
     public AdapterPersuratanPermohonan(Context context, Persuratan_List_Folder persuratanListFolder, OnDownloadClicked listener) {
         this.context = context;
         this.persuratanListFolder = persuratanListFolder;
@@ -77,6 +78,11 @@ public class AdapterPersuratanPermohonan extends  RecyclerView.Adapter<AdapterPe
         holder.layoutButton.setVisibility(View.VISIBLE);
         holder.btnDownload_lampiran.setVisibility(View.GONE);
 
+        if (listData.read_date !=null && listData.read_date.equals("-")){
+            holder.img_unread.setVisibility(View.VISIBLE);
+        }else{
+            holder.img_unread.setVisibility(View.GONE);
+        }
         /*holder.txtDate.setText(listData.mail_date);
         holder.txtTime.setText(listData.read_date);
         holder.txtJudul.setText(listData.title);
@@ -110,6 +116,7 @@ public class AdapterPersuratanPermohonan extends  RecyclerView.Adapter<AdapterPe
                 AppConstant.EMAIL_ID = listData.mail_id;
                 Intent intent = new Intent(context, persuratan_detail.class);
                 v.getContext().startActivity(intent);
+                UpdateDetail();
             }
         });
 
@@ -158,12 +165,13 @@ public class AdapterPersuratanPermohonan extends  RecyclerView.Adapter<AdapterPe
         holder.btnDownload_lampiran.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 AppConstant.DISPO_ID = Integer.toString(listData.mail_id);
                 AppConstant.EMAIL_ID = listData.mail_id;
                 if (listData.file_size != null && !listData.file_size.equals("")){
                     listener.OnDownloadClicked(listData.attach_link, true);
                 }
-
+                UpdateDetail();
                 //listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
             }
         });
@@ -178,6 +186,31 @@ public class AdapterPersuratanPermohonan extends  RecyclerView.Adapter<AdapterPe
             }
         });
         holder.listData = listData;
+    }
+
+    void UpdateDetail(){
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        Persuratan_Detail params = new Persuratan_Detail(AppConstant.HASHID,
+                AppConstant.USER,
+                AppConstant.REQID,
+                Integer.toString(AppConstant.EMAIL_ID));
+        Call<Persuratan_Detail> call = NetworkManager.getNetworkService().getMailDetail(params);
+        call.enqueue(new Callback<Persuratan_Detail>() {
+            @Override
+            public void onResponse(Call<Persuratan_Detail> call, Response<Persuratan_Detail> response) {
+                listener.OnDownloadClicked("", false);
+            }
+
+            @Override
+            public void onFailure(Call<Persuratan_Detail> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override
@@ -198,7 +231,7 @@ public class AdapterPersuratanPermohonan extends  RecyclerView.Adapter<AdapterPe
 
         RelativeLayout btnLihatSurat, layoutCheckList,
                 btnPrint, btnDownload_lampiran;
-        ImageView imgStatus, imgCC, imgChecklist;
+        ImageView imgStatus, imgCC, imgChecklist, img_unread;
 
         ImageView imgInfo,imgDownload;
         TextView textInfo, textDownload;
@@ -208,6 +241,7 @@ public class AdapterPersuratanPermohonan extends  RecyclerView.Adapter<AdapterPe
                           Context context,
                           final AdapterPersuratanPermohonan mCourseAdapter) {
             super(itemView);
+            img_unread = (ImageView) itemView.findViewById(R.id.img_unread);
             txtDeadline = (TextView)itemView.findViewById(R.id.lbl_deadline);
             txtJudul = (TextView)itemView.findViewById(R.id.lbl_Judul);
             txtFrom = (TextView)itemView.findViewById(R.id.lbl_from);

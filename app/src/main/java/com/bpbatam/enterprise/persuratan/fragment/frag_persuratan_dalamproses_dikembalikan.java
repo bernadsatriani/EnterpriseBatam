@@ -229,12 +229,6 @@ public class frag_persuratan_dalamproses_dikembalikan extends Fragment implement
             e.printStackTrace();
         }
 
-        if (sFolder.equals("DKM")){
-            txtFolder.setText("Dikembalikan (00/00)");
-        }else{
-            txtFolder.setText("Dalam Proses (00/00)");
-        }
-
         Persuratan_List_Folder params = new Persuratan_List_Folder(AppConstant.HASHID, AppConstant.USER,
                 AppConstant.REQID, sFolder,String.valueOf(iMin),String.valueOf(iMax));
         try{
@@ -366,18 +360,15 @@ public class frag_persuratan_dalamproses_dikembalikan extends Fragment implement
                         }
                     });
                 }else{
+                    frag_persuratan_menu.FillNotif();
                     boolean bDone = false;
                     AppConstant.DISPO_ID = "";
                     for (Persuratan_List_Folder.Datum dat : persuratanListFolder.data){
-                        if (dat.flag.equals("2")){
+                        if (dat.flag != null && dat.flag.equals("2")){
                             bDone = true;
                             AppConstant.DISPO_ID += dat.mail_id + "||";
                         }
                     }
-                   /* if (bDone){
-                        btnDistribusi.setVisibility(View.VISIBLE);
-                    }else btnDistribusi.setVisibility(View.GONE);
-*/
 
                 }
 
@@ -477,7 +468,7 @@ public class frag_persuratan_dalamproses_dikembalikan extends Fragment implement
                     boolean bDone = false;
                     AppConstant.DISPO_ID = "";
                     for (Persuratan_List_Folder.Datum dat : persuratanListFolder.data){
-                        if (dat.flag.equals("2")){
+                        if (dat.flag != null && dat.flag.equals("2")){
                             bDone = true;
                             AppConstant.DISPO_ID += dat.mail_id + "||";
                         }

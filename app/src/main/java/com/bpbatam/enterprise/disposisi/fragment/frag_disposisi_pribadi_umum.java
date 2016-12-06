@@ -9,8 +9,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -53,6 +55,7 @@ import retrofit2.Response;
  * Created by User on 9/19/2016.
  */
 public class frag_disposisi_pribadi_umum extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+
     RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private LinearLayoutManager mLayoutManager;
@@ -67,10 +70,13 @@ public class frag_disposisi_pribadi_umum extends Fragment implements SwipeRefres
 
     ImageView imgMenu;
     TextView txtLabel, txtFolder;
-    Diposisi_List_Folder persuratanListFolder, persuratanListFolderSearch;
+    Diposisi_List_Folder persuratanListFolder,persuratanListFolderFull, persuratanListFolderSearch;
     SwipeRefreshLayout swipeRefreshLayout;
     String statusPesan = "";
     String sFolder = "";
+
+    int iMin, iMax;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -83,6 +89,8 @@ public class frag_disposisi_pribadi_umum extends Fragment implements SwipeRefres
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         InitControl(view);
+        iMin = 1;
+        iMax = 10;
         sFolder = "DFUM";
         AppConstant.FOLDER_DISPOS = sFolder;
         FillGrid();
@@ -120,6 +128,31 @@ public class frag_disposisi_pribadi_umum extends Fragment implements SwipeRefres
                 getActivity().getResources().getColor(R.color.b7_orange),
                 getActivity().getResources().getColor(R.color.red));
 
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                if(dy > 0) //check for scroll down
+                {
+                    int visibleItemCount = mLayoutManager.getChildCount();
+                    int totalItemCount = mLayoutManager.getItemCount();
+                    int pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
+
+                    if ( (visibleItemCount + pastVisiblesItems) >= totalItemCount)
+                    {
+                        if (iMax <= totalItemCount){
+                            iMin = iMax;
+                            iMax += 10;
+                            FillGridMore();
+                        }
+                        //loading = false;
+                        Log.v("...", "Last Item Wow !");
+                        //Do pagination.. i.e. fetch new data
+                    }
+                }
+            }
+        });
     }
 
     void FillGrid(){
@@ -134,7 +167,8 @@ public class frag_disposisi_pribadi_umum extends Fragment implements SwipeRefres
             txtFolder.setText("Folder Pribadi (00/00)");
         }
 
-        Diposisi_List_Folder params = new Diposisi_List_Folder(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID, sFolder,"1","10");
+        Diposisi_List_Folder params = new Diposisi_List_Folder(AppConstant.HASHID, AppConstant.USER,
+                AppConstant.REQID, sFolder,Integer.toString(iMin),Integer.toString(iMax));
         try{
             Call<Diposisi_List_Folder> call = NetworkManager.getNetworkService(getActivity()).getDisposisiFolder(params);
             call.enqueue(new Callback<Diposisi_List_Folder>() {
@@ -145,6 +179,7 @@ public class frag_disposisi_pribadi_umum extends Fragment implements SwipeRefres
                     persuratanListFolder = response.body();
                     if (code == 200){
                         if (persuratanListFolder.code.equals("00")){
+                            persuratanListFolderFull = persuratanListFolder;
                             AppConstant.diposisiListFolder = persuratanListFolder;
                             int iUnread = 0;
 
@@ -196,6 +231,73 @@ public class frag_disposisi_pribadi_umum extends Fragment implements SwipeRefres
 
     }
 
+    void FillGridMore(){
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        Diposisi_List_Folder params = new Diposisi_List_Folder(AppConstant.HASHID, AppConstant.USER,
+                AppConstant.REQID, sFolder,Integer.toString(iMin),Integer.toString(iMax));
+        try{
+            Call<Diposisi_List_Folder> call = NetworkManager.getNetworkService(getActivity()).getDisposisiFolder(params);
+            call.enqueue(new Callback<Diposisi_List_Folder>() {
+                @Override
+                public void onResponse(Call<Diposisi_List_Folder> call, Response<Diposisi_List_Folder> response) {
+                    int code = response.code();
+                    swipeRefreshLayout.setRefreshing(false);
+                    persuratanListFolder = response.body();
+                    if (code == 200){
+                        if (persuratanListFolder.code.equals("00")){
+
+                            for(Diposisi_List_Folder.Datum dat : persuratanListFolder.data){
+                                persuratanListFolderFull.data.add(dat);
+                            }
+                            AppConstant.diposisiListFolder = persuratanListFolderFull;
+                            int iUnread = 0;
+
+                            int iIndex = 0;
+                            if (statusPesan.equals(AppConstant.PILIH_PESAN) || statusPesan.equals(AppConstant.SEMUA_PESAN)){
+                                for (Diposisi_List_Folder.Datum dat : persuratanListFolderFull.data){
+                                    persuratanListFolder.data.get(iIndex).flag = statusPesan;
+                                    iIndex += 1;
+                                }
+                            }
+
+                            for (Diposisi_List_Folder.Datum dat : persuratanListFolderFull.data){
+                                if (dat.read_date !=null && dat.read_date.equals("-")){
+                                    iUnread += 1;
+                                }
+                            }
+
+                            String sUnread = String.valueOf(iUnread);
+                            if (sUnread.length() < 2) sUnread = "0" + sUnread;
+
+                            String sTotal = String.valueOf(persuratanListFolderFull.data.size());
+                            if (sTotal.length() < 2) sTotal = "0" + sTotal;
+                            if (sFolder.equals("DFUM")){
+                                txtFolder.setText("Folder Umum (" + sUnread + "/" + sTotal + ")");
+                            }else{
+                                txtFolder.setText("Folder Pribadi (" + sUnread + "/" + sTotal + ")");
+                            }
+
+                            mAdapter.notifyDataSetChanged();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Diposisi_List_Folder> call, Throwable t) {
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+            });
+        }catch (Exception e){
+            swipeRefreshLayout.setRefreshing(false);
+        }
+
+    }
+
     void FillAdapter(){
         AryListData = new ArrayList<>();
 
@@ -209,7 +311,7 @@ public class frag_disposisi_pribadi_umum extends Fragment implements SwipeRefres
 
         }*/
 
-        mAdapter = new AdapterDisposisiPribadi(getActivity(), persuratanListFolder, new AdapterDisposisiPribadi.OnDownloadClicked() {
+        mAdapter = new AdapterDisposisiPribadi(getActivity(), persuratanListFolderFull, new AdapterDisposisiPribadi.OnDownloadClicked() {
             @Override
             public void OnDownloadClicked(final String sUrl, boolean bStatus) {
                 if (bStatus){
@@ -263,10 +365,11 @@ public class frag_disposisi_pribadi_umum extends Fragment implements SwipeRefres
                         }
                     });
                 }else{
+                    frag_disposisi_menu.FillNotif();
                     boolean bDone = false;
                     AppConstant.DISPO_ID = "";
-                    for (Diposisi_List_Folder.Datum dat : persuratanListFolder.data){
-                        if (dat.flag.equals("2")){
+                    for (Diposisi_List_Folder.Datum dat : persuratanListFolderFull.data){
+                        if (dat.flag != null && dat.flag.equals("2")){
                             bDone = true;
                             AppConstant.DISPO_ID += dat.dispo_id + "||";
                         }
@@ -290,6 +393,8 @@ public class frag_disposisi_pribadi_umum extends Fragment implements SwipeRefres
             if (resultCode == Activity.RESULT_OK) {
                 Bundle res = data.getExtras();
                 sFolder = res.getString("KODE");
+                iMin = 0;
+                iMax = 10;
                 AppConstant.FOLDER_DISPOS = sFolder;
                 FillGrid();
             }
@@ -300,7 +405,7 @@ public class frag_disposisi_pribadi_umum extends Fragment implements SwipeRefres
         sKeyword = sKeyword.toLowerCase(Locale.getDefault());
         persuratanListFolderSearch = new Diposisi_List_Folder();
         persuratanListFolderSearch.data = new ArrayList<>();
-        for (Diposisi_List_Folder.Datum dat : persuratanListFolder.data) {
+        for (Diposisi_List_Folder.Datum dat : persuratanListFolderFull.data) {
 
             if (dat.title != null) {
                 if (dat.title.toLowerCase(Locale.getDefault()).contains(sKeyword))
@@ -362,10 +467,11 @@ public class frag_disposisi_pribadi_umum extends Fragment implements SwipeRefres
                         }
                     });
                 }else{
+                    frag_disposisi_menu.FillNotif();
                     boolean bDone = false;
                     AppConstant.DISPO_ID = "";
                     for (Diposisi_List_Folder.Datum dat : persuratanListFolder.data){
-                        if (dat.flag.equals("2")){
+                        if (dat.flag != null && dat.flag.equals("2")){
                             bDone = true;
                             AppConstant.DISPO_ID += dat.dispo_id + "||";
                         }

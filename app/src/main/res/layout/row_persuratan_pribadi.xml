@@ -26,6 +26,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <ImageView
+                android:layout_marginTop="@dimen/space_2"
+                android:visibility="gone"
+                android:id="@+id/img_unread"
+                android:src="@drawable/ball_red"
+                android:layout_width="@dimen/space_20"
+                android:layout_height="@dimen/space_18" />
             <ui.CustomtextView
                 font:name = "GOTHAM_BOLD"
                 android:textSize="@dimen/space_12"

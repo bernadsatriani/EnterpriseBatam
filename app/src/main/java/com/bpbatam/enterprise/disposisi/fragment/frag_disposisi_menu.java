@@ -58,9 +58,9 @@ public class frag_disposisi_menu extends Fragment {
     String statusPesan;
 
     ImageView imgMenu, imgFolder, imgRiwayat;
-    TextView notif1;
+    static TextView notif1;
 
-    Disposisi_Folder disposisiFolder;
+    static Disposisi_Folder disposisiFolder;
     LinearLayout layout_notif;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -94,7 +94,6 @@ public class frag_disposisi_menu extends Fragment {
             fragmentTransaction.commit();
         }
     }
-
 
 
     void InitControl(View v){
@@ -218,7 +217,7 @@ public class frag_disposisi_menu extends Fragment {
                 imgFolder.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.folder_icon));
                 imgRiwayat.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.riwayat_icon_inactive));
                 AppConstant.ACTIVITY_FROM = "FOLDER (01/08)";
-                notif1.setVisibility(View.GONE);
+                //notif1.setVisibility(View.GONE);
                 fragment = null;
                 fragment = new frag_disposisi_pribadi_umum();
                 line1.setBackgroundResource( R.color.colorBar );
@@ -293,7 +292,7 @@ public class frag_disposisi_menu extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    void FillNotif(){
+    public static void FillNotif(){
         try {
             AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
         } catch (NoSuchAlgorithmException e) {
@@ -302,7 +301,7 @@ public class frag_disposisi_menu extends Fragment {
 
         try{
             Disposisi_Folder params = new Disposisi_Folder(AppConstant.HASHID , AppConstant.USER, AppConstant.REQID);
-            Call<Disposisi_Folder> call = NetworkManager.getNetworkService(getActivity()).getDisposisiFolder(params);
+            Call<Disposisi_Folder> call = NetworkManager.getNetworkService().getDisposisiFolder(params);
             call.enqueue(new Callback<Disposisi_Folder>() {
                 @Override
                 public void onResponse(Call<Disposisi_Folder> call, Response<Disposisi_Folder> response) {

@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bpbatam.AppConstant;
+import com.bpbatam.AppController;
 import com.bpbatam.enterprise.CC_Activity;
 import com.bpbatam.enterprise.DistribusiActivity;
 import com.bpbatam.enterprise.R;
@@ -20,11 +21,13 @@ import com.bpbatam.enterprise.disposisi.disposisi_detail;
 import com.bpbatam.enterprise.disposisi.disposisi_lihat_surat;
 import com.bpbatam.enterprise.model.Diposisi_List_Folder;
 import com.bpbatam.enterprise.model.Disposisi_Attachment;
+import com.bpbatam.enterprise.model.Disposisi_Detail;
 import com.bpbatam.enterprise.model.ListData;
 import com.bpbatam.enterprise.model.Persuratan_List_Folder;
 import com.bpbatam.enterprise.model.net.NetworkManager;
 import com.bpbatam.enterprise.persuratan.adapter.AdapterPersuratanUmum;
 
+import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -40,6 +43,7 @@ public class AdapterDisposisiPribadi extends  RecyclerView.Adapter<AdapterDispos
     Disposisi_Attachment disposisiAttachment;
     private Context context;
 
+    Disposisi_Detail disposisiDetail;
     public AdapterDisposisiPribadi(Context context, Diposisi_List_Folder persuratanListFolder, OnDownloadClicked listener) {
         this.context = context;
         this.persuratanListFolder = persuratanListFolder;
@@ -76,6 +80,13 @@ public class AdapterDisposisiPribadi extends  RecyclerView.Adapter<AdapterDispos
 
         holder.layoutButton.setVisibility(View.VISIBLE);
         holder.btnDownload_lampiran.setVisibility(View.GONE);
+
+        if (listData.read_date !=null && listData.read_date.equals("-")){
+            holder.img_unread.setVisibility(View.VISIBLE);
+        }else{
+            holder.img_unread.setVisibility(View.GONE);
+        }
+
         //holder.layoutAttc.setVisibility(View.GONE);
         final DecimalFormat precision = new DecimalFormat("0.00");
         try{
@@ -163,7 +174,9 @@ public class AdapterDisposisiPribadi extends  RecyclerView.Adapter<AdapterDispos
                 AppConstant.EMAIL_ID = listData.dispo_id;
                 AppConstant.DISPO_ID = Integer.toString(listData.dispo_id);
                 Intent intent = new Intent(context, CC_Activity.class);
+                holder.img_unread.setVisibility(View.GONE);
                 context.startActivity(intent);
+                UpdateDetail();
             }
         });
 
@@ -174,6 +187,8 @@ public class AdapterDisposisiPribadi extends  RecyclerView.Adapter<AdapterDispos
                 AppConstant.DISPO_ID = Integer.toString(listData.dispo_id);
                 Intent intent = new Intent(context, disposisi_detail.class);
                 v.getContext().startActivity(intent);
+                holder.img_unread.setVisibility(View.GONE);
+                UpdateDetail();
             }
         });
 
@@ -197,35 +212,38 @@ public class AdapterDisposisiPribadi extends  RecyclerView.Adapter<AdapterDispos
                 AppConstant.DISPO_ID = Integer.toString(listData.dispo_id);
                 Intent intent = new Intent(context, disposisi_lihat_surat.class);
                 v.getContext().startActivity(intent);
+                holder.img_unread.setVisibility(View.GONE);
+                UpdateDetail();
             }
         });
 
         holder.listData = listData;
     }
 
-    /*void ButtonSelected(AdapterDisposisiPribadi.ViewHolder holder){
-        holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.check32));
-        holder.imgInfo.setColorFilter(context.getResources().getColor(R.color.white));
-        holder.imgDownload.setColorFilter(context.getResources().getColor(R.color.white));
-        holder.textDownload.setTextColor(context.getResources().getColor(R.color.white));
-        holder.textInfo.setTextColor(context.getResources().getColor(R.color.white));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            holder.btnDownload.setBackground(context.getResources().getDrawable(R.drawable.btn_shape_all_blue));
-            holder.btnPrint.setBackground(context.getResources().getDrawable(R.drawable.btn_shape_facebook));
+    void UpdateDetail(){
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
         }
-    }*/
 
-    /*void ButtonNotSelected(AdapterDisposisiPribadi.ViewHolder holder){
-        holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.circle));
-        holder.imgInfo.setColorFilter(context.getResources().getColor(R.color.grey));
-        holder.imgDownload.setColorFilter(context.getResources().getColor(R.color.colorAccept));
-        holder.textDownload.setTextColor(context.getResources().getColor(R.color.grey));
-        holder.textInfo.setTextColor(context.getResources().getColor(R.color.grey));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            holder.btnDownload.setBackground(context.getResources().getDrawable(R.drawable.btn_shape_all_transparant_blue));
-            holder.btnPrint.setBackground(context.getResources().getDrawable(R.drawable.btn_shape_all_transparant_blue));
-        }
-    }*/
+        Disposisi_Detail params = new Disposisi_Detail(AppConstant.HASHID,
+                AppConstant.USER,
+                AppConstant.REQID,
+                Integer.toString(AppConstant.EMAIL_ID));
+        Call<Disposisi_Detail>call = NetworkManager.getNetworkService().getDisposisiDetail(params);
+        call.enqueue(new Callback<Disposisi_Detail>() {
+            @Override
+            public void onResponse(Call<Disposisi_Detail> call, Response<Disposisi_Detail> response) {
+                listener.OnDownloadClicked("", false);
+            }
+
+            @Override
+            public void onFailure(Call<Disposisi_Detail> call, Throwable t) {
+
+            }
+        });
+    }
 
     @Override
     public int getItemCount() {
@@ -245,7 +263,7 @@ public class AdapterDisposisiPribadi extends  RecyclerView.Adapter<AdapterDispos
 
         RelativeLayout btnLihatSurat, layoutCheckList,
                 btnPrint, btnDownload_lampiran;
-        ImageView imgStatus, imgCC, imgChecklist;
+        ImageView imgStatus, imgCC, imgChecklist, img_unread;
 
         ImageView imgInfo,imgDownload;
         TextView textInfo, textDownload;
@@ -255,6 +273,7 @@ public class AdapterDisposisiPribadi extends  RecyclerView.Adapter<AdapterDispos
                           Context context,
                           final AdapterDisposisiPribadi mCourseAdapter) {
             super(itemView);
+            img_unread = (ImageView) itemView.findViewById(R.id.img_unread);
             txtNomor = (TextView)itemView.findViewById(R.id.lbl_nomor);
             txtJudul = (TextView)itemView.findViewById(R.id.lbl_Judul);
             txtFrom = (TextView)itemView.findViewById(R.id.lbl_from);

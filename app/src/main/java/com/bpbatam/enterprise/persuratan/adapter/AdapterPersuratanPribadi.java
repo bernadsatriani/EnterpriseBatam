@@ -46,8 +46,10 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
 
     Persuratan_Attachment persuratanAttachment;
     private ArrayList<ListData> mCourseArrayList;
-    private Context context;
+    private
+    Context context;
 
+    Persuratan_Detail persuratanDetail;
     public AdapterPersuratanPribadi(Context context, Persuratan_List_Folder persuratanListFolder, OnDownloadClicked listener) {
         this.context = context;
         this.persuratanListFolder = persuratanListFolder;
@@ -91,6 +93,13 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
         holder.lbl_Attach.setText(listData.title);
         holder.lbl_Size.setText("");
 */
+
+
+        if (listData.read_date !=null && listData.read_date.equals("-")){
+            holder.img_unread.setVisibility(View.VISIBLE);
+        }else{
+            holder.img_unread.setVisibility(View.GONE);
+        }
 
 
         try {
@@ -145,6 +154,7 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
         holder.btnDownload_lampiran.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 AppConstant.DISPO_ID = Integer.toString(listData.mail_id);
                 AppConstant.EMAIL_ID = listData.mail_id;
                 //https://www.dropbox.com/s/jadu92w71vnku3o/Wireframe.pdf?dl=0
@@ -204,6 +214,7 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
                 AppConstant.EMAIL_ID = listData.mail_id;
                 Intent intent = new Intent(context, persuratan_detail.class);
                 v.getContext().startActivity(intent);
+                UpdateDetail();
             }
         });
 
@@ -213,35 +224,37 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
                 AppConstant.EMAIL_ID = listData.mail_id;
                 Intent intent = new Intent(context, persuratan_lihat_surat.class);
                 v.getContext().startActivity(intent);
+                UpdateDetail();
             }
         });
 
         holder.listData = listData;
     }
 
-    /*void ButtonSelected(ViewHolder holder){
-        holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.check32));
-        holder.imgInfo.setColorFilter(context.getResources().getColor(R.color.white));
-        holder.imgDownload.setColorFilter(context.getResources().getColor(R.color.white));
-        holder.textDownload.setTextColor(context.getResources().getColor(R.color.white));
-        holder.textInfo.setTextColor(context.getResources().getColor(R.color.white));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            holder.btnDownload.setBackground(context.getResources().getDrawable(R.drawable.btn_shape_all_blue));
-            holder.btnPrint.setBackground(context.getResources().getDrawable(R.drawable.btn_shape_facebook));
+    void UpdateDetail(){
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
         }
-    }
 
-    void ButtonNotSelected(ViewHolder holder){
-        holder.imgChecklist.setImageDrawable(context.getResources().getDrawable(R.drawable.circle));
-        holder.imgInfo.setColorFilter(context.getResources().getColor(R.color.grey));
-        holder.imgDownload.setColorFilter(context.getResources().getColor(R.color.colorAccept));
-        holder.textDownload.setTextColor(context.getResources().getColor(R.color.grey));
-        holder.textInfo.setTextColor(context.getResources().getColor(R.color.grey));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            holder.btnDownload.setBackground(context.getResources().getDrawable(R.drawable.btn_shape_all_transparant_blue));
-            holder.btnPrint.setBackground(context.getResources().getDrawable(R.drawable.btn_shape_all_transparant_blue));
-        }
-    }*/
+        Persuratan_Detail params = new Persuratan_Detail(AppConstant.HASHID,
+                AppConstant.USER,
+                AppConstant.REQID,
+                Integer.toString(AppConstant.EMAIL_ID));
+        Call<Persuratan_Detail> call = NetworkManager.getNetworkService().getMailDetail(params);
+        call.enqueue(new Callback<Persuratan_Detail>() {
+            @Override
+            public void onResponse(Call<Persuratan_Detail> call, Response<Persuratan_Detail> response) {
+                listener.OnDownloadClicked("", false);
+            }
+
+            @Override
+            public void onFailure(Call<Persuratan_Detail> call, Throwable t) {
+
+            }
+        });
+    }
 
     @Override
     public int getItemCount() {
@@ -261,7 +274,7 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
 
         RelativeLayout btnLihatSurat, layoutCheckList,
                 btnPrint, btnDownload_lampiran;
-        ImageView imgStatus, imgCC, imgChecklist;
+        ImageView imgStatus, imgCC, imgChecklist, img_unread;
 
         ImageView imgInfo,imgDownload;
         TextView textInfo, textDownload;
@@ -271,6 +284,7 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
                           Context context,
                           final AdapterPersuratanPribadi mCourseAdapter) {
             super(itemView);
+            img_unread = (ImageView) itemView.findViewById(R.id.img_unread);
             txtNomor = (TextView)itemView.findViewById(R.id.lbl_nomor);
             txtJudul = (TextView)itemView.findViewById(R.id.lbl_Judul);
             txtFrom = (TextView)itemView.findViewById(R.id.lbl_from);

@@ -256,55 +256,58 @@ public class frag_persuratan_permohonan extends Fragment implements SwipeRefresh
         mAdapter = new AdapterPersuratanPermohonan(getActivity(), persuratanListFolderFull, new AdapterPersuratanPermohonan.OnDownloadClicked() {
             @Override
             public void OnDownloadClicked(final String sUrl, boolean bStatus) {
-                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(sUrl));
-                AppConstant.PDF_FILENAME = AppController.getInstance().getFileName(sUrl);
-                AppConstant.PDF_FILENAME = AppConstant.PDF_FILENAME.replace("%20"," ");
+                if (bStatus){
+                    DownloadManager.Request request = new DownloadManager.Request(Uri.parse(sUrl));
+                    AppConstant.PDF_FILENAME = AppController.getInstance().getFileName(sUrl);
+                    AppConstant.PDF_FILENAME = AppConstant.PDF_FILENAME.replace("%20"," ");
 
-                File file = new File(AppConstant.STORAGE_CARD + "/Download/" + AppConstant.PDF_FILENAME);
-                if (file.exists()){
-                    Intent intent = new Intent(getActivity(), PDFViewActivityDitolakDisetujui.class);
-                    getActivity().startActivity(intent);
-                }else{
-                    mRecyclerView.setVisibility(View.GONE);
-                    rLayoutDownload.setVisibility(View.VISIBLE);
-
-                    request.setTitle(AppConstant.PDF_FILENAME);
-
-                    request.setDescription("DESCRIPTION");
-                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                    // request.setDestinationInExternalPublicDir(AppConstant.FOLDER_DOWNLOAD, "DOWNLOAD_FILE_NAME.pdf");
-
-                    File root = new File(AppConstant.STORAGE_CARD + "/Download/");
-                    Uri path = Uri.withAppendedPath(Uri.fromFile(root), AppConstant.PDF_FILENAME);
-                    request.setDestinationUri(path);
-
-                    downloadID = downloadManager.enqueue(request);
-                }
-
-                downloadProgressView.show(downloadID, new DownloadProgressView.DownloadStatusListener() {
-                    @Override
-                    public void downloadFailed(int reason) {
-                        //Action to perform when download fails, reason as returned by DownloadManager.COLUMN_REASON
-                        mRecyclerView.setVisibility(View.VISIBLE);
-                        rLayoutDownload.setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void downloadSuccessful() {
-                        //Action to perform on success
-                        mRecyclerView.setVisibility(View.VISIBLE);
-                        rLayoutDownload.setVisibility(View.GONE);
+                    File file = new File(AppConstant.STORAGE_CARD + "/Download/" + AppConstant.PDF_FILENAME);
+                    if (file.exists()){
                         Intent intent = new Intent(getActivity(), PDFViewActivityDitolakDisetujui.class);
                         getActivity().startActivity(intent);
+                    }else{
+                        mRecyclerView.setVisibility(View.GONE);
+                        rLayoutDownload.setVisibility(View.VISIBLE);
+
+                        request.setTitle(AppConstant.PDF_FILENAME);
+
+                        request.setDescription("DESCRIPTION");
+                        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                        // request.setDestinationInExternalPublicDir(AppConstant.FOLDER_DOWNLOAD, "DOWNLOAD_FILE_NAME.pdf");
+
+                        File root = new File(AppConstant.STORAGE_CARD + "/Download/");
+                        Uri path = Uri.withAppendedPath(Uri.fromFile(root), AppConstant.PDF_FILENAME);
+                        request.setDestinationUri(path);
+
+                        downloadID = downloadManager.enqueue(request);
                     }
 
-                    @Override
-                    public void downloadCancelled() {
-                        //Action to perform when user press the cancel button
-                        mRecyclerView.setVisibility(View.VISIBLE);
-                        rLayoutDownload.setVisibility(View.GONE);
-                    }
-                });
+                    downloadProgressView.show(downloadID, new DownloadProgressView.DownloadStatusListener() {
+                        @Override
+                        public void downloadFailed(int reason) {
+                            //Action to perform when download fails, reason as returned by DownloadManager.COLUMN_REASON
+                            mRecyclerView.setVisibility(View.VISIBLE);
+                            rLayoutDownload.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void downloadSuccessful() {
+                            //Action to perform on success
+                            mRecyclerView.setVisibility(View.VISIBLE);
+                            rLayoutDownload.setVisibility(View.GONE);
+                            Intent intent = new Intent(getActivity(), PDFViewActivityDitolakDisetujui.class);
+                            getActivity().startActivity(intent);
+                        }
+
+                        @Override
+                        public void downloadCancelled() {
+                            //Action to perform when user press the cancel button
+                            mRecyclerView.setVisibility(View.VISIBLE);
+                            rLayoutDownload.setVisibility(View.GONE);
+                        }
+                    });
+                }
+
             }
         });
         // set the adapter object to the Recyclerview
