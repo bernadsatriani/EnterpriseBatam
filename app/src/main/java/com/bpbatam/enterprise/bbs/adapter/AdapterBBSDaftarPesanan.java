@@ -267,9 +267,12 @@ public class AdapterBBSDaftarPesanan extends  RecyclerView.Adapter<AdapterBBSDaf
                     mIntent.putExtra("BBS_NAME", listData.name);
                     mIntent.putExtra("BBS_JUDUL", listData.title);
                     mIntent.putExtra("BBS_SIZE", holder.lbl_Size.getText().toString());
-                    mIntent.putExtra("BBS_ISI", listData.title);
+                    mIntent.putExtra("BBS_ISI", holder.lbl_Judul.getText().toString());
                     mIntent.putExtra("BBS_DATE", listData.bbs_date);
                     mIntent.putExtra("BBS_READ", listData.read_sts);
+                    mIntent.putExtra("BBS_CATEGORY", listData.category_id);
+                    mIntent.putExtra("BBS_CATEGORY_NAME", holder.txtFrom.getText().toString());
+                    mIntent.putExtra("BBS_PRIORITY", String.valueOf(listData.priority_id));
                     AppConstant.EMAIL_ID = listData.bbs_id;
                     context.startActivity(mIntent);
 

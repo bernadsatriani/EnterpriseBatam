@@ -60,7 +60,7 @@ public class BBS_edit_berita extends AppCompatActivity {
     String[] lstCategory;
 
     Uri uri;
-    String sCategory_Id, sPriority_id;
+    String sCategory_Id, sPriority_id, sCategory_Name;
     RelativeLayout layoutLampiran, layoutAttachment, layoutKategori, layout_btn_status;
     boolean bDelete, bUpload;
 
@@ -73,7 +73,34 @@ public class BBS_edit_berita extends AppCompatActivity {
         bUpload = false;
         sCategory_Id = "";
         sPriority_id = "0";
+        sCategory_Name = "";
         InitControl();
+
+        try{
+            sPriority_id = getIntent().getExtras().getString("BBS_PRIORITY").trim();
+        }catch (Exception e){
+            sPriority_id = "0";
+        }
+
+        try{
+            sCategory_Name = getIntent().getExtras().getString("BBS_CATEGORY_NAME").trim();
+        }catch (Exception e){
+            sCategory_Id = "";
+        }
+
+        try{
+            sCategory_Id = getIntent().getExtras().getString("BBS_CATEGORY").trim();
+        }catch (Exception e){
+            sCategory_Id = "";
+        }
+
+        try{
+            sCategory_Id = getIntent().getExtras().getString("BBS_CATEGORY").trim();
+        }catch (Exception e){
+            sCategory_Id = "";
+        }
+
+
         try{
             sName = getIntent().getExtras().getString("BBS_NAME").trim();
         }catch (Exception e){
@@ -115,11 +142,14 @@ public class BBS_edit_berita extends AppCompatActivity {
         txtJudul.setText(sJudul);
         txtAttach.setText(sFileName);
         txtSize.setText(sSize);
+        txtHeader.setText(sIsi);
+        txtKategori.setText(sCategory_Name);
 
         if (sSize.equals("")) layoutAttachment.setVisibility(View.GONE);
 
         //FillSpinner();
         //FillSpinnerCategory();
+        FillPrioriti();
     }
 
     void InitControl(){

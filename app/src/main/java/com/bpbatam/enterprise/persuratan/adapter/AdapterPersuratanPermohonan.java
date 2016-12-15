@@ -22,6 +22,9 @@ import com.bpbatam.enterprise.model.Persuratan_List_Folder;
 import com.bpbatam.enterprise.model.net.NetworkManager;
 import com.bpbatam.enterprise.persuratan.persuratan_detail;
 import com.bpbatam.enterprise.persuratan.persuratan_lihat_surat;
+import com.bpbatam.enterprise.persuratan.persuratan_lihat_surat_DitolakDisetujui;
+import com.bpbatam.enterprise.persuratan.persuratan_lihat_surat_recall;
+import com.bpbatam.enterprise.persuratan.persuratan_lihat_surat_simpan_kirim;
 
 import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
@@ -181,8 +184,19 @@ public class AdapterPersuratanPermohonan extends  RecyclerView.Adapter<AdapterPe
             public void onClick(View v) {
                 AppConstant.DISPO_ID = Integer.toString(listData.mail_id);
                 AppConstant.EMAIL_ID = listData.mail_id;
-                Intent intent = new Intent(context, persuratan_lihat_surat.class);
-                v.getContext().startActivity(intent);
+
+                if(AppConstant.FOLDER_DISPOS.equals("DPR")){
+                    Intent intent = new Intent(context, persuratan_lihat_surat_recall.class);
+                    v.getContext().startActivity(intent);
+                }else if(AppConstant.FOLDER_DISPOS.equals("DKM")){
+                    Intent intent = new Intent(context, persuratan_lihat_surat_simpan_kirim.class);
+                    v.getContext().startActivity(intent);
+                }else if(AppConstant.FOLDER_DISPOS.equals("FUM")){
+                    Intent intent = new Intent(context, persuratan_lihat_surat_DitolakDisetujui.class);
+                    v.getContext().startActivity(intent);
+                }
+
+
             }
         });
         holder.listData = listData;

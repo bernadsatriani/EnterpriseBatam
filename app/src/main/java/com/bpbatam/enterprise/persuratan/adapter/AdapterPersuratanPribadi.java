@@ -27,6 +27,7 @@ import com.bpbatam.enterprise.model.Persuratan_List_Folder;
 import com.bpbatam.enterprise.model.net.NetworkManager;
 import com.bpbatam.enterprise.persuratan.persuratan_detail;
 import com.bpbatam.enterprise.persuratan.persuratan_lihat_surat;
+import com.bpbatam.enterprise.persuratan.persuratan_lihat_surat_disposisi_distribusi;
 
 import org.json.JSONObject;
 
@@ -222,8 +223,14 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
             @Override
             public void onClick(View v) {
                 AppConstant.EMAIL_ID = listData.mail_id;
-                Intent intent = new Intent(context, persuratan_lihat_surat.class);
-                v.getContext().startActivity(intent);
+                if (AppConstant.FOLDER_DISPOS.equals("FUM")){
+                    Intent intent = new Intent(context, persuratan_lihat_surat.class);
+                    v.getContext().startActivity(intent);
+                }else{
+                    Intent intent = new Intent(context, persuratan_lihat_surat_disposisi_distribusi.class);
+                    v.getContext().startActivity(intent);
+                }
+
                 UpdateDetail();
             }
         });

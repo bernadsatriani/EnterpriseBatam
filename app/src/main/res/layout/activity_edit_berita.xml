@@ -167,7 +167,6 @@
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:textStyle="italic"
-                android:layout_below="@+id/lbl_Isi"
                 android:layout_marginTop="@dimen/space_7"
                 android:layout_marginLeft="@dimen/space_7"
                 android:layout_alignParentLeft="true"
@@ -225,8 +224,7 @@
             android:layout_marginRight="@dimen/space_16"
             android:layout_alignParentRight="true"
             android:layout_width="@dimen/space_30"
-            android:layout_height="@dimen/space_30"
-            android:layout_below="@+id/text_header" />
+            android:layout_height="@dimen/space_30"/>
     </RelativeLayout>
 
 

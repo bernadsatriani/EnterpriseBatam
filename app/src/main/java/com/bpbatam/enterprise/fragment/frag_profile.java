@@ -1,5 +1,6 @@
 package com.bpbatam.enterprise.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -7,11 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bpbatam.AppConstant;
 import com.bpbatam.AppController;
+import com.bpbatam.LoginActivity;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.model.USER_Info;
+import com.bpbatam.enterprise.model.UpdateDeviceId;
 import com.bpbatam.enterprise.model.net.NetworkManager;
 
 import java.security.NoSuchAlgorithmException;
@@ -37,6 +41,7 @@ public class frag_profile extends Fragment {
 
     USER_Info userInfo;
     RelativeLayout layout_logout;
+    UpdateDeviceId updateDeviceId;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -74,11 +79,48 @@ public class frag_profile extends Fragment {
         layout_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppController.getInstance().getSessionManager().setUserAccount(null);
-                AppConstant.EXIT = true;
-                getActivity().finish();
+                fUpdateDeviceID();
             }
         });
+    }
+
+    void fUpdateDeviceID(){
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        UpdateDeviceId params = new UpdateDeviceId(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID, "-");
+
+        try{
+            Call<UpdateDeviceId> call = NetworkManager.getNetworkService(getActivity()).updateDeviceID(params);
+            call.enqueue(new Callback<UpdateDeviceId>() {
+                @Override
+                public void onResponse(Call<UpdateDeviceId> call, Response<UpdateDeviceId> response) {
+                    int code = response.code();
+
+                    if (code == 200){
+                        updateDeviceId = response.body();
+                        if (updateDeviceId.code.equals("00")){
+                            AppController.getInstance().getSessionManager().setUserAccount(null);
+                            AppConstant.EXIT = true;
+                            getActivity().finish();
+                            Intent mIntent = new Intent(getActivity(), LoginActivity.class);
+                            startActivity(mIntent);
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<UpdateDeviceId> call, Throwable t) {
+
+                    String a = t.getMessage();
+                    a = a;
+                }
+            });
+        }catch (Exception e){
+        }
     }
 
     void GetDataUser(){

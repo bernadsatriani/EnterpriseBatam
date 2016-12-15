@@ -59,7 +59,7 @@ public class DistribusiActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_distribusi);
         InitControl();
-
+        AppConstant.USER_DISTRI = "";
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.arrow_back_white);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

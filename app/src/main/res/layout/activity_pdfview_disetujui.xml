@@ -50,6 +50,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:visibility="gone"
             android:id="@+id/btnDistribusi"
             android:background="@color/colorAccept"
             android:layout_width="match_parent"

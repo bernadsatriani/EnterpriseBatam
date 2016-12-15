@@ -91,6 +91,7 @@
                 <ui.CustomtextView
                     font:name="GOTHAM_BOOK"
                     android:id="@+id/lbl_Judul"
+                    android:layout_marginRight="@dimen/space_14"
                     android:text="Tutorial Backup Hapus Email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

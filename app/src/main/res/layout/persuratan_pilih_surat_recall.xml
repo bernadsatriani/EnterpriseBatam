@@ -1,56 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:font="http://schemas.android.com/apk/res-auto"
-    android:background="@color/colorSecondaryBackground">
+    android:orientation="vertical"
+    android:background="@color/colorSecondaryBackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <include
         android:id="@+id/tool_bar"
-        layout="@layout/tool_bar" >
-    </include>
+        layout="@layout/tool_bar_lihat_surat"
+        />
+
+    <View
+        android:background="@color/colorLineBar"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:layout_margin="@dimen/space_14"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ui.CustomtextView
+            android:id="@+id/text_isi"
+            android:padding="@dimen/space_10"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorSecondaryBackground">
+        android:layout_height="match_parent">
+        <WebView
+            android:id="@+id/webview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_above="@+id/btnDistribusi" />
 
         <RelativeLayout
-            android:background="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="422dp"
-            android:layout_marginLeft="@dimen/space_10"
-            android:layout_marginRight="@dimen/space_10"
-            android:layout_above="@+id/btnDistribusi"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="@dimen/space_10">
-
-            <ImageView
-                android:visibility="gone"
-                android:layout_margin="@dimen/space_10"
-                android:id="@+id/imgView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <com.github.barteksc.pdfviewer.PDFView
-                android:id="@+id/pdfView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/space_5"
-                android:layout_marginRight="@dimen/space_5"
-                android:background="@color/white"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentBottom="true">
-
-            </com.github.barteksc.pdfviewer.PDFView>
-
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:visibility="gone"
             android:id="@+id/btnDistribusi"
             android:background="@color/colorBottomNavigationInactive"
             android:layout_width="match_parent"
@@ -86,6 +75,6 @@
 
             </LinearLayout>
         </RelativeLayout>
-
     </RelativeLayout>
+
 </LinearLayout>

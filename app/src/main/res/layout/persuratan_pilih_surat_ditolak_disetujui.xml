@@ -1,63 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:font="http://schemas.android.com/apk/res-auto"
-    android:background="@color/colorSecondaryBackground">
+    android:orientation="vertical"
+    android:background="@color/colorSecondaryBackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <include
         android:id="@+id/tool_bar"
-        layout="@layout/tool_bar" >
-    </include>
+        layout="@layout/tool_bar_lihat_surat"
+        />
+
+    <View
+        android:background="@color/colorLineBar"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:layout_margin="@dimen/space_14"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ui.CustomtextView
+            android:id="@+id/text_isi"
+            android:padding="@dimen/space_10"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorSecondaryBackground">
-
-        <RelativeLayout
-            android:background="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="422dp"
-            android:layout_marginLeft="@dimen/space_10"
-            android:layout_marginRight="@dimen/space_10"
-            android:layout_above="@+id/btnDistribusi"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="@dimen/space_10">
-
-            <ImageView
-                android:visibility="gone"
-                android:layout_margin="@dimen/space_10"
-                android:id="@+id/imgView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <com.github.barteksc.pdfviewer.PDFView
-                android:id="@+id/pdfView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/space_5"
-                android:layout_marginRight="@dimen/space_5"
-                android:background="@color/white"
-                android:layout_alignParentTop="true">
-
-            </com.github.barteksc.pdfviewer.PDFView>
-
-
-        </RelativeLayout>
-
+        android:layout_height="match_parent">
+        <WebView
+            android:id="@+id/webview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_above="@+id/btnDistribusi" />
         <LinearLayout
-            android:visibility="gone"
             android:id="@+id/btnDistribusi"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_alignParentBottom="true">
 
             <LinearLayout
-                android:id="@+id/btnSimpan"
+                android:id="@+id/btnDitolak"
                 android:orientation="horizontal"
-                android:background="@color/colorSearch"
+                android:background="@color/colorReject"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentTop="true"
@@ -69,7 +59,7 @@
                     font:name = "GOTHAM_BOLD"
                     android:textColor="@color/white"
                     android:textSize="@dimen/space_14"
-                    android:text="Simpan"
+                    android:text="Ditolak"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="fill_vertical"
@@ -77,7 +67,7 @@
                     android:paddingRight="@dimen/space_5"/>
 
                 <ImageView
-                    android:src="@drawable/downloadsave32"
+                    android:src="@drawable/cancel"
                     android:layout_marginLeft="@dimen/space_14"
                     android:layout_gravity="fill_vertical"
                     android:layout_width="@dimen/space_20"
@@ -86,7 +76,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/btnKirim"
+                android:id="@+id/btnDisetujui"
                 android:orientation="horizontal"
                 android:background="@color/colorAccept"
                 android:layout_width="wrap_content"
@@ -100,7 +90,7 @@
                     font:name = "GOTHAM_BOLD"
                     android:textColor="@color/white"
                     android:textSize="@dimen/space_14"
-                    android:text="Kirim"
+                    android:text="Disetujui"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="fill_vertical"
@@ -108,13 +98,13 @@
                     android:paddingRight="@dimen/space_5"/>
 
                 <ImageView
-                    android:src="@drawable/right"
+                    android:src="@drawable/check32"
                     android:layout_marginLeft="@dimen/space_14"
                     android:layout_gravity="fill_vertical"
                     android:layout_width="@dimen/space_20"
                     android:layout_height="match_parent" />
             </LinearLayout>
         </LinearLayout>
-
     </RelativeLayout>
+
 </LinearLayout>

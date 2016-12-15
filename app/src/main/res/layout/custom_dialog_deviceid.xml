@@ -21,12 +21,14 @@
             android:textSize="@dimen/space_14"
             android:gravity="center"
             android:padding="@dimen/space_18"
-            android:text="Incorrect Username or Password Try Again !"
+            android:text="Apakah Anda Akan Ganti Device ?"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </RelativeLayout>
 
-    <RelativeLayout
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_marginTop="@dimen/space_10"
         android:layout_marginLeft="@dimen/space_20"
         android:layout_marginRight="@dimen/space_20"
@@ -35,13 +37,31 @@
         android:layout_height="@dimen/space_50">
 
         <ui.CustomtextView
-            android:id="@+id/text_dismiss"
+            android:id="@+id/text_yes"
             font:name = "GOTHAM_BOLD"
             android:textColor="@color/colorReject"
             android:textSize="@dimen/space_18"
             android:gravity="center"
-            android:text="DISMISS"
+            android:text="YES"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </RelativeLayout>
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <View
+            android:layout_marginTop="@dimen/space_5"
+            android:layout_marginBottom="@dimen/space_5"
+            android:background="@color/colorLineBar"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"/>
+        <ui.CustomtextView
+            android:id="@+id/text_no"
+            font:name = "GOTHAM_BOLD"
+            android:textColor="@color/colorReject"
+            android:textSize="@dimen/space_18"
+            android:gravity="center"
+            android:text="NO"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+    </LinearLayout>
 </LinearLayout>

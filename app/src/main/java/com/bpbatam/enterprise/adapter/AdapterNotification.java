@@ -2,6 +2,7 @@ package com.bpbatam.enterprise.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,10 +44,28 @@ public class AdapterNotification extends  RecyclerView.Adapter<AdapterNotificati
     public void onBindViewHolder(ViewHolder holder, int position) {
         Disposisi_Notifikasi.Datum listData = disposisiNotifikasi.data.get(position);
         //Set text
-        holder.txtDate.setText(listData.receive_date);
-        holder.txtFrom.setText(listData.sender_name);
-        holder.txtJudul.setText(listData.title);
-        holder.txtStatus.setText(listData.location);
+        holder.txtDate.setText("");
+        holder.txtStatus.setText(listData.receive_date);
+        //holder.txtFrom.setText(listData.title);
+        holder.txtFrom.setText(listData.title);
+
+        if (listData.notif_type.toUpperCase().equals("DISPO")){
+            String sFrom = "Anda Mendapatkan Disposisi dari <b>#</b>";
+            sFrom = sFrom.replace("#", listData.sender_name);
+            holder.txtJudul.setText(Html.fromHtml(sFrom));
+        }else if (listData.notif_type.toUpperCase().equals("MAIL")){
+            String sFrom = "Anda Mendapatkan Surat dari <b>#</b>";
+            sFrom = sFrom.replace("#", listData.sender_name);
+            holder.txtJudul.setText(Html.fromHtml(sFrom));
+        }else{
+            //holder.txtFrom.setText("Anda Mendapatkan (CC) Disposisi");
+            String sFrom = "Anda Mendapatkan tembusan (CC) Disposisi dari <b>#</b>";
+            sFrom = sFrom.replace("#", listData.sender_name);
+            holder.txtJudul.setText(Html.fromHtml(sFrom));
+        }
+
+
+
 
     }
 

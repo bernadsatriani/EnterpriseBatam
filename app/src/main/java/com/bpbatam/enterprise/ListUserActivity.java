@@ -50,7 +50,6 @@ public class ListUserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_user);
 
         InitControl();
-        AppConstant.USER_DISTRI = "";
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         FillGrid("");

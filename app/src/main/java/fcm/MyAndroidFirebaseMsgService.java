@@ -28,6 +28,9 @@ public class MyAndroidFirebaseMsgService extends FirebaseMessagingService {
         Log.d(TAG, "From: " + remoteMessage.getFrom());
         Log.d(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
         //create notification
+       /* Uri sound= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder mNotificationBuilder = new NotificationCompat.Builder( this).setSound(sound);*/
+
         createNotification(remoteMessage.getNotification().getBody());
     }
 

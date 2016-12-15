@@ -1,11 +1,14 @@
 package com.bpbatam.enterprise.bbs;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -167,7 +170,13 @@ public class BBS_add_berita extends AppCompatActivity {
         txtPublikasi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                UpdateBSB();
+
+                if (sCategory_Id.equals("")){
+                    CustomeDialog();
+                }else{
+                    UpdateBSB();
+                }
+
             }
         });
 
@@ -188,6 +197,27 @@ public class BBS_add_berita extends AppCompatActivity {
                 DeleteBBSAttachment();
             }
         });
+    }
+
+    void CustomeDialog(){
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.custom_dialog);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        //dialog.setTitle("Title...");
+
+        TextView txtDismis = (TextView)dialog.findViewById(R.id.text_dismiss);
+        TextView txtDialog = (TextView)dialog.findViewById(R.id.text_dialog);
+        txtDialog.setText("Kategori belum dipilih!");
+        txtDismis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 
     void FillSpinner(){

@@ -146,11 +146,19 @@ public class LoginActivity extends AppCompatActivity {
                             CustomeDialog();
                         }else{
                             progress.dismiss();
-                            fUpdateDeviceID();
-                            //Intent intent = new Intent (LoginActivity.this, MainActivity.class);
-                            Intent intent = new Intent (LoginActivity.this, MainMenuActivity.class);
-                            startActivity(intent);
-                            finish();
+                            for(AuthUser.Datum dat: authUser.data){
+                                if (dat.device_id.equals("-") || dat.device_id.equals(AppConstant.IMEI)){
+                                    fUpdateDeviceID();
+                                    //Intent intent = new Intent (LoginActivity.this, MainActivity.class);
+                                    Intent intent = new Intent (LoginActivity.this, MainMenuActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }else{
+                                    CustomeDialogDevice();
+                                }
+                            }
+
+                           ;
                         }
                     }else{
                     }
@@ -224,6 +232,36 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        dialog.show();
+    }
+
+    void CustomeDialogDevice(){
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.custom_dialog_deviceid);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        //dialog.setTitle("Title...");
+
+        TextView txtNo = (TextView)dialog.findViewById(R.id.text_no);
+        TextView txtYes = (TextView)dialog.findViewById(R.id.text_yes);
+        txtNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        txtYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fUpdateDeviceID();
+                //Intent intent = new Intent (LoginActivity.this, MainActivity.class);
+                Intent intent = new Intent (LoginActivity.this, MainMenuActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         dialog.show();
     }
 

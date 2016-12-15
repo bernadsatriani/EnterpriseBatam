@@ -228,6 +228,8 @@ public class AdapterBBSSemuaPesanan extends  RecyclerView.Adapter<AdapterBBSSemu
                 mIntent.putExtra("BBS_ISI", listData.content);
                 mIntent.putExtra("BBS_DATE", listData.bbs_date);
                 mIntent.putExtra("BBS_READ", listData.read_sts);
+                mIntent.putExtra("BBS_CATEGORY", listData.category_id);
+                mIntent.putExtra("BBS_CATEGORY_NAME", holder.txtFrom.getText().toString());
                 context.startActivity(mIntent);
             }
         });
