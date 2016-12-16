@@ -21,7 +21,7 @@
             android:textSize="@dimen/space_14"
             android:gravity="center"
             android:padding="@dimen/space_18"
-            android:text="Apakah Anda Akan Ganti Device ?"
+            android:text="Anda terdaftar di perangkat yang berbeda, apakah anda akan ganti device?"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </RelativeLayout>

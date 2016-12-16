@@ -11,6 +11,7 @@ import com.bpbatam.enterprise.model.BBS_List_ByCategory;
 import com.bpbatam.enterprise.model.BBS_Opini;
 import com.bpbatam.enterprise.model.DISPOSISI_Category;
 import com.bpbatam.enterprise.model.DataAdmin;
+import com.bpbatam.enterprise.model.Device_ID;
 import com.bpbatam.enterprise.model.Diposisi_List_Folder;
 import com.bpbatam.enterprise.model.Disposisi_Attachment;
 import com.bpbatam.enterprise.model.Disposisi_Detail;
@@ -110,6 +111,8 @@ public interface NetworkService {
     @POST("ep_api_services/ep_user/update_deviceid")
     Call<UpdateDeviceId> updateDeviceID(@Body UpdateDeviceId params);
 
+    @POST("ep_api_services/ep_user/get_device_id")
+    Call<Device_ID> getDeviceID(@Body Device_ID params);
 
     @POST("ep_api_services/ep_user/search_user")
     Call<ListUser> getListUser(@Body ListUser params);

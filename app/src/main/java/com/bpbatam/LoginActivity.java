@@ -28,6 +28,7 @@ import com.bpbatam.enterprise.MainActivity;
 import com.bpbatam.enterprise.MainMenuActivity;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.model.AuthUser;
+import com.bpbatam.enterprise.model.Device_ID;
 import com.bpbatam.enterprise.model.UpdateDeviceId;
 import com.bpbatam.enterprise.model.net.NetworkManager;
 
@@ -57,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
 
     AuthUser authUser;
     UpdateDeviceId updateDeviceId;
-
+    Device_ID deviceId;
     ProgressDialog progress;
 
 
@@ -78,9 +79,8 @@ public class LoginActivity extends AppCompatActivity {
                 for (AuthUser.Datum dat : authUser.data){
                     AppConstant.USER = dat.user_id;
                 }
-                Intent intent = new Intent (LoginActivity.this, MainMenuActivity.class);
-                startActivity(intent);
-                finish();
+
+                CekDevice_Id();
             }
         }
     }
@@ -100,6 +100,48 @@ public class LoginActivity extends AppCompatActivity {
                 ValidasiLogin();
             }
         });
+    }
+
+    void CekDevice_Id(){
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        try{
+            Device_ID param = new Device_ID(AppConstant.HASHID, AppConstant.USER , AppConstant.REQID);
+            Call<Device_ID> call = NetworkManager.getNetworkService(this).getDeviceID(param);
+            call.enqueue(new Callback<Device_ID>() {
+                @Override
+                public void onResponse(Call<Device_ID> call, Response<Device_ID> response) {
+                    int code = response.code();
+                    if (code == 200){
+                        deviceId = response.body();
+                        if(deviceId.code.equals("00")){
+                            for (Device_ID.Datum dat : deviceId.data){
+                                if (dat.device_id.equals("-") || dat.device_id.equals(AppConstant.IMEI)){
+
+                                    Intent intent = new Intent (LoginActivity.this, MainMenuActivity.class);
+                                    startActivity(intent);
+                                    finish();
+
+                                }else{
+                                    CustomeDialogDevice();
+                                }
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Device_ID> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+
+        }
     }
 
     void ValidasiLogin(){
@@ -249,6 +291,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
+                fUpdateDeviceIDLogout();
             }
         });
 
@@ -264,6 +307,42 @@ public class LoginActivity extends AppCompatActivity {
         });
         dialog.show();
     }
+
+    void fUpdateDeviceIDLogout(){
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        UpdateDeviceId params = new UpdateDeviceId(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID, "-");
+
+        try{
+            Call<UpdateDeviceId> call = NetworkManager.getNetworkService(this).updateDeviceID(params);
+            call.enqueue(new Callback<UpdateDeviceId>() {
+                @Override
+                public void onResponse(Call<UpdateDeviceId> call, Response<UpdateDeviceId> response) {
+                    int code = response.code();
+
+                    if (code == 200){
+                        updateDeviceId = response.body();
+                        if (updateDeviceId.code.equals("00")){
+                            AppController.getInstance().getSessionManager().setUserAccount(null);
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<UpdateDeviceId> call, Throwable t) {
+
+                    String a = t.getMessage();
+                    a = a;
+                }
+            });
+        }catch (Exception e){
+        }
+    }
+
 
     void InitFolder(){
 
