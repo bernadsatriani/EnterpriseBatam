@@ -76,7 +76,6 @@
                 android:textSize="@dimen/space_14"
                 android:textColor="@color/black"
                 android:hint="Username"
-                android:text="us.ep1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/space_30" />
@@ -106,7 +105,6 @@
                 android:layout_marginTop="-2dp" />
             <ui.CustomEditText
                 android:id="@+id/edt_password"
-                android:text="ep2016"
                 android:singleLine="true"
                 android:background="@color/transparant_pure"
                 android:textColorHint="@color/colorSearch"

@@ -2,6 +2,7 @@ package com.bpbatam.enterprise.bbs.fragment;
 
 import android.app.Activity;
 import android.app.DownloadManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -109,6 +110,8 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
     SwipeRefreshLayout swipeRefreshLayout;
     TextView textKategori;
     RelativeLayout layout_kategori;
+
+    ProgressDialog progressDialog;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -123,8 +126,7 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
     public void onViewCreated(View view, Bundle savedInstanceState) {
         InitControl(view);
         //layoutAttachment.setVisibility(View.GONE);
-        iMin = 1;
-        iMax = 10;
+
         AppConstant.sCategoryID = "PDK";
         AppConstant.sCategoryName = "";
         bbs_list_byCategoryFull = new BBS_List_ByCategory();
@@ -252,303 +254,6 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
         });
     }
 
-/*
-    boolean ValidInputan(){
-        boolean bDone = false;
-
-        try {
-            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-
-        String sTitle, sName, sStart_Periode, sEnd_Periode,sContent, sBbs_Date, sPriority_id, sRead, sCategory_Id,
-                sCreate_By, sCreate_Time, sReply_Id;
-
-        sTitle = txtJudul.getText().toString().trim();
-        sName = AppConstant.USER_NAME;
-        sStart_Periode = AppController.getInstance().getDate();
-        sEnd_Periode = AppController.getInstance().getDate();
-        sContent = txtIsi.getText().toString().trim();
-        sBbs_Date = AppController.getInstance().getDate();
-        sPriority_id = Integer.toString(spnStatus.getSelectedItemPosition());
-        sRead = "0";
-        sCreate_By = AppConstant.USER;
-        sCreate_Time = AppController.getInstance().getDateNTime();
-        sReply_Id = "0";
-        switch (spnBuletin.getSelectedItemPosition()){
-            case 0:
-                sCategory_Id = "QNQ";
-                break;
-            case 1:
-                sCategory_Id = "PDK";
-                break;
-            case 2:
-                sCategory_Id = "FRU";
-                break;
-            case 3:
-                sCategory_Id = "RUL";
-                break;
-            case 4:
-                sCategory_Id = "KDS";
-                break;
-            case 5:
-                sCategory_Id = "KSU";
-                break;
-            case 6:
-                sCategory_Id = "INB";
-                break;
-            case 7:
-                sCategory_Id = "PGU";
-                break;
-            case 8:
-                sCategory_Id = "PDB";
-                break;
-            default:
-                sCategory_Id = "QNQ";
-                break;
-        }
-
-
-        try{
-            BBS_Insert insertParam = new BBS_Insert(
-                    AppConstant.HASHID,
-                    AppConstant.USER,
-                    AppConstant.REQID,
-                    sTitle,
-                    sName,
-                    sStart_Periode,
-                    sEnd_Periode,
-                    sContent,
-                    sBbs_Date,
-                    sPriority_id,
-                    sRead,
-                    sCategory_Id,
-                    sCreate_By,
-                    sReply_Id
-            )
-                    ;
-
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("hashid", AppConstant.HASHID);
-            jsonObject.put("reqid", AppConstant.REQID);
-            jsonObject.put("userid", AppConstant.USER);
-            jsonObject.put("title", sTitle);
-            jsonObject.put("name", sName);
-            jsonObject.put("start_period", sStart_Periode);
-            jsonObject.put("end_period", sEnd_Periode);
-            jsonObject.put("content", sContent);
-            jsonObject.put("bbs_date", sBbs_Date);
-            jsonObject.put("priority_id", "1");
-            jsonObject.put("read", sRead);
-            jsonObject.put("category_id", sCategory_Id);
-            jsonObject.put("create_by", sCreate_By);
-            jsonObject.put("reply_id", "0");
-
-
-            Call<BBS_Insert> call = NetworkManager.getNetworkService(getActivity()).postBBSInsert(insertParam);
-            call.enqueue(new Callback<BBS_Insert>() {
-                @Override
-                public void onResponse(Call<BBS_Insert> call, Response<BBS_Insert> response) {
-                    int code = response.code();
-                    bbs_insert = response.body();
-                    if (code == 200){
-                        if (bbs_insert.code.equals("00")){
-                            sBBS_id = bbs_insert.bbs_id;
-                            sendBBSAttachment();
-                            Toast.makeText(getActivity(),bbs_insert.data, Toast.LENGTH_LONG).show();
-                            txtIsi.setText("");
-                            txtJudul.setText("");
-                        }else{
-                            Toast.makeText(getActivity(),bbs_insert.info, Toast.LENGTH_LONG).show();
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<BBS_Insert> call, Throwable t) {
-
-                }
-            });
-        }catch (Exception e){
-
-        }
-
-        return bDone;
-    }
-*/
-
-/*
-    void FillSpinner(){
-
-        String[] stsStatus = {"tinggi", "sedang", "rendah"};
-
-        ArrayList<HashMap<String, Object>> lstGrid;
-        HashMap<String, Object> mapGrid;
-
-        lstGrid = new ArrayList<HashMap<String,Object>>();
-        mapGrid = new HashMap<String, Object>();
-        mapGrid.put("img", R.drawable.ball_red);
-        mapGrid.put("description", "tinggi");
-        lstGrid.add(mapGrid);
-
-        mapGrid = new HashMap<String, Object>();
-        mapGrid.put("img", R.drawable.ball_yellow);
-        mapGrid.put("description", "sedang");
-        lstGrid.add(mapGrid);
-
-        mapGrid = new HashMap<String, Object>();
-        mapGrid.put("img", R.drawable.ball_green);
-        mapGrid.put("description", "rendah");
-        lstGrid.add(mapGrid);
-
-        adpGridView = new SimpleAdapter(getActivity(), lstGrid, R.layout.spinner_row,
-                new String[] {"img","description"},
-                new int[] {R.id.img_status, R.id.text_isi});
-
-        spnStatus.setAdapter(adpGridView);
-    }
-
-    void FillSpinnerCategory(){
-        try {
-            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-
-        try{
-            BBS_CATEGORY bbs_categoryParams = new BBS_CATEGORY(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID);
-            Call<BBS_CATEGORY> call = NetworkManager.getNetworkService(getActivity()).getBBS_Category(bbs_categoryParams);
-            call.enqueue(new Callback<BBS_CATEGORY>() {
-                @Override
-                public void onResponse(Call<BBS_CATEGORY> call, Response<BBS_CATEGORY> response) {
-                    int code = response.code();
-                    if (code == 200){
-                        bbs_category = response.body();
-                        lstCategory = new String[9];
-
-                        ArrayList<HashMap<String, Object>> lstGrid;
-                        HashMap<String, Object> mapGrid;
-
-                        lstGrid = new ArrayList<HashMap<String,Object>>();
-                        mapGrid = new HashMap<String, Object>();
-                        mapGrid.put("description", bbs_category.data.QNQ);
-                        lstGrid.add(mapGrid);
-
-                        mapGrid = new HashMap<String, Object>();
-                        mapGrid.put("description", bbs_category.data.PDK);
-                        lstGrid.add(mapGrid);
-
-                        mapGrid = new HashMap<String, Object>();
-                        mapGrid.put("description", bbs_category.data.FRU);
-                        lstGrid.add(mapGrid);
-
-                        mapGrid = new HashMap<String, Object>();
-                        mapGrid.put("description", bbs_category.data.RUL);
-                        lstGrid.add(mapGrid);
-
-                        mapGrid = new HashMap<String, Object>();
-                        mapGrid.put("description", bbs_category.data.KDS);
-                        lstGrid.add(mapGrid);
-
-                        mapGrid = new HashMap<String, Object>();
-                        mapGrid.put("description", bbs_category.data.KSU);
-                        lstGrid.add(mapGrid);
-
-                        mapGrid = new HashMap<String, Object>();
-                        mapGrid.put("description", bbs_category.data.INB);
-                        lstGrid.add(mapGrid);
-
-                        mapGrid = new HashMap<String, Object>();
-                        mapGrid.put("description", bbs_category.data.PGU);
-                        lstGrid.add(mapGrid);
-
-                        mapGrid = new HashMap<String, Object>();
-                        mapGrid.put("description", bbs_category.data.PDB);
-                        lstGrid.add(mapGrid);
-*/
-/*
-                        lstCategory[0] = bbs_category.data.QNQ;
-                        lstCategory[1] = bbs_category.data.PDK;
-                        lstCategory[2] = bbs_category.data.FRU;
-                        lstCategory[3] = bbs_category.data.RUL;
-                        lstCategory[4] = bbs_category.data.KDS;
-                        lstCategory[5] = bbs_category.data.KSU;
-                        lstCategory[6] = bbs_category.data.INB;
-                        lstCategory[7] = bbs_category.data.PGU;
-                        lstCategory[8] = bbs_category.data.PDB;
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                                android.R.layout.simple_spinner_item, lstCategory);
-*//*
-
-
-                        adpGridView = new SimpleAdapter(getActivity(), lstGrid, R.layout.spinner_row_single,
-                                new String[] {"description"},
-                                new int[] {R.id.text_isi});
-                        spnBuletin.setAdapter(adpGridView);
-                        spnCategory.setAdapter(adpGridView);
-                        spnCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                switch (i){
-                                    case 0:
-                                        sCategoryID = "QNQ";
-                                        FillGrid("QNQ");
-                                        break;
-                                    case 1:
-                                        sCategoryID = "PDK";
-                                        FillGrid("PDK");
-                                        break;
-                                    case 2:
-                                        sCategoryID = "FRU";
-                                        FillGrid("FRU");
-                                        break;
-                                    case 3:
-                                        sCategoryID = "RUL";
-                                        FillGrid("RUL");
-                                        break;
-                                    case 4:
-                                        sCategoryID = "KDS";
-                                        FillGrid("KDS");
-                                        break;
-                                    case 5:
-                                        sCategoryID = "KSU";
-                                        FillGrid("KSU");
-                                        break;
-                                    case 6:
-                                        sCategoryID = "INB";
-                                        FillGrid("INB");
-                                        break;
-                                    case 7:
-                                        sCategoryID = "PGU";
-                                        FillGrid("PGU");
-                                        break;
-                                    case 8:
-                                        sCategoryID = "PDB";
-                                        FillGrid("PDB");
-                                        break;
-                                }
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> adapterView) {
-
-                            }
-                        });
-
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<BBS_CATEGORY> call, Throwable t) {
-
-                }
-            });
-        }catch (Exception e){
-            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
-        }
-    }
-*/
 
     void FillGridMore(String sCategory_id){
 /*        AryListData = new ArrayList<>();
@@ -617,6 +322,8 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
     }
 
     void FillGrid(String sCategory_id){
+        iMin = 1;
+        iMax = 10;
 /*        AryListData = new ArrayList<>();
 
         for(int i = 0; i < 10; i++){
@@ -849,7 +556,8 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
         bbsListSearch.data = new ArrayList<BBS_List_ByCategory.Datum>();
         for (BBS_List_ByCategory.Datum dat : bbs_list_byCategoryFull.data){
             if ( dat.title != null){
-                if ( dat.title.toLowerCase(Locale.getDefault()).contains(sKeyword))
+                if ( dat.title.toLowerCase(Locale.getDefault()).contains(sKeyword) ||
+                        dat.name.toLowerCase(Locale.getDefault()).contains(sKeyword))
                     bbsListSearch.data.add(dat);
             }
 

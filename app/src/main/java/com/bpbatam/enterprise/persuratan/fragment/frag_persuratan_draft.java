@@ -77,8 +77,7 @@ public class frag_persuratan_draft extends Fragment implements SwipeRefreshLayou
     public void onViewCreated(View view, Bundle savedInstanceState) {
         AppConstant.FOLDER_DISPOS = "DRF";
         sFolder = "DRF";
-        iMin = 1;
-        iMax = 10;
+
         InitControl(view);
         FillGrid();
     }
@@ -133,6 +132,8 @@ public class frag_persuratan_draft extends Fragment implements SwipeRefreshLayou
     }
 
     void FillGrid(){
+        iMin = 1;
+        iMax = 10;
         try {
             AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
         } catch (NoSuchAlgorithmException e) {
@@ -318,7 +319,8 @@ public class frag_persuratan_draft extends Fragment implements SwipeRefreshLayou
 
         for (Persuratan_List_Folder.Datum dat : persuratanListFolderFull.data) {
             if (dat.title != null) {
-                if (dat.title.toLowerCase(Locale.getDefault()).contains(sKeyword))
+                if (dat.title.toLowerCase(Locale.getDefault()).contains(sKeyword) ||
+                        dat.user_name.toLowerCase(Locale.getDefault()).contains(sKeyword))
                     persuratanListFolderSearch.data.add(dat);
             }
 

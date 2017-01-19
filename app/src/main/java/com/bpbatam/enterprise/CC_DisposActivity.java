@@ -7,17 +7,15 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bpbatam.AppConstant;
 import com.bpbatam.AppController;
 import com.bpbatam.enterprise.adapter.AdapterCC;
 import com.bpbatam.enterprise.model.Disposisi_Detail;
+import com.bpbatam.enterprise.model.Disposisi_Detail_CC;
 import com.bpbatam.enterprise.model.ListData;
 import com.bpbatam.enterprise.model.Persuratan_Detail;
-import com.bpbatam.enterprise.model.Persuratan_Detail_CC;
 import com.bpbatam.enterprise.model.net.NetworkManager;
 
 import java.security.NoSuchAlgorithmException;
@@ -31,7 +29,7 @@ import retrofit2.Response;
  * Created by setia.n on 10/4/2016.
  */
 
-public class CC_Activity extends AppCompatActivity {
+public class CC_DisposActivity extends AppCompatActivity {
     RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private LinearLayoutManager mLayoutManager;
@@ -41,8 +39,8 @@ public class CC_Activity extends AppCompatActivity {
     TextView txtLabel;
 
     Toolbar toolbar;
-    Persuratan_Detail_CC persuratanDetailCc;
 
+    Disposisi_Detail_CC disposisiDetailCc;
     String sReadDate;
 
     String user_id = "";
@@ -85,20 +83,6 @@ public class CC_Activity extends AppCompatActivity {
 
     void FillGrid() {
 
-
-        /*for (int i = 0; i < 1; i++) {
-            listData = new ListData();
-            listData.setAtr1("Seksi Media dan Aplikasi " + i);
-            listData.setAtr2("Rizal Safani S.Kom");
-            listData.setAtr3("21 Sept 2016 17:36");
-            listData.setNama("24 Sept 2016 14:36");
-            AryListData.add(listData);
-
-        }
-
-        mAdapter = new AdapterCC(this,AryListData);
-        mRecyclerView.setAdapter(mAdapter);
-*/
         try {
             AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
         } catch (NoSuchAlgorithmException e) {
@@ -106,21 +90,21 @@ public class CC_Activity extends AppCompatActivity {
         }
 
         try{
-            Persuratan_Detail_CC param = new Persuratan_Detail_CC(AppConstant.HASHID,
+            Disposisi_Detail_CC param = new Disposisi_Detail_CC(AppConstant.HASHID,
                     AppConstant.USER,
                     AppConstant.REQID,
                     Integer.toString(AppConstant.EMAIL_ID));
-            Call<Persuratan_Detail_CC> call = NetworkManager.getNetworkService(this).getMailCC(param);
-            call.enqueue(new Callback<Persuratan_Detail_CC>() {
+            Call<Disposisi_Detail_CC> call = NetworkManager.getNetworkService(this).getDispoCC(param);
+            call.enqueue(new Callback<Disposisi_Detail_CC>() {
                 @Override
-                public void onResponse(Call<Persuratan_Detail_CC> call, Response<Persuratan_Detail_CC> response) {
+                public void onResponse(Call<Disposisi_Detail_CC> call, Response<Disposisi_Detail_CC> response) {
                     int code = response.code();
                     if (code == 200){
-                        persuratanDetailCc = response.body();
+                        disposisiDetailCc = response.body();
                         int iIndex = 0;
                         AryListData = new ArrayList<>();
-                        if (persuratanDetailCc.code.equals("00")){
-                            for(Persuratan_Detail_CC.Datum dat : persuratanDetailCc.data){
+                        if (disposisiDetailCc.code.equals("00")){
+                            for(Disposisi_Detail_CC.Datum dat : disposisiDetailCc.data){
                                 listData = new ListData();
                                 listData.setAtr1(dat.user_dept);
                                 listData.setAtr2(dat.user_name);
@@ -137,7 +121,7 @@ public class CC_Activity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<Persuratan_Detail_CC> call, Throwable t) {
+                public void onFailure(Call<Disposisi_Detail_CC> call, Throwable t) {
 
                 }
             });

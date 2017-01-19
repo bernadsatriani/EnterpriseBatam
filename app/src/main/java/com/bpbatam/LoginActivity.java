@@ -61,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
     Device_ID deviceId;
     ProgressDialog progress;
 
+    boolean bDialog = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,13 +76,16 @@ public class LoginActivity extends AppCompatActivity {
         AuthUser authUser = AppController.getInstance().getSessionManager().getUserProfile();
 
         if (authUser != null){
-            if (authUser.data.size() > 0){
-                for (AuthUser.Datum dat : authUser.data){
-                    AppConstant.USER = dat.user_id;
-                }
+            if (authUser.data !=null){
+                if (authUser.data.size() > 0){
+                    for (AuthUser.Datum dat : authUser.data){
+                        AppConstant.USER = dat.user_id;
+                    }
 
-                CekDevice_Id();
+                    CekDevice_Id();
+                }
             }
+
         }
     }
 
@@ -189,15 +193,20 @@ public class LoginActivity extends AppCompatActivity {
                         }else{
                             progress.dismiss();
                             for(AuthUser.Datum dat: authUser.data){
-                                if (dat.device_id.equals("-") || dat.device_id.equals(AppConstant.IMEI)){
-                                    fUpdateDeviceID();
-                                    //Intent intent = new Intent (LoginActivity.this, MainActivity.class);
-                                    Intent intent = new Intent (LoginActivity.this, MainMenuActivity.class);
-                                    startActivity(intent);
-                                    finish();
+                                if(bDialog){
+                                    if (dat.device_id.equals("-") || dat.device_id.equals(AppConstant.IMEI)){
+                                        fUpdateDeviceID();
+                                        //Intent intent = new Intent (LoginActivity.this, MainActivity.class);
+                                        Intent intent = new Intent (LoginActivity.this, MainMenuActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }else{
+                                        CustomeDialogDevice();
+                                    }
                                 }else{
                                     CustomeDialogDevice();
                                 }
+
                             }
 
                            ;
@@ -292,6 +301,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 dialog.dismiss();
                 fUpdateDeviceIDLogout();
+                bDialog = false;
             }
         });
 

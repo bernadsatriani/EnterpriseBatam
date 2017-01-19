@@ -12,16 +12,20 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bpbatam.AppConstant;
+import com.bpbatam.AppController;
 import com.bpbatam.enterprise.CC_Activity;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.disposisi.disposisi_detail;
+import com.bpbatam.enterprise.model.Disposisi_Detail_CC;
 import com.bpbatam.enterprise.model.ListData;
 import com.bpbatam.enterprise.model.Persuratan_Attachment;
 import com.bpbatam.enterprise.model.Persuratan_Detail;
+import com.bpbatam.enterprise.model.Persuratan_Detail_CC;
 import com.bpbatam.enterprise.model.Persuratan_List_Folder;
 import com.bpbatam.enterprise.model.net.NetworkManager;
 import com.bpbatam.enterprise.persuratan.persuratan_detail;
 
+import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -35,6 +39,7 @@ import retrofit2.Response;
 public class AdapterPersuratanUmum extends  RecyclerView.Adapter<AdapterPersuratanUmum.ViewHolder>{
 
     Persuratan_List_Folder persuratanListFolder;
+    Persuratan_Detail_CC persuratanDetailCc;
     Persuratan_Attachment persuratanAttachment;
     private Context context;
 
@@ -74,7 +79,7 @@ public class AdapterPersuratanUmum extends  RecyclerView.Adapter<AdapterPersurat
 
 
         holder.layoutAttc.setVisibility(View.GONE);
-
+        holder.imgCC.setVisibility(View.GONE);
 
         final DecimalFormat precision = new DecimalFormat("0.00");
         try{
@@ -115,6 +120,41 @@ public class AdapterPersuratanUmum extends  RecyclerView.Adapter<AdapterPersurat
         }catch (Exception e){
 
         }
+
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        try{
+            Persuratan_Detail_CC param = new Persuratan_Detail_CC(AppConstant.HASHID,
+                    AppConstant.USER,
+                    AppConstant.REQID,
+                    Integer.toString(listData.mail_id));
+            Call<Persuratan_Detail_CC> call = NetworkManager.getNetworkService().getMailCC(param);
+            call.enqueue(new Callback<Persuratan_Detail_CC>() {
+                @Override
+                public void onResponse(Call<Persuratan_Detail_CC> call, Response<Persuratan_Detail_CC> response) {
+                    int code = response.code();
+                    if (code == 200){
+                        persuratanDetailCc = response.body();
+                        int iIndex = 0;
+                        if (persuratanDetailCc.code.equals("00")){
+                            holder.imgCC.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Persuratan_Detail_CC> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+
+        }
+
 
         holder.btnDownload.setOnClickListener(new View.OnClickListener() {
             @Override

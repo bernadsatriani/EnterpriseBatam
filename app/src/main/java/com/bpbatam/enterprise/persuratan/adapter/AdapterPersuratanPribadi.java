@@ -23,6 +23,7 @@ import com.bpbatam.enterprise.model.Diposisi_List_Folder;
 import com.bpbatam.enterprise.model.ListData;
 import com.bpbatam.enterprise.model.Persuratan_Attachment;
 import com.bpbatam.enterprise.model.Persuratan_Detail;
+import com.bpbatam.enterprise.model.Persuratan_Detail_CC;
 import com.bpbatam.enterprise.model.Persuratan_List_Folder;
 import com.bpbatam.enterprise.model.net.NetworkManager;
 import com.bpbatam.enterprise.persuratan.persuratan_detail;
@@ -44,7 +45,7 @@ import retrofit2.Response;
  */
 public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersuratanPribadi.ViewHolder>{
     Persuratan_List_Folder persuratanListFolder;
-
+    Persuratan_Detail_CC persuratanDetailCc;
     Persuratan_Attachment persuratanAttachment;
     private ArrayList<ListData> mCourseArrayList;
     private
@@ -83,11 +84,12 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
         holder.txtDate.setText(listData.mail_date);
         holder.txtFrom.setText(listData.user_name);
         holder.txtJudul.setText(listData.title);
-        holder.txtNomor.setText(String.valueOf(listData.mail_id));
+        holder.txtNomor.setText(String.valueOf(listData.mail_no));
         holder.txtPengirim.setText("Disposisi : " + listData.user_name);
 
         holder.layoutButton.setVisibility(View.VISIBLE);
         holder.btnDownload_lampiran.setVisibility(View.GONE);
+        holder.imgCC.setVisibility(View.GONE);
         /*holder.txtDate.setText(listData.mail_date);
         holder.txtTime.setText(listData.mail_time);
         holder.txtJudul.setText(listData.title);
@@ -168,6 +170,39 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
             }
         });
 
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        try{
+            Persuratan_Detail_CC param = new Persuratan_Detail_CC(AppConstant.HASHID,
+                    AppConstant.USER,
+                    AppConstant.REQID,
+                    Integer.toString(listData.mail_id));
+            Call<Persuratan_Detail_CC> call = NetworkManager.getNetworkService().getMailCC(param);
+            call.enqueue(new Callback<Persuratan_Detail_CC>() {
+                @Override
+                public void onResponse(Call<Persuratan_Detail_CC> call, Response<Persuratan_Detail_CC> response) {
+                    int code = response.code();
+                    if (code == 200){
+                        persuratanDetailCc = response.body();
+                        int iIndex = 0;
+                        if (persuratanDetailCc.code.equals("00")){
+                            holder.imgCC.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Persuratan_Detail_CC> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+
+        }
         //holder.txtStatus.setText(listData.getAtr2());
 
         //AppController.getInstance().displayImage(context,listData.getAtr3(), holder.imgCover);
@@ -207,7 +242,16 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
             }
         });
 
+        holder.imgCC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppConstant.EMAIL_ID = listData.mail_id;
 
+                Intent intent = new Intent(context, CC_Activity.class);
+                intent.putExtra("READ_DATE", listData.read_date);
+                context.startActivity(intent);
+            }
+        });
 
         holder.btnPrint.setOnClickListener(new View.OnClickListener() {
             @Override

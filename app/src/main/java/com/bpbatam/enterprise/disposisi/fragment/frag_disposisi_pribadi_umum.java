@@ -89,8 +89,7 @@ public class frag_disposisi_pribadi_umum extends Fragment implements SwipeRefres
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         InitControl(view);
-        iMin = 1;
-        iMax = 10;
+
         sFolder = "DFUM";
         AppConstant.FOLDER_DISPOS = sFolder;
         FillGrid();
@@ -156,6 +155,8 @@ public class frag_disposisi_pribadi_umum extends Fragment implements SwipeRefres
     }
 
     void FillGrid(){
+        iMin = 1;
+        iMax = 10;
         try {
             AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
         } catch (NoSuchAlgorithmException e) {
@@ -408,7 +409,8 @@ public class frag_disposisi_pribadi_umum extends Fragment implements SwipeRefres
         for (Diposisi_List_Folder.Datum dat : persuratanListFolderFull.data) {
 
             if (dat.title != null) {
-                if (dat.title.toLowerCase(Locale.getDefault()).contains(sKeyword))
+                if (dat.title.toLowerCase(Locale.getDefault()).contains(sKeyword)
+                    || dat.name.toLowerCase(Locale.getDefault()).contains(sKeyword))
                     persuratanListFolderSearch.data.add(dat);
             }
         }

@@ -82,26 +82,13 @@
                             android:layout_height="wrap_content"
                             android:maxLines="1"
                             android:layout_marginLeft="@dimen/space_14"
-                            android:layout_alignParentTop="true"
-                            android:layout_toLeftOf="@+id/lbl_nomor"
-                            android:layout_toStartOf="@+id/lbl_nomor" />
+                            android:layout_alignParentTop="true" />
 
-                        <ui.CustomtextView
-                            android:layout_marginTop="@dimen/space_10"
-                            font:name="GOTHAM_LIGHT"
-                            android:id="@+id/lbl_nomor"
-                            android:text="123/123/123"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:maxLines="1"
-                            android:gravity="right"
-                            android:layout_marginRight="@dimen/space_10"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentEnd="true" />
+
                     </RelativeLayout>
 
-                    <RelativeLayout
+                    <LinearLayout
+                        android:orientation="vertical"
                         android:id="@+id/layout_attachment1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -125,7 +112,29 @@
                             android:layout_marginRight="@dimen/space_45"
                             android:layout_marginLeft="@dimen/space_7"/>
 
-                    </RelativeLayout>
+                        <View
+                            android:layout_marginTop="@dimen/space_5"
+                            android:background="@color/grey_s"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"/>
+
+                        <ui.CustomtextView
+                            android:layout_marginTop="@dimen/space_5"
+                            font:name="GOTHAM_LIGHT"
+                            android:id="@+id/lbl_nomor"
+                            android:text="123/123/123"
+                            android:textColor="@color/black_ep"
+                            android:textSize="@dimen/space_12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:gravity="right"
+                            android:layout_marginLeft="@dimen/space_7"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true" />
+
+                    </LinearLayout>
 
                     <View
                         android:layout_marginTop="@dimen/space_7"

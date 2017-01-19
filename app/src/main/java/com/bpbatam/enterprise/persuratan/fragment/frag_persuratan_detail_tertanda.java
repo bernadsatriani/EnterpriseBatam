@@ -89,7 +89,12 @@ public class frag_persuratan_detail_tertanda extends Fragment {
                                     listData.setNama(dat.deptartement);
                                     listData.setAlamat(dat.user_name);
                                     listData.setAtr1("Persetujuan");
-                                    listData.setAtr2("Disetujui");
+                                    if (dat.approve_date.equals("-") || dat.approve_date.equals("")){
+                                        listData.setAtr2("Menunggu Konfirmasi");
+                                    }else{
+                                        listData.setAtr2("Disetujui");
+                                    }
+
                                     listData.setAtr3(dat.approve_date);
                                     AryListData.add(listData);
                                     /* listData = new ListData();

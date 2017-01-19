@@ -92,6 +92,7 @@ public class Persuratan_List_Folder {
         public int approved_rule_id ;
 
         public int mail_id;
+        public String mail_no;
         public String user_name;
         public String is_disposisi;
         public String title;

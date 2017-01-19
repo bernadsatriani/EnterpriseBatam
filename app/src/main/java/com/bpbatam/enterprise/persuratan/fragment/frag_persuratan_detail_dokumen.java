@@ -84,7 +84,7 @@ public class frag_persuratan_detail_dokumen extends Fragment {
                         if (persuratanDetail.code.equals("00")){
                             for(Persuratan_Detail.Datum dat : persuratanDetail.data){
                                 listData = new ListData();
-                                listData.setAtr1("Ketagori");
+                                listData.setAtr1("Kategori");
                                 listData.setAtr2(dat.category_name);
                                 AryListData.add(listData);
 

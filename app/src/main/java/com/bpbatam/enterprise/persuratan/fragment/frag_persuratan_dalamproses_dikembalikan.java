@@ -81,8 +81,7 @@ public class frag_persuratan_dalamproses_dikembalikan extends Fragment implement
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         InitControl(view);
-        iMin = 1;
-        iMax = 10;
+
         sFolder = "DPR";
         AppConstant.FOLDER_DISPOS = sFolder;
         FillGrid();
@@ -148,6 +147,8 @@ public class frag_persuratan_dalamproses_dikembalikan extends Fragment implement
     }
 
     void FillGrid(){
+        iMin = 1;
+        iMax = 10;
         try {
             AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
         } catch (NoSuchAlgorithmException e) {
@@ -401,7 +402,8 @@ public class frag_persuratan_dalamproses_dikembalikan extends Fragment implement
 
         for (Persuratan_List_Folder.Datum dat : persuratanListFolderFull.data) {
             if (dat.title != null) {
-                if (dat.title.toLowerCase(Locale.getDefault()).contains(sKeyword))
+                if (dat.title.toLowerCase(Locale.getDefault()).contains(sKeyword)
+                        || dat.user_name.toLowerCase(Locale.getDefault()).contains(sKeyword))
                     persuratanListFolderSearch.data.add(dat);
             }
 

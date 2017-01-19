@@ -3,7 +3,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bpbatam.enterprise">
 
-    <supports-screens android:smallScreens="false" />
+    <supports-screens android:smallScreens="false"
+        android:normalScreens="true"
+        android:largeScreens="true"
+        android:xlargeScreens="true"
+        android:anyDensity="true"/>
 
     <compatible-screens>
 
@@ -115,6 +119,9 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
 
         <activity android:name=".CC_Activity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+
+        <activity android:name=".CC_DisposActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
 
         <activity android:name=".DistribusiActivity"

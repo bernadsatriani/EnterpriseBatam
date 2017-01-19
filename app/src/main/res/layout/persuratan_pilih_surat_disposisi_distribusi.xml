@@ -45,6 +45,7 @@
             android:layout_alignParentBottom="true">
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/btnDisposisi"
                 android:orientation="horizontal"
                 android:background="@color/colorSelectButton"

@@ -222,7 +222,8 @@ public class frag_disposisi_riwayat extends Fragment implements SwipeRefreshLayo
         for (Diposisi_List_Folder.Datum dat : persuratanListFolder.data){
 
             if ( dat.title != null){
-                if (dat.title.toLowerCase(Locale.getDefault()).contains(sKeyword))
+                if (dat.title.toLowerCase(Locale.getDefault()).contains(sKeyword) ||
+                        dat.name.toLowerCase(Locale.getDefault()).contains(sKeyword))
                     persuratanListFolderSearch.data.add(dat);
             }
 

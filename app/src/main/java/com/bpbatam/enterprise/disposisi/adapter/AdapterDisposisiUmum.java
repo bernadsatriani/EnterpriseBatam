@@ -12,16 +12,20 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bpbatam.AppConstant;
+import com.bpbatam.AppController;
 import com.bpbatam.enterprise.CC_Activity;
+import com.bpbatam.enterprise.CC_DisposActivity;
 import com.bpbatam.enterprise.DistribusiActivity;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.disposisi.disposisi_detail;
 import com.bpbatam.enterprise.model.Diposisi_List_Folder;
 import com.bpbatam.enterprise.model.Disposisi_Attachment;
+import com.bpbatam.enterprise.model.Disposisi_Detail_CC;
 import com.bpbatam.enterprise.model.ListData;
 import com.bpbatam.enterprise.model.Persuratan_List_Folder;
 import com.bpbatam.enterprise.model.net.NetworkManager;
 
+import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -34,6 +38,7 @@ import retrofit2.Response;
  */
 public class AdapterDisposisiUmum extends  RecyclerView.Adapter<AdapterDisposisiUmum.ViewHolder>{
     Diposisi_List_Folder persuratanListFolder;
+    Disposisi_Detail_CC disposisiDetailCc;
     Disposisi_Attachment disposisiAttachment;
     private Context context;
 
@@ -73,6 +78,7 @@ public class AdapterDisposisiUmum extends  RecyclerView.Adapter<AdapterDisposisi
 
 
         holder.layoutAttc.setVisibility(View.GONE);
+        holder.imgCC.setVisibility(View.GONE);
         final DecimalFormat precision = new DecimalFormat("0.00");
         try{
             Disposisi_Attachment param = new Disposisi_Attachment(AppConstant.HASHID, AppConstant.USER,
@@ -128,6 +134,41 @@ public class AdapterDisposisiUmum extends  RecyclerView.Adapter<AdapterDisposisi
             }
         }
 
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        try{
+            Disposisi_Detail_CC param = new Disposisi_Detail_CC(AppConstant.HASHID,
+                    AppConstant.USER,
+                    AppConstant.REQID,
+                    Integer.toString(listData.dispo_id));
+            Call<Disposisi_Detail_CC> call = NetworkManager.getNetworkService().getDispoCC(param);
+            call.enqueue(new Callback<Disposisi_Detail_CC>() {
+                @Override
+                public void onResponse(Call<Disposisi_Detail_CC> call, Response<Disposisi_Detail_CC> response) {
+                    int code = response.code();
+                    if (code == 200){
+                        disposisiDetailCc = response.body();
+                        int iIndex = 0;
+                        if (disposisiDetailCc.code.equals("00")){
+                            holder.imgCC.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Disposisi_Detail_CC> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+
+        }
+
+
         holder.imgChecklist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -148,7 +189,7 @@ public class AdapterDisposisiUmum extends  RecyclerView.Adapter<AdapterDisposisi
             public void onClick(View view) {
                 AppConstant.EMAIL_ID = listData.dispo_id;
                 AppConstant.DISPO_ID = Integer.toString(listData.dispo_id);
-                Intent intent = new Intent(context, CC_Activity.class);
+                Intent intent = new Intent(context, CC_DisposActivity.class);
                 context.startActivity(intent);
             }
         });

@@ -73,8 +73,7 @@ public class Frag_bbs_semua_pesanan extends Fragment implements SwipeRefreshLayo
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         InitControl(view);
-        iMin = 1;
-        iMax = 10;
+
         FillGrid();
     }
 
@@ -124,6 +123,8 @@ public class Frag_bbs_semua_pesanan extends Fragment implements SwipeRefreshLayo
     }
 
     void FillGrid(){
+        iMin = 1;
+        iMax = 10;
         /*AryListData = new ArrayList<>();
 
         for(int i = 0; i < 10; i++){
@@ -304,7 +305,8 @@ public class Frag_bbs_semua_pesanan extends Fragment implements SwipeRefreshLayo
         bbs_listSearch.data = new ArrayList<>();
         for (BBS_LIST.Datum dat : bbs_listFull.data) {
             if (dat.title != null) {
-                if (dat.title.toLowerCase(Locale.getDefault()).contains(sKeyword))
+                if (dat.title.toLowerCase(Locale.getDefault()).contains(sKeyword) ||
+                        dat.name.toLowerCase(Locale.getDefault()).contains(sKeyword))
                     bbs_listSearch.data.add(dat);
             }
 

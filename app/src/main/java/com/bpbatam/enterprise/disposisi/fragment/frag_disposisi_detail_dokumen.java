@@ -85,7 +85,7 @@ public class frag_disposisi_detail_dokumen extends Fragment {
                         if (persuratanDetail.code.equals("00")){
                             for(Disposisi_Detail.Datum dat : persuratanDetail.data){
                                 listData = new ListData();
-                                listData.setAtr1("Ketagori");
+                                listData.setAtr1("Isi Disposisi");
                                 listData.setAtr2(dat.dispo_category);
                                 AryListData.add(listData);
 
@@ -96,7 +96,7 @@ public class frag_disposisi_detail_dokumen extends Fragment {
 
                                 listData = new ListData();
                                 listData.setAtr1("Penulis");
-                                listData.setAtr2(dat.create_by);
+                                listData.setAtr2(dat.create_name);
                                 AryListData.add(listData);
 
                                 listData = new ListData();

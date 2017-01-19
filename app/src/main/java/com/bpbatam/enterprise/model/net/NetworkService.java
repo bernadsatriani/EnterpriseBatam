@@ -15,6 +15,7 @@ import com.bpbatam.enterprise.model.Device_ID;
 import com.bpbatam.enterprise.model.Diposisi_List_Folder;
 import com.bpbatam.enterprise.model.Disposisi_Attachment;
 import com.bpbatam.enterprise.model.Disposisi_Detail;
+import com.bpbatam.enterprise.model.Disposisi_Detail_CC;
 import com.bpbatam.enterprise.model.Disposisi_Distribusi;
 import com.bpbatam.enterprise.model.Disposisi_Folder;
 import com.bpbatam.enterprise.model.Disposisi_Notifikasi;
@@ -24,6 +25,7 @@ import com.bpbatam.enterprise.model.ListUser;
 import com.bpbatam.enterprise.model.LocationList;
 import com.bpbatam.enterprise.model.Persuratan_Attachment;
 import com.bpbatam.enterprise.model.Persuratan_Detail;
+import com.bpbatam.enterprise.model.Persuratan_Detail_CC;
 import com.bpbatam.enterprise.model.Persuratan_Distribusi;
 import com.bpbatam.enterprise.model.Persuratan_Distribusi_Detail;
 import com.bpbatam.enterprise.model.Persuratan_Folder;
@@ -118,6 +120,10 @@ public interface NetworkService {
     Call<ListUser> getListUser(@Body ListUser params);
 
     //PERSURATAN-------------------------------------------------------------------
+    @POST("ep_api_services/ep_mail/get_mail_cc")
+    Call<Persuratan_Detail_CC> getMailCC(@Body Persuratan_Detail_CC params);
+
+
     @POST("ep_api_services/ep_mail/get_folder")
     Call<Persuratan_Folder> getMailFolder(@Body Persuratan_Folder params);
 
@@ -153,6 +159,10 @@ public interface NetworkService {
     Call<Persuratan_Distribusi_Detail> getDistribusiDetail(@Body Persuratan_Distribusi_Detail params);
 
     //DISPOSISI-------------------------------------------------------------------------
+    @POST("ep_api_services/ep_dispo/get_dispo_cc")
+    Call<Disposisi_Detail_CC> getDispoCC(@Body Disposisi_Detail_CC params);
+
+
     @POST("ep_api_services/ep_dispo/get_category")
     Call<DISPOSISI_Category> getCategory(@Body DISPOSISI_Category params);
 
