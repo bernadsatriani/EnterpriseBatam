@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bpbatam.enterprise.R;
@@ -22,14 +23,20 @@ public class AdapterNotification extends  RecyclerView.Adapter<AdapterNotificati
     Disposisi_Notifikasi disposisiNotifikasi;
     private Context context;
 
-    public AdapterNotification(Context context, Disposisi_Notifikasi disposisiNotifikasi) {
+    public AdapterNotification(Context context, Disposisi_Notifikasi disposisiNotifikasi, OnDownloadClicked listener) {
         this.context = context;
         this.disposisiNotifikasi = disposisiNotifikasi;
+        this.listener = listener;
         if (disposisiNotifikasi == null) {
             throw new IllegalArgumentException("courses ArrayList must not be null");
         }
     }
 
+    public interface OnDownloadClicked {
+        public void OnDownloadClicked(Disposisi_Notifikasi.Datum dat);
+    }
+
+    private OnDownloadClicked listener;
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -42,7 +49,7 @@ public class AdapterNotification extends  RecyclerView.Adapter<AdapterNotificati
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Disposisi_Notifikasi.Datum listData = disposisiNotifikasi.data.get(position);
+        final Disposisi_Notifikasi.Datum listData = disposisiNotifikasi.data.get(position);
         //Set text
         holder.txtDate.setText("");
         holder.txtStatus.setText(listData.receive_date);
@@ -65,7 +72,12 @@ public class AdapterNotification extends  RecyclerView.Adapter<AdapterNotificati
         }
 
 
-
+        holder.layout_row.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.OnDownloadClicked(listData);
+            }
+        });
 
     }
 
@@ -81,10 +93,9 @@ public class AdapterNotification extends  RecyclerView.Adapter<AdapterNotificati
                 txtJudul,
                 txtStatus,
                 txtDate
-
-
         ;
 
+        LinearLayout layout_row;
         public ViewHolder(View itemView,
                           Context context,
                           final AdapterNotification mCourseAdapter) {
@@ -93,6 +104,7 @@ public class AdapterNotification extends  RecyclerView.Adapter<AdapterNotificati
             txtStatus = (TextView)itemView.findViewById(R.id.lbl_status);
             txtFrom = (TextView)itemView.findViewById(R.id.lbl_from);
             txtJudul = (TextView)itemView.findViewById(R.id.lbl_Judul);
+            layout_row = (LinearLayout)itemView.findViewById(R.id.layout_row);
         }
 
         @Override

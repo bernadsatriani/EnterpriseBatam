@@ -3,9 +3,11 @@ package com.bpbatam.enterprise.bbs;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
@@ -250,98 +252,6 @@ public class BBS_add_berita extends AppCompatActivity {
         //spnStatus.setAdapter(adpGridView);
     }
 
-/*
-    void FillSpinnerCategory(){
-        try {
-            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-
-        try{
-            BBS_CATEGORY bbs_categoryParams = new BBS_CATEGORY(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID);
-            Call<BBS_CATEGORY> call = NetworkManager.getNetworkService(this).getBBS_Category(bbs_categoryParams);
-            call.enqueue(new Callback<BBS_CATEGORY>() {
-                @Override
-                public void onResponse(Call<BBS_CATEGORY> call, Response<BBS_CATEGORY> response) {
-                    int code = response.code();
-                    if (code == 200){
-                        bbs_category = response.body();
-                        lstCategory = new String[9];
-
-                        ArrayList<HashMap<String, Object>> lstGrid;
-                        HashMap<String, Object> mapGrid;
-
-                        lstGrid = new ArrayList<HashMap<String,Object>>();
-                        mapGrid = new HashMap<String, Object>();
-                        mapGrid.put("description", bbs_category.data.QNA);
-                        lstGrid.add(mapGrid);
-
-                        mapGrid = new HashMap<String, Object>();
-                        mapGrid.put("description", bbs_category.data.PDK);
-                        lstGrid.add(mapGrid);
-
-                        mapGrid = new HashMap<String, Object>();
-                        mapGrid.put("description", bbs_category.data.DPU);
-                        lstGrid.add(mapGrid);
-
-                        mapGrid = new HashMap<String, Object>();
-                        mapGrid.put("description", bbs_category.data.RUL);
-                        lstGrid.add(mapGrid);
-
-                        mapGrid = new HashMap<String, Object>();
-                        mapGrid.put("description", bbs_category.data.KDS);
-                        lstGrid.add(mapGrid);
-
-                        mapGrid = new HashMap<String, Object>();
-                        mapGrid.put("description", bbs_category.data.KSU);
-                        lstGrid.add(mapGrid);
-
-                        mapGrid = new HashMap<String, Object>();
-                        mapGrid.put("description", bbs_category.data.INB);
-                        lstGrid.add(mapGrid);
-
-                        mapGrid = new HashMap<String, Object>();
-                        mapGrid.put("description", bbs_category.data.PGU);
-                        lstGrid.add(mapGrid);
-
-                        mapGrid = new HashMap<String, Object>();
-                        mapGrid.put("description", bbs_category.data.PDB);
-                        lstGrid.add(mapGrid);
-*/
-/*
-                        lstCategory[0] = bbs_category.data.QNQ;
-                        lstCategory[1] = bbs_category.data.PDK;
-                        lstCategory[2] = bbs_category.data.FRU;
-                        lstCategory[3] = bbs_category.data.RUL;
-                        lstCategory[4] = bbs_category.data.KDS;
-                        lstCategory[5] = bbs_category.data.KSU;
-                        lstCategory[6] = bbs_category.data.INB;
-                        lstCategory[7] = bbs_category.data.PGU;
-                        lstCategory[8] = bbs_category.data.PDB;
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                                android.R.layout.simple_spinner_item, lstCategory);
-*//*
-
-
-                        adpGridView = new SimpleAdapter(getBaseContext(), lstGrid, R.layout.spinner_row_single,
-                                new String[] {"description"},
-                                new int[] {R.id.text_isi});
-                        //spnBuletin.setAdapter(adpGridView);
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<BBS_CATEGORY> call, Throwable t) {
-
-                }
-            });
-        }catch (Exception e){
-            Toast.makeText(getBaseContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-        }
-    }
-*/
-
     public synchronized void onActivityResult(final int requestCode, int resultCode, final Intent data) {
         if (requestCode == CODE_FILE){
             if (resultCode == Activity.RESULT_OK) {
@@ -351,6 +261,25 @@ public class BBS_add_berita extends AppCompatActivity {
                 sFile_Size = Long.toString(f.length());
                 sFile_Type = f.getPath().substring(f.getPath().lastIndexOf(".") + 1); // Without dot jpg, png
 
+                if (sFile_Type.length() > 5){
+                    //Image
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+                    Cursor cursor = getContentResolver().query(uri,
+                            filePathColumn, null, null, null);
+                    cursor.moveToFirst();
+
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    String picturePath = cursor.getString(columnIndex);
+                    cursor.close();
+                    f = new File(picturePath);
+                    sFile_Path = f.getPath();
+                    sFile_Size = Long.toString(f.length());
+                    sFile_Type = f.getPath().substring(f.getPath().lastIndexOf(".") + 1); // Without dot jpg, png
+
+                }else{
+                    //File
+                }
                 bUpload = true;
                 layoutAttachment.setVisibility(View.VISIBLE);
                 DecimalFormat precision = new DecimalFormat("0.00");
@@ -379,11 +308,11 @@ public class BBS_add_berita extends AppCompatActivity {
 
     void FillPrioriti(){
         switch (sPriority_id){
-            case "0":
+            case "1":
                 imgPrioriti.setColorFilter(getResources().getColor(R.color.colorRedCircle));
                 txtPrioriti.setText("Tinggi");
                 break;
-            case "1":
+            case "0":
                 imgPrioriti.setColorFilter(getResources().getColor(R.color.colorGreen));
                 txtPrioriti.setText("Sedang");
                 break;
@@ -572,7 +501,7 @@ public class BBS_add_berita extends AppCompatActivity {
         }
 
         try{
-            File file = new File(uri.getPath());
+            File file = new File(sFile_Path);
             RequestBody requestFile =
                     RequestBody.create(MediaType.parse("multipart/form-data"), file);
 

@@ -96,7 +96,7 @@ public class disposisi_menu extends AppCompatActivity {
                 view3.setBackgroundResource( R.color.colorBar );
 
                 fragment = null;
-                fragment = new frag_persuratan_menu();
+                fragment = new frag_disposisi_menu();
 
                 if (fragment != null) {
                     FragmentManager fragmentManager = getSupportFragmentManager();

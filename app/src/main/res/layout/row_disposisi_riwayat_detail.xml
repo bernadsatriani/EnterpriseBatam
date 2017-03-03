@@ -96,24 +96,29 @@
                                 android:layout_height="wrap_content"
                                 android:maxLines="1"
                                 android:layout_marginLeft="@dimen/space_14"
-                                android:layout_alignParentTop="true"
-                                android:layout_toLeftOf="@+id/lbl_nomor"
-                                android:layout_toStartOf="@+id/lbl_nomor" />
+                                android:layout_alignParentTop="true" />
 
-                            <ui.CustomtextView
-                                android:layout_marginTop="@dimen/space_10"
-                                font:name="GOTHAM_LIGHT"
-                                android:id="@+id/lbl_nomor"
-                                android:text="123/123/123"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:maxLines="1"
-                                android:gravity="right"
-                                android:layout_marginRight="@dimen/space_10"
-                                android:layout_alignParentTop="true"
-                                android:layout_alignParentRight="true"
-                                android:layout_alignParentEnd="true" />
                         </RelativeLayout>
+
+                        <ui.CustomtextView
+                            android:layout_marginLeft="@dimen/space_14"
+                            android:layout_marginTop="@dimen/space_10"
+                            font:name="GOTHAM_LIGHT"
+                            android:id="@+id/lbl_nomor"
+                            android:text="123/123/123"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:layout_marginRight="@dimen/space_10"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true" />
+
+                        <View
+                            android:layout_marginTop="@dimen/space_5"
+                            android:background="@color/grey_s"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"/>
 
                         <RelativeLayout
                             android:id="@+id/layout_attachment1"
@@ -126,29 +131,16 @@
                             android:layout_marginLeft="@dimen/space_5"
                             android:layout_marginRight="@dimen/space_5">
 
-                            <ui.CustomtextView
-                                android:layout_marginTop="@dimen/space_7"
-                                font:name = "GOTHAM_LIGHT"
-                                android:id="@+id/lbl_Judul"
-                                android:textColor="@color/black_ep"
-                                android:text="Judul "
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textSize="@dimen/space_12"
-                                android:maxLines="1"
-                                android:layout_marginRight="@dimen/space_45"
-                                android:layout_marginLeft="@dimen/space_7"/>
 
 
                         </RelativeLayout>
 
                         <ui.CustomtextView
-                            android:layout_marginBottom="@dimen/space_10"
-                            android:layout_marginTop="@dimen/space_10"
+                            android:layout_marginTop="@dimen/space_5"
                             font:name = "GOTHAM_LIGHT"
                             android:id="@+id/lbl_pengirim"
                             android:textColor="@color/black_ep"
-                            android:text="Pengirim Awal : - "
+                            android:text="Ke : - "
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/space_12"
@@ -157,19 +149,17 @@
                             android:layout_marginLeft="@dimen/space_14"/>
 
                         <View
-                            android:visibility="gone"
                             android:layout_marginTop="@dimen/space_7"
                             android:background="@color/grey_s"
                             android:layout_width="match_parent"
                             android:layout_height="1dp"/>
 
                         <ui.CustomtextView
-                            android:visibility="gone"
                             android:layout_marginTop="@dimen/space_7"
                             android:layout_marginBottom="@dimen/space_7"
                             font:name = "GOTHAM_LIGHT"
                             android:id="@+id/lbl_status"
-                            android:text="Status : lihat "
+                            android:text="Isi Diposisi :"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/space_12"
@@ -212,120 +202,6 @@
                         android:layout_marginRight="@dimen/space_10" />
                 </RelativeLayout>
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_marginTop="@dimen/space_10"
-                android:layout_marginRight="@dimen/space_10"
-                android:gravity="right"
-                android:layout_below="@+id/layout_attachment"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <RelativeLayout
-                    android:drawableLeft="@drawable/download24"
-                    android:id="@+id/btnLihat_Riwayat"
-                    android:layout_width="@dimen/space_100"
-                    android:layout_height="@dimen/space_30"
-                    android:background="@drawable/btn_shape_all_orange"
-                    android:gravity="center"
-                    android:textColor="#ffffff"
-                    android:textSize="@dimen/space_12"
-
-                    android:layout_below="@+id/layout_attachment"
-                    android:layout_toLeftOf="@+id/btnDownload"
-                    android:layout_toStartOf="@+id/btnDownload">
-                    <ImageView
-                        android:src="@drawable/eye_white"
-                        android:tint="@color/white"
-                        android:layout_width="@dimen/space_25"
-                        android:layout_height="@dimen/space_30" />
-
-                    <ui.CustomtextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="lihat riwayat  "
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/space_10"
-                        font:name="GOTHAM_BLACK"
-
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentEnd="true" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_marginLeft="@dimen/space_5"
-                    android:drawableLeft="@drawable/download24"
-                    android:id="@+id/btnDownload_lihat"
-                    android:layout_width="115dp"
-                    android:layout_height="@dimen/space_30"
-                    android:background="@drawable/btn_shape_all_blue"
-                    android:gravity="center"
-                    android:text="  lihat dokumen  "
-                    android:textColor="#ffffff"
-                    android:textSize="@dimen/space_12"
-
-                    android:layout_below="@+id/layout_attachment"
-                    android:layout_toLeftOf="@+id/btnDownload"
-                    android:layout_toStartOf="@+id/btnDownload">
-                    <ImageView
-                        android:src="@drawable/downloadsave32"
-                        android:tint="@color/white"
-                        android:layout_width="@dimen/space_25"
-                        android:layout_height="@dimen/space_30" />
-
-                    <ui.CustomtextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="lihat disposisi    "
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/space_10"
-                        font:name="GOTHAM_BLACK"
-
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentEnd="true" />
-                </RelativeLayout>
-                <RelativeLayout
-                    android:drawableLeft="@drawable/download24"
-                    android:id="@+id/btnDownload"
-                    android:layout_width="115dp"
-                    android:layout_height="@dimen/space_30"
-                    android:background="@drawable/btn_shape_all_green"
-                    android:gravity="center"
-                    android:text="  lihat dokumen  "
-                    android:textColor="#ffffff"
-                    android:textSize="@dimen/space_12"
-                    android:layout_marginLeft="@dimen/space_5"
-                    android:layout_below="@+id/layout_attachment"
-                    android:layout_alignRight="@+id/layout_attachment"
-                    android:layout_alignEnd="@+id/layout_attachment">
-                    <ImageView
-                        android:src="@drawable/pdf"
-                        android:tint="@color/white"
-                        android:layout_width="@dimen/space_25"
-                        android:layout_height="@dimen/space_30" />
-
-                    <ui.CustomtextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="lihat lampiran   "
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/space_10"
-                        font:name="GOTHAM_BLACK"
-
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentEnd="true" />
-                </RelativeLayout>
-
-
-            </LinearLayout>
-
-
 
 
             <LinearLayout

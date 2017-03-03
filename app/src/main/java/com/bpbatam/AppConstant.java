@@ -44,16 +44,33 @@ public final class AppConstant {
 	public static String sCategoryID = "";
 	public static String sCategoryName = "";
 	public static boolean EXIT;
-
+	public static final String PARAM_FCM = "param_fcm";
 	public static String ACTIVITY_FROM;
 
 
 	//public static final String DOMAIN_URL = "http://182.253.221.109:44311";
 
-	//public static final String DOMAIN_URL_UPLOAD = "http://demo.ipnetsoft.com";
-	public static final String DOMAIN_URL = "http://118.97.149.129:7001";
-	public static final String DOMAIN_URL_UPLOAD = "http://epdev.bpbatam.go.id";
+	//public static final String DOMAIN_URL = "http://118.97.149.129:7001";
+	public static final String DOMAIN_URL = "https://ep-api.bpbatam.go.id";
+	//public static final String DOMAIN_URL_UPLOAD = "http://epdev.bpbatam.go.id";
+	public static final String DOMAIN_URL_UPLOAD = "http://ep.bpbatam.go.id";
 	public final static String API_VERSION = "/";
+
+	public static int PERSURATAN_UMUM_UNREAD_COUNT;
+	public static int PERSURATAN_UMUM_TOTAL_COUNT;
+	public static int PERSURATAN_PRIBADI_UNREAD_COUNT;
+	public static int PERSURATAN_PRIBADI_TOTAL_COUNT;
+	public static int PERSURATAN_STATUS_PROSES_UNREAD_COUNT;
+	public static int PERSURATAN_STATUS_PROSES_TOTAL_COUNT;
+	public static int PERSURATAN_STATUS_PRIBADI_UNREAD_COUNT;
+	public static int PERSURATAN_STATUS_PRIBADI_TOTAL_COUNT;
+	public static int PERSURATAN_PERMOHONAN_UNREAD_COUNT;
+	public static int PERSURATAN_PERMOHONAN_TOTAL_COUNT;
+
+	public static int DISPOSISI_UMUM_UNREAD_COUNT;
+	public static int DISPOSISI_UMUM_TOTAL_COUNT;
+	public static int DISPOSISI_PRIBADI_UNREAD_COUNT;
+	public static int DISPOSISI_PRIBADI_TOTAL_COUNT;
 
 	public static JSONArray gPostJson;
 	public static JSONObject gObjJson;

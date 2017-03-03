@@ -76,6 +76,7 @@
                     android:layout_marginTop="@dimen/space_5">
 
                     <LinearLayout
+                        android:id="@+id/layout_row"
                         android:background="@color/colorListItem"
                         android:orientation="vertical"
                         android:layout_width="match_parent"

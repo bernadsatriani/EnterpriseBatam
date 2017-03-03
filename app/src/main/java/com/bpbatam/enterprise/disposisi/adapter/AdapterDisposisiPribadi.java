@@ -76,11 +76,11 @@ public class AdapterDisposisiPribadi extends  RecyclerView.Adapter<AdapterDispos
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final Diposisi_List_Folder.Datum listData = persuratanListFolder.data.get(position);
         //Set text
-        holder.txtDate.setText(listData.dispo_date);
+        holder.txtDate.setText((listData.dispo_date == null) ? "" : listData.dispo_date);
         holder.txtFrom.setText(listData.name);
         holder.txtJudul.setText(listData.title);
         holder.txtNomor.setText(listData.dispo_num);
-        holder.txtPengirim.setText("Pengirim Awal : " + listData.dispo_by);
+        holder.txtPengirim.setText("Pengirim Awal : " + listData.sender);
 
         holder.layoutButton.setVisibility(View.VISIBLE);
         holder.btnDownload_lampiran.setVisibility(View.GONE);

@@ -2,8 +2,10 @@ package com.bpbatam.enterprise.bbs;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -357,6 +359,26 @@ public class BBS_edit_berita extends AppCompatActivity {
                 sFile_Size = Long.toString(f.length());
                 sFile_Type = f.getPath().substring(f.getPath().lastIndexOf(".") + 1); // Without dot jpg, png
 
+                if (sFile_Type.length() > 5){
+                    //Image
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+                    Cursor cursor = getContentResolver().query(uri,
+                            filePathColumn, null, null, null);
+                    cursor.moveToFirst();
+
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    String picturePath = cursor.getString(columnIndex);
+                    cursor.close();
+                    f = new File(picturePath);
+                    sFile_Path = f.getPath();
+                    sFile_Size = Long.toString(f.length());
+                    sFile_Type = f.getPath().substring(f.getPath().lastIndexOf(".") + 1); // Without dot jpg, png
+
+                }else{
+                    //File
+                }
+
                 bUpload = true;
                 layoutAttachment.setVisibility(View.VISIBLE);
                 DecimalFormat precision = new DecimalFormat("0.00");
@@ -385,11 +407,11 @@ public class BBS_edit_berita extends AppCompatActivity {
 
     void FillPrioriti(){
         switch (sPriority_id){
-            case "0":
+            case "1":
                 imgPrioriti.setColorFilter(getResources().getColor(R.color.colorRedCircle));
                 txtPrioriti.setText("Tinggi");
                 break;
-            case "1":
+            case "0":
                 imgPrioriti.setColorFilter(getResources().getColor(R.color.colorGreen));
                 txtPrioriti.setText("Sedang");
                 break;
@@ -576,7 +598,7 @@ public class BBS_edit_berita extends AppCompatActivity {
         }
 
         try{
-            File file = new File(uri.getPath());
+            File file = new File(sFile_Path);
             RequestBody requestFile =
                     RequestBody.create(MediaType.parse("multipart/form-data"), file);
 

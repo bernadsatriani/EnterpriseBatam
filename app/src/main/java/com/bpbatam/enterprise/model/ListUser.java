@@ -14,6 +14,7 @@ public class ListUser {
     public String userid;
     public String reqid;
     public String keyword;
+    public String isfire;
 
     public ListUser(String hashid, String userid, String reqid, String keyword) {
         this.hashid = hashid;
@@ -21,6 +22,15 @@ public class ListUser {
         this.userid = userid;
         this.keyword = keyword;
     }
+
+    public ListUser(String hashid, String userid, String reqid, String keyword, String isfire) {
+        this.hashid = hashid;
+        this.reqid = reqid;
+        this.userid = userid;
+        this.keyword = keyword;
+        this.isfire = isfire;
+    }
+
 
     public class Datum
     {

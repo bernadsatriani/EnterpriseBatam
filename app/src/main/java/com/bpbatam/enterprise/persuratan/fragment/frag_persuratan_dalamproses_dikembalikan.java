@@ -133,7 +133,7 @@ public class frag_persuratan_dalamproses_dikembalikan extends Fragment implement
                     if ( (visibleItemCount + pastVisiblesItems) >= totalItemCount)
                     {
                         if (iMax <= totalItemCount){
-                            iMin = iMax;
+                            iMin = iMax + 1;
                             iMax += 10;
                             FillGridMore();
                         }
@@ -195,9 +195,9 @@ public class frag_persuratan_dalamproses_dikembalikan extends Fragment implement
                             String sTotal = String.valueOf(persuratanListFolder.data.size());
                             if (sTotal.length() < 2) sTotal = "0" + sTotal;
                             if (sFolder.equals("DKM")){
-                                txtFolder.setText("Dikembalikan (" + sUnread + "/" + sTotal + ")");
+                                txtFolder.setText("Dikembalikan (" + AppConstant.PERSURATAN_STATUS_PRIBADI_UNREAD_COUNT + "/" + AppConstant.PERSURATAN_STATUS_PRIBADI_TOTAL_COUNT + ")");
                             }else{
-                                txtFolder.setText("Dalam Proses (" + sUnread + "/" + sTotal + ")");
+                                txtFolder.setText("Dalam Proses (" + AppConstant.PERSURATAN_STATUS_PROSES_UNREAD_COUNT + "/" + AppConstant.PERSURATAN_STATUS_PROSES_TOTAL_COUNT + ")");
                             }
                             FillAdapter();
                         }else{
@@ -268,9 +268,9 @@ public class frag_persuratan_dalamproses_dikembalikan extends Fragment implement
                             String sTotal = String.valueOf(persuratanListFolderFull.data.size());
                             if (sTotal.length() < 2) sTotal = "0" + sTotal;
                             if (sFolder.equals("DKM")){
-                                txtFolder.setText("Dikembalikan (" + sUnread + "/" + sTotal + ")");
+                                txtFolder.setText("Dikembalikan (" + AppConstant.PERSURATAN_STATUS_PRIBADI_UNREAD_COUNT + "/" + AppConstant.PERSURATAN_STATUS_PRIBADI_TOTAL_COUNT + ")");
                             }else{
-                                txtFolder.setText("Dalam Proses (" + sUnread + "/" + sTotal + ")");
+                                txtFolder.setText("Dalam Proses (" + AppConstant.PERSURATAN_STATUS_PROSES_UNREAD_COUNT + "/" + AppConstant.PERSURATAN_STATUS_PROSES_TOTAL_COUNT + ")");
                             }
                             mAdapter.notifyDataSetChanged();
                         }

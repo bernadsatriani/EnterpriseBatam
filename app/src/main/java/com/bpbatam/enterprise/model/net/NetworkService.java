@@ -20,6 +20,7 @@ import com.bpbatam.enterprise.model.Disposisi_Distribusi;
 import com.bpbatam.enterprise.model.Disposisi_Folder;
 import com.bpbatam.enterprise.model.Disposisi_Notifikasi;
 import com.bpbatam.enterprise.model.Disposisi_Riwayat;
+import com.bpbatam.enterprise.model.Disposisi_Riwayat_Detail;
 import com.bpbatam.enterprise.model.GitHubUser;
 import com.bpbatam.enterprise.model.ListUser;
 import com.bpbatam.enterprise.model.LocationList;
@@ -119,6 +120,9 @@ public interface NetworkService {
     @POST("ep_api_services/ep_user/search_user")
     Call<ListUser> getListUser(@Body ListUser params);
 
+    @POST("ep_api_services/ep_user/advance_search_user")
+    Call<ListUser> getListAdvanceUser(@Body ListUser params);
+
     //PERSURATAN-------------------------------------------------------------------
     @POST("ep_api_services/ep_mail/get_mail_cc")
     Call<Persuratan_Detail_CC> getMailCC(@Body Persuratan_Detail_CC params);
@@ -187,6 +191,9 @@ public interface NetworkService {
 
     @POST("ep_api_services/ep_dispo/get_dispo_origin")
     Call<Disposisi_Riwayat> getDisposisiRiwayat(@Body Disposisi_Riwayat params);
+
+    @POST("ep_api_services/ep_dispo/get_dispo_tree")
+    Call<Disposisi_Riwayat_Detail> getDisposisiRiwayatDetail(@Body Disposisi_Riwayat_Detail params);
 
 
     @POST("ep_api_services/ep_dispo/get_side_notif")

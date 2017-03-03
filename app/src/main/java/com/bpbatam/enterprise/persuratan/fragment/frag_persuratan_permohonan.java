@@ -68,6 +68,7 @@ public class frag_persuratan_permohonan extends Fragment implements SwipeRefresh
 
     int iMin, iMax;
     String sFolder ;
+    int listcount;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -120,7 +121,7 @@ public class frag_persuratan_permohonan extends Fragment implements SwipeRefresh
                     if ( (visibleItemCount + pastVisiblesItems) >= totalItemCount)
                     {
                         if (iMax <= totalItemCount){
-                            iMin = iMax;
+                            iMin = iMax + 1;
                             iMax += 10;
                             FillGridMore();
                         }
@@ -167,8 +168,8 @@ public class frag_persuratan_permohonan extends Fragment implements SwipeRefresh
                             if (sUnread.length() < 2) sUnread = "0" + sUnread;
 
                             String sTotal = String.valueOf(persuratanListFolder.data.size());
-                            if (sTotal.length() < 2) sTotal = "0" + sTotal;
-                            txtLabel.setText("PERMOHONAN (" + sUnread + "/" + sTotal + ")");
+                            //if (sTotal.length() < 2) sTotal = "0" + sTotal;
+                            txtLabel.setText("PERMOHONAN (" + AppConstant.PERSURATAN_PERMOHONAN_UNREAD_COUNT + "/" + AppConstant.PERSURATAN_PERMOHONAN_TOTAL_COUNT + ")");
                             FillAdapter();
                         }
                     }
@@ -223,8 +224,9 @@ public class frag_persuratan_permohonan extends Fragment implements SwipeRefresh
                             if (sUnread.length() < 2) sUnread = "0" + sUnread;
 
                             String sTotal = String.valueOf(persuratanListFolderFull.data.size());
-                            if (sTotal.length() < 2) sTotal = "0" + sTotal;
-                            txtLabel.setText("PERMOHONAN (" + sUnread + "/" + sTotal + ")");
+                            //if (sTotal.length() < 2) sTotal = "0" + sTotal;
+                            txtLabel.setText("PERMOHONAN (" + AppConstant.PERSURATAN_PERMOHONAN_UNREAD_COUNT + "/" + AppConstant.PERSURATAN_PERMOHONAN_TOTAL_COUNT + ")");
+
                             mAdapter.notifyDataSetChanged();
                         }
                     }

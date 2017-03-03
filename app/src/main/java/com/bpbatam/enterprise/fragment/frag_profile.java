@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +43,8 @@ public class frag_profile extends Fragment {
     USER_Info userInfo;
     RelativeLayout layout_logout;
     UpdateDeviceId updateDeviceId;
+    ImageView imgProfile;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -59,6 +62,7 @@ public class frag_profile extends Fragment {
     }
 
     void InitControl(View v){
+        imgProfile = (ImageView)v.findViewById(R.id.imgProfile);
         layout_logout = (RelativeLayout)v.findViewById(R.id.layout_logout);
         txtName = (TextView)v.findViewById(R.id.text_Name);
         txtPerusahaan = (TextView)v.findViewById(R.id.text_perusahaan);
@@ -82,6 +86,9 @@ public class frag_profile extends Fragment {
                 fUpdateDeviceID();
             }
         });
+
+        String sUrlAvatar = "http://ep.bpbatam.go.id/image.php?id=" + AppConstant.USER;
+        AppController.getInstance().displayImage(getActivity(), sUrlAvatar, imgProfile);
     }
 
     void fUpdateDeviceID(){

@@ -21,10 +21,15 @@ import android.widget.TextView;
 import com.bpbatam.AppConstant;
 import com.bpbatam.AppController;
 import com.bpbatam.enterprise.adapter.AdapterNotification;
+import com.bpbatam.enterprise.disposisi.disposisi_lihat_surat;
+import com.bpbatam.enterprise.model.Disposisi_Detail;
 import com.bpbatam.enterprise.model.Disposisi_Notifikasi;
 import com.bpbatam.enterprise.model.ListData;
+import com.bpbatam.enterprise.model.Persuratan_Detail;
 import com.bpbatam.enterprise.model.net.NetworkManager;
+import com.bpbatam.enterprise.persuratan.persuratan_detail;
 import com.bpbatam.enterprise.persuratan.persuratan_folder_pribadi_umum;
+import com.bpbatam.enterprise.persuratan.persuratan_lihat_surat;
 import com.bpbatam.enterprise.persuratan.persuratan_status_surat;
 
 import java.security.NoSuchAlgorithmException;
@@ -109,8 +114,7 @@ public class NotificationActivity extends Fragment {
                     if (code == 200){
                         disposisiNotifikasi = response.body();
                         if (disposisiNotifikasi.code.equals("00")){
-                            mAdapter = new AdapterNotification(getActivity(), disposisiNotifikasi);
-                            mRecyclerView.setAdapter(mAdapter);
+                            FillAdapter();
                         }
                     }
                 }
@@ -127,6 +131,76 @@ public class NotificationActivity extends Fragment {
 
     }
 
+    void FillAdapter(){
+        mAdapter = new AdapterNotification(getActivity(), disposisiNotifikasi, new AdapterNotification.OnDownloadClicked() {
+            @Override
+            public void OnDownloadClicked(Disposisi_Notifikasi.Datum dat) {
+                if (dat.notif_type.toUpperCase().equals("DISPOS")){
+                    AppConstant.EMAIL_ID = dat.notif_id;
+                    AppConstant.DISPO_ID = Integer.toString(dat.notif_id);
+                    Intent intent = new Intent(getActivity(), disposisi_lihat_surat.class);
+                    startActivity(intent);
+                    UpdateDetail();
+                }else{
+                    AppConstant.EMAIL_ID = dat.notif_id;
+                    Intent intent = new Intent(getActivity(), persuratan_lihat_surat.class);
+                    startActivity(intent);
+                    UpdateDetailMail();
+                }
+            }
+        });
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
+    void UpdateDetail(){
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        Disposisi_Detail params = new Disposisi_Detail(AppConstant.HASHID,
+                AppConstant.USER,
+                AppConstant.REQID,
+                Integer.toString(AppConstant.EMAIL_ID));
+        Call<Disposisi_Detail>call = NetworkManager.getNetworkService().getDisposisiDetail(params);
+        call.enqueue(new Callback<Disposisi_Detail>() {
+            @Override
+            public void onResponse(Call<Disposisi_Detail> call, Response<Disposisi_Detail> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<Disposisi_Detail> call, Throwable t) {
+
+            }
+        });
+    }
+
+    void UpdateDetailMail(){
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        Persuratan_Detail params = new Persuratan_Detail(AppConstant.HASHID,
+                AppConstant.USER,
+                AppConstant.REQID,
+                Integer.toString(AppConstant.EMAIL_ID));
+        Call<Persuratan_Detail> call = NetworkManager.getNetworkService().getMailDetail(params);
+        call.enqueue(new Callback<Persuratan_Detail>() {
+            @Override
+            public void onResponse(Call<Persuratan_Detail> call, Response<Persuratan_Detail> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<Persuratan_Detail> call, Throwable t) {
+
+            }
+        });
+    }
     @Override
     public void onCreateOptionsMenu (Menu menu, MenuInflater inflater){
         menu.clear();

@@ -55,7 +55,7 @@ public class BBS_Prioritas extends AppCompatActivity {
                 scb.setChecked(true);
                 scb1.setChecked(false);
                 scb2.setChecked(false);
-                sID = "0";
+                sID = "1";
             }
         });
 
@@ -65,7 +65,7 @@ public class BBS_Prioritas extends AppCompatActivity {
                 scb.setChecked(false);
                 scb1.setChecked(true);
                 scb2.setChecked(false);
-                sID = "1";
+                sID = "0";
             }
         });
 
@@ -84,7 +84,7 @@ public class BBS_Prioritas extends AppCompatActivity {
                 scb.setChecked(true);
                 scb1.setChecked(false);
                 scb2.setChecked(false);
-                sID = "0";
+                sID = "1";
             }
         });
 
@@ -94,7 +94,7 @@ public class BBS_Prioritas extends AppCompatActivity {
                 scb.setChecked(false);
                 scb1.setChecked(true);
                 scb2.setChecked(false);
-                sID = "1";
+                sID = "0";
             }
         });
 

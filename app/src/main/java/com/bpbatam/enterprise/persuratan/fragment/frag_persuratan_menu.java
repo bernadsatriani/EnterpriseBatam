@@ -394,19 +394,26 @@ public class frag_persuratan_menu extends Fragment {
                         for (Persuratan_Folder.Datum dat : persuratanFolder.data) {
                             if (dat.folder_code.equals("FPR")) {
                                 iPRM = dat.unread_count;
-
+                                AppConstant.PERSURATAN_PRIBADI_UNREAD_COUNT = dat.unread_count;
+                                AppConstant.PERSURATAN_PRIBADI_TOTAL_COUNT = dat.total_count;
                             }
 
                             if (dat.folder_code.equals("FUM")) {
                                 iFUM = dat.unread_count;
+                                AppConstant.PERSURATAN_UMUM_UNREAD_COUNT = dat.unread_count;
+                                AppConstant.PERSURATAN_UMUM_TOTAL_COUNT = dat.total_count;
                             }
 
                             if (dat.folder_code.equals("DPR")) {
                                 iDPR = dat.unread_count;
+                                AppConstant.PERSURATAN_STATUS_PROSES_UNREAD_COUNT = dat.unread_count;
+                                AppConstant.PERSURATAN_STATUS_PROSES_TOTAL_COUNT = dat.total_count;
                             }
 
                             if (dat.folder_code.equals("DKM")) {
                                 iDKM = dat.unread_count;
+                                AppConstant.PERSURATAN_STATUS_PRIBADI_UNREAD_COUNT = dat.unread_count;
+                                AppConstant.PERSURATAN_STATUS_PRIBADI_TOTAL_COUNT = dat.total_count;
                             }
 
                             if (dat.folder_code.equals("PRM")) {
@@ -416,6 +423,9 @@ public class frag_persuratan_menu extends Fragment {
                                 }else{
                                     notif3.setVisibility(View.GONE);
                                 }
+
+                                AppConstant.PERSURATAN_PERMOHONAN_UNREAD_COUNT = dat.unread_count;
+                                AppConstant.PERSURATAN_PERMOHONAN_TOTAL_COUNT = dat.total_count;
                             }
                         }
 

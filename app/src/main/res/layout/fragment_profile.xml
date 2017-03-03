@@ -24,7 +24,7 @@
             android:layout_height="@dimen/space_150">
 
             <ui.CircleImageView
-
+                android:id="@+id/imgProfile"
                 android:src="@drawable/avatar"
                 android:layout_width="150dp"
                 android:layout_height="120dp" />

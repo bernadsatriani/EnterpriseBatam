@@ -109,7 +109,7 @@ public class Frag_bbs_semua_pesanan extends Fragment implements SwipeRefreshLayo
                     if ( (visibleItemCount + pastVisiblesItems) >= totalItemCount)
                     {
                         if (iMax <= totalItemCount){
-                            iMin = iMax;
+                            iMin = iMax + 1;
                             iMax += 10;
                             FillGridMore();
                         }
@@ -160,8 +160,9 @@ public class Frag_bbs_semua_pesanan extends Fragment implements SwipeRefreshLayo
                                     bbs_listFull = bbs_list;
                                     FillAdapter();
                                 }
+                            }else{
+                                mRecyclerView.setAdapter(null);
                             }
-
                         }
                     }
                 }
@@ -170,10 +171,12 @@ public class Frag_bbs_semua_pesanan extends Fragment implements SwipeRefreshLayo
                 public void onFailure(Call<BBS_LIST> call, Throwable t) {
                     String a = t.getMessage();
                     a = a;
+                    mRecyclerView.setAdapter(null);
                     swipeRefreshLayout.setRefreshing(false);
                 }
             });
         }catch (Exception e){
+            mRecyclerView.setAdapter(null);
             Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
             swipeRefreshLayout.setRefreshing(false);
         }

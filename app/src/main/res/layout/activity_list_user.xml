@@ -1,12 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:font="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorSecondaryBackground">
 
     <include
         layout="@layout/tool_bar_back"
         android:id="@+id/tool_bar"/>
+
+    <View
+        android:background="@color/colorLineBar"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <LinearLayout
+        android:background="@color/white"
+        android:id="@+id/layoutHasil"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ui.CustomEditText
+            font:name = "GOTHAM_BOLD"
+            android:id="@+id/text_search"
+            android:textColor="@color/black"
+            android:paddingLeft="@dimen/space_14"
+            android:background="@color/transparant_pure"
+            android:textSize="@dimen/space_14"
+            android:gravity="fill"
+            android:hint="Search User..."
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_50" />
+
+        <View
+            android:background="@color/colorLineBar"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:paddingTop="@dimen/space_10"

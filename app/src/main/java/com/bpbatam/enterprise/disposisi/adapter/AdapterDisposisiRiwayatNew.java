@@ -13,14 +13,13 @@ import android.widget.TextView;
 import com.bpbatam.AppConstant;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.disposisi.disposisi_lihat_surat;
+import com.bpbatam.enterprise.disposisi.disposisi_riwayat_detail;
 import com.bpbatam.enterprise.model.Diposisi_List_Folder;
 import com.bpbatam.enterprise.model.Disposisi_Attachment;
-import com.bpbatam.enterprise.model.ListData;
-import com.bpbatam.enterprise.model.Persuratan_List_Folder;
+import com.bpbatam.enterprise.model.Disposisi_Riwayat;
 import com.bpbatam.enterprise.model.net.NetworkManager;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,12 +28,12 @@ import retrofit2.Response;
 /**
  * Created by User on 9/19/2016.
  */
-public class AdapterDisposisiRiwayat extends  RecyclerView.Adapter<AdapterDisposisiRiwayat.ViewHolder>{
-    Diposisi_List_Folder persuratanListFolder;
+public class AdapterDisposisiRiwayatNew extends  RecyclerView.Adapter<AdapterDisposisiRiwayatNew.ViewHolder>{
+    Disposisi_Riwayat persuratanListFolder;
     Disposisi_Attachment disposisiAttachment;
     private Context context;
 
-    public AdapterDisposisiRiwayat(Context context, Diposisi_List_Folder persuratanListFolder, OnDownloadClicked listener) {
+    public AdapterDisposisiRiwayatNew(Context context, Disposisi_Riwayat persuratanListFolder, OnDownloadClicked listener) {
         this.context = context;
         this.persuratanListFolder = persuratanListFolder;
         this.listener = listener;
@@ -60,10 +59,10 @@ public class AdapterDisposisiRiwayat extends  RecyclerView.Adapter<AdapterDispos
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        final Diposisi_List_Folder.Datum listData = persuratanListFolder.data.get(position);
+        final Disposisi_Riwayat.Datum listData = persuratanListFolder.data.get(position);
         //Set text
         holder.txtDate.setText(listData.dispo_date);
-        holder.txtFrom.setText(listData.name);
+        holder.txtFrom.setText(listData.create_name);
         holder.txtJudul.setText(listData.title);
         holder.txtNomor.setText(listData.dispo_num);
         holder.txtPengirim.setText("Pengirim Awal : " + listData.dispo_origin_name);
@@ -127,6 +126,15 @@ public class AdapterDisposisiRiwayat extends  RecyclerView.Adapter<AdapterDispos
             }
         });
 
+        holder.btnLihatRiwayat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppConstant.DISPO_ID = Integer.toString(listData.dispo_id);
+                Intent intent = new Intent(context, disposisi_riwayat_detail.class);
+                view.getContext().startActivity(intent);
+            }
+        });
+
         holder.btnDownload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,7 +147,6 @@ public class AdapterDisposisiRiwayat extends  RecyclerView.Adapter<AdapterDispos
                 listener.OnDownloadClicked("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf", true);
             }
         });
-        holder.listData = listData;
     }
 
     @Override
@@ -160,13 +167,12 @@ public class AdapterDisposisiRiwayat extends  RecyclerView.Adapter<AdapterDispos
 
                         ;
 
-        RelativeLayout btnDownload, btnDownload_lihat;
+        RelativeLayout btnDownload, btnDownload_lihat, btnLihatRiwayat;
         ImageView imgStatus, imgRead, imgChecklist;
 
-        Diposisi_List_Folder.Datum listData;
         public ViewHolder(View itemView,
                           Context context,
-                          final AdapterDisposisiRiwayat mCourseAdapter) {
+                          final AdapterDisposisiRiwayatNew mCourseAdapter) {
             super(itemView);
             txtNomor = (TextView)itemView.findViewById(R.id.lbl_nomor);
             txtJudul = (TextView)itemView.findViewById(R.id.lbl_Judul);
@@ -181,6 +187,7 @@ public class AdapterDisposisiRiwayat extends  RecyclerView.Adapter<AdapterDispos
             btnDownload = (RelativeLayout) itemView.findViewById(R.id.btnDownload);
             imgRead = (ImageView) itemView.findViewById(R.id.imgRead);
             imgChecklist = (ImageView)itemView.findViewById(R.id.imageView15);
+            btnLihatRiwayat = (RelativeLayout) itemView.findViewById(R.id.btnLihat_Riwayat);
 
             btnDownload_lihat = (RelativeLayout) itemView.findViewById(R.id.btnDownload_lihat);
         }

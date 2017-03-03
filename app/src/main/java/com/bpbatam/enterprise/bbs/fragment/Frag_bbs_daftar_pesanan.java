@@ -241,7 +241,7 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
                     if ( (visibleItemCount + pastVisiblesItems) >= totalItemCount)
                     {
                         if (iMax <= totalItemCount){
-                            iMin = iMax;
+                            iMin = iMax +1;
                             iMax += 10;
                             FillGridMore(AppConstant.sCategoryID);
                         }
@@ -373,6 +373,8 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
                                 }
 
                                 //if(bbsListSearch != null) InitRecycle();
+                            }else{
+                                mRecyclerView.setAdapter(null);
                             }
                         }
                     }
@@ -382,11 +384,13 @@ public class Frag_bbs_daftar_pesanan extends Fragment implements SwipeRefreshLay
                 public void onFailure(Call<BBS_List_ByCategory> call, Throwable t) {
                     String a = t.getMessage();
                     a = a;
+                    mRecyclerView.setAdapter(null);
                     mRecyclerView.setVisibility(View.VISIBLE);
                     swipeRefreshLayout.setRefreshing(false);
                 }
             });
         }catch (Exception e){
+            mRecyclerView.setAdapter(null);
             Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
             mRecyclerView.setVisibility(View.VISIBLE);
             swipeRefreshLayout.setRefreshing(false);

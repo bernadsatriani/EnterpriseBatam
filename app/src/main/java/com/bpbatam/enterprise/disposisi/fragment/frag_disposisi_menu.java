@@ -194,7 +194,7 @@ public class frag_disposisi_menu extends Fragment {
                 imgRiwayat.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.riwayat_icon));
                 AppConstant.ACTIVITY_FROM = "RIWAYAT (01/08)";
                 fragment = null;
-                fragment = new frag_disposisi_riwayat();
+                fragment = new frag_disposisi_riwayat_new();
 
                 line1.setBackgroundResource( R.color.grey_s );
                 line2.setBackgroundResource( R.color.colorBar );
@@ -312,10 +312,14 @@ public class frag_disposisi_menu extends Fragment {
                         for (Disposisi_Folder.Datum dat : disposisiFolder.data) {
                             if (dat.folder_code.equals("DFPR")) {
                                 iDFPR =  dat.unread_count;
+                                AppConstant.DISPOSISI_PRIBADI_UNREAD_COUNT = dat.unread_count;
+                                AppConstant.DISPOSISI_PRIBADI_TOTAL_COUNT = dat.total_count;
                             }
 
                             if (dat.folder_code.equals("DFUM")) {
                                 iDFUM =  dat.unread_count;
+                                AppConstant.DISPOSISI_UMUM_UNREAD_COUNT = dat.unread_count;
+                                AppConstant.DISPOSISI_UMUM_TOTAL_COUNT = dat.total_count;
                             }
 
                         }

@@ -117,7 +117,7 @@ public class frag_persuratan_draft extends Fragment implements SwipeRefreshLayou
                     if ( (visibleItemCount + pastVisiblesItems) >= totalItemCount)
                     {
                         if (iMax <= totalItemCount){
-                            iMin = iMax;
+                            iMin = iMax +1;
                             iMax += 10;
                             FillGridMore();
                         }

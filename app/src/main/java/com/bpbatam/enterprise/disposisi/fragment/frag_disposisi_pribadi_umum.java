@@ -141,7 +141,7 @@ public class frag_disposisi_pribadi_umum extends Fragment implements SwipeRefres
                     if ( (visibleItemCount + pastVisiblesItems) >= totalItemCount)
                     {
                         if (iMax <= totalItemCount){
-                            iMin = iMax;
+                            iMin = iMax +1;
                             iMax += 10;
                             FillGridMore();
                         }
@@ -204,9 +204,9 @@ public class frag_disposisi_pribadi_umum extends Fragment implements SwipeRefres
                             String sTotal = String.valueOf(persuratanListFolder.data.size());
                             if (sTotal.length() < 2) sTotal = "0" + sTotal;
                             if (sFolder.equals("DFUM")){
-                                txtFolder.setText("Folder Umum (" + sUnread + "/" + sTotal + ")");
+                                txtFolder.setText("Folder Umum (" + AppConstant.DISPOSISI_UMUM_UNREAD_COUNT + "/" + AppConstant.DISPOSISI_UMUM_TOTAL_COUNT + ")");
                             }else{
-                                txtFolder.setText("Folder Pribadi (" + sUnread + "/" + sTotal + ")");
+                                txtFolder.setText("Folder Pribadi (" + AppConstant.DISPOSISI_PRIBADI_UNREAD_COUNT + "/" + AppConstant.DISPOSISI_PRIBADI_TOTAL_COUNT + ")");
                             }
 
                             FillAdapter();
@@ -278,9 +278,9 @@ public class frag_disposisi_pribadi_umum extends Fragment implements SwipeRefres
                             String sTotal = String.valueOf(persuratanListFolderFull.data.size());
                             if (sTotal.length() < 2) sTotal = "0" + sTotal;
                             if (sFolder.equals("DFUM")){
-                                txtFolder.setText("Folder Umum (" + sUnread + "/" + sTotal + ")");
+                                txtFolder.setText("Folder Umum (" + AppConstant.DISPOSISI_UMUM_UNREAD_COUNT + "/" + AppConstant.DISPOSISI_UMUM_TOTAL_COUNT + ")");
                             }else{
-                                txtFolder.setText("Folder Pribadi (" + sUnread + "/" + sTotal + ")");
+                                txtFolder.setText("Folder Pribadi (" + AppConstant.DISPOSISI_PRIBADI_UNREAD_COUNT + "/" + AppConstant.DISPOSISI_PRIBADI_TOTAL_COUNT + ")");
                             }
 
                             mAdapter.notifyDataSetChanged();

@@ -3,7 +3,6 @@ package com.bpbatam;
 import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
@@ -15,7 +14,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -24,7 +22,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bpbatam.enterprise.MainActivity;
 import com.bpbatam.enterprise.MainMenuActivity;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.model.AuthUser;
@@ -43,8 +40,6 @@ import java.security.NoSuchAlgorithmException;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static java.security.AccessController.getContext;
 
 /**
  * A login screen that offers login via email/password.
@@ -80,6 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (authUser.data.size() > 0){
                     for (AuthUser.Datum dat : authUser.data){
                         AppConstant.USER = dat.user_id;
+                        txtUser.setText(dat.user_id);
                     }
 
                     CekDevice_Id();
@@ -125,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
                         if(deviceId.code.equals("00")){
                             for (Device_ID.Datum dat : deviceId.data){
                                 if (dat.device_id.equals("-") || dat.device_id.equals(AppConstant.IMEI)){
-
+                                    fUpdateDeviceID();
                                     Intent intent = new Intent (LoginActivity.this, MainMenuActivity.class);
                                     startActivity(intent);
                                     finish();
@@ -229,6 +225,8 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
+
+
 
     void fUpdateDeviceID(){
         try {

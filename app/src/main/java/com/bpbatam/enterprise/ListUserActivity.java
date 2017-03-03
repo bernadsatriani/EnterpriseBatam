@@ -5,9 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -41,9 +44,11 @@ public class ListUserActivity extends AppCompatActivity {
     TextView txtLabel;
     private Toolbar mToolbar;
     ImageView imgBack;
+    EditText text_search;
 
     ListUser  listUser;
     String sUserDistri, sUserCC;
+    boolean bLoading = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +78,28 @@ public class ListUserActivity extends AppCompatActivity {
                 finish();
             }
         });
+        text_search = (EditText)findViewById(R.id.text_search);
+
+        text_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int i, int i1, int i2) {
+                if(s.length() != 0 && !bLoading){
+                    bLoading = true;
+                    FillGrid(text_search.getText().toString());
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     void FillGrid(String sKeyword){
@@ -83,12 +110,13 @@ public class ListUserActivity extends AppCompatActivity {
         }
 
         try{
-            ListUser param = new ListUser(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID, sKeyword);
-            Call<ListUser> call = NetworkManager.getNetworkService(this).getListUser(param);
+            ListUser param = new ListUser(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID, sKeyword, "1");
+            Call<ListUser> call = NetworkManager.getNetworkService(this).getListAdvanceUser(param);
             call.enqueue(new Callback<ListUser>() {
                 @Override
                 public void onResponse(Call<ListUser> call, Response<ListUser> response) {
                     int code = response.code();
+                    bLoading = false;
                     if (code == 200){
                         listUser = response.body();
                         if (listUser.code.equals("00")){
@@ -99,12 +127,12 @@ public class ListUserActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<ListUser> call, Throwable t) {
-
+                    bLoading = false;
                 }
             });
 
         }catch (Exception e){
-
+            bLoading = false;
         }
 
     }

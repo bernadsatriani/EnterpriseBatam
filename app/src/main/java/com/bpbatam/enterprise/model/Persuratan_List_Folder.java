@@ -5,6 +5,7 @@ import java.util.List;
 public class Persuratan_List_Folder {
     public String code ;
     public String info ;
+    public String list_count;
     public List<Datum> data ;
     public String hashid;
     public String userid;

@@ -5,6 +5,7 @@ import java.util.List;
 public class Diposisi_List_Folder {
     public String code ;
     public String info ;
+    public String list_count ;
     public List<Datum> data ;
     public String hashid;
     public String userid;
@@ -114,6 +115,7 @@ public class Diposisi_List_Folder {
         public String mail_date ;
         public String dead_line ;
         public String dispo_origin_name ;
+        public String sender ;
         //public List<object> distribusi_detail ;
         public String attc_exist ;
         public int dispo_id ;

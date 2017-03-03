@@ -10,6 +10,7 @@ public class Disposisi_Riwayat {
     public String reqid;
 
 
+    public Disposisi_Riwayat(){}
 
     public Disposisi_Riwayat(String hashid, String userid, String reqid) {
         this.hashid = hashid;
@@ -38,6 +39,7 @@ public class Disposisi_Riwayat {
         public String attach_link;
         public String file_size;
         public String file_type;
+        public String create_name;
     }
 
 

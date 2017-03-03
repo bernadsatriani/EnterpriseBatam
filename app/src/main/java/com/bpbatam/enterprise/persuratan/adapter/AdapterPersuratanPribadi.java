@@ -98,7 +98,7 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
 */
 
 
-        if (listData.read_date !=null && listData.read_date.equals("-")){
+        if (listData.is_read !=null && listData.is_read.equals("N")){
             holder.img_unread.setVisibility(View.VISIBLE);
         }else{
             holder.img_unread.setVisibility(View.GONE);

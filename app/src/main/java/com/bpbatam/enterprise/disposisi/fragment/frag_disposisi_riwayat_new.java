@@ -26,10 +26,10 @@ import com.bpbatam.AppController;
 import com.bpbatam.enterprise.PDFViewActivity;
 import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.disposisi.adapter.AdapterDisposisiRiwayat;
-import com.bpbatam.enterprise.model.BBS_List_ByCategory;
+import com.bpbatam.enterprise.disposisi.adapter.AdapterDisposisiRiwayatNew;
 import com.bpbatam.enterprise.model.Diposisi_List_Folder;
+import com.bpbatam.enterprise.model.Disposisi_Riwayat;
 import com.bpbatam.enterprise.model.ListData;
-import com.bpbatam.enterprise.model.Persuratan_List_Folder;
 import com.bpbatam.enterprise.model.net.NetworkManager;
 
 import java.io.File;
@@ -44,7 +44,7 @@ import retrofit2.Response;
 /**
  * Created by User on 9/19/2016.
  */
-public class frag_disposisi_riwayat extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+public class frag_disposisi_riwayat_new extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
     RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private LinearLayoutManager mLayoutManager;
@@ -59,7 +59,7 @@ public class frag_disposisi_riwayat extends Fragment implements SwipeRefreshLayo
 
     ImageView imgMenu;
     TextView txtLabel, txtTitle;
-    Diposisi_List_Folder persuratanListFolder, persuratanListFolderFull ,  persuratanListFolderSearch;
+    Disposisi_Riwayat riwayat, riwayatSearch;
     SwipeRefreshLayout swipeRefreshLayout;
 
     int iMin, iMax;
@@ -99,7 +99,7 @@ public class frag_disposisi_riwayat extends Fragment implements SwipeRefreshLayo
                 getActivity().getResources().getColor(R.color.b7_orange),
                 getActivity().getResources().getColor(R.color.red));
 
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        /*mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
@@ -123,7 +123,7 @@ public class frag_disposisi_riwayat extends Fragment implements SwipeRefreshLayo
                     }
                 }
             }
-        });
+        });*/
     }
 
     void FillGrid(){
@@ -135,21 +135,19 @@ public class frag_disposisi_riwayat extends Fragment implements SwipeRefreshLayo
             e.printStackTrace();
         }
         txtLabel.setText("RIWAYAT (00/00)");
-        Diposisi_List_Folder params = new Diposisi_List_Folder(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID,
-                "DRWY",Integer.toString(iMin),Integer.toString(iMax));
+        Disposisi_Riwayat params = new Disposisi_Riwayat(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID);
         try{
-            Call<Diposisi_List_Folder> call = NetworkManager.getNetworkService(getActivity()).getDisposisiFolder(params);
-            call.enqueue(new Callback<Diposisi_List_Folder>() {
+            Call<Disposisi_Riwayat> call = NetworkManager.getNetworkService(getActivity()).getDisposisiRiwayat(params);
+            call.enqueue(new Callback<Disposisi_Riwayat>() {
                 @Override
-                public void onResponse(Call<Diposisi_List_Folder> call, Response<Diposisi_List_Folder> response) {
+                public void onResponse(Call<Disposisi_Riwayat> call, Response<Disposisi_Riwayat> response) {
                     int code = response.code();
                     swipeRefreshLayout.setRefreshing(false);
-                    persuratanListFolder = response.body();
+                    riwayat = response.body();
                     if (code == 200){
-                        persuratanListFolderFull = persuratanListFolder;
-                        if (persuratanListFolder.code.equals("00")){
+                        if (riwayat.code.equals("00")){
                             int iUnread = 0;
-                            for (Diposisi_List_Folder.Datum dat : persuratanListFolder.data){
+                            for (Disposisi_Riwayat.Datum dat : riwayat.data){
                                 if (dat.read_date !=null && dat.read_date.equals("-")){
                                     iUnread += 1;
                                 }
@@ -158,7 +156,7 @@ public class frag_disposisi_riwayat extends Fragment implements SwipeRefreshLayo
                             String sUnread = String.valueOf(iUnread);
                             if (sUnread.length() < 2) sUnread = "0" + sUnread;
 
-                            String sTotal = String.valueOf(persuratanListFolder.data.size());
+                            String sTotal = String.valueOf(riwayat.data.size());
                             if (sTotal.length() < 2) sTotal = "0" + sTotal;
                             txtLabel.setText("RIWAYAT (" + sUnread + "/" + sTotal + ")");
                             FillAdapter();
@@ -167,59 +165,7 @@ public class frag_disposisi_riwayat extends Fragment implements SwipeRefreshLayo
                 }
 
                 @Override
-                public void onFailure(Call<Diposisi_List_Folder> call, Throwable t) {
-                    swipeRefreshLayout.setRefreshing(false);
-                }
-            });
-        }catch (Exception e){
-            swipeRefreshLayout.setRefreshing(false);
-        }
-
-    }
-
-    void FillGridMore(){
-        iMin = 1;
-        iMax = 10;
-        try {
-            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        txtLabel.setText("RIWAYAT (00/00)");
-        Diposisi_List_Folder params = new Diposisi_List_Folder(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID,
-                "DRWY",Integer.toString(iMin),Integer.toString(iMax));
-        try{
-            Call<Diposisi_List_Folder> call = NetworkManager.getNetworkService(getActivity()).getDisposisiFolder(params);
-            call.enqueue(new Callback<Diposisi_List_Folder>() {
-                @Override
-                public void onResponse(Call<Diposisi_List_Folder> call, Response<Diposisi_List_Folder> response) {
-                    int code = response.code();
-                    swipeRefreshLayout.setRefreshing(false);
-                    persuratanListFolder = response.body();
-                    if (code == 200){
-
-                        if (persuratanListFolder.code.equals("00")){
-                            int iUnread = 0;
-                            for (Diposisi_List_Folder.Datum dat : persuratanListFolder.data){
-                                persuratanListFolderFull.data.add(dat);
-                                if (dat.read_date !=null && dat.read_date.equals("-")){
-                                    iUnread += 1;
-                                }
-                            }
-
-                            String sUnread = String.valueOf(iUnread);
-                            if (sUnread.length() < 2) sUnread = "0" + sUnread;
-
-                            String sTotal = String.valueOf(persuratanListFolder.data.size());
-                            if (sTotal.length() < 2) sTotal = "0" + sTotal;
-                            txtLabel.setText("RIWAYAT (" + sUnread + "/" + sTotal + ")");
-                            mAdapter.notifyDataSetChanged();
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Diposisi_List_Folder> call, Throwable t) {
+                public void onFailure(Call<Disposisi_Riwayat> call, Throwable t) {
                     swipeRefreshLayout.setRefreshing(false);
                 }
             });
@@ -241,7 +187,7 @@ public class frag_disposisi_riwayat extends Fragment implements SwipeRefreshLayo
 
         }
 
-        mAdapter = new AdapterDisposisiRiwayat(getActivity(), persuratanListFolderFull, new AdapterDisposisiRiwayat.OnDownloadClicked() {
+        mAdapter = new AdapterDisposisiRiwayatNew(getActivity(), riwayat, new AdapterDisposisiRiwayatNew.OnDownloadClicked() {
             @Override
             public void OnDownloadClicked(final String sUrl, boolean bStatus) {
                 DownloadManager.Request request = new DownloadManager.Request(Uri.parse(sUrl));
@@ -301,19 +247,19 @@ public class frag_disposisi_riwayat extends Fragment implements SwipeRefreshLayo
 
     public  void InitRecycle(String sKeyword){
         sKeyword = sKeyword.toLowerCase(Locale.getDefault());
-        persuratanListFolderSearch = new Diposisi_List_Folder();
-        persuratanListFolderSearch.data = new ArrayList<>();
-        for (Diposisi_List_Folder.Datum dat : persuratanListFolder.data){
+        riwayatSearch = new Disposisi_Riwayat();
+        riwayatSearch.data = new ArrayList<>();
+        for (Disposisi_Riwayat.Datum dat : riwayat.data){
 
             if ( dat.title != null){
                 if (dat.title.toLowerCase(Locale.getDefault()).contains(sKeyword) ||
                         dat.name.toLowerCase(Locale.getDefault()).contains(sKeyword))
-                    persuratanListFolderSearch.data.add(dat);
+                    riwayatSearch.data.add(dat);
             }
 
         }
 
-        mAdapter = new AdapterDisposisiRiwayat(getActivity(), persuratanListFolderSearch, new AdapterDisposisiRiwayat.OnDownloadClicked() {
+        mAdapter = new AdapterDisposisiRiwayatNew(getActivity(), riwayatSearch, new AdapterDisposisiRiwayatNew.OnDownloadClicked() {
             @Override
             public void OnDownloadClicked(final String sUrl, boolean bStatus) {
                 DownloadManager.Request request = new DownloadManager.Request(Uri.parse(sUrl));
