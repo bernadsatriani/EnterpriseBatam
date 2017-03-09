@@ -1,6 +1,7 @@
 package com.bpbatam.enterprise.disposisi;
 
 import android.content.Intent;
+import android.net.http.SslError;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -8,8 +9,10 @@ import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebBackForwardList;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,6 +23,7 @@ import com.bpbatam.enterprise.R;
 import com.bpbatam.enterprise.model.Disposisi_Detail;
 import com.bpbatam.enterprise.model.Persuratan_Detail;
 import com.bpbatam.enterprise.model.net.NetworkManager;
+import com.bpbatam.enterprise.persuratan.persuratan_lihat_surat;
 
 import java.security.NoSuchAlgorithmException;
 
@@ -72,6 +76,9 @@ public class disposisi_lihat_surat extends AppCompatActivity {
         myWeb1.getSettings().setUseWideViewPort(true);
         myWeb1.getSettings().setBuiltInZoomControls(true);
         myWeb1.getSettings().setDisplayZoomControls(false);
+        myWeb1.setWebViewClient(
+                new SSLTolerentWebViewClient()
+        );
         String sUrl = AppConstant.DOMAIN_URL_VIEW + "/pdf/preview_dispo.php?user="+AppConstant.USER+"&id=" + AppConstant.EMAIL_ID;
         myWeb1.loadUrl(sUrl);
 
@@ -94,6 +101,14 @@ public class disposisi_lihat_surat extends AppCompatActivity {
         });
     }
 
+    private class SSLTolerentWebViewClient extends WebViewClient {
+
+        @Override
+        public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+            handler.proceed(); // Ignore SSL certificate errors
+        }
+
+    }
     void FillGrid() {
         try {
             AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
