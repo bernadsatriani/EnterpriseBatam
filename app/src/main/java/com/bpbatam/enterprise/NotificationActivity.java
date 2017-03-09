@@ -159,22 +159,26 @@ public class NotificationActivity extends Fragment {
             e.printStackTrace();
         }
 
-        Disposisi_Detail params = new Disposisi_Detail(AppConstant.HASHID,
-                AppConstant.USER,
-                AppConstant.REQID,
-                Integer.toString(AppConstant.EMAIL_ID));
-        Call<Disposisi_Detail>call = NetworkManager.getNetworkService().getDisposisiDetail(params);
-        call.enqueue(new Callback<Disposisi_Detail>() {
-            @Override
-            public void onResponse(Call<Disposisi_Detail> call, Response<Disposisi_Detail> response) {
+        try{
+            Disposisi_Detail params = new Disposisi_Detail(AppConstant.HASHID,
+                    AppConstant.USER,
+                    AppConstant.REQID,
+                    Integer.toString(AppConstant.EMAIL_ID));
+            Call<Disposisi_Detail>call = NetworkManager.getNetworkService(getActivity()).getDisposisiDetail(params);
+            call.enqueue(new Callback<Disposisi_Detail>() {
+                @Override
+                public void onResponse(Call<Disposisi_Detail> call, Response<Disposisi_Detail> response) {
 
-            }
+                }
 
-            @Override
-            public void onFailure(Call<Disposisi_Detail> call, Throwable t) {
+                @Override
+                public void onFailure(Call<Disposisi_Detail> call, Throwable t) {
 
-            }
-        });
+                }
+            });
+        }catch (Exception e){
+
+        }
     }
 
     void UpdateDetailMail(){
@@ -184,22 +188,26 @@ public class NotificationActivity extends Fragment {
             e.printStackTrace();
         }
 
-        Persuratan_Detail params = new Persuratan_Detail(AppConstant.HASHID,
-                AppConstant.USER,
-                AppConstant.REQID,
-                Integer.toString(AppConstant.EMAIL_ID));
-        Call<Persuratan_Detail> call = NetworkManager.getNetworkService().getMailDetail(params);
-        call.enqueue(new Callback<Persuratan_Detail>() {
-            @Override
-            public void onResponse(Call<Persuratan_Detail> call, Response<Persuratan_Detail> response) {
+        try{
+            Persuratan_Detail params = new Persuratan_Detail(AppConstant.HASHID,
+                    AppConstant.USER,
+                    AppConstant.REQID,
+                    Integer.toString(AppConstant.EMAIL_ID));
+            Call<Persuratan_Detail> call = NetworkManager.getNetworkService(getActivity()).getMailDetail(params);
+            call.enqueue(new Callback<Persuratan_Detail>() {
+                @Override
+                public void onResponse(Call<Persuratan_Detail> call, Response<Persuratan_Detail> response) {
 
-            }
+                }
 
-            @Override
-            public void onFailure(Call<Persuratan_Detail> call, Throwable t) {
+                @Override
+                public void onFailure(Call<Persuratan_Detail> call, Throwable t) {
 
-            }
-        });
+                }
+            });
+        }catch (Exception e){
+
+        }
     }
     @Override
     public void onCreateOptionsMenu (Menu menu, MenuInflater inflater){

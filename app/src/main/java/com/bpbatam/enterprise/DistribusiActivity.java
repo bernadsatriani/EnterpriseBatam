@@ -33,8 +33,8 @@ import retrofit2.Response;
  * Created by User on 10/3/2016.
  */
 public class DistribusiActivity extends AppCompatActivity {
-    EditText txtDistribusi, txtPesan;
-    TextView txtLabel;
+    EditText txtPesan;
+    TextView txtLabel, txtDistribusi;
     RelativeLayout btnKirim;
 
     Toolbar toolbar;
@@ -73,7 +73,7 @@ public class DistribusiActivity extends AppCompatActivity {
         txtLabel.setText("DISTRIBUSI            ");
 
         toolbar = (Toolbar)findViewById(R.id.tool_bar);
-        txtDistribusi = (EditText)findViewById(R.id.text_distribusi);
+        txtDistribusi = (TextView)findViewById(R.id.text_distribusi);
         txtPesan = (EditText)findViewById(R.id.text_pesan);
         btnKirim = (RelativeLayout)findViewById(R.id.btnKirim);
 

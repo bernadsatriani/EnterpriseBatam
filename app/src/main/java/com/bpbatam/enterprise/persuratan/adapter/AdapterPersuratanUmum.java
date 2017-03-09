@@ -102,9 +102,11 @@ public class AdapterPersuratanUmum extends  RecyclerView.Adapter<AdapterPersurat
 
                             if (listData.file_size != null ){
                                 String fileName = listData.attach_link.substring(listData.attach_link.lastIndexOf('/') + 1);
-                                double dFileSize = Double.parseDouble(listData.file_size) / 1024;
+                                //double dFileSize = Double.parseDouble(listData.file_size) / 1024;
                                 holder.lbl_Attach.setText(fileName);
-                                holder.lbl_Size.setText("(" + precision.format(dFileSize) + " kb)" );
+                                //holder.lbl_Size.setText("(" + precision.format(dFileSize) + " kb)" );
+
+                                holder.lbl_Size.setText(listData.file_size);
                                 holder.layoutAttc.setVisibility(View.VISIBLE);
                             }
                         }
@@ -132,7 +134,7 @@ public class AdapterPersuratanUmum extends  RecyclerView.Adapter<AdapterPersurat
                     AppConstant.USER,
                     AppConstant.REQID,
                     Integer.toString(listData.mail_id));
-            Call<Persuratan_Detail_CC> call = NetworkManager.getNetworkService().getMailCC(param);
+            Call<Persuratan_Detail_CC> call = NetworkManager.getNetworkService(context).getMailCC(param);
             call.enqueue(new Callback<Persuratan_Detail_CC>() {
                 @Override
                 public void onResponse(Call<Persuratan_Detail_CC> call, Response<Persuratan_Detail_CC> response) {

@@ -1,5 +1,6 @@
 package com.bpbatam.enterprise.persuratan.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -59,6 +60,7 @@ public class frag_persuratan_menu extends Fragment {
     static Persuratan_Folder persuratanFolder;
 
     ImageView imgFolder, imgDraft, imgPermohonan, imgSurat;
+    static Context ctx;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -71,6 +73,7 @@ public class frag_persuratan_menu extends Fragment {
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         InitControl(view);
+        ctx = getActivity();
         FillNotif();
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.arrow_back_white);
@@ -382,7 +385,7 @@ public class frag_persuratan_menu extends Fragment {
     public static void FillNotif(){
         try{
             Persuratan_Folder params = new Persuratan_Folder(AppConstant.HASHID , AppConstant.USER, AppConstant.REQID);
-            Call<Persuratan_Folder> call = NetworkManager.getNetworkService().getMailFolder(params);
+            Call<Persuratan_Folder> call = NetworkManager.getNetworkService(ctx).getMailFolder(params);
             call.enqueue(new Callback<Persuratan_Folder>() {
                 @Override
                 public void onResponse(Call<Persuratan_Folder> call, Response<Persuratan_Folder> response) {

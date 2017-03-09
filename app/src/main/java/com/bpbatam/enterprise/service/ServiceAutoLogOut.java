@@ -64,7 +64,7 @@ public class ServiceAutoLogOut extends IntentService {
                     Log.w("Start Service"," Cek");
                     try{
                         Device_ID param = new Device_ID(AppConstant.HASHID, USER , AppConstant.REQID);
-                        Call<Device_ID> call = NetworkManager.getNetworkService().getDeviceID(param);
+                        Call<Device_ID> call = NetworkManager.getNetworkService(this).getDeviceID(param);
                         call.enqueue(new Callback<Device_ID>() {
                             @Override
                             public void onResponse(Call<Device_ID> call, Response<Device_ID> response) {

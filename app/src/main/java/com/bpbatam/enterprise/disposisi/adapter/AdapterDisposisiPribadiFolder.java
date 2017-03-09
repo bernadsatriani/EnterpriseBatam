@@ -152,7 +152,7 @@ public class AdapterDisposisiPribadiFolder extends  RecyclerView.Adapter<Adapter
                     AppConstant.USER,
                     AppConstant.REQID,
                     Integer.toString(listData.dispo_id));
-            Call<Disposisi_Detail_CC> call = NetworkManager.getNetworkService().getDispoCC(param);
+            Call<Disposisi_Detail_CC> call = NetworkManager.getNetworkService(context).getDispoCC(param);
             call.enqueue(new Callback<Disposisi_Detail_CC>() {
                 @Override
                 public void onResponse(Call<Disposisi_Detail_CC> call, Response<Disposisi_Detail_CC> response) {

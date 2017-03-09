@@ -66,11 +66,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NetworkManager {
 
     public static NetworkManager instance;
-    private Context context;
+    private static Context context;
     public static NetworkManager getInstance(Class<NetworkService> networkServiceClass)
     {
         if(instance == null) {
             instance = new NetworkManager();
+            context = context.getApplicationContext();
         }
 
         return instance;

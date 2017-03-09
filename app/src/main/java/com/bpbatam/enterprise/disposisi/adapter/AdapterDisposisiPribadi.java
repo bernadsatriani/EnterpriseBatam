@@ -114,7 +114,7 @@ public class AdapterDisposisiPribadi extends  RecyclerView.Adapter<AdapterDispos
 
                             if (listData.file_size != null ){
                                 String fileName = listData.attach_link.substring(listData.attach_link.lastIndexOf('/') + 1);
-                                double dFileSize = Double.parseDouble(listData.file_size) / 1024;
+                                //double dFileSize = Double.parseDouble(listData.file_size); /// 1024;
                                 /*holder.lbl_Attach.setText(fileName);
                                 holder.lbl_Size.setText("(" + precision.format(dFileSize) + " kb)" );
 
@@ -147,7 +147,7 @@ public class AdapterDisposisiPribadi extends  RecyclerView.Adapter<AdapterDispos
                     AppConstant.USER,
                     AppConstant.REQID,
                     Integer.toString(listData.dispo_id));
-            Call<Disposisi_Detail_CC> call = NetworkManager.getNetworkService().getDispoCC(param);
+            Call<Disposisi_Detail_CC> call = NetworkManager.getNetworkService(context).getDispoCC(param);
             call.enqueue(new Callback<Disposisi_Detail_CC>() {
                 @Override
                 public void onResponse(Call<Disposisi_Detail_CC> call, Response<Disposisi_Detail_CC> response) {
@@ -266,22 +266,27 @@ public class AdapterDisposisiPribadi extends  RecyclerView.Adapter<AdapterDispos
             e.printStackTrace();
         }
 
-        Disposisi_Detail params = new Disposisi_Detail(AppConstant.HASHID,
-                AppConstant.USER,
-                AppConstant.REQID,
-                Integer.toString(AppConstant.EMAIL_ID));
-        Call<Disposisi_Detail>call = NetworkManager.getNetworkService().getDisposisiDetail(params);
-        call.enqueue(new Callback<Disposisi_Detail>() {
-            @Override
-            public void onResponse(Call<Disposisi_Detail> call, Response<Disposisi_Detail> response) {
-                listener.OnDownloadClicked("", false);
-            }
+        try{
+            Disposisi_Detail params = new Disposisi_Detail(AppConstant.HASHID,
+                    AppConstant.USER,
+                    AppConstant.REQID,
+                    Integer.toString(AppConstant.EMAIL_ID));
+            Call<Disposisi_Detail>call = NetworkManager.getNetworkService(context).getDisposisiDetail(params);
+            call.enqueue(new Callback<Disposisi_Detail>() {
+                @Override
+                public void onResponse(Call<Disposisi_Detail> call, Response<Disposisi_Detail> response) {
+                    listener.OnDownloadClicked("", false);
+                }
 
-            @Override
-            public void onFailure(Call<Disposisi_Detail> call, Throwable t) {
+                @Override
+                public void onFailure(Call<Disposisi_Detail> call, Throwable t) {
 
-            }
-        });
+                }
+            });
+        }catch (Exception e){
+
+        }
+
     }
 
     @Override

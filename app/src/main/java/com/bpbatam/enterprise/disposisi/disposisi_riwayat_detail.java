@@ -73,7 +73,7 @@ public class disposisi_riwayat_detail extends AppCompatActivity {
                 AppConstant.REQID,
                 AppConstant.DISPO_ID);
         try{
-            Call<Disposisi_Riwayat_Detail> call = NetworkManager.getNetworkService().getDisposisiRiwayatDetail(params);
+            Call<Disposisi_Riwayat_Detail> call = NetworkManager.getNetworkService(this).getDisposisiRiwayatDetail(params);
             call.enqueue(new Callback<Disposisi_Riwayat_Detail>() {
                 @Override
                 public void onResponse(Call<Disposisi_Riwayat_Detail> call, Response<Disposisi_Riwayat_Detail> response) {

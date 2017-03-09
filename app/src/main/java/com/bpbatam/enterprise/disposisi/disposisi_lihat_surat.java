@@ -72,7 +72,7 @@ public class disposisi_lihat_surat extends AppCompatActivity {
         myWeb1.getSettings().setUseWideViewPort(true);
         myWeb1.getSettings().setBuiltInZoomControls(true);
         myWeb1.getSettings().setDisplayZoomControls(false);
-        String sUrl = "http://epdev.bpbatam.go.id/pdf/preview_dispo.php?user="+AppConstant.USER+"&id=" + AppConstant.EMAIL_ID;
+        String sUrl = AppConstant.DOMAIN_URL_VIEW + "/pdf/preview_dispo.php?user="+AppConstant.USER+"&id=" + AppConstant.EMAIL_ID;
         myWeb1.loadUrl(sUrl);
 
         txtDistribusi.setOnClickListener(new View.OnClickListener() {

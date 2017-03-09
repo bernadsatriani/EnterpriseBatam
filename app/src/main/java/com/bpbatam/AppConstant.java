@@ -52,6 +52,7 @@ public final class AppConstant {
 
 	//public static final String DOMAIN_URL = "http://118.97.149.129:7001";
 	public static final String DOMAIN_URL = "https://ep-api.bpbatam.go.id";
+	public static final String DOMAIN_URL_VIEW = "https://ep.bpbatam.go.id";
 	//public static final String DOMAIN_URL_UPLOAD = "http://epdev.bpbatam.go.id";
 	public static final String DOMAIN_URL_UPLOAD = "http://ep.bpbatam.go.id";
 	public final static String API_VERSION = "/";

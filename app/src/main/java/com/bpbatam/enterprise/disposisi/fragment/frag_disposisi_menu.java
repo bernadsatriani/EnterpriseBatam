@@ -1,5 +1,6 @@
 package com.bpbatam.enterprise.disposisi.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -62,6 +63,7 @@ public class frag_disposisi_menu extends Fragment {
 
     static Disposisi_Folder disposisiFolder;
     LinearLayout layout_notif;
+    static Context ctx;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -74,6 +76,7 @@ public class frag_disposisi_menu extends Fragment {
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         InitControl(view);
+        ctx = getActivity();
         FillNotif();
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.arrow_back_white);
@@ -301,7 +304,7 @@ public class frag_disposisi_menu extends Fragment {
 
         try{
             Disposisi_Folder params = new Disposisi_Folder(AppConstant.HASHID , AppConstant.USER, AppConstant.REQID);
-            Call<Disposisi_Folder> call = NetworkManager.getNetworkService().getDisposisiFolder(params);
+            Call<Disposisi_Folder> call = NetworkManager.getNetworkService(ctx).getDisposisiFolder(params);
             call.enqueue(new Callback<Disposisi_Folder>() {
                 @Override
                 public void onResponse(Call<Disposisi_Folder> call, Response<Disposisi_Folder> response) {

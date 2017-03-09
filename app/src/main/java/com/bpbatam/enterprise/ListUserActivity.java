@@ -110,7 +110,7 @@ public class ListUserActivity extends AppCompatActivity {
         }
 
         try{
-            ListUser param = new ListUser(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID, sKeyword, "1");
+            ListUser param = new ListUser(AppConstant.HASHID, AppConstant.USER, AppConstant.REQID, sKeyword, "2");
             Call<ListUser> call = NetworkManager.getNetworkService(this).getListAdvanceUser(param);
             call.enqueue(new Callback<ListUser>() {
                 @Override

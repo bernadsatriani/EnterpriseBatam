@@ -81,7 +81,7 @@ public class AdapterPersuratanPermohonan extends  RecyclerView.Adapter<AdapterPe
         holder.layoutButton.setVisibility(View.VISIBLE);
         holder.btnDownload_lampiran.setVisibility(View.GONE);
 
-        if (listData.read_date !=null && listData.read_date.equals("-")){
+        if (listData.is_read !=null && listData.is_read.equals("N")){
             holder.img_unread.setVisibility(View.VISIBLE);
         }else{
             holder.img_unread.setVisibility(View.GONE);
@@ -209,22 +209,26 @@ public class AdapterPersuratanPermohonan extends  RecyclerView.Adapter<AdapterPe
             e.printStackTrace();
         }
 
-        Persuratan_Detail params = new Persuratan_Detail(AppConstant.HASHID,
-                AppConstant.USER,
-                AppConstant.REQID,
-                Integer.toString(AppConstant.EMAIL_ID));
-        Call<Persuratan_Detail> call = NetworkManager.getNetworkService().getMailDetail(params);
-        call.enqueue(new Callback<Persuratan_Detail>() {
-            @Override
-            public void onResponse(Call<Persuratan_Detail> call, Response<Persuratan_Detail> response) {
-                listener.OnDownloadClicked("", false);
-            }
+        try{
+            Persuratan_Detail params = new Persuratan_Detail(AppConstant.HASHID,
+                    AppConstant.USER,
+                    AppConstant.REQID,
+                    Integer.toString(AppConstant.EMAIL_ID));
+            Call<Persuratan_Detail> call = NetworkManager.getNetworkService(context).getMailDetail(params);
+            call.enqueue(new Callback<Persuratan_Detail>() {
+                @Override
+                public void onResponse(Call<Persuratan_Detail> call, Response<Persuratan_Detail> response) {
+                    listener.OnDownloadClicked("", false);
+                }
 
-            @Override
-            public void onFailure(Call<Persuratan_Detail> call, Throwable t) {
+                @Override
+                public void onFailure(Call<Persuratan_Detail> call, Throwable t) {
 
-            }
-        });
+                }
+            });
+        }catch (Exception e){
+
+        }
     }
 
     @Override

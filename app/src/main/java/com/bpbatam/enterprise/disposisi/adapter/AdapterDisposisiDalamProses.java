@@ -92,9 +92,10 @@ public class AdapterDisposisiDalamProses extends  RecyclerView.Adapter<AdapterDi
 
                             if (listData.file_size != null ){
                                 String fileName = listData.attach_link.substring(listData.attach_link.lastIndexOf('/') + 1);
-                                double dFileSize = Double.parseDouble(listData.file_size) / 1024;
+                                //double dFileSize = Double.parseDouble(listData.file_size) / 1024;
                                 holder.lbl_Attach.setText(fileName);
-                                holder.lbl_Size.setText("(" + precision.format(dFileSize) + " kb)" );
+                                //holder.lbl_Size.setText("(" + precision.format(dFileSize) + " kb)" );
+                                holder.lbl_Size.setText(listData.file_size);
 
                                 holder.layoutAttc.setVisibility(View.VISIBLE);
                             }

@@ -139,7 +139,7 @@ public class AdapterPersuratanDraft extends  RecyclerView.Adapter<AdapterPersura
 
                             if (listData.file_size != null ){
                                 String fileName = listData.attach_link.substring(listData.attach_link.lastIndexOf('/') + 1);
-                                double dFileSize = Double.parseDouble(listData.file_size) / 1024;
+                                //double dFileSize = Double.parseDouble(listData.file_size) / 1024;
                                 /*holder.lbl_Attach.setText(fileName);
                                 holder.lbl_Size.setText("(" + precision.format(dFileSize) + " kb)" );
 
@@ -193,22 +193,26 @@ public class AdapterPersuratanDraft extends  RecyclerView.Adapter<AdapterPersura
             e.printStackTrace();
         }
 
-        Persuratan_Detail params = new Persuratan_Detail(AppConstant.HASHID,
-                AppConstant.USER,
-                AppConstant.REQID,
-                Integer.toString(AppConstant.EMAIL_ID));
-        Call<Persuratan_Detail> call = NetworkManager.getNetworkService().getMailDetail(params);
-        call.enqueue(new Callback<Persuratan_Detail>() {
-            @Override
-            public void onResponse(Call<Persuratan_Detail> call, Response<Persuratan_Detail> response) {
-                listener.OnDownloadClicked("", false);
-            }
+        try{
+            Persuratan_Detail params = new Persuratan_Detail(AppConstant.HASHID,
+                    AppConstant.USER,
+                    AppConstant.REQID,
+                    Integer.toString(AppConstant.EMAIL_ID));
+            Call<Persuratan_Detail> call = NetworkManager.getNetworkService(context).getMailDetail(params);
+            call.enqueue(new Callback<Persuratan_Detail>() {
+                @Override
+                public void onResponse(Call<Persuratan_Detail> call, Response<Persuratan_Detail> response) {
+                    listener.OnDownloadClicked("", false);
+                }
 
-            @Override
-            public void onFailure(Call<Persuratan_Detail> call, Throwable t) {
+                @Override
+                public void onFailure(Call<Persuratan_Detail> call, Throwable t) {
 
-            }
-        });
+                }
+            });
+        }catch (Exception e){
+
+        }
     }
 
     @Override
