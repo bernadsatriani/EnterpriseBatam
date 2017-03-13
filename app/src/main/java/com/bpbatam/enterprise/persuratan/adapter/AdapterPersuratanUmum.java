@@ -176,6 +176,7 @@ public class AdapterPersuratanUmum extends  RecyclerView.Adapter<AdapterPersurat
             @Override
             public void onClick(View v) {
                 AppConstant.EMAIL_ID = listData.mail_id;
+                AppConstant.DISPO_ID = String.valueOf(listData.mail_id);
                 Intent intent = new Intent(context, persuratan_detail.class);
                 intent.putExtra("READ_DATE", listData.read_date);
                 v.getContext().startActivity(intent);
@@ -186,7 +187,7 @@ public class AdapterPersuratanUmum extends  RecyclerView.Adapter<AdapterPersurat
             @Override
             public void onClick(View view) {
                 AppConstant.EMAIL_ID = listData.mail_id;
-
+                AppConstant.DISPO_ID = String.valueOf(listData.mail_id);
                 Intent intent = new Intent(context, CC_Activity.class);
                 intent.putExtra("READ_DATE", listData.read_date);
                 context.startActivity(intent);

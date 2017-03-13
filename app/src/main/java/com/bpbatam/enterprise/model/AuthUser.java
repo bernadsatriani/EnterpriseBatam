@@ -28,6 +28,7 @@ public class AuthUser
     {
         public String user_id ;
         public String user_name ;
+        public String password ;
         public String role_id ;
         public String level_id ;
         public String position_id ;

@@ -30,6 +30,30 @@
             android:layout_height="match_parent" />
     </RelativeLayout>
 
+    <LinearLayout
+        android:paddingTop="@dimen/space_5"
+        android:paddingBottom="@dimen/space_5"
+        android:layout_marginLeft="@dimen/space_14"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ui.CustomtextView
+            font:name = "GOTHAM_BLACK"
+            android:text="Password :"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ui.CustomEditText
+            android:id="@+id/text_password"
+            android:layout_marginLeft="@dimen/space_14"
+            android:layout_marginRight="@dimen/space_14"
+            android:padding="@dimen/space_3"
+            android:background="@drawable/btn_shape_kotak_blue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

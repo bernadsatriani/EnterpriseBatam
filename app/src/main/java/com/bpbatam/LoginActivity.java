@@ -75,6 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (authUser.data.size() > 0){
                     for (AuthUser.Datum dat : authUser.data){
                         AppConstant.USER = dat.user_id;
+                        AppConstant.PASSWORD = dat.password;
                         txtUser.setText(dat.user_id);
                     }
 
@@ -180,6 +181,9 @@ public class LoginActivity extends AppCompatActivity {
                     if (code == 200){
 
                         authUser = response.body();
+                        if (!authUser.code.equals("95"))
+                        authUser.data.get(0).password = AppConstant.PASSWORD;
+
                         AppController.getInstance().getSessionManager().setUserAccount(null);
                         AppController.getInstance().getSessionManager().setUserAccount(authUser);
                         AppController.getInstance().getSessionManager().getUserProfile();

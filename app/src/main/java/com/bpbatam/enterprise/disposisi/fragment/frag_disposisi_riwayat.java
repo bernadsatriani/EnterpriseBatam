@@ -244,7 +244,7 @@ public class frag_disposisi_riwayat extends Fragment implements SwipeRefreshLayo
         mAdapter = new AdapterDisposisiRiwayat(getActivity(), persuratanListFolderFull, new AdapterDisposisiRiwayat.OnDownloadClicked() {
             @Override
             public void OnDownloadClicked(final String sUrl, boolean bStatus) {
-                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(sUrl));
+                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(sUrl.replace("https://", "http://")));
                 AppConstant.PDF_FILENAME = AppController.getInstance().getFileName(sUrl);
                 AppConstant.PDF_FILENAME = AppConstant.PDF_FILENAME.replace("%20"," ");
 
@@ -316,7 +316,7 @@ public class frag_disposisi_riwayat extends Fragment implements SwipeRefreshLayo
         mAdapter = new AdapterDisposisiRiwayat(getActivity(), persuratanListFolderSearch, new AdapterDisposisiRiwayat.OnDownloadClicked() {
             @Override
             public void OnDownloadClicked(final String sUrl, boolean bStatus) {
-                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(sUrl));
+                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(sUrl.replace("https://", "http://")));
                 AppConstant.PDF_FILENAME = AppController.getInstance().getFileName(sUrl);
                 AppConstant.PDF_FILENAME = AppConstant.PDF_FILENAME.replace("%20"," ");
 

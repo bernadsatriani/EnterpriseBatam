@@ -17,6 +17,7 @@ import com.bpbatam.enterprise.model.Disposisi_Attachment;
 import com.bpbatam.enterprise.model.Disposisi_Detail;
 import com.bpbatam.enterprise.model.Disposisi_Detail_CC;
 import com.bpbatam.enterprise.model.Disposisi_Distribusi;
+import com.bpbatam.enterprise.model.Disposisi_Distribusi_Opini;
 import com.bpbatam.enterprise.model.Disposisi_Folder;
 import com.bpbatam.enterprise.model.Disposisi_Notifikasi;
 import com.bpbatam.enterprise.model.Disposisi_Riwayat;
@@ -29,6 +30,7 @@ import com.bpbatam.enterprise.model.Persuratan_Detail;
 import com.bpbatam.enterprise.model.Persuratan_Detail_CC;
 import com.bpbatam.enterprise.model.Persuratan_Distribusi;
 import com.bpbatam.enterprise.model.Persuratan_Distribusi_Detail;
+import com.bpbatam.enterprise.model.Persuratan_Distribusi_Opini;
 import com.bpbatam.enterprise.model.Persuratan_Folder;
 import com.bpbatam.enterprise.model.Persuratan_List_Folder;
 import com.bpbatam.enterprise.model.Persuratan_proses;
@@ -159,6 +161,9 @@ public interface NetworkService {
     @POST("ep_api_services/ep_mail/distribution_mail")
     Call<Persuratan_Distribusi> postSendDistribusiPersuratan(@Body Persuratan_Distribusi params);
 
+    @POST("ep_api_services/ep_mail/insert_mail_opini")
+    Call<Persuratan_Distribusi_Opini> postSendDistribusiPersuratanOpini(@Body Persuratan_Distribusi_Opini params);
+
     @POST("ep_api_services/ep_mail/get_distribution_detail")
     Call<Persuratan_Distribusi_Detail> getDistribusiDetail(@Body Persuratan_Distribusi_Detail params);
 
@@ -185,6 +190,9 @@ public interface NetworkService {
 
     @POST("ep_api_services/ep_dispo/distribution_dispo")
     Call<Disposisi_Distribusi> postSendDistribusiDispos(@Body Disposisi_Distribusi params);
+
+    @POST("ep_api_services/ep_dispo/insert_dispo_opini")
+    Call<Disposisi_Distribusi_Opini> postSendDistribusiDisposOpini(@Body Disposisi_Distribusi_Opini params);
 
     @POST("ep_api_services/ep_dispo/get_dispo_attc")
     Call<Disposisi_Attachment> getDisposisiAttachment(@Body Disposisi_Attachment params);

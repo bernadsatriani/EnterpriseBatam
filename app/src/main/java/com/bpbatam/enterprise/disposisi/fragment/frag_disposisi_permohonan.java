@@ -161,7 +161,7 @@ public class frag_disposisi_permohonan extends Fragment implements SwipeRefreshL
         mAdapter = new AdapterDisposisiPermohonan(getActivity(), persuratanListFolder, new AdapterDisposisiPermohonan.OnDownloadClicked() {
             @Override
             public void OnDownloadClicked(final String sUrl, boolean bStatus) {
-                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(sUrl));
+                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(sUrl.replace("https://", "http://")));
                 AppConstant.PDF_FILENAME = AppController.getInstance().getFileName(sUrl);
                 AppConstant.PDF_FILENAME = AppConstant.PDF_FILENAME.replace("%20"," ");
 

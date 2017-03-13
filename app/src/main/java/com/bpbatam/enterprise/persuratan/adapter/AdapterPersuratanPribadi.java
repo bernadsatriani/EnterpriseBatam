@@ -246,7 +246,7 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
             @Override
             public void onClick(View view) {
                 AppConstant.EMAIL_ID = listData.mail_id;
-
+                AppConstant.DISPO_ID = String.valueOf(listData.mail_id);
                 Intent intent = new Intent(context, CC_Activity.class);
                 intent.putExtra("READ_DATE", listData.read_date);
                 context.startActivity(intent);
@@ -257,6 +257,7 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
             @Override
             public void onClick(View v) {
                 AppConstant.EMAIL_ID = listData.mail_id;
+                AppConstant.DISPO_ID = String.valueOf(listData.mail_id);
                 Intent intent = new Intent(context, persuratan_detail.class);
                 v.getContext().startActivity(intent);
                 UpdateDetail();
@@ -267,6 +268,7 @@ public class AdapterPersuratanPribadi extends  RecyclerView.Adapter<AdapterPersu
             @Override
             public void onClick(View v) {
                 AppConstant.EMAIL_ID = listData.mail_id;
+                AppConstant.DISPO_ID = String.valueOf(listData.mail_id);
                 if (AppConstant.FOLDER_DISPOS.equals("FUM")){
                     Intent intent = new Intent(context, persuratan_lihat_surat.class);
                     v.getContext().startActivity(intent);

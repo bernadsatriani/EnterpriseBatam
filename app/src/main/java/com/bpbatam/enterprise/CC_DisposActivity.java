@@ -72,8 +72,8 @@ public class CC_DisposActivity extends AppCompatActivity {
     void InitContol(){
         toolbar = (Toolbar)findViewById(R.id.tool_bar);
         txtLabel = (TextView)findViewById(R.id.textLabel);
-        txtLabel.setText("");
-        if (AppConstant.ACTIVITY_FROM != null) txtLabel.setText(AppConstant.ACTIVITY_FROM + "       ");
+        txtLabel.setText("Carbon Copy ( CC )");
+        //if (AppConstant.ACTIVITY_FROM != null) txtLabel.setText(AppConstant.ACTIVITY_FROM + "       ");
         mRecyclerView = (RecyclerView)findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);

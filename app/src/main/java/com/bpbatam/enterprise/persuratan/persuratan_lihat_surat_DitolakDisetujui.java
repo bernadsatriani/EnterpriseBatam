@@ -1,15 +1,20 @@
 package com.bpbatam.enterprise.persuratan;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.net.http.SslError;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.View;
+import android.view.Window;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -39,9 +44,12 @@ public class persuratan_lihat_surat_DitolakDisetujui extends AppCompatActivity {
     ImageView img_back;
     String sIsi;
     WebView myWeb1;
+    EditText txtPassword;
 
     LinearLayout btnDitolak, btnDisetujui;
     Persuratan_proses persuratanProses;
+
+    ProgressDialog progressDialog;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.persuratan_pilih_surat_ditolak_disetujui);
@@ -61,6 +69,7 @@ public class persuratan_lihat_surat_DitolakDisetujui extends AppCompatActivity {
     }
 
     void InitControl(){
+        txtPassword = (EditText)findViewById(R.id.text_password);
         img_back = (ImageView)findViewById(R.id.img_back);
         txtDistribusi = (TextView)findViewById(R.id.textLabel2);
         toolbar = (Toolbar)findViewById(R.id.tool_bar);
@@ -104,7 +113,7 @@ public class persuratan_lihat_surat_DitolakDisetujui extends AppCompatActivity {
         btnDisetujui.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                //finish();
                 vDisetuji();
             }
         });
@@ -112,7 +121,7 @@ public class persuratan_lihat_surat_DitolakDisetujui extends AppCompatActivity {
         btnDitolak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                //finish();
                 vDitolak();
             }
         });
@@ -172,9 +181,10 @@ public class persuratan_lihat_surat_DitolakDisetujui extends AppCompatActivity {
     }
 
     void vDisetuji(){
+        progressDialog = ProgressDialog.show(this, "Informasi", "Menyimpan Data", true);
         String sPassword = "";
         try {
-            sPassword = AppController.getInstance().md5("admin");
+            sPassword = AppController.getInstance().md5(txtPassword.getText().toString().trim());
             AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER, sPassword);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -191,33 +201,40 @@ public class persuratan_lihat_surat_DitolakDisetujui extends AppCompatActivity {
             call.enqueue(new Callback<Persuratan_proses>() {
                 @Override
                 public void onResponse(Call<Persuratan_proses> call, Response<Persuratan_proses> response) {
+                    progressDialog.dismiss();
                     if (response.code() == 200){
                         persuratanProses = response.body();
+                        CustomeDialog(persuratanProses.info);
                         //AppController.getInstance().CustomeDialog(PDFViewActivityDitolakDisetujui.this, persuratanProses.info);
                     }
                 }
 
                 @Override
                 public void onFailure(Call<Persuratan_proses> call, Throwable t) {
-
+                    progressDialog.dismiss();
                 }
             });
         }catch (Exception e){
-
+            progressDialog.dismiss();
         }
     }
 
     void vDitolak(){
+        progressDialog = ProgressDialog.show(this, "Informasi", "Menyimpan Data", true);
+        String sPassword = "";
         try {
-            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+            sPassword = AppController.getInstance().md5(txtPassword.getText().toString().trim());
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER, sPassword);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
+
 
         try{
             Persuratan_proses param = new Persuratan_proses(AppConstant.HASHID,
                     AppConstant.USER,
                     AppConstant.REQID,
+                    sPassword,
                     Integer.toString(AppConstant.EMAIL_ID));
 
             Call<Persuratan_proses> call = NetworkManager.getNetworkService(this).postDitolak(param);
@@ -225,21 +242,44 @@ public class persuratan_lihat_surat_DitolakDisetujui extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<Persuratan_proses> call, Response<Persuratan_proses> response) {
                     int code = response.code();
-
+                    progressDialog.dismiss();
                     if (code == 200){
                         persuratanProses = response.body();
+                        CustomeDialog(persuratanProses.info);
                         //AppController.getInstance().CustomeDialog(PDFViewActivityDitolakDisetujui.this, persuratanProses.info);
                     }
                 }
 
                 @Override
                 public void onFailure(Call<Persuratan_proses> call, Throwable t) {
-
+                    progressDialog.dismiss();
                 }
             });
         }catch (Exception e){
-
+            progressDialog.dismiss();
         }
     }
 
+    void CustomeDialog(String ISI){
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.custom_dialog);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        //dialog.setTitle("Title...");
+
+        TextView txtDismis = (TextView)dialog.findViewById(R.id.text_dismiss);
+        TextView txtDialog = (TextView)dialog.findViewById(R.id.text_dialog);
+        txtDialog.setText(ISI);
+        txtDismis.setText("OK");
+        txtDismis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                finish();
+            }
+        });
+
+        dialog.show();
+    }
 }

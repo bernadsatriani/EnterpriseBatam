@@ -19,8 +19,10 @@ import com.bpbatam.enterprise.disposisi.adapter.AdapterDisposisiDistribusi;
 import com.bpbatam.enterprise.model.Diposisi_List_Folder;
 import com.bpbatam.enterprise.model.Disposisi_Detail;
 import com.bpbatam.enterprise.model.Disposisi_Distribusi;
+import com.bpbatam.enterprise.model.Disposisi_Distribusi_Opini;
 import com.bpbatam.enterprise.model.ListData;
 import com.bpbatam.enterprise.model.Persuratan_Distribusi;
+import com.bpbatam.enterprise.model.Persuratan_Distribusi_Opini;
 import com.bpbatam.enterprise.model.net.NetworkManager;
 
 import java.security.NoSuchAlgorithmException;
@@ -46,6 +48,9 @@ public class DistribusiActivity extends AppCompatActivity {
 
     Disposisi_Distribusi disposisiDistribusi;
     Persuratan_Distribusi persuratanDistribusi;
+
+    Disposisi_Distribusi_Opini disposisiDistribusiOpini;
+    Persuratan_Distribusi_Opini persuratanDistribusiOpini;
 
     String dead_line,  dispo_num,  priority,
             retensi,  related_mail,  related_dispo,
@@ -149,12 +154,54 @@ public class DistribusiActivity extends AppCompatActivity {
                     int code = response.code();
                     if (code == 200){
                         disposisiDistribusi = response.body();
+                        if (disposisiDistribusi.code.equals("00")){
+                            SendDiposisiOpini();
+                        }
                     }
 
                 }
 
                 @Override
                 public void onFailure(Call<Disposisi_Distribusi> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+
+        }
+
+    }
+
+    void SendDiposisiOpini(){
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            content = txtPesan.getText().toString().trim();
+
+            Disposisi_Distribusi_Opini param = new Disposisi_Distribusi_Opini(AppConstant.HASHID,
+                    AppConstant.USER,
+                    AppConstant.REQID,
+                    AppConstant.DISPO_ID,
+                    content);
+
+            Call<Disposisi_Distribusi_Opini> call = NetworkManager.getNetworkService(this).postSendDistribusiDisposOpini(param);
+            call.enqueue(new Callback<Disposisi_Distribusi_Opini>() {
+                @Override
+                public void onResponse(Call<Disposisi_Distribusi_Opini> call, Response<Disposisi_Distribusi_Opini> response) {
+                    int code = response.code();
+                    if (code == 200){
+                        disposisiDistribusiOpini = response.body();
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<Disposisi_Distribusi_Opini> call, Throwable t) {
 
                 }
             });
@@ -188,6 +235,9 @@ public class DistribusiActivity extends AppCompatActivity {
                     int code = response.code();
                     if (code == 200){
                         persuratanDistribusi = response.body();
+                        if (persuratanDistribusi.code.equals("00")){
+                            SendPersuratanOpini();
+                        }
                     }
 
                 }
@@ -203,6 +253,44 @@ public class DistribusiActivity extends AppCompatActivity {
 
     }
 
+    void SendPersuratanOpini(){
+        try {
+            AppConstant.HASHID = AppController.getInstance().getHashId(AppConstant.USER);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            content = txtPesan.getText().toString().trim();
+
+            Persuratan_Distribusi_Opini param = new Persuratan_Distribusi_Opini(AppConstant.HASHID,
+                    AppConstant.USER,
+                    AppConstant.REQID,
+                    AppConstant.DISPO_ID,
+                    content);
+
+            Call<Persuratan_Distribusi_Opini> call = NetworkManager.getNetworkService(this).postSendDistribusiPersuratanOpini(param);
+            call.enqueue(new Callback<Persuratan_Distribusi_Opini>() {
+                @Override
+                public void onResponse(Call<Persuratan_Distribusi_Opini> call, Response<Persuratan_Distribusi_Opini> response) {
+                    int code = response.code();
+                    if (code == 200){
+                        persuratanDistribusiOpini = response.body();
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<Persuratan_Distribusi_Opini> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+
+        }
+
+    }
 
     void SendDiposisiOld(){
         String sPassword = "";
