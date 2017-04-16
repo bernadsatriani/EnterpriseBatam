@@ -1,5 +1,7 @@
 package com.bpbatam.enterprise.persuratan;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.http.SslError;
 import android.os.Bundle;
@@ -118,13 +120,28 @@ public class persuratan_lihat_surat_simpan_kirim extends AppCompatActivity {
     }
 
     private class SSLTolerentWebViewClient extends WebViewClient {
-
         @Override
-        public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-            handler.proceed(); // Ignore SSL certificate errors
+        public void onReceivedSslError(WebView view, final SslErrorHandler handler, SslError error) {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(persuratan_lihat_surat_simpan_kirim.this);
+            builder.setMessage("Error SSL Certificate Invalid");
+            builder.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    handler.proceed();
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    handler.cancel();
+                }
+            });
+            final AlertDialog dialog = builder.create();
+            dialog.show();
         }
 
     }
+
     void vSimpan(){
         String sPassword = "";
         try {
